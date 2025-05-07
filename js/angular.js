@@ -7,17 +7,66 @@ app.run(function($sessionStorage) {
     delete $sessionStorage.emailForOtp;
 });
 
-app.run(function($document) {
-    $document.on('focusin', function(e) {
-        console.log('🔍 Focus moved to:', e.target);
-    });
-});
 
 
 
 
 app.controller('angular_controller', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
     
+// added by Charls
+
+$scope.currentPage = 'home'; // Default page
+
+$scope.showPage = function(page) {
+    $scope.currentPage = page; // Change the current page based on the link clicked
+};
+
+$scope.$watch('currentPage', function (newVal, oldVal) {
+    if (newVal !== oldVal) {
+        // Scroll to top after view changes
+        setTimeout(function () {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 100); // delay ensures DOM is ready
+    }
+});
+
+
+    // teamwork lottie
+    let emp_details = lottie.loadAnimation({
+        container: $("#teamwork_2")[0],
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: "/wp-content/uploads/lottie/3_dots_animation.json"
+    });
+
+ // handshake lottie
+    var clock_lottie = lottie.loadAnimation({
+        container: $("#realtime-lottie")[0], // HTML container element
+        renderer: 'svg', // Render as SVG
+        loop: true,      // Animation should loop
+        autoplay: true,  // Start playing automatically
+        path: "/wp-content/uploads/lottie/handshake.json" // Path to your Lottie JSON file
+    });
+
+// magnifying lottie
+    var magnify_lottie = lottie.loadAnimation({
+        container: $("#magnify-job-lottie")[0], // HTML container element
+        renderer: 'svg', // Render as SVG
+        loop: true,      // Animation should loop
+        autoplay: true,  // Start playing automatically
+        path: "/wp-content/uploads/lottie/magnify.json" // Path to your Lottie JSON file
+    });
+
+    // person lottie
+    var rocket_lottie = lottie.loadAnimation({
+        container: $("#rocket-lottie")[0], // HTML container element
+        renderer: 'svg', // Render as SVG
+        loop: true,      // Animation should loop
+        autoplay: true,  // Start playing automatically
+        path: "/wp-content/uploads/lottie/workforce_colored.json" // Path to your Lottie JSON file
+    });
+
       $scope.credentials = {
         username: '',
         password: ''
