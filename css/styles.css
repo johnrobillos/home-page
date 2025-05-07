@@ -1,0 +1,705 @@
+/* Global Variables */
+
+
+/* Search botton state */
+.search-btn.disabled {
+
+    pointer-events: none;
+    background-color: rgb(137, 136, 136);
+    border-color: rgb(137, 136, 136);
+    cursor: not-allowed;
+
+}
+
+[ng-cloak] {
+    display: none !important;
+}
+
+/* For the Matching percentage color*/
+.bg-orange {
+    background-color: #fd7e14 !important;
+}
+
+
+
+
+
+
+
+/* Code Migrated @ 04/07/2025 */
+
+/********* Code ni Lorenzo *********/
+
+/* Login/Register Modal */
+/* modal global style */
+.information-entry-modal a {
+
+    color: black; 
+}
+
+.modal-btn {
+
+    background-color: navy;
+    color: white !important;
+    border-radius: 10px;
+
+}
+
+.modal-overlay {
+
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    z-index: 1050;          /* Placed higher than the nav bar (1030) */
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    opacity: 0;
+    visibility: hidden;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s ease-in-out, visibility 0.4s ease-in-out;
+
+}
+
+.modal-overlay.active {
+
+    opacity: 1;
+    visibility: visible;
+
+}
+
+.modal-overlay.active-unmount {
+
+    opacity: 0;
+    visibility: hidden;
+
+}
+
+
+.modal-overlay .information-entry-modal {
+
+    flex: 0 0 auto;
+    position: relative;
+    background-color: white;
+    padding: 10px;
+    border-radius: 20px;
+    height: 90%;
+    width: 70%;
+    max-width: 500px;
+    max-height: 800px;
+    overflow: hidden;
+    transform: translateY(50%);
+    transition: transform 0.4s ease-in-out;
+
+}
+
+.modal-overlay .information-entry-modal.active {
+
+    transform: translateY(0%);
+
+}
+
+.information-entry-modal .close-btn {
+
+    position: absolute;
+    top: 10px;
+    z-index: 10000;
+    right: 10px;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    color: #000;
+    cursor: pointer;
+
+}
+
+.link-text {
+    text-decoration: underline !important;
+}
+
+.form-control {
+
+    border-radius: 20px !important;
+    font-size: 1rem !important;
+
+}
+
+.form-control.password {
+
+    border-radius: 20px 0 0 20px !important;
+
+}
+
+.toggle-visibility {
+
+    border-radius: 0 20px 20px 0 !important;
+    cursor: pointer;
+}
+
+
+/* All content styles */
+
+.login-content,
+.register-content,
+.verify-content,
+.confirm-user-type,
+.forgot-pass,
+.verify-forgot-pass-content,
+.change-password-content {
+    user-select: none !important;
+    position: absolute;
+    width: 100%;
+    transition: transform 0.4s ease-in-out;
+}
+
+
+/* Setting content state */
+
+.login-content {
+    transform: translateX(0);
+}
+
+.register-content, 
+.verify-content,
+.confirm-user-type,
+.forgot-pass, 
+.verify-forgot-pass-content,
+.change-password-content {
+    transform: translateX(100%); /* Hidden off-screen */
+}
+
+/* Active State */
+.login-content.active-slide-out,
+.register-content.active-slide-out,
+.verify-content.active-slide-out,
+.confirm-user-type.active-slide-out,
+.forgot-pass.active-slide-out,
+.verify-forgot-pass-content.active-slide-out,
+.change-password-content.active-slide-out {
+    transform: translateX(100%); /* Slide out to the left */
+}
+
+
+.register-content.active-slide-in,
+.login-content.active-slide-in,
+.verify-content.active-slide-in,
+.confirm-user-type.active-slide-in,
+.forgot-pass.active-slide-in,
+.verify-forgot-pass-content.active-slide-in,
+.change-password-content.active-slide-in {
+    transform: translateX(0); /* Slide in from the right */
+}
+
+
+
+
+/* Within login-content */
+
+.some-animation {
+
+    background-color: gray;
+    color: white;
+    width: 100px;
+    height: 100px;
+    border-radius: 30px;
+
+
+}
+
+
+/* Password input field */
+.custom-width {
+
+    max-width: 236px !important;
+
+}
+
+
+/* End of login-content */
+
+/* Within Register-content */
+
+/* Modified by Lorenzo @ 04/25/2025 */
+.register-btn.disabled,
+.change-pass-btn.disabled,
+.verify-btn.disabled {
+
+    
+    pointer-events: none !important;
+    background-color: rgb(137, 136, 136) !important;
+    border-color: rgb(137, 136, 136) !important;
+    cursor: not-allowed !important;
+    user-select: none !important;
+
+}
+
+/* End of register-content */
+
+/********* End of Code ni Lorenzo *********/
+
+/* End of Code Migrated @ 04/07/2025 */
+
+
+
+
+
+
+
+
+
+
+
+
+/* Sir jess login reg form emp css*/
+.background-circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 60vw; 
+    height: 60vw; 
+    background-color: #6db5ff; 
+    border-radius: 50%;
+    transform: translate(25%, -20%); 
+    z-index: -1; 
+    overflow: hidden;
+}
+
+html, body {
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+
+.blue-circle-left {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 50vw; 
+    height: 50vw; 
+    background-color: #6eb7ff; 
+    border-radius: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: -1;
+}
+
+
+
+.blue-circle-lower-right {
+    position: absolute;
+    top: 80%;
+    right: -50%;
+    width: 50vw; 
+    height: 50vw; 
+    background-color: #6eb7ff; 
+    border-radius: 50%;
+    transform: translate(-50%, -50%); 
+    z-index: -1; 
+}
+
+
+.blue-small-circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20vw; 
+    height: 20vw; 
+    background-color: #6eb7ff; 
+    border-radius: 50%;
+    transform: translate(-100%, 160%); 
+    z-index: -1; 
+    
+}
+
+
+.custom-fields::placeholder {
+    font-size: 14px;
+    opacity: 1; 
+}
+
+
+.custom-fields {
+
+    font-size: 16px;
+    color: red;
+    border: 1px solid #0160af;
+}
+
+
+
+#about-ojtgo {
+ 
+    margin-top: 200px;
+}
+
+
+
+
+
+
+
+
+/* Jess Baggs and Millard */
+/* Popup background */
+
+/* Modified by Lorenzo @ 03/31/2025 */
+.popup-overlay {
+    display: none;
+    position: fixed;
+    z-index: 1050;              /*Higher that the fixed nav bar (1030)*/
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Popup box */
+.popup-box {
+    background: #fff;
+    
+    padding: 10px;
+    width: 30%;
+    position: relative;
+}
+
+
+@media (max-width: 991px) {
+    .popup-box {
+        width: 70%;
+    }
+}
+
+
+@media (max-width: 767px) {
+    .popup-box {
+        width: 90%;
+    }
+}
+
+/* Close button */
+.popup-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+
+
+@media (max-width: 991px) {
+    #about-ojtgo {
+        margin-top: 100px; /* Applies for 991px and below */
+    }
+}
+
+/* Sir jess login reg form emp css end */
+
+
+
+
+
+
+/************* Landing Page Modifications *************/
+
+/* Globaly set styles */
+
+.input-styles {
+
+    border-radius: 20px !important;
+    font-size: 1rem !important;
+
+}
+
+body {
+    background-color: #FFFAFA !important;      /* Set Correct Background Color */
+    overflow-x: hidden;
+}
+
+
+/* End of globaly set styles */
+
+.navbar-btn {
+
+    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%)) !important;
+    color: black !important;
+    padding: 5px 15px;
+
+}
+
+/* Hero Container */
+
+.kickstart-hero-container,
+.kickstart-hero-skeleton {
+
+    background: var(--gridientt_4, linear-gradient(180deg, #2DA0FA 0%, #89BFFB 50.6%, #FFFAFA 100%)) !important;
+    margin-left: -10px;                         /* Move the entire container to the left */
+    width: calc(100% + 20px);                   /* Fill the remaining space to the right */
+    height: 400px;
+}
+
+.hero-header {
+
+    max-width: 600px;
+    width: 100%;
+
+}
+
+
+.filter-btn {
+
+    width: 200px !important;
+
+}
+
+
+/* Job list and details container */
+.find-match-container {
+
+    margin: 0 50px !important;
+
+}
+
+
+/* Main Find Your Match Content */
+.job-list-container {
+
+}
+
+
+
+/* .job-details-pane {
+    height: fit-content;
+} */
+
+/* modified by Lorenzo @ 04/24/2025 */
+.job-details-container {
+    box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
+    -webkit-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
+    -moz-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
+}
+
+.posting-description {
+    overflow-y: scroll;
+    padding-right: 1rem;
+    max-height: 200px;
+    word-break: break-all;
+}
+
+/* modified by Lorenzo @ 04/24/2025 */
+.job-list-wrapper {
+    height: calc(100vh + 310px);
+}
+  
+.job-list-pane {
+    flex: 1;
+    height: inherit;
+    overflow-y: scroll;
+}
+
+
+/* Job list (Cards) */
+
+.tag {
+
+    background-color: #d4e8e9;
+    padding: 5px 25px !important;
+
+}
+
+/* modified by Lorenzo @ 04/24/2025 */
+/* Apply styling if the job card is selected */
+.job-card {
+    box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
+    -webkit-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
+    -moz-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
+    transition: background-color 0.3s ease;      /* Ensures smooth animation */
+}
+
+.job-card.active {
+    box-shadow: 0 0 10px 2px rgba(0, 123, 255, 0.5); /* glowing blue shadow */
+}
+
+.job-card:hover {
+    background-color: #C8E0F2 !important;
+}
+
+
+
+
+/* Job Details */
+
+.modal-send-request {
+
+    line-height: 1; 
+    color: black !important; 
+    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%)); 
+    border-radius: 10px; 
+    padding: 10px 15px; 
+    text-decoration: none; 
+    font-size: 1rem;
+
+}
+
+.progress-bar {
+
+    background-color: #70B7FB !important;
+    
+}
+
+.progress {
+
+    background-color: #C8E0F2 !important;
+    height: 20px;
+
+}
+
+
+.create-account-banner {
+
+    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%)); 
+    padding: 15px 0;
+    border-radius: 0 0 0.4rem 0.4rem !important;        /* Modified by Lorenz o@ 04/24/2025 */
+    width: 100%;
+    margin-top: auto; /* Push to bottom */
+
+}
+
+.create-acc-link {
+
+    text-decoration: underline !important;
+    text-decoration-color: navy;
+
+}
+
+
+
+/* shimmer loading animation */
+.skeleton-loader {
+    padding: 2rem;
+}
+
+.skeleton-block {
+    height: 20px;
+    background: #e0e0e0;
+    border-radius: 4px;
+    margin-bottom: 12px;
+    position: relative;
+    overflow: hidden;
+}
+  
+.skeleton-block::after { /* Deals with the animation */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -150px;
+    width: 200px;
+    height: 100%;
+    background: linear-gradient(to right, transparent 0%, #f0f0f0 50%, transparent 100%);
+    animation: shimmer 1.5s infinite;      /*Deals with the shimmer speed*/
+}
+  
+@keyframes shimmer {
+    100% {
+        transform: translateX(100vw);       /*Determines the length of the shimmer will travel*/
+    }
+}
+
+
+
+/* 
+    Migrated @ 04/11/2025
+    added code by Lorenzo @ 04/11/2025 
+    For register format guideline    
+    
+*/
+
+
+/* For password */
+.guidelines {
+    font-size: 13px;
+    color: #666;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
+    line-height: 1.3;
+    width: 310px; 
+}
+
+/* Added by Lorenzo @ 04/24/2025 */
+/* Override bootstrap styling */
+.is-invalid {
+
+    transition: none !important;
+}
+
+.reg-field.highlight {
+
+    border-color: #ED2939 !important;
+
+}
+
+
+
+
+
+/* added by lorenzo @ 05/06/2025 */
+/* for responsive design */
+
+
+@media (max-width: 767px) {
+
+    .find-match-container {
+
+        margin: 0 0 !important;
+
+    }
+
+
+    .modal-overlay {
+
+        padding: 0 !important;
+
+    }
+
+
+    .modal-overlay .information-entry-modal {
+
+        width: 100%;
+        max-width: unset;
+        height: 95%;
+        max-height: 900px;
+        overflow-y: scroll;
+
+    }
+
+    .modal-overlay .information-entry-modal.active {
+
+        transform: translateY(5%);
+    
+    }
+
+
+    .custom-width {
+
+        max-width: 100% !important;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .kickstart-hero-container,
+    .kickstart-hero-skeleton {
+
+        height: 600px;
+
+    }
+
+    
+
+
+
+}
