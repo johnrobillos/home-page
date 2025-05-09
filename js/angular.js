@@ -17,12 +17,15 @@ app.run(function($document) {
 
 
 app.controller('angular_controller', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
-     console.log('Controller loaded');
+    $scope.showAllTeam = false; // Hidden by default
+    console.log('Controller loaded');
       $scope.credentials = {
         username: '',
         password: ''
 
     };
+
+    
 
     // Added by Charls @ 05/06/2025
 
@@ -51,6 +54,7 @@ app.controller('angular_controller', function($scope, $http, $timeout, $window, 
     // Navigation handler
       $scope.setActivePage = function(page) {
         $scope.activePage = page;
+        console.log('Active Page:', $scope.activePage); // Debugging
         
         // Close dropdown if open
         $timeout(function() {
@@ -1591,7 +1595,7 @@ jQuery(document).ready(function($) {
     // !!! Login/register modal animation
 
     // Modal visibility state
-    $scope.isModalActive = false;
+    $scope.isModalActive = true;
 
     // Which modal content is showing: 
     //      'login', 'register', 'verify', 'user-type, forgot-pass, verify-forgot-pass, or change-pass'

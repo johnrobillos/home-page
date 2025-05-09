@@ -198,7 +198,7 @@ function home_page_landing_page()
                         <!-- About Us Dropdown -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle px-2" href="javascript:void(0)" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                About Us
+                                About
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
                                 <li>
@@ -218,8 +218,10 @@ function home_page_landing_page()
                                 Policy
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="policyDropdown">
-                                <li><a class="dropdown-item" href="javascript:void(0)" ng-click="setActivePage('privacy')">Privacy</a></li>
-                                <li><a class="dropdown-item" href="javascript:void(0)" ng-click="setActivePage('terms')">Terms</a></li>
+                                <li>
+                                    <a class="dropdown-item" href="javascript:void(0)" ng-click="setActivePage('privacy')">Privacy Notice</a>
+                                </li>
+                                <li><a class="dropdown-item" href="javascript:void(0)" ng-click="setActivePage('terms')">Terms of use</a></li>
                             </ul>
                         </li>
 
@@ -275,14 +277,70 @@ function home_page_landing_page()
 
                 </div> <!-- END row justify-content-between align-items-center -->
             </div> <!-- END main row -->
+
+
+            <!-- Why OJT Jobs -->
+            <div id="whyojtgo" style="margin-top: 150px; overflow-x: hidden;" class="row justify-content-center">
+
+                <h1 class="display-4 text-primary fw-semibold text-center fs-2">WHY OJTGo?</h1>
+
+                <!-- realtime lottie -->
+                <div class="col-sm-12 col-md-5 mx-2 mb-4">
+                    <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
+                        <div id="realtime-lottie" style="height: 200px;"></div>
+
+                        <div class="text-center mt-auto">
+                            <h2 class="fw-bold">Seamless Matching</h2>
+                            <p>Our advanced system matches students with internship opportunities based on their skills, academic background, and interests.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- virtual -->
+                <div class="col-sm-12 col-md-5 mx-2 mb-4">
+                    <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
+                        <div id="virtual" style="height: 200px;"></div>
+
+                        <div class="text-center mt-auto">
+                            <h2 class="fw-bold">More Centralized</h2>
+                            <p>OJTGo now connects with OJT Coordinators, allowing them to monitor interns, approve reports, and coordinate directly with employees—ensuring smoother, more efficient OJT management. </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- vast role options -->
+                <div class="col-sm-12 col-md-5 mx-2 mb-4">
+                    <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
+                        <div id="magnify-job-lottie" style="height: 200px;"></div>
+
+                        <div class="text-center mt-auto">
+                            <h2 class="fw-bold">Diverse Opportunities</h2>
+                            <p>We connect students with industries through GeoMatch Listing, helping them find nearby internships while ensuring diverse opportunities.</p>
+                        </div>
+                    </div>
+                </div>
+
+
+                <!-- speedy process -->
+                <div class="col-sm-12 col-md-5 mx-2 mb-4">
+                    <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
+                        <div id="rocket-lottie" style="height: 200px;"></div>
+
+                        <div class="text-center mt-auto">
+                            <h2 class="fw-bold">Workforce-Ready</h2>
+                            <p>By connecting students with the right opportunities, OJT Go helps prepare future professionals with practical experience before entering the job market.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
 
 
         <!-- Privacy Notice Section -->
-        <section id="privacy" ng-if="activePage === 'privacy'" class="bg-light py-5 p-4 bg-transparent" style="margin: 3rem;">
+        <section id="privacy" ng-if="activePage === 'privacy'" class="bg-light py-5 p-4 bg-transparent">
             <div class="container">
-                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color: #6db5ff;">
+                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
                     Privacy Notice
                 </h1>
                 <p>At OJTGo, owned and operated by PCES Inc., we are committed to protecting the privacy of all users—especially interns, employers, and OJT coordinators—who use our platform to facilitate On-the-Job Training (OJT) experiences. This Privacy Notice explains how we collect, use, store, and share your information in accordance with the Data Privacy Act of 2012 and related guidelines from the National Privacy Commission (NPC). By using OJTGo, you agree to the practices described in this notice. We encourage you to read it carefully.</p>
@@ -414,10 +472,9 @@ function home_page_landing_page()
 
 
         <!-- Terms of Use Section -->
-        <section id="terms" ng-if="activePage === 'terms'" class="bg-light py-5 bg-transparent"
-            style="margin: 3rem;">
+        <section id="terms" ng-if="activePage === 'terms'" class="bg-light py-5 bg-transparent">
             <div class="container">
-                <h2 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color: #6db5ff;">
+                <h2 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
                     Terms of Use
                 </h2>
 
@@ -537,403 +594,403 @@ function home_page_landing_page()
         </section>
 
 
-
-        <!-- Rest of the team -->
-        <section ng-if="currentPage === 'rest'">
-            <div class="row justify-content-center" ng-show="showAllTeam">
-                <!-- Team Member 5 -->
-                <div class="col-6 col-md-3 mb-4">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                            style="width: 100%; height: 100%; object-fit: cover;" alt="Aivie">
-                    </div>
-                    <p class="text-center mt-2">Aivie C. Concepcion</p>
-                </div>
-
-                <!-- Team Member 6 -->
-                <div class="col-6 col-md-3 mb-4">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
-                    </div>
-                    <p class="text-center mt-2">Jazmine Danielle M. Gundran</p>
-                </div>
-
-                <!-- Team Member 7 -->
-                <div class="col-6 col-md-3 mb-4">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
-                    </div>
-                    <p class="text-center mt-2">Arvin Charls D. Basco</p>
-                </div>
-
-                <!-- Team Member 8 -->
-                <div class="col-6 col-md-3 mb-4">
-                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
-                    </div>
-                    <p class="text-center mt-2">Arandelle N. Paguinto</p>
-                </div>
-            </div>
-        </section>
-
-
-
-
-
-        <!-- Why OJT Jobs -->
-        <div id="whyojtgo" style="margin-top: 150px; overflow-x: hidden;" class="row justify-content-center">
-
-            <h1 class="display-4 text-primary fw-semibold text-center fs-2">WHY OJTGo?</h1>
-
-            <!-- realtime lottie -->
-            <div class="col-sm-12 col-md-5 mx-2 mb-4">
-                <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
-                    <div id="realtime-lottie" style="height: 200px;"></div>
-
-                    <div class="text-center mt-auto">
-                        <h2 class="fw-bold">Seamless Matching</h2>
-                        <p>Our advanced system matches students with internship opportunities based on their skills, academic background, and interests.</p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- virtual -->
-            <div class="col-sm-12 col-md-5 mx-2 mb-4">
-                <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
-                    <div id="virtual" style="height: 200px;"></div>
-
-                    <div class="text-center mt-auto">
-                        <h2 class="fw-bold">More Centralized</h2>
-                        <p>OJTGo now connects with OJT Coordinators, allowing them to monitor interns, approve reports, and coordinate directly with employees—ensuring smoother, more efficient OJT management. </p>
-                    </div>
-                </div>
-            </div>
-
-            <!-- vast role options -->
-            <div class="col-sm-12 col-md-5 mx-2 mb-4">
-                <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
-                    <div id="magnify-job-lottie" style="height: 200px;"></div>
-
-                    <div class="text-center mt-auto">
-                        <h2 class="fw-bold">Diverse Opportunities</h2>
-                        <p>We connect students with industries through GeoMatch Listing, helping them find nearby internships while ensuring diverse opportunities.</p>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- speedy process -->
-            <div class="col-sm-12 col-md-5 mx-2 mb-4">
-                <div class="h-100 shadow rounded-2 border-muted p-2 bg-light d-flex flex-column">
-                    <div id="rocket-lottie" style="height: 200px;"></div>
-
-                    <div class="text-center mt-auto">
-                        <h2 class="fw-bold">Workforce-Ready</h2>
-                        <p>By connecting students with the right opportunities, OJT Go helps prepare future professionals with practical experience before entering the job market.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <!-- Grouped decorative circles -->
+        <!-- Group decorative circles -->
         <div class="circle-decorations">
             <div class="blue-small-circle"></div>
             <div class="background-circle"></div>
             <div class="blue-circle-lower-right"></div>
         </div>
 
+        <!-- About Us Section -->
+        <section id="about" ng-if="activePage === 'about' || activePage === 'home'">
+            <section class="bg-light text-center py-5">
+                <div class="container">
+                    <h1 class="display-4 text-primary fw-semibold fs-3">About Us</h1>
+                    <p class="lead mt-3">At OJTGo, we bridge the gap between education and industry, providing students with seamless access to valuable internship opportunities.
+                        Our platform empowers students by connecting them with organizations that align with their academic backgrounds, career goals, and personal growth.
+                        We believe internships are more than just academic requirements—they are stepping stones to meaningful careers.</p>
+                </div>
+            </section>
+
+            <section class="py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <div class="col-md-6">
+                            <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/fasfas.png" alt="Our Story" class="img-fluid rounded shadow">
+                        </div>
+                        <div class="col-md-6">
+                            <h2 class="text-primary">Introducing OJTGo</h2>
+                            <p>A platform built by students, for students.
+                                OJTGo aims to simplify the internship journey by connecting students, OJT coordinators, and host companies (HTEs) in one convenient, organized space.
+                                We designed it to reduce unnecessary costs, streamline the application process, and minimize mismatches between students and companies.
+                                With OJTGo, students can find internships that suit their course and location, while coordinators and companies can manage applications and assignments more efficiently.
+                                It is not just a platform. It is our way of solving a problem we experienced ourselves, and making things better for the future interns.
 
 
-    </div>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Text on the left -->
+                        <div class="col-md-6 order-2 order-md-1">
+                            <h2 class="text-primary">How it started?</h2>
+                            <p>
+                                We saw it firsthand. We were once interns ourselves, and we noticed a problem that has been around for generations.
+                                Every year, thousands of students search for internships, creating a high demand with limited quality opportunities.
+                                The competition is tough, and the process is expensive. If you were unlucky, you end up mismatched with a company that
+                                does not help you grow.
+                            </p>
+                            <p>
+                                As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure
+                                of securing an internship—all while spending on transportation, meals, and application requirements.
+                                Most internships do not even offer basic allowances.
+                                This is the sad reality for many students, year after year.
+                            </p>
+                        </div>
+
+                        <!-- Image on the right -->
+                        <div class="col-md-6 order-1 order-md-2 h-100 w-80">
+                            <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png" alt="Our Story" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="py-5">
+                <div class="container">
+                    <div class="row align-items-center">
+                        <!-- Text on the left -->
+                        <div class="col-md-6 order-2 order-md-1">
+                            <h2 class="text-primary">How we solved it?</h2>
+                            <p>
+                                We created a platform designed to reduce the cost and hassle of finding the internship. It connects students,
+                                OJT Coordinators, and host companies in one convenient space. The goal is to make internships more accesible and
+                                organized-for everyone involved.
+                            </p>
+                            <p>
+                                As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure
+                                of securing an internship—all while spending on transportation, meals, and application requirements.
+                                Most internships do not even offer basic allowances.
+                                This is the sad reality for many students, year after year.
+                            </p>
+                        </div>
+
+                        <!-- Image on the right -->
+                        <div class="col-md-6 order-1 order-md-2 h-100 w-80">
+                            <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png" alt="Our Story" class="img-fluid rounded shadow">
+                        </div>
+                    </div>
+                </div>
+            </section>
 
 
-    </div>
+            <section class="bg-light py-5">
+                <div class="container text-left">
+                    <h2 class="text-primary">Our Vision</h2>
+                    <p><strong>Vision:</strong> Our vision is to be the leading digital platform for internships in the Philippines, ensuring every student gains practical
+                        experience that enhances their future career prospects. We strive to create a workforce-ready generation by bridging academia and industry through innovative
+                        and inclusive job matching technology.
+                    </p>
+                </div>
+            </section>
 
 
-    <!-- About Us -->
-    <section id="about" ng-if="currentPage === 'about'">
-        <section class="bg-light text-center py-5">
+        </section>
+
+        <!-- News Section -->
+        <section id="news" ng-if="activePage === 'news' || activePage === 'home'" class="bg-light py-3" style="margin-top: -50px;">
             <div class="container">
-                <h1 class="display-4 text-primary fw-semibold fs-3">About Us </h1>
-                <p class="lead mt-3">At OJTGo, we bridge the gap between education and industry, providing students with seamless access to valuable internship opportunities.
-                    Our platform empowers students by connecting them with organizations that align with their academic backgrounds, career goals, and personal growth.
-                    We believe internships are more than just academic requirements—they are stepping stones to meaningful careers.</p>
+                <h2 class="text-primary text-center mb-5">Latest News</h2>
+                <h4 class="text-center">Stay updated with the latest news and updates from OJTGo.</h4>
+                <div class="container my-5">
+                    <h2 class="text-primary text-left">OJTGo: Built by Students for Students</h2>
+                    <p class="text-left mt-3">
+                        A new OJT platform designed by students, for students, is on the way to transform your internship journey.
+                        No more endless waiting or ghosting, just straightforward opportunities. Meet the passionate team behind OJTGo -
+                        a platform that simplifies the internship process, created by students for students.
+                    </p>
+                    <p class="text-center mt-3">
+                        “We saw it firsthand. We were once interns ourselves, and we noticed a problem that has been around for generations.
+                        Every year, thousands of students search for internships, creating a high demand with limited quality opportunities.
+                        The competition is tough, and the process is expensive. If you’re unlucky, you end up mismatched with a company that
+                        doesn’t help you grow. From that experience, we realized there had to be a better way and that’s how the idea for OJTGo
+                        was born. We wanted to create a platform that not only simplifies the internship search process but also ensures better
+                        matching between students and companies to foster real learning and professional growth.”
+                    </p>
+                    <p class="text-center mt-3">
+                        Get ready, OJTGo is coming soon, and we are all waiting for you.
+                    </p>
+                </div>
+
+                <!-- OJTGo Team -->
+                <section class="py-5" style="background-color: #6db5ff; color: white;">
+                    <div class="container">
+                        <h2 class="text-center mb-5" style="color: white;">Meet the Team</h2>
+
+                        <!-- rest of the team -->
+                        <!-- CEO and COO -->
+                        <div class="row justify-content-center">
+                            <!-- CEO -->
+                            <div class="col-6 col-md-3 mb-4">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
+                                </div>
+                                <p class="text-center mt-2">CEO Mr. Valery Minello</p>
+                            </div>
+
+                            <!-- COO -->
+                            <div class="col-6 col-md-3 mb-4">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
+                                </div>
+                                <p class="text-center mt-2">COO Mr. Leonel Herrera</p>
+                            </div>
+
+                            <!-- First Row: Only 4 Team Members -->
+                            <div class="row justify-content-center">
+                                <!-- Team Member 1 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
+                                    </div>
+                                    <p class="text-center mt-2">Lorenzo Daniel A. Jarata</p>
+                                </div>
+
+                                <!-- Team Member 2 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
+                                    </div>
+                                    <p class="text-center mt-2">Kathrisha H. Sapon</p>
+                                </div>
+
+                                <!-- Team Member 3 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Khianah">
+                                    </div>
+                                    <p class="text-center mt-2">Khianah Marie Gadacho</p>
+                                </div>
+
+                                <!-- Team Member 4 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Millard">
+                                    </div>
+                                    <p class="text-center mt-2">Millard John C. Ortillano</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rest of the team -->
+                        <section ng-if="currentPage === 'rest'">
+                            <div class="row justify-content-center" ng-show="showAllTeam">
+                                <!-- Team Member 5 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Aivie">
+                                    </div>
+                                    <p class="text-center mt-2">Aivie C. Concepcion</p>
+                                </div>
+
+                                <!-- Team Member 6 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
+                                    </div>
+                                    <p class="text-center mt-2">Jazmine Danielle M. Gundran</p>
+                                </div>
+
+                                <!-- Team Member 7 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
+                                    </div>
+                                    <p class="text-center mt-2">Arvin Charls D. Basco</p>
+                                </div>
+
+                                <!-- Team Member 8 -->
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
+                                    </div>
+                                    <p class="text-center mt-2">Arandelle N. Paguinto</p>
+                                </div>
+                            </div>
+                        </section>
+                </section>
             </div>
         </section>
 
-        <section class="py-5">
+        <!-- Contact Us Section -->
+        <div style="background-color:rgb(0, 43, 86); padding: 20px 0;" id="contact" ng-if="currentPage === 'contact'">
             <div class="container">
-                <div class="row align-items-center">
+                <h3 class="display-4 text-white fw-semibold text-center mb-3">
+                    Bridge Students to Success—OJTGo Connects Them with the Right Opportunities
+                </h3>
+
+                <div class="row justify-content-between align-items-center">
+                    <!-- Contact Details -->
+                    <div class="col-md-5 mb-4 mb-md-0 text-white">
+                        <div class="h-100 rounded-3 p-4 shadow-lg position-relative overflow-hidden">
+                            <div style="z-index: 1; position: relative;">
+                                <h3 class="fw-bold text-white mb-3">Contact Information</h3>
+                                <p class="mb-3">Feel free to reach out to us with any questions or concerns.</p>
+
+                                <div class="mb-3">
+                                    <h5 class="fw-bold m-0">Office Address</h5>
+                                    <p class="m-0">Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h5 class="fw-bold m-0">Contact Number</h5>
+                                    <p class="m-0">(02) 8628-2072</p>
+                                </div>
+
+                                <div class="mb-3">
+                                    <h5 class="fw-bold m-0">Email</h5>
+                                    <p class="m-0">dpo@ojtgo.com</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
                     <div class="col-md-6">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/fasfas.png" alt="Our Story" class="img-fluid rounded shadow">
-                    </div>
-                    <div class="col-md-6">
-                        <h2 class="text-primary">Introducing OJTGo</h2>
-                        <p>A platform built by students, for students.
-                            OJTGo aims to simplify the internship journey by connecting students, OJT coordinators, and host companies (HTEs) in one convenient, organized space.
-                            We designed it to reduce unnecessary costs, streamline the application process, and minimize mismatches between students and companies.
-                            With OJTGo, students can find internships that suit their course and location, while coordinators and companies can manage applications and assignments more efficiently.
-                            It is not just a platform. It is our way of solving a problem we experienced ourselves, and making things better for the future interns.
+                        <div class="h-100 rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
+                            <div style="z-index: 1; position: relative;">
+                                <h3 class="fw-bold text-primary mb-4">Send Us a Message</h3>
+                                <form id="contact-us-form">
+                                    <div class="mb-3">
+                                        <!-- Name -->
+                                        <label for="contact-us-name" class="form-label fw-semibold">Name</label>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-name" placeholder="e.g. John Doe" required>
+                                    </div>
 
+                                    <div class="mb-3">
+                                        <!-- Email -->
+                                        <label for="contact-us-email" class="form-label fw-semibold">Email</label>
+                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-email" placeholder="johndoe@example.com" required>
+                                    </div>
 
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </section>
+                                    <div class="mb-3">
+                                        <!-- Mobile Number -->
+                                        <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-mobile" placeholder="+63 9 xxxxxxxxx" required>
+                                    </div>
 
-        <section class="py-5">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Text on the left -->
-                    <div class="col-md-6 order-2 order-md-1">
-                        <h2 class="text-primary">How it started?</h2>
-                        <p>
-                            We saw it firsthand. We were once interns ourselves, and we noticed a problem that has been around for generations.
-                            Every year, thousands of students search for internships, creating a high demand with limited quality opportunities.
-                            The competition is tough, and the process is expensive. If you were unlucky, you end up mismatched with a company that
-                            does not help you grow.
-                        </p>
-                        <p>
-                            As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure
-                            of securing an internship—all while spending on transportation, meals, and application requirements.
-                            Most internships do not even offer basic allowances.
-                            This is the sad reality for many students, year after year.
-                        </p>
-                    </div>
+                                    <div class="mb-3">
+                                        <!-- Message -->
+                                        <label for="contact-us-message" class="form-label fw-semibold">Comment or Message</label>
+                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-message" rows="4" placeholder="Start typing..." required></textarea>
+                                    </div>
 
-                    <!-- Image on the right -->
-                    <div class="col-md-6 order-1 order-md-2 h-100 w-80">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png" alt="Our Story" class="img-fluid rounded shadow">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <section class="py-5">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Text on the left -->
-                    <div class="col-md-6 order-2 order-md-1">
-                        <h2 class="text-primary">How we solved it?</h2>
-                        <p>
-                            We created a platform designed to reduce the cost and hassle of finding the internship. It connects students,
-                            OJT Coordinators, and host companies in one convenient space. The goal is to make internships more accesible and
-                            organized-for everyone involved.
-                        </p>
-                        <p>
-                            As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure
-                            of securing an internship—all while spending on transportation, meals, and application requirements.
-                            Most internships do not even offer basic allowances.
-                            This is the sad reality for many students, year after year.
-                        </p>
-                    </div>
-
-                    <!-- Image on the right -->
-                    <div class="col-md-6 order-1 order-md-2 h-100 w-80">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png" alt="Our Story" class="img-fluid rounded shadow">
-                    </div>
-                </div>
-            </div>
-        </section>
-
-
-        <section class="bg-light py-5">
-            <div class="container text-center">
-                <h2 class="text-primary">Our Vision</h2>
-                <p><strong>Vision:</strong> Vision is to be the leading digital platform for Internships in the Philippines, ensuring every student gains practical
-                    experience that enhances their future career prospects. We strive to create a workforce-ready generation by bridging academia and industry through innovative
-                    and inclusive job matching technology.
-
-                </p>
-
-            </div>
-        </section>
-
-        <!-- OJTGo Team -->
-        <section class="py-5" style="background-color: #6db5ff; color: white;">
-            <div class="container">
-                <h2 class="text-center mb-5" style="color: white;">Meet the Team</h2>
-
-                <!-- CEO and COO -->
-
-                <div class="row justify-content-center">
-                    <!-- CEO -->
-                    <div class="col-6 col-md-3 mb-4">
-                        <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                            <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
-                        </div>
-                        <p class="text-center mt-2">CEO Mr. Valery Minello</p>
-                    </div>
-
-                    <!-- COO -->
-                    <div class="col-6 col-md-3 mb-4">
-                        <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                            <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
-                        </div>
-                        <p class="text-center mt-2">COO Mr. Leonel Herrera</p>
-                    </div>
-
-                    <!-- First Row: Only 4 Team Members -->
-                    <div class="row justify-content-center">
-                        <!-- Team Member 1 -->
-                        <div class="col-6 col-md-3 mb-4">
-                            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                    style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
+                                    <!-- Submit Button -->
+                                    <div class="d-grid mt-4">
+                                        <button class="g-recaptcha btn text-white fw-bold py-2"
+                                            data-sitekey="6Lc-FdIqAAAAAAGoPZP-w6Fp8jFhdGlnAp0qNpeLj"
+                                            data-action="submit"
+                                            data-callback="onSubmit"
+                                            style="background-color: #0161aa; border: 1px solid #0161aa; font-size: 1.1rem;">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
                             </div>
-                            <p class="text-center mt-2">Lorenzo Daniel A. Jarata</p>
-                        </div>
-
-                        <!-- Team Member 2 -->
-                        <div class="col-6 col-md-3 mb-4">
-                            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                    style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
-                            </div>
-                            <p class="text-center mt-2">Kathrisha H. Sapon</p>
-                        </div>
-
-                        <!-- Team Member 3 -->
-                        <div class="col-6 col-md-3 mb-4">
-                            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                    style="width: 100%; height: 100%; object-fit: cover;" alt="Khianah">
-                            </div>
-                            <p class="text-center mt-2">Khianah Marie Gadacho</p>
-                        </div>
-
-                        <!-- Team Member 4 -->
-                        <div class="col-6 col-md-3 mb-4">
-                            <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                    style="width: 100%; height: 100%; object-fit: cover;" alt="Millard">
-                            </div>
-                            <p class="text-center mt-2">Millard John C. Ortillano</p>
-                        </div>
-                    </div>
-                </div>
-        </section>
-
-
-
-        </div>
-    </section>
-
-
-
-
-    <!-- Contact Us Section -->
-    <!-- Full-width container for the Contact Section -->
-    <div style="background-color:rgb(0, 43, 86); padding: 20px 0;" id="contact" ng-if="currentPage === 'contact'">
-        <div class="container">
-            <h3 class="display-4 text-white fw-semibold text-center mb-3">
-                Bridge Students to Success—OJTGo Connects Them with the Right Opportunities
-            </h3>
-
-            <div class="row justify-content-between align-items-center">
-                <!-- Contact Details -->
-                <div class="col-md-5 mb-4 mb-md-0 text-white">
-                    <div class="h-100 rounded-3 p-4 shadow-lg position-relative overflow-hidden">
-                        <div style="z-index: 1; position: relative;">
-                            <h3 class="fw-bold text-white mb-3">Contact Information</h3>
-                            <p class="mb-3">Feel free to reach out to us with any questions or concerns.</p>
-
-                            <div class="mb-3">
-                                <h5 class="fw-bold m-0">Office Address</h5>
-                                <p class="m-0">Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630</p>
-                            </div>
-
-                            <div class="mb-3">
-                                <h5 class="fw-bold m-0">Contact Number</h5>
-                                <p class="m-0">(02) 8628-2072</p>
-                            </div>
-
-                            <div class="mb-3">
-                                <h5 class="fw-bold m-0">Email</h5>
-                                <p class="m-0">dpo@ojtgo.com</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Contact Form -->
-                <div class="col-md-6">
-                    <div class="h-100 rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden">
-                        <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
-                        <div style="z-index: 1; position: relative;">
-                            <h3 class="fw-bold text-primary mb-4">Send Us a Message</h3>
-                            <form id="contact-us-form">
-                                <div class="mb-3">
-                                    <!-- Name -->
-                                    <label for="contact-us-name" class="form-label fw-semibold">Name</label>
-                                    <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-name" placeholder="e.g. John Doe" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <!-- Email -->
-                                    <label for="contact-us-email" class="form-label fw-semibold">Email</label>
-                                    <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-email" placeholder="johndoe@example.com" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <!-- Mobile Number -->
-                                    <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
-                                    <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-mobile" placeholder="+63 9 xxxxxxxxx" required>
-                                </div>
-
-                                <div class="mb-3">
-                                    <!-- Message -->
-                                    <label for="contact-us-message" class="form-label fw-semibold">Comment or Message</label>
-                                    <textarea class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-message" rows="4" placeholder="Start typing..." required></textarea>
-                                </div>
-
-                                <!-- Submit Button -->
-                                <div class="d-grid mt-4">
-                                    <button class="g-recaptcha btn text-white fw-bold py-2"
-                                        data-sitekey="6Lc-FdIqAAAAAAGoPZP-w6Fp8jFhdGlnAp0qNpeLj"
-                                        data-action="submit"
-                                        data-callback="onSubmit"
-                                        style="background-color: #0161aa; border: 1px solid #0161aa; font-size: 1.1rem;">
-                                        Submit
-                                    </button>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
 
-    <!-- back to top -->
-    <div class="mt-5 text-center">
-        <h2>
+        <!-- back to top -->
+        <div class="mt-5 text-center">
             <a href="#page-top" class="text-primary text-decoration-none fw-semibold fs-6">
                 Back to Top
                 <i class="bi bi-arrow-up-circle-fill"></i>
             </a>
-        </h2>
-        <h2>
-            <a href="<?php echo home_url('/registration') ?>" class="btn btn-sm btn-success text-white fs-6">
-                Start My Journey
-                <i class="bi bi-rocket"></i>
-            </a>
-        </h2>
-    </div>
+        </div>
+
+
+        <!-- Footer -->
+        <div class="border-top border-muted pt-2" style="margin-top: 50px;">
+            <div class="row justify-content-between">
+
+                <!-- left panel -->
+                <div class="col-lg-3">
+                    <div class="h-100">
+                        <img style="height: 80px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>" alt="jobydep-logo">
+                        <p class="m-0 text-secondary d-none"><i>Everybody deserves to reach their dream jobs!</i></p>
+                    </div>
+                </div>
+
+                <!-- right panel -->
+                <div class="col-lg-9 mt-3 mt-lg-0">
+                    <div class="h-100">
+                        <div class="row justify-content-between">
+
+
+                            <!-- Company -->
+                            <div class="col-lg-4">
+                                <p class="fw-bold">Company</p>
+                                <p><a href="#home" class="link link-secondary"><small>Home</small></a></p>
+                                <p><a href="#about" class="link link-secondary"><small>About Us</small></a></p>
+                                <p><a href="#news" class="link link-secondary"><small>News</small></a></p>
+                                <p><a href="#contact" ng-click="scrollToSection('contact', $event)" class="link link-secondary"><small>Contact Us</small></a></p>
+                                <p><a href="#whyojtgo" class="link link-secondary"><small>Why OJTGo?</small></a></p>
+                            </div>
+
+
+                            <!-- Get In Touch -->
+                            <div class="col-lg-4 mt-3 mt-lg-0">
+                                <p class="fw-bold">Get in Touch</p>
+                                <p class="text-wrap"><small>Level 10-01, One Global Place, 25th St. Corner, 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630, Philippines</small></p>
+                                <p><a href="mailto:inquiries@pces.com.ph" class="link link-secondary"><small>Email: inquiries@pces.com.ph</small></a></p>
+                                <p class="text-secondary"><small>Telephone: (02) 8628-2072</small></p>
+                            </div>
+
+                            <!-- Legality -->
+                            <div class="col-lg-4 mt-3 mt-lg-0">
+                                <p class="fw-bold">Legal</p>
+                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="setActivePage('privacy')"><small>Privacy Notice</small></a></p>
+                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="setActivePage('terms')"><small>Terms of Use</small></a></p>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
 
     </div>
 
 
-    </div>
+
+
+
+
+
+
+
 
 
 
@@ -1479,61 +1536,6 @@ function home_page_landing_page()
 
 
     <!-- End of Modified by Lorenzo @ 03/31/2025 -->
-
-
-
-
-    <!-- Footer -->
-    <div class="border-top border-muted pt-2" style="margin-top: 50px;">
-        <div class="row justify-content-between">
-
-            <!-- left panel -->
-            <div class="col-lg-3">
-                <div class="h-100">
-                    <img style="height: 80px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>" alt="jobydep-logo">
-                    <p class="m-0 text-secondary d-none"><i>Everybody deserves to reach their dream jobs!</i></p>
-                </div>
-            </div>
-
-            <!-- right panel -->
-            <div class="col-lg-9 mt-3 mt-lg-0">
-                <div class="h-100">
-                    <div class="row justify-content-between">
-
-
-                        <!-- Company -->
-                        <div class="col-lg-4">
-                            <p class="fw-bold">Company</p>
-                            <p><a href="#home" class="link link-secondary"><small>Home</small></a></p>
-                            <p><a href="#about" class="link link-secondary"><small>About Us</small></a></p>
-                            <p><a href="#news" class="link link-secondary"><small>News</small></a></p>
-                            <p><a href="#contact" ng-click="scrollToSection('contact', $event)" class="link link-secondary"><small>Contact Us</small></a></p>
-                            <p><a href="#whyojtgo" class="link link-secondary"><small>Why OJTGo?</small></a></p>
-                        </div>
-
-
-                        <!-- Get In Touch -->
-                        <div class="col-lg-4 mt-3 mt-lg-0">
-                            <p class="fw-bold">Get in Touch</p>
-                            <p class="text-wrap"><small>Level 10-01, One Global Place, 25th St. Corner, 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630, Philippines</small></p>
-                            <p><a href="mailto:inquiries@pces.com.ph" class="link link-secondary"><small>Email: inquiries@pces.com.ph</small></a></p>
-                            <p class="text-secondary"><small>Telephone: (02) 8628-2072</small></p>
-                        </div>
-
-                        <!-- Legality -->
-                        <div class="col-lg-4 mt-3 mt-lg-0">
-                            <p class="fw-bold">Legal</p>
-                            <p><a href="#privacy" class="link link-secondary"><small>Privacy Notice</small></a></p>
-                            <p><a href="#terms" class="link link-secondary"><small>Terms of Use</small></a></p>
-                        </div>
-
-
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
 
 
