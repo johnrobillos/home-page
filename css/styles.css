@@ -704,3 +704,132 @@ body {
 
 }
 
+/* Charls added */
+
+/* Ensure all links have a pointer cursor */
+a {
+    cursor: pointer;
+}
+
+/* Optional: Add hover effect for better user experience */
+a:hover {
+    text-decoration: underline;
+    /* Optional: Add underline on hover */
+}
+
+/* About us section div */
+.about-float {
+    transition: transform 2s ease, box-shadow 1.3s ease;
+}
+
+.about-float:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+}
+
+/* Add to your stylesheet */
+[ng-if] {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* .blue-circle-left {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    width: 30vw;
+    height: 30vw;
+    background-color: #6db5ff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+} */
+
+.blue-circle-lower-right {
+    position: absolute;
+    top: 30%;
+    right: 50%;
+    width: 30vw;
+    height: 30vw;
+    background-color: #6db5ff;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    z-index: -1;
+}
+
+/* .blue-circle-lower-right2 {
+    position: absolute;
+    top: 0%;
+    right: 70%;
+    width: 20vw;
+    height: 20vw;
+    background-color: #6db5ff;
+    border-radius: 50%;
+    transform: translate(70%, 60%);
+    z-index: -1;
+} */
+
+
+.blue-small-circle {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 20vw;
+    height: 20vw;
+    background-color: #6db5ff;
+    border-radius: 50%;
+    transform: translate(-100%, 160%);
+    z-index: -1;
+
+}
+
+
+.sidebar {
+    height: 100%;
+    width: 350px;
+    position: fixed;
+    overflow-y: scroll;
+    top: 0;
+    left: 0;
+
+    color: white;
+}
+
+
+
+.content {
+    height: 100%;
+    margin-left: 350px;
+
+    color: white;
+    overflow-y: auto;
+    overflow-x: auto;
+}
+
+
+html {
+    scroll-behavior: smooth;
+}
+
+
+
+@media screen and (max-width: 991px) {
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: static;
+    }
+
+    .content {
+        margin-left: 0;
+    }
+}

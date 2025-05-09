@@ -7,70 +7,132 @@ app.run(function($sessionStorage) {
     delete $sessionStorage.emailForOtp;
 });
 
+app.run(function($document) {
+    $document.on('focusin', function(e) {
+        console.log('🔍 Focus moved to:', e.target);
+    });
+});
 
 
 
 
 app.controller('angular_controller', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
-    
-// added by Charls
-
-$scope.currentPage = 'home'; // Default page
-
-$scope.showPage = function(page) {
-    $scope.currentPage = page; // Change the current page based on the link clicked
-};
-
-$scope.$watch('currentPage', function (newVal, oldVal) {
-    if (newVal !== oldVal) {
-        // Scroll to top after view changes
-        setTimeout(function () {
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }, 100); // delay ensures DOM is ready
-    }
-});
-
-
-    // teamwork lottie
-    let emp_details = lottie.loadAnimation({
-        container: $("#teamwork_2")[0],
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: "/wp-content/uploads/lottie/3_dots_animation.json"
-    });
-
- // handshake lottie
-    var clock_lottie = lottie.loadAnimation({
-        container: $("#realtime-lottie")[0], // HTML container element
-        renderer: 'svg', // Render as SVG
-        loop: true,      // Animation should loop
-        autoplay: true,  // Start playing automatically
-        path: "/wp-content/uploads/lottie/handshake.json" // Path to your Lottie JSON file
-    });
-
-// magnifying lottie
-    var magnify_lottie = lottie.loadAnimation({
-        container: $("#magnify-job-lottie")[0], // HTML container element
-        renderer: 'svg', // Render as SVG
-        loop: true,      // Animation should loop
-        autoplay: true,  // Start playing automatically
-        path: "/wp-content/uploads/lottie/magnify.json" // Path to your Lottie JSON file
-    });
-
-    // person lottie
-    var rocket_lottie = lottie.loadAnimation({
-        container: $("#rocket-lottie")[0], // HTML container element
-        renderer: 'svg', // Render as SVG
-        loop: true,      // Animation should loop
-        autoplay: true,  // Start playing automatically
-        path: "/wp-content/uploads/lottie/workforce_colored.json" // Path to your Lottie JSON file
-    });
-
+     console.log('Controller loaded');
       $scope.credentials = {
         username: '',
         password: ''
+
     };
+
+    // Added by Charls @ 05/06/2025
+
+    // Charls Added
+
+    $scope.activePage = 'home'; // Default page
+    
+    // Add this temporarily to your controller
+    console.log('Current page:', $scope.currentPage);
+    
+    $scope.showPage = function(page) {
+        $scope.currentPage = page; // Correctly assign the page name passed to the function
+    };
+    
+    
+           $scope.scrollToSection = function(sectionId) {
+        var element = document.getElementById(sectionId);
+        if (element) {
+            window.scrollTo({
+                top: element.offsetTop - 100, // Optional: Add offset to adjust for header height
+                behavior: "smooth" // Smooth scrolling
+            });
+        }
+    };
+    
+    // Navigation handler
+      $scope.setActivePage = function(page) {
+        $scope.activePage = page;
+        
+        // Close dropdown if open
+        $timeout(function() {
+          const dropdown = document.getElementById('policyDropdown');
+          if (dropdown) bootstrap.Dropdown.getInstance(dropdown)?.hide();
+        });
+        
+        // Smooth scroll to top
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
+    
+    
+    
+            $scope.$watch('activePage', function(newVal, oldVal) {
+                if (newVal !== oldVal) {
+                    console.log('Active Page:', newVal);
+                    // Scroll to top after view changes
+                    setTimeout(function() {
+                        window.scrollTo({
+                            top: 0,
+                            behavior: 'smooth'
+                        });
+                    }, 100); // delay ensures DOM is ready
+                }
+            });
+    
+
+
+        // teamwork lottie
+        var emp_details = lottie.loadAnimation({
+            container: $("#teamwork_2")[0],
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: "/wp-content/uploads/lottie/teamwork_2.json"
+        });
+
+        // handshake lottie
+        var clock_lottie = lottie.loadAnimation({
+            container: $("#realtime-lottie")[0], // HTML container element
+            renderer: 'svg', // Render as SVG
+            loop: true, // Animation should loop
+            autoplay: true, // Start playing automatically
+            path: "/wp-content/uploads/lottie/handshake.json" // Path to your Lottie JSON file
+        });
+
+        // Inside a script block or JS file enqueued after lottie.min.js
+jQuery(document).ready(function($) {
+    var virtual_lottie = lottie.loadAnimation({
+        container: $("#virtual")[0],
+        renderer: 'svg',
+        loop: true,
+        autoplay: true,
+        path: "/wp-content/uploads/lottie/virtual_job.json"
+    });
+});
+
+
+        // magnifying lottie
+        var magnify_lottie = lottie.loadAnimation({
+            container: $("#magnify-job-lottie")[0], // HTML container element
+            renderer: 'svg', // Render as SVG
+            loop: true, // Animation should loop
+            autoplay: true, // Start playing automatically
+            path: "/wp-content/uploads/lottie/magnify.json" // Path to your Lottie JSON file
+        });
+
+        // person lottie
+        var rocket_lottie = lottie.loadAnimation({
+            container: $("#rocket-lottie")[0], // HTML container element
+            renderer: 'svg', // Render as SVG
+            loop: true, // Animation should loop
+            autoplay: true, // Start playing automatically
+            path: "/wp-content/uploads/lottie/workforce_colored.json" // Path to your Lottie JSON file
+        });
+
+        $scope.credentials = {
+            username: '',
+            password: ''
+        };
+
+
 
     // added by lorenzo @ 04/25/2025
 
@@ -214,7 +276,7 @@ $scope.$watch('currentPage', function (newVal, oldVal) {
     //     }
     // };       
     
-    $document.on('keydown', function(event) {
+     $document.on('keydown', function(event) {
         if (event.key !== 'Enter') return;
     
         $scope.$apply(function() {
@@ -1792,4 +1854,3 @@ app.directive('controlTab', function($timeout) {
         }
     };
 });
-
