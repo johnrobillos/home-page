@@ -203,11 +203,11 @@ function home_page_landing_page()
                             <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
                                 <li>
                                     <a class="dropdown-item" href="javascript:void(0)"
-                                        ng-click="currentPage = 'about'; scrollToSection('about', $event)">About Us</a>
+                                        ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a>
                                 </li>
                                 <li>
                                     <a class="dropdown-item" href="javascript:void(0)"
-                                        ng-click="currentPage = 'news'; scrollToSection('news', $event)">News</a>
+                                        ng-click="setActivePage('news'); scrollToSection('news', $event)">News</a>
                                 </li>
                             </ul>
                         </li>
@@ -227,16 +227,14 @@ function home_page_landing_page()
 
                         <!-- Contact navbar -->
                         <li class="nav-item">
-                            <a class="nav-link px-3" href="javascript:void(0)"
-                                ng-click="scrollToSection('contact', $event)">Contact Us</a>
+                            <a class="nav-link" href="javascript:void(0)" ng-click="scrollToSection('contact', $event)">Contact Us</a>
                         </li>
 
                         <!-- Login Register -->
                         <li class="nav-item me-2">
                             <a class="rounded-3 navbar-btn"
                                 href="javascript:void(0)"
-                                ng-click="openLoginModalNav()"
-                                >
+                                ng-click="openLoginModalNav()">
                                 Login
                             </a>
                         </li>
@@ -292,7 +290,7 @@ function home_page_landing_page()
 
 
             <!-- Why OJT Jobs -->
-            <div id="whyojtgo" style="margin-top: 150px; overflow-x: hidden;" class="row justify-content-center">
+            <div id="whyojtgo" ng-show="activePage === 'home'" style="margin-top: 150px; overflow-x: hidden;" class="row justify-content-center">
 
                 <h1 class="display-4 text-primary fw-semibold text-center fs-2">WHY OJTGo?</h1>
 
@@ -617,7 +615,9 @@ function home_page_landing_page()
         <section id="about" ng-if="activePage === 'about' || activePage === 'home'">
             <section class="bg-light text-center py-5">
                 <div class="container">
-                    <h1 class="display-4 text-primary fw-semibold fs-3">About Us</h1>
+                    <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
+                        About Us
+                    </h1>
                     <p class="lead mt-3">At OJTGo, we bridge the gap between education and industry, providing students with seamless access to valuable internship opportunities.
                         Our platform empowers students by connecting them with organizations that align with their academic backgrounds, career goals, and personal growth.
                         We believe internships are more than just academic requirements—they are stepping stones to meaningful careers.</p>
@@ -715,9 +715,11 @@ function home_page_landing_page()
         </section>
 
         <!-- News Section -->
-        <section id="news" ng-if="activePage === 'news' || activePage === 'home'" class="bg-light py-3" style="margin-top: -50px;">
+        <section id="news" ng-show="activePage === 'news' || activePage === 'news'" class="bg-light py-5">
             <div class="container">
-                <h2 class="text-primary text-center mb-5">Latest News</h2>
+                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
+                    Latest News
+                </h1>
                 <h4 class="text-center">Stay updated with the latest news and updates from OJTGo.</h4>
                 <div class="container my-5">
                     <h2 class="text-primary text-left">OJTGo: Built by Students for Students</h2>
@@ -740,11 +742,11 @@ function home_page_landing_page()
                 </div>
 
                 <!-- OJTGo Team -->
-                <section class="py-5" style="background-color: #6db5ff; color: white;">
+                <section class="py-5" style="background-color: #6db5ff; color: white;" ng-init="showAllTeam = false">
                     <div class="container">
                         <h2 class="text-center mb-5" style="color: white;">Meet the Team</h2>
 
-                        <!-- rest of the team -->
+                        <!-- showed team -->
                         <!-- CEO and COO -->
                         <div class="row justify-content-center">
                             <!-- CEO -->
@@ -764,50 +766,51 @@ function home_page_landing_page()
                                 </div>
                                 <p class="text-center mt-2">COO Mr. Leonel Herrera</p>
                             </div>
+                        </div>
 
-                            <!-- First Row: Only 4 Team Members -->
-                            <div class="row justify-content-center">
-                                <!-- Team Member 1 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
-                                    </div>
-                                    <p class="text-center mt-2">Lorenzo Daniel A. Jarata</p>
+                        <!-- First Row: Only 4 Team Members -->
+                        <div class="row justify-content-center">
+                            <!-- Team Member 1 -->
+                            <div class="col-6 col-md-3 mb-4">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
                                 </div>
+                                <p class="text-center mt-2">Lorenzo Daniel A. Jarata</p>
+                            </div>
 
-                                <!-- Team Member 2 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
-                                    </div>
-                                    <p class="text-center mt-2">Kathrisha H. Sapon</p>
+                            <!-- Team Member 2 -->
+                            <div class="col-6 col-md-3 mb-4">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
                                 </div>
+                                <p class="text-center mt-2">Kathrisha H. Sapon</p>
+                            </div>
 
-                                <!-- Team Member 3 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Khianah">
-                                    </div>
-                                    <p class="text-center mt-2">Khianah Marie Gadacho</p>
+                            <!-- Team Member 3 -->
+                            <div class="col-6 col-md-3 mb-4">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Khianah">
                                 </div>
+                                <p class="text-center mt-2">Khianah Marie Gadacho</p>
+                            </div>
 
-                                <!-- Team Member 4 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Millard">
-                                    </div>
-                                    <p class="text-center mt-2">Millard John C. Ortillano</p>
+                            <!-- Team Member 4 -->
+                            <div class="col-6 col-md-3 mb-4">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Millard">
                                 </div>
+                                <p class="text-center mt-2">Millard John C. Ortillano</p>
                             </div>
                         </div>
 
-                        <!-- Rest of the team -->
-                        <section ng-if="currentPage === 'rest'">
-                            <div class="row justify-content-center" ng-show="showAllTeam">
+
+                        <!-- Hidden team -->
+                        <section ng-if="currentPage === 'rest' || true"> <!-- Set true for universal visibility -->
+                            <div class="row justify-content-center mt-4" ng-show="showAllTeam">
                                 <!-- Team Member 5 -->
                                 <div class="col-6 col-md-3 mb-4">
                                     <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
@@ -830,7 +833,7 @@ function home_page_landing_page()
                                 <div class="col-6 col-md-3 mb-4">
                                     <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
                                         <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Arvin">
                                     </div>
                                     <p class="text-center mt-2">Arvin Charls D. Basco</p>
                                 </div>
@@ -839,19 +842,32 @@ function home_page_landing_page()
                                 <div class="col-6 col-md-3 mb-4">
                                     <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
                                         <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Arandelle">
                                     </div>
                                     <p class="text-center mt-2">Arandelle N. Paguinto</p>
                                 </div>
                             </div>
                         </section>
+
+                        <!-- Toggle Button -->
+                        <div class="text-end mt-4">
+                            <button
+                                class="fw-semibold text-primary"
+                                style="border: none; background: none; padding: 0;"
+                                ng-click="showAllTeam = !showAllTeam">
+                                {{ showAllTeam ? 'Hide All' : 'View All' }}
+                            </button>
+                        </div>
+
+                    </div>
                 </section>
+
             </div>
         </section>
 
         <!-- Contact Us Section -->
         <!-- Full-width container for the Contact Section -->
-        <div style="background-color:rgb(0, 43, 86); padding: 20px 0;" id="contact" ng-if="currentPage === 'contact'">
+        <div style="background-color:rgb(0, 43, 86); padding: 20px 0;" id="contact" ng-="setActivePage === 'home'">
             <div class="container">
                 <h3 class="display-4 text-white fw-semibold text-center mb-3">
                     Bridge Students to Success—OJTGo Connects Them with the Right Opportunities
@@ -954,11 +970,11 @@ function home_page_landing_page()
                             <!-- Company -->
                             <div class="col-lg-4">
                                 <p class="fw-bold">Company</p>
-                                <p><a href="#home" class="link link-secondary"><small>Home</small></a></p>
-                                <p><a href="#about" class="link link-secondary"><small>About Us</small></a></p>
-                                <p><a href="#news" class="link link-secondary"><small>News</small></a></p>
-                                <p><a href="#contact" ng-click="scrollToSection('contact', $event)" class="link link-secondary"><small>Contact Us</small></a></p>
-                                <p><a href="#whyojtgo" class="link link-secondary"><small>Why OJTGo?</small></a></p>
+                                <p><a class="link link-secondary" href="javascript:void(0)" ng-click="setActivePage('home')"><small>Home</small></a></p>
+                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="scrollToSection('about', $event)"><small>About Us</small></a></p>
+                                <p><a class="link link-secondary" href="javascript:void(0)" ng-click="setActivePage('news'); scrollToSection('news', $event)"><small>News</small></a></p>
+                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="scrollToSection('contact', $event)"><small>Contact Us</small></a></p>
+                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="scrollToSection('whyojtgo', $event)"><small>Why OJTGo?</small></a></p>
                             </div>
 
 
@@ -973,8 +989,8 @@ function home_page_landing_page()
                             <!-- Legality -->
                             <div class="col-lg-4 mt-3 mt-lg-0">
                                 <p class="fw-bold">Legal</p>
-                                <p><a href="#privacy" class="link link-secondary"><small>Privacy Notice</small></a></p>
-                                <p><a href="#terms" class="link link-secondary"><small>Terms of Use</small></a></p>
+                                <p><a class="link link-secondary" href="javascript:void(0)" ng-click="setActivePage('privacy')"><small>Privacy Notice</small></a></p>
+                                <p><a class="link link-secondary" href="javascript:void(0)" ng-click="setActivePage('terms')"><small>Terms of use</small></a></p>
                             </div>
                         </div>
                     </div>
