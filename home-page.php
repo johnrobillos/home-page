@@ -231,12 +231,24 @@ function home_page_landing_page()
                                 ng-click="scrollToSection('contact', $event)">Contact Us</a>
                         </li>
 
+                        <!-- Login Register -->
                         <li class="nav-item me-2">
-                            <a class="rounded-3 navbar-btn" href="javascript:void(0)" ng-click="openLoginModalNav()" ng-if="!isLoggedIn">Login</a>
+                            <a class="rounded-3 navbar-btn"
+                                href="javascript:void(0)"
+                                ng-click="openLoginModalNav()"
+                                >
+                                Login
+                            </a>
                         </li>
 
-                        <li class="nav-item dropdown me-0 me-lg-4 mt-3 mt-lg-0">
-                            <a class="rounded-3 navbar-btn" ng-click="openLoginModalNavReg(); show_reg_page_1 = true" ng-if="!isLoggedIn" href="javascript:void(0)" role="button" aria-expanded="false">Register</a>
+                        <li class="nav-item dropdown me-4 mt-3 mt-lg-0">
+                            <a class="rounded-3 navbar-btn"
+                                ng-click="openLoginModalNavReg(); show_reg_page_1 = true"
+                                href="javascript:void(0)"
+                                role="button"
+                                aria-expanded="false">
+                                Register
+                            </a>
                         </li>
 
                         <!-- Show "Dashboard" when user IS logged in -->
@@ -594,7 +606,7 @@ function home_page_landing_page()
         </section>
 
 
-        <!-- Group decorative circles -->
+        <!-- Grouped decorative circles -->
         <div class="circle-decorations">
             <div class="blue-small-circle"></div>
             <div class="background-circle"></div>
@@ -741,7 +753,7 @@ function home_page_landing_page()
                                     <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
                                         style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
                                 </div>
-                                <p class="text-center mt-2">CEO Mr. Valery Minello</p>
+                                <p class="text-center mt-2">CEO Mr. Valery Minello</p>
                             </div>
 
                             <!-- COO -->
@@ -820,7 +832,7 @@ function home_page_landing_page()
                                         <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
                                             style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
                                     </div>
-                                    <p class="text-center mt-2">Arvin Charls D. Basco</p>
+                                    <p class="text-center mt-2">Arvin Charls D. Basco</p>
                                 </div>
 
                                 <!-- Team Member 8 -->
@@ -838,6 +850,7 @@ function home_page_landing_page()
         </section>
 
         <!-- Contact Us Section -->
+        <!-- Full-width container for the Contact Section -->
         <div style="background-color:rgb(0, 43, 86); padding: 20px 0;" id="contact" ng-if="currentPage === 'contact'">
             <div class="container">
                 <h3 class="display-4 text-white fw-semibold text-center mb-3">
@@ -920,15 +933,6 @@ function home_page_landing_page()
         </div>
 
 
-        <!-- back to top -->
-        <div class="mt-5 text-center">
-            <a href="#page-top" class="text-primary text-decoration-none fw-semibold fs-6">
-                Back to Top
-                <i class="bi bi-arrow-up-circle-fill"></i>
-            </a>
-        </div>
-
-
         <!-- Footer -->
         <div class="border-top border-muted pt-2" style="margin-top: 50px;">
             <div class="row justify-content-between">
@@ -969,1324 +973,755 @@ function home_page_landing_page()
                             <!-- Legality -->
                             <div class="col-lg-4 mt-3 mt-lg-0">
                                 <p class="fw-bold">Legal</p>
-                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="setActivePage('privacy')"><small>Privacy Notice</small></a></p>
-                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="setActivePage('terms')"><small>Terms of Use</small></a></p>
+                                <p><a href="#privacy" class="link link-secondary"><small>Privacy Notice</small></a></p>
+                                <p><a href="#terms" class="link link-secondary"><small>Terms of Use</small></a></p>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-
-
-    </div>
-
-
-
-
-
-
-
-
-
-
-
-
-    <!-- Hero Container-->
-    <!-- <div class="d-flex flex-column align-items-center justify-content-center container-fluid p-0 kickstart-hero-container" ng-if="dataLoaded" ng-cloak>
-
-            <div class="d-flex flex-column align-items-center justify-content-center mx-auto col-lg-4">
-
-
-
-                <div class="hero-header">
-                    <h1 class="fw-bold text-center text-white px-3 px-md-0">
-                        Kickstart Your OJT Journey with OJTGo!
-                    </h1>
-                </div>
-
-               
-            </div> -->
-
-    <!-- filter Main Container -->
-    <!-- <div class="d-flex container-fluid flex-column justify-content-center align-items-center"> -->
-
-    <!-- Filter Input -->
-    <!-- <div class="row justify-content-center align-items-center px-2 gap-3"> -->
-
-    <!-- Course -->
-    <!-- <div class="col-12 col-md-6 col-lg-2 d-flex flex-column justify-content-center">
-                        <h5 class="text-white text-start mb-1 d-none d-lg-block">Course</h5>
-                        <select 
-                            class="form-select input-styles"
-                            ng-model="filterData.selectedCourse" 
-                            ng-change="resetFieldMatch('course'); updateJobTitles()" 
-                            ng-options="course for course in courses">
-                            <option value="" disabled>Select a Course</option>
-                        </select>
-                    </div> -->
-
-    <!-- Role -->
-    <!-- <div class="col-12 col-md-6 col-lg-2 d-flex flex-column justify-content-center">
-                        <h5 class="text-white text-start mb-1 d-none d-lg-block">Role</h5>
-                        <select 
-                            class="form-select input-styles" 
-                            ng-model="filterData.selectedRole"
-                            ng-change="resetFieldMatch('role')"
-                            ng-disabled="!filterData.selectedCourse"
-                            ng-options="role for role in jobTitles">
-                            <option value="" disabled>Select a role</option>
-                        </select>
-                    </div> -->
-
-    <!-- Province -->
-    <!-- <div class="col-12 col-md-6 col-lg-2 d-flex flex-column justify-content-center">
-                        <h5 class="text-white text-start mb-1 d-none d-lg-block">Province</h5>
-                        <select 
-                            class="form-select input-styles"
-                            ng-model="locationFilter.province"
-                            ng-change="resetFieldMatch('province'); loadCitiesForProvince()"
-                            ng-options="province.province_name as province.province_name for province in provinceList">
-                            <option value="" disabled selected>Select a Province</option>
-                        </select>
-                    </div> -->
-
-    <!-- City (conditionally shown) -->
-    <!-- <div 
-                        class="col-12 col-md-6 col-lg-2 d-flex flex-column justify-content-center" 
-                        ng-show="locationFilter.province"
-                    >
-                        <h5 class="text-white text-start mb-1 d-none d-lg-block">City</h5>
-                        <select 
-                            class="form-select input-styles"
-                            ng-model="locationFilter.city"
-                            ng-change="resetFieldMatch('city')"
-                            ng-options="city for city in cityList">
-                            <option value="" disabled selected>Select a City (Optional)</option>
-                        </select>
-                    </div>
-                </div> -->
-
-    <!-- Search and reset Button -->
-    <!-- <div class="row gap-3 align-items-center justify-content-center container-fluid text-center mt-4"> -->
-    <!-- 🔍 Search Button -->
-    <!-- <button 
-                        id="roles-block-scroll" 
-                        ng-click="filterJobs(); scrollToRoles()" 
-                        ng-disabled="!(
-                            filterData.selectedCourse || 
-                            filterData.selectedRole || 
-                            locationFilter.province
-                        )"  
-                        class="col-12 col-lg-6 btn btn-primary text-white filter-btn"
-                    >
-                        Search <i class="bi bi-arrow-right"></i>
-                    </button> -->
-
-    <!-- Reset Button -->
-    <!-- <button 
-                        ng-click="resetFilters()" 
-                        class="col-12 col-lg-6 btn btn-secondary text-white filter-btn"
-                    >
-                        Reset <i class="bi bi-arrow-clockwise"></i>
-                    </button>
-                </div>
-
-            </div>
-
-        </div> -->
-
-
-    <!-- Roles Loading -->
-    <!-- <div class="row justify-content-between align-items-stretch gap-3 gap-lg-0 container-fluid mt-5 skeleton-loader roles-block-skeleton" ng-if="!dataLoaded"> -->
-
-    <!-- Job list pane skeleton -->
-    <!-- <div class="col-lg-4 d-none d-lg-block list-pane-skeleton">
-                <div class="rounded-4 mb-3 skeleton-block" style="width: 100%; height: 250px;" ng-repeat="n in [1,2,3,4,5] track by $index"></div>
-            </div> -->
-
-    <!-- Job detail pane skeleton -->
-    <!-- <div class="d-flex flex-column col-lg-8 details-pane-skeleton">
-                <div class="rounded-4 skeleton-block" style="width: 100%; height: 100%;"></div>
-            </div>
-        </div> -->
-
-
-    <!-- ROLES Block -->
-    <!-- <div class="mt-5 p-3 p-lg-5 find-match-container" id="roles-block" ng-if="dataLoaded" ng-cloak>
-            
-            <div class="row justify-content-between align-items-stretch gap-3 gap-lg-0 job-list-container"> -->
-
-
-    <!-- Job listing pane -->
-    <!-- <div class="d-none d-lg-flex flex-column col-lg-4 job-list-wrapper">                
-                    <div class="job-list-pane scrollable">
-                        
-                        <div class="rounded p-2 " > -->
-
-    <!-- *** -->
-
-    <!-- <a 
-                                href="javascript:void(0)" 
-                                class="link link-dark" 
-                                ng-repeat="job in job_posts"
-                            >
-                                <div 
-                                    ng-click="job_post_selected(job._ID)" 
-                                    style="background-color: #f8f9fa;" 
-                                    class="p-2 rounded-2 mb-3 job-card"
-                                    ng-class="{'active': selectedJobPostId === job._ID}" -->
-
-
-    <!-- headers -->
-    <!-- Banner -->
-    <!-- <div class="banner" style="width: 100%;"> -->
-
-    <!-- If hiring date exists -->
-    <!-- <div 
-                                                class="mb-3 fw-bold ms-2 hiring-urgency" 
-                                                ng-style="{ 
-                                                    color: job.employer_job_offer_emp_ia === 'yes' ? 'red' : 'green',
-                                                    width: '75%', 
-                                                    fontSize: '0.825rem' 
-                                                }"
-                                                >
-                                                <i 
-                                                    class="me-2" 
-                                                    ng-class="job.employer_job_offer_emp_ia === 'yes' 
-                                                        ? 'bi bi-exclamation-diamond' 
-                                                        : 'bi bi-calendar-check'"
-                                                ></i>
-                                                {{ job.employer_job_offer_emp_ia === 'yes' 
-                                                    ? 'Immediate Hiring!' 
-                                                    : job.employer_job_offer_date_available_hiring | date:'MM-dd-yyyy' }}
-                                            </div>
-
-                                    </div> -->
-
-
-    <!-- Image, role and company name -->
-    <!-- <div class="d-flex align-items-center flex-grow-1 overflow-hidden gap-3">
-                                        
-                                        <div class="biz-image-container flex-shrink-0">
-                                            <img 
-                                                ng-src="{{ job.logo_url }}" 
-                                                class="border border-secondary" 
-                                                style="height: 50px; width: 50px; border-radius: 50%; object-fit: cover;" 
-                                                alt="company-logo"
-                                            >  
-                                        </div>
-                                        
-
-                                        <div class="biz-info flex-grow-1 overflow-hidden w-100">                                                                         
-                                            <h4 class="fw-bold m-0 p-0 text-truncate">{{job.employer_job_offer_job_title_preferred}}</h4>
-                                            <small class="fw-normal text-secondary mt-0 text-truncate">{{job.business_name}}</small>
-                                        </div>
-                                        
-                                        <div class="ms-auto flex-shrink-0">
-                                            <p 
-                                                style="font-size: 14px;" 
-                                                class="text-white p-2 rounded text-center"
-                                                ng-if="hasSearchedCourse || hasSearchedJob || hasSearchedProvince || hasSearchedCity"
-                                                ng-style="{ 'background-color': getMatchColor(job.match_percentage) }"
-                                            >
-                                                {{ job.match_percentage }}% Match
-                                            </p>
-                                        </div>
-
-
-                                    
-                                    </div> -->
-
-
-
-    <!-- Tags -->
-    <!-- <div class="mt-3 d-flex align-items-start flex-wrap gap-2"> -->
-
-    <!-- Work Shift Tag -->
-    <!-- <p class="rounded-pill tag p-1 px-2">
-                                            <small>
-                                                <i class="bi"
-                                                ng-class="{
-                                                    'bi-cloud-sun-fill': job.employer_job_offer_shifting_schedule.toLowerCase() === 'day-shift',
-                                                    'bi-moon-stars-fill': job.employer_job_offer_shifting_schedule.toLowerCase() === 'night-shift',
-                                                    'bi-arrow-left-right': job.employer_job_offer_shifting_schedule.toLowerCase() === 'hybrid'
-                                                }"></i>
-                                                {{ job.employer_job_offer_shifting_schedule || 'N/A' }}
-                                            </small>
-                                        </p> -->
-
-    <!-- Work Mode Tag -->
-    <!-- <p class="rounded-pill tag p-1 px-2" ng-if="job.employer_job_offer_preferred_work_mode">
-                                            <small>
-                                                <i class="bi"
-                                                ng-class="{
-                                                    'bi-building': job.employer_job_offer_preferred_work_mode.toLowerCase() === 'on-site',
-                                                    'bi-wifi': job.employer_job_offer_preferred_work_mode.toLowerCase() === 'remote',
-                                                    'bi-shuffle': job.employer_job_offer_preferred_work_mode.toLowerCase() === 'flexible'
-                                                }"></i>
-                                                {{ job.employer_job_offer_preferred_work_mode }}
-                                            </small>
-                                        </p> -->
-
-    <!-- Allowance Tag -->
-    <!-- <p class="rounded-pill tag px-2" 
-                                        ng-class="job.employer_job_offer_emp_provide_allowance === 'yes' ? 'bg-success text-white' : 'bg-secondary text-white'">
-                                            <small>
-                                                <i class="bi bi-coin"></i>
-                                                {{ job.employer_job_offer_emp_provide_allowance === 'yes' ? 'With Allowance' : 'No Allowance' }}
-                                            </small>
-                                        </p>
-
-                                    </div> -->
-
-
-
-    <!-- Other business info -->
-    <!-- <p class="m-0" style="font-size: 15px;"><i class="bi bi-geo-alt-fill"></i>{{job.employer_job_offer_preferred_job_location_address}}</p>
-                                    <p class="m-0" style="font-size: 15px;"><i class="bi bi-mortarboard-fill"></i> {{job.employer_job_offer_emp_education}}</p> -->
-
-
-
-    <!-- <p class="m-0" style="font-size: 15px;"><i class="bi bi-book-fill"></i><small> Accepting IT Students</small></p> -->
-
-    <!-- Rate -->
-    <!-- <h3 class="text-primary fw-bold m-0">$400-600</h3> -->
-    <!-- <p style="font-size: 14px;" class="m-0">Monthly</p> -->
-
-
-    <!-- <p class="mt-3" style="font-size: 15px;"><i class="bi bi-moon-fill"></i>Night Shift</p> -->
-
-    <!-- </div>
-                            </a> -->
-
-
-
-    <!-- *** -->
-
-
-
-    <!-- </div>
-                    </div>
-                </div> -->
-
-    <!-- Job details pane -->
-    <!-- <div class="d-flex flex-column col-lg-8 job-details-pane"> -->
-
-    <!-- for mobile -->
-    <!-- <div class="my-4 d-grid d-lg-none">
-                        <a 
-                            data-bs-toggle="offcanvas" 
-                            href="#fym-map-mobile" 
-                            aria-controls="fym-map-mobile"
-                            class="d-xl-none btn btn-dark text-white" 
-                            style="font-size: 13px;" 
-                        >
-                            Show Job Posts
-                        </a>
-                    </div>
-
-                    <div class="rounded-3 p-0 container-fluid d-flex flex-column job-details-container"> -->
-
-    <!-- ðŸ”¹ Loading Indicator -->
-    <!-- <div ng-show="reloadData" class="text-center my-4">
-                            <div class="spinner-border text-primary" role="status">
-                                <span class="visually-hidden">Loading...</span>
-                            </div>
-                            <p class="mt-2">Fetching job details, please wait...</p>
-                        </div> -->
-
-
-    <!-- <div ng-show="!reloadData" ng-cloak> -->
-    <!-- Header Section -->
-    <!-- <div class="border-0 pt-5 pb-3 px-5 row align-items-center justify-content-between gap-3 gap-lg-0">
-                                <div class="col-12 col-lg-6 d-flex align-items-center justify-content-center justify-content-lg-start">
-                                    <img ng-src="{{ viewpost_biz_logo }}" 
-                                        class="rounded-circle border me-3"
-                                        style="width: 70px; height: 70px; object-fit: cover; background: #ddd;">
-                                    <div>
-                                    <h4 class="fw-bold text-dark m-0">
-                                        {{ viewpost_job_title }}
-                                        <i 
-                                            ng-if="hasSearchedJob && jobmatched !== null"
-                                            ng-class="jobmatched 
-                                                ? 'bi bi-check-circle-fill text-success ms-2' 
-                                                : 'bi bi-x-circle-fill text-danger ms-2'">
-                                        </i>
-
-                                    </h4>
-
-                                    <h6 class="fw-normal text-secondary m-0">{{ viewpost_biz_name }}</h6>
-                                    <small> {{ viewpost_biz_city }} </small>
-                                    <small> {{ viewpost_biz_province }} </small>
-                                    </div>
-                                </div> -->
-
-    <!-- Right Section: Match Percentage, Request Button & Close Button -->
-    <!-- <div class="col-12 col-lg-auto d-flex align-items-center justify-content-center gap-2">
-                    
-                                    <a 
-                                        id="show-login-modal"
-                                        href="javascript:void(0)"
-                                        class="text-dark d-flex align-items-center justify-content-center modal-send-request trigger-entry-modal"
-                                        ng-click="setUserType('intern');"
-                                    >
-                                        <i class="me-1 bi bi-send"></i>Send Request
-                                    </a>                                
-                
-                                </div>
-                                                            
-                            </div> -->
-
-
-    <!-- <hr class="my-3 mx-5" ng-if="hasSearchedCourse || hasSearchedJob || hasSearchedProvince || hasSearchedCity"> -->
-
-    <!-- High Chart Container -->
-    <!-- <div id="container" class="px-5" style="width: 100%; height: 250px;" ng-if="hasSearchedCourse || hasSearchedJob || hasSearchedProvince || hasSearchedCity">
-                                <h2 class="fw-bold">{{job.match_percentage}}</h2>
-                            </div>
-                
-                
-                            <hr class="my-3 mx-5" ng-if="hasSearchedCourse || hasSearchedJob || hasSearchedProvince || hasSearchedCity"> -->
-
-    <!-- Modified by Lorenzo @ 04/10/2025 -->
-    <!-- Internship Details -->
-    <!-- <div class="d-flex flex-column align-items-center p-3 px-3 px-md-5 internship-details">
-                                <h2 class="fw-bold text-center text-dark">Internship Details</h2>
-                                <div class="row justify-content-between gap-3" style="width: 100%;">
-
-                                    <div class="col-12 col-md-5">
-
-                                        <p class="fw-bold">
-                                            <i class="bi bi-building"></i> Work Mode: 
-                                            <span class="fw-normal">{{ viewpost_job_work_mode || 'Not Set'}}</span>
-                                        </p>
-                                        <p class="fw-bold">
-                                            <i class="bi bi-brightness-alt-high"></i> Work Shift:
-                                            <span class="fw-normal">{{viewpost_job_shift}}</span>
-                                        </p>
-                                        <p class="fw-bold">
-                                            <i class="bi bi-coin"></i> Provides Allowance: 
-                                            <span class="fw-normal {{ selectedJob.employer_job_offer_emp_provide_allowance === 'yes' ? 'text-success' : 'text-danger' }}">
-                                                {{ viewpost_with_allowance === 'yes' ? 'With Allowance' : 'Without Allowance' }}
-                                            </span>
-                                        </p>
-                                        <p class="fw-bold">
-                                            <i class="bi bi-calendar"></i> Deployment Date: 
-                                            <span
-                                                class="mb-3 fw-bold ms-2 hiring-urgency" 
-                                                ng-style="{ color: viewpost_immediate_hiring === '' ? 'red' : 'green', width: '75%', fontSize: '0.825rem' }"
-                                            >
-                                                <i class="me-2" ng-class="viewpost_immediate_hiring === '' ? 'bi bi-exclamation-diamond' : 'bi bi-calendar-check'"></i>
-                                                {{ viewpost_immediate_hiring === '' ? 'Immediate Hiring!' : viewpost_immediate_hiring }}
-                                            </span>
-                                        </p>
-
-                                    </div>
-                                    
-
-                                    <div class="col-12 col-md-5"> -->
-    <!-- Added by Lorenzo @ 04/10/2025 -->
-    <!-- <p class="fw-bold">
-                                            <i class="bi bi-geo"></i> Preferred Province: 
-                                            <span class="mb-3 fw-normal ms-2" >
-                                                {{ viewpost_biz_province }}
-                                            </span>
-                                            <i 
-                                                ng-if="hasSearchedProvince && provincematched !== null"
-                                                ng-class="hasSearchedProvince 
-                                                    ? 'bi bi-check-circle-fill text-success ms-2' 
-                                                    : 'bi bi-x-circle-fill text-danger ms-2'">
-                                            </i>
-
-                                        </p>
-                                        <p class="fw-bold">
-                                            <i class="bi bi-geo"></i> Preferred City: 
-                                            <span class="mb-3 fw-normal ms-2" >
-                                                {{ viewpost_biz_city }}
-                                            </span>
-                                            <i 
-                                                ng-if="hasSearchedCity && citymatched !== null"
-                                                ng-class="citymatched 
-                                                    ? 'bi bi-check-circle-fill text-success ms-2' 
-                                                    : 'bi bi-x-circle-fill text-danger ms-2'">
-                                            </i>
-                                                
-                                        </p>
-                                    </div>
-                                    
-                                    
-                                </div>
-                            </div>
- -->
-
-    <!-- <hr class="my-3 mx-5"> -->
-
-    <!-- Job Post Description -->
-    <!-- <div class="p-3 px-3 px-md-5">
-                                <h2 class="fw-bold text-center text-dark">Job Post Description</h2>
-                                <p 
-                                    class="text-muted posting-description"
-                                    ng-class="{
-                                        'text-center': !selectedJob.employer_job_offer_job_description,
-                                        'text-justify': selectedJob.employer_job_offer_job_description
-                                    }"
-                                >
-                                    {{ selectedJob.employer_job_offer_job_description || 'No description available' }}
-                                </p>
-                            </div>
-
-                
-                            <hr class="my-3 mx-5"> -->
-
-
-    <!-- Internship Criteria -->
-    <!-- <div class="row justify-content-center align-items-start px-3 px-md-5 p-3 internship-criteria">
-                                <h2 class="fw-bold text-center text-dark">Internship Criteria</h2>
-
-                                <div class="col-12 col-md-5 d-flex flex-column internship-critera">
-                                    <p class="fw-bold">
-                                        <i class="bi bi-mortarboard"></i> Academic Level: 
-                                        <span class="fw-normal">{{ selectedJob.employer_job_offer_emp_education }}</span>
-                                    </p>
-                                    <p class="fw-bold">
-                                        <i class="bi bi-book"></i> Accepting Students From: 
-                                        <span class="fw-normal">{{ selectedJob.employer_job_offer_emp_preferred_course }}</span>
-                                        <i 
-                                            ng-if="hasSearchedCourse && coursematched !== null"
-                                            ng-class="coursematched 
-                                                ? 'bi bi-check-circle-fill text-success ms-2' 
-                                                : 'bi bi-x-circle-fill text-danger ms-2'">
-                                        </i>
-                                
-
-                                    </p>
-                                    <p class="fw-bold">
-                                        <i class="bi bi-clock"></i> OJT Hours: 
-                                        <span class="fw-normal">{{selectedJob.employer_job_offer_emp_ojt_min}} - {{selectedJob.employer_job_offer_emp_ojt_max}}</span>                                          
-                                    </p>
-                                </div> 
-
-                                <div class="col-12 col-md-5 d-flex flex-column justify-content-between internship-critera">                      
-                                    <p class="mb-2">
-                                        <i class="bi bi-translate"></i> Language:
-                                    </p> 
-
-                                    <div ng-repeat="lang in selectedLanguagesModal">
-                                        <span class="fw-bold">
-                                            {{ lang.name }}
-                                        </span> -->
-
-    <!-- Spoken -->
-    <!-- <div class="ms-4 d-flex align-items-center justify-content-start gap-2 mt-1">
-                                            <h6 class="fw-bold mb-0">Spoken:</h6>
-                                            <div class="progress flex-grow-1">
-                                                <div class="progress-bar" style="width: {{ lang.spoken }}%">
-                                                    {{ lang.spoken }}%
-                                                </div>
-                                            </div>
-                                        </div> -->
-
-    <!-- Written -->
-    <!-- <div class="ms-4 d-flex align-items-center justify-content-start gap-2 mt-1">
-                                            <h6 class="fw-bold mb-0">Written:</h6>
-                                            <div class="progress flex-grow-1">
-                                                <div class="progress-bar" style="width: {{ lang.written }}%">
-                                                    {{ lang.written }}%
-                                                </div>
-                                            </div>
-        
-                                        </div>
-                                    </div> 
-                                </div>
-
-                            </div> -->
-
-    <!-- Create Account Persuasion -->
-    <!-- <div class="container-fluid text-center mt-3 create-account-banner">
-                                <span class="d-block fw-bold text-white text-center">
-                                    Want a more thorough search? 
-                                    <a 
-                                        href="javascript:void(0)" 
-                                        class="fw-bold text-primary create-acc-link"
-                                        ng-click="setUserType('intern');"
-                                    > 
-                                        Create an Account
-                                    </a>
-                                    with us and we'll help!
-                                </span>
-                            </div>
-                        </div>
-                        
-                    </div>
-
-                    
-                </div>
-
-                
-            
-            
-            </div> -->
-
-    <!-- </div> -->
-
-
-
-
-    <!-- End of Modified by Lorenzo @ 03/31/2025 -->
-
-
-
-    <!-- 
-            Code Migrated 
-                @ 04/07/2025 
-                @ 04/11/2025 - Register input field error display
-                @ 04/23/2025 - Password Recovery 
-        -->
-    <!-- 
-            Login/Register Modal 
-            Vesion ni Leonardo
-        -->
-
-    <div
-        id="modal-overlay"
-        class="modal-overlay container-fluid"
-        ng-class="{ 'active': isModalActive, 'active-unmount': !isModalActive }">
-
-
-        <!-- Main Container -->
         <div
-            id="information-entry-modal"
-            class="d-flex justify-content-center align-items-center information-entry-modal"
-            ng-class="{ 'active': isModalActive }">
+            id="modal-overlay"
+            class="modal-overlay container-fluid"
+            ng-class="{ 'active': isModalActive, 'active-unmount': !isModalActive }">
 
-            <!-- Close button -->
-            <span class="close-btn me-3 mt-1 trigger-entry-modal" ng-click="toggleModal()">x</span>
 
-            <!-- 
+            <!-- Main Container -->
+            <div
+                id="information-entry-modal"
+                class="d-flex justify-content-center align-items-center information-entry-modal"
+                ng-class="{ 'active': isModalActive }">
+
+                <!-- Close button -->
+                <span class="close-btn me-3 mt-1 trigger-entry-modal" ng-click="toggleModal()">x</span>
+
+                <!-- 
                 
                     Login content is initially active
                     All other contents are in d-none state
                 
                 -->
-            <!-- Login Content -->
-            <div
-                id="login-content"
-                control-tab="login"
-                class="d-flex flex-column justify-content-center align-items-center text-center w-100 login-content"
-                ng-class="{
+                <!-- Login Content -->
+                <div
+                    id="login-content"
+                    control-tab="login"
+                    class="d-flex flex-column justify-content-center align-items-center text-center w-100 login-content"
+                    ng-class="{
                         'active-slide-in': currentModalContent === 'login',
                         'active-slide-out': currentModalContent !== 'login'
                     }"
-                ng-attr-inert="{{ currentModalContent !== 'login' ? true : undefined }}"
-                ng-cloak>
+                    ng-attr-inert="{{ currentModalContent !== 'login' ? true : undefined }}"
+                    ng-cloak>
 
 
-                <!-- Empty for now -->
-                <div class="d-flex flex-column align-items-center justify-content-center animation-container">
+                    <!-- Empty for now -->
+                    <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                    <!-- <div class="d-flex flex-column align-items-center justify-content-center mb-3 some-animation">
+                        <!-- <div class="d-flex flex-column align-items-center justify-content-center mb-3 some-animation">
                             Hello
                         </div> -->
 
-                    <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
 
-                </div>
-
-                <!-- Header and Sub Title -->
-                <div class="row flex-column align-items-center justify-content-center mb-3 header">
-                    <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome Back!</p>
-                    <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">Intern or Employer!</p>
-                </div>
-
-
-                <!-- Input Fields -->
-                <div class="d-flex gap-0 gap-md-3 flex-column justify-content-between">
-
-                    <div class="row g-3 align-items-center justify-content-center">
-                        <div class="col-12 col-md-5">
-                            <label class="form-label mb-0">Username or Email:</label>
-                        </div>
-                        <div class="col-12 col-md-7">
-                            <input type="text" class="form-control" ng-model="credentials.username">
-                        </div>
                     </div>
 
-                    <div class="row g-3 align-items-center justify-content-center">
-                        <div class="col-12 col-md-5">
-                            <label class="form-label mb-0">Password:</label>
-                        </div>
-                        <div class="col-12 col-md-7">
-                            <div class="input-group custom-width">
-                                <input
-                                    type="{{ isLogPasswordVisible ? 'text' : 'password' }}"
-                                    class="form-control password"
-                                    ng-model="credentials.password">
-                                <!-- Conditional Use of Icon depends on the current state of the password -->
-                                <span
-                                    id="toggle-pass-visibility"
-                                    class="input-group-text toggle-visibility"
-                                    ng-click="togglePasswordVisibility('isLogPasswordVisible')">
-                                    <i ng-class="{'bi-eye': isLogPasswordVisible, 'bi-eye-slash': !isLogPasswordVisible}"></i>
-                                </span>
+                    <!-- Header and Sub Title -->
+                    <div class="row flex-column align-items-center justify-content-center mb-3 header">
+                        <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome Back!</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">Intern or Employer!</p>
+                    </div>
+
+
+                    <!-- Input Fields -->
+                    <div class="d-flex gap-0 gap-md-3 flex-column justify-content-between">
+
+                        <div class="row g-3 align-items-center justify-content-center">
+                            <div class="col-12 col-md-5">
+                                <label class="form-label mb-0">Username or Email:</label>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <input type="text" class="form-control" ng-model="credentials.username">
                             </div>
                         </div>
+
+                        <div class="row g-3 align-items-center justify-content-center">
+                            <div class="col-12 col-md-5">
+                                <label class="form-label mb-0">Password:</label>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <div class="input-group custom-width">
+                                    <input
+                                        type="{{ isLogPasswordVisible ? 'text' : 'password' }}"
+                                        class="form-control password"
+                                        ng-model="credentials.password">
+                                    <!-- Conditional Use of Icon depends on the current state of the password -->
+                                    <span
+                                        id="toggle-pass-visibility"
+                                        class="input-group-text toggle-visibility"
+                                        ng-click="togglePasswordVisibility('isLogPasswordVisible')">
+                                        <i ng-class="{'bi-eye': isLogPasswordVisible, 'bi-eye-slash': !isLogPasswordVisible}"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
+
+                    <!-- Forgot Password Link -->
+                    <a
+                        id="forgot-passowrd"
+                        href="javascript:void(0)"
+                        class="col text-center link-text mt-2"
+                        style="font-size: 0.875rem;"
+                        ng-click="switchModalContent('forgot-pass');">
+                        Forgot Your Password?
+                    </a>
+
+
+
+                    <!-- Login Button -->
+                    <a
+                        id="login"
+                        href="javascript:void(0)"
+                        class="col text-center my-5 px-5 py-2 modal-btn login-btn"
+                        ng-click="loginUser()">
+                        Login
+                    </a>
+
+
+
+                    <!-- Direct to Register -->
+
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Don't have an account?</span>
+                    <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                        Why not
+                        <a
+                            href="javascript:void(0)"
+                            class="link-text"
+                            style="font-size: 0.875rem;"
+                            ng-click="switchModalContent('user-type');">
+                            Register Here?
+                        </a>
+                    </p>
+
 
                 </div>
 
-                <!-- Forgot Password Link -->
-                <a
-                    id="forgot-passowrd"
-                    href="javascript:void(0)"
-                    class="col text-center link-text mt-2"
-                    style="font-size: 0.875rem;"
-                    ng-click="switchModalContent('forgot-pass');">
-                    Forgot Your Password?
-                </a>
 
-
-
-                <!-- Login Button -->
-                <a
-                    id="login"
-                    href="javascript:void(0)"
-                    class="col text-center my-5 px-5 py-2 modal-btn login-btn"
-                    ng-click="loginUser()">
-                    Login
-                </a>
-
-
-
-                <!-- Direct to Register -->
-
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Don't have an account?</span>
-                <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
-                    Why not
-                    <a
-                        href="javascript:void(0)"
-                        class="link-text"
-                        style="font-size: 0.875rem;"
-                        ng-click="switchModalContent('user-type');">
-                        Register Here?
-                    </a>
-                </p>
-
-
-            </div>
-
-
-            <!-- Which Type of User -->
-            <div
-                id="confirm-user-type"
-                class="d-flex flex-column justify-content-center align-items-center text-center confirm-user-type"
-                control-tab="user-type"
-                ng-class="{
+                <!-- Which Type of User -->
+                <div
+                    id="confirm-user-type"
+                    class="d-flex flex-column justify-content-center align-items-center text-center confirm-user-type"
+                    control-tab="user-type"
+                    ng-class="{
                         'active-slide-in': currentModalContent === 'user-type',
                         'active-slide-out': currentModalContent !== 'user-type'
                     }"
-                ng-attr-inert="{{ currentModalContent !== 'user-type' ? true : undefined }}"
-                ng-cloak>
+                    ng-attr-inert="{{ currentModalContent !== 'user-type' ? true : undefined }}"
+                    ng-cloak>
 
 
-                <div class="d-flex flex-column align-items-center justify-content-center animation-container">
+                    <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                    <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+
+                    </div>
+
+                    <!-- Header and Sub Title -->
+                    <div class="row flex-column align-items-center justify-content-center mb-3 header">
+                        <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome!</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">We are gald to have you!</p>
+                    </div>
+
+                    <p class="text-center">Which type of user are you?</p>
+
+                    <!-- Login Button -->
+                    <a
+                        ng-click="setUserType('employer');"
+                        href="javascript:void(0);"
+                        class="text-center my-2 px-5 py-2 modal-btn employer-btn">
+                        Employer
+                    </a>
+
+                    <span class="text-center">or</span>
+
+                    <a
+                        ng-click="setUserType('intern');"
+                        href="javascript:void(0);"
+                        class="text-center my-2 px-5 py-2 modal-btn intern-btn">
+                        Intern
+                    </a>
 
                 </div>
 
-                <!-- Header and Sub Title -->
-                <div class="row flex-column align-items-center justify-content-center mb-3 header">
-                    <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome!</p>
-                    <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">We are gald to have you!</p>
-                </div>
 
-                <p class="text-center">Which type of user are you?</p>
-
-                <!-- Login Button -->
-                <a
-                    ng-click="setUserType('employer');"
-                    href="javascript:void(0);"
-                    class="text-center my-2 px-5 py-2 modal-btn employer-btn">
-                    Employer
-                </a>
-
-                <span class="text-center">or</span>
-
-                <a
-                    ng-click="setUserType('intern');"
-                    href="javascript:void(0);"
-                    class="text-center my-2 px-5 py-2 modal-btn intern-btn">
-                    Intern
-                </a>
-
-            </div>
-
-
-            <!-- Register Content -->
-            <div
-                id="register-content"
-                control-tab="register"
-                class="d-flex flex-column justify-content-center align-items-center text-center register-content"
-                ng-class="{
+                <!-- Register Content -->
+                <div
+                    id="register-content"
+                    control-tab="register"
+                    class="d-flex flex-column justify-content-center align-items-center text-center register-content"
+                    ng-class="{
                         'active-slide-in': currentModalContent === 'register',
                         'active-slide-out': currentModalContent !== 'register'
                     }"
-                ng-attr-inert="{{ currentModalContent !== 'register' ? true : undefined }}"
-                ng-cloak>
+                    ng-attr-inert="{{ currentModalContent !== 'register' ? true : undefined }}"
+                    ng-cloak>
 
-                <div class="d-flex flex-column align-items-center justify-content-center animation-container">
+                    <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                    <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
 
-                </div>
-
-                <!-- Header and Sub Title -->
-                <div class="row flex-column align-items-center justify-content-center mb-3 header">
-                    <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome!</p>
-                    <p class="col-auto text-secondary text-center mb-0 w-100" style="font-size: 1rem;">We are glad to have you!</p>
-                </div>
-
-
-                <!-- Input Fields w/o password-->
-                <div class="d-flex gap-0 gap-md-3 flex-column justify-content-between">
-
-                    <!-- Username -->
-                    <div class="">
-                        <div class="row g-3 align-items-center justify-content-center justify-content-md-center">
-                            <div class="col-12 col-md-5">
-                                <label class="form-label mb-0 mb-md-2">Username: </label>
-                            </div>
-                            <div class="col-12 col-md-7 mt-1 align-self-start custom-width">
-                                <input
-                                    type="text"
-                                    class="form-control reg-field"
-                                    ng-class="{'highlight is-invalid': !usernameValid}"
-                                    placeholder="John Doe"
-                                    ng-model="credentials.username"
-                                    ng-keydown="logTyping('text', credentials.username)"
-                                    ng-blur="logFinalValue('text', credentials.username); validateUsername()"
-                                    ng-change="validateUsername()"
-                                    required>
-                            </div>
-                        </div>
-                        <small class="text-danger text-wrap" ng-show="usernameError">{{ usernameError }}</small>
                     </div>
 
-                    <!-- Email -->
-                    <div class="">
-                        <div class="row g-3 align-items-center justify-content-center justify-content-md-center">
-                            <div class="col-12 col-md-5">
-                                <label class="form-label mb-0 mb-md-2">Email: </label>
-                            </div>
-                            <div class="col-12 col-md-7 mt-1 align-self-start custom-width">
-                                <input
-                                    type="email"
-                                    class="form-control reg-field"
-                                    ng-class="{'highlight is-invalid': !emailValid}"
-                                    placeholder="name@example.com"
-                                    ng-model="credentials.email"
-                                    ng-keydown="logTyping('email', credentials.email)"
-                                    ng-blur="logFinalValue('email', credentials.email); validateEmail()"
-                                    ng-change="validateEmail()">
-                            </div>
-                        </div>
-                        <small class="text-danger text-wrap" ng-show="emailError">{{ emailError }}</small>
+                    <!-- Header and Sub Title -->
+                    <div class="row flex-column align-items-center justify-content-center mb-3 header">
+                        <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome!</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-100" style="font-size: 1rem;">We are glad to have you!</p>
                     </div>
 
-                    <!-- <small class="m-0" style="font-size: 13px;">
+
+                    <!-- Input Fields w/o password-->
+                    <div class="d-flex gap-0 gap-md-3 flex-column justify-content-between">
+
+                        <!-- Username -->
+                        <div class="">
+                            <div class="row g-3 align-items-center justify-content-center justify-content-md-center">
+                                <div class="col-12 col-md-5">
+                                    <label class="form-label mb-0 mb-md-2">Username: </label>
+                                </div>
+                                <div class="col-12 col-md-7 mt-1 align-self-start custom-width">
+                                    <input
+                                        type="text"
+                                        class="form-control reg-field"
+                                        ng-class="{'highlight is-invalid': !usernameValid}"
+                                        placeholder="John Doe"
+                                        ng-model="credentials.username"
+                                        ng-keydown="logTyping('text', credentials.username)"
+                                        ng-blur="logFinalValue('text', credentials.username); validateUsername()"
+                                        ng-change="validateUsername()"
+                                        required>
+                                </div>
+                            </div>
+                            <small class="text-danger text-wrap" ng-show="usernameError">{{ usernameError }}</small>
+                        </div>
+
+                        <!-- Email -->
+                        <div class="">
+                            <div class="row g-3 align-items-center justify-content-center justify-content-md-center">
+                                <div class="col-12 col-md-5">
+                                    <label class="form-label mb-0 mb-md-2">Email: </label>
+                                </div>
+                                <div class="col-12 col-md-7 mt-1 align-self-start custom-width">
+                                    <input
+                                        type="email"
+                                        class="form-control reg-field"
+                                        ng-class="{'highlight is-invalid': !emailValid}"
+                                        placeholder="name@example.com"
+                                        ng-model="credentials.email"
+                                        ng-keydown="logTyping('email', credentials.email)"
+                                        ng-blur="logFinalValue('email', credentials.email); validateEmail()"
+                                        ng-change="validateEmail()">
+                                </div>
+                            </div>
+                            <small class="text-danger text-wrap" ng-show="emailError">{{ emailError }}</small>
+                        </div>
+
+                        <!-- <small class="m-0" style="font-size: 13px;">
                             An OTP verification code will be sent to your email.
                         </small> -->
 
-                </div>
+                    </div>
 
 
-                <!-- Password Input field -->
-                <div class="mt-0 mt-md-2 d-flex flex-column justify-content-between align-items-center container-fluid">
+                    <!-- Password Input field -->
+                    <div class="mt-0 mt-md-2 d-flex flex-column justify-content-between align-items-center container-fluid">
 
-                    <!-- Password -->
-                    <div class="row g-3 align-items-center justify-content-between">
-                        <div class="col-12 col-md-5">
-                            <label class="col-form-label mb-0 mb-md-2">Password: </label>
-                        </div>
-                        <div class="col-12 col-md-7 mt-0">
-                            <div class="mt-1 align-self-start input-group custom-width">
-                                <input
-                                    type="{{ isRegPasswordVisible ? 'text' : 'password' }}"
-                                    class="form-control password reg-field"
-                                    ng-class="{'highlight is-invalid': credentials.password.length > 0 && !passwordValid}"
-                                    ng-model="credentials.password"
-                                    ng-change="validatePassword('credentials')">
-                                <!-- Conditional Use of Icon depends on the current state of the password -->
-                                <span
-                                    id="toggle-pass-visibility"
-                                    class="input-group-text toggle-visibility"
-                                    ng-click="togglePasswordVisibility('isRegPasswordVisible')">
-                                    <i class="bi" ng-class="{'bi-eye': isRegPasswordVisible, 'bi-eye-slash': !isRegPasswordVisible}"></i>
-                                </span><br />
+                        <!-- Password -->
+                        <div class="row g-3 align-items-center justify-content-between">
+                            <div class="col-12 col-md-5">
+                                <label class="col-form-label mb-0 mb-md-2">Password: </label>
+                            </div>
+                            <div class="col-12 col-md-7 mt-0">
+                                <div class="mt-1 align-self-start input-group custom-width">
+                                    <input
+                                        type="{{ isRegPasswordVisible ? 'text' : 'password' }}"
+                                        class="form-control password reg-field"
+                                        ng-class="{'highlight is-invalid': credentials.password.length > 0 && !passwordValid}"
+                                        ng-model="credentials.password"
+                                        ng-change="validatePassword('credentials')">
+                                    <!-- Conditional Use of Icon depends on the current state of the password -->
+                                    <span
+                                        id="toggle-pass-visibility"
+                                        class="input-group-text toggle-visibility"
+                                        ng-click="togglePasswordVisibility('isRegPasswordVisible')">
+                                        <i class="bi" ng-class="{'bi-eye': isRegPasswordVisible, 'bi-eye-slash': !isRegPasswordVisible}"></i>
+                                    </span><br />
+                                </div>
                             </div>
                         </div>
+                        <!-- Added code by Lorenzo @ 04/11/2025 -->
+                        <div class="rounded text-start mt-2 p-2 guidelines">
+                            <small
+                                ng-class="{'text-success': passChecks.length && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.length}">
+                                ✔ At least 8 characters</small><br />
+                            <small
+                                ng-class="{'text-success': passChecks.lower && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.lower}">
+                                ✔ 1 lowercase & </small>
+                            <small
+                                ng-class="{'text-success': passChecks.upper && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.upper}">
+                                1 uppercase</small><br />
+                            <small
+                                ng-class="{'text-success': passChecks.number && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.number}">
+                                ✔ At least 1 number</small> <br />
+                            <small
+                                ng-class="{'text-success': passChecks.special && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.special}">
+                                ✔ At least 1 special character</small> <br />
+                        </div>
                     </div>
-                    <!-- Added code by Lorenzo @ 04/11/2025 -->
-                    <div class="rounded text-start mt-2 p-2 guidelines">
-                        <small
-                            ng-class="{'text-success': passChecks.length && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.length}">
-                            ✔ At least 8 characters</small><br />
-                        <small
-                            ng-class="{'text-success': passChecks.lower && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.lower}">
-                            ✔ 1 lowercase & </small>
-                        <small
-                            ng-class="{'text-success': passChecks.upper && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.upper}">
-                            1 uppercase</small><br />
-                        <small
-                            ng-class="{'text-success': passChecks.number && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.number}">
-                            ✔ At least 1 number</small> <br />
-                        <small
-                            ng-class="{'text-success': passChecks.special && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.special}">
-                            ✔ At least 1 special character</small> <br />
-                    </div>
+
+                    <!-- register Button -->
+                    <a
+                        id="create-acc-btn"
+                        href="javascript:void(0)"
+                        class="col text-center my-5 px-5 py-2 modal-btn register-btn"
+                        ng-click="storeCredentials();"
+                        ng-class="{'disabled': isFormInvalid() && !passwordValid && !usernameValid}">
+                        Create Account
+                    </a>
+
+
+
+                    <!-- Direct to Login -->
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
+                    <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                        <a
+                            href="javascript:void(0)"
+                            class="link-text login-account"
+                            style="font-size: 0.875rem;"
+                            ng-click="switchModalContent('login')">
+                            Log in
+                        </a>
+                        instead.
+                    </p>
+
                 </div>
 
-                <!-- register Button -->
-                <a
-                    id="create-acc-btn"
-                    href="javascript:void(0)"
-                    class="col text-center my-5 px-5 py-2 modal-btn register-btn"
-                    ng-click="storeCredentials();"
-                    ng-class="{'disabled': isFormInvalid() && !passwordValid && !usernameValid}">
-                    Create Account
-                </a>
 
-
-
-                <!-- Direct to Login -->
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
-                <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
-                    <a
-                        href="javascript:void(0)"
-                        class="link-text login-account"
-                        style="font-size: 0.875rem;"
-                        ng-click="switchModalContent('login')">
-                        Log in
-                    </a>
-                    instead.
-                </p>
-
-            </div>
-
-
-            <!-- Verify Email Content -->
-            <div
-                id="verify-content"
-                class="d-flex flex-column justify-content-center align-items-center text-center verify-content"
-                control-tab="verify"
-                ng-class="{
+                <!-- Verify Email Content -->
+                <div
+                    id="verify-content"
+                    class="d-flex flex-column justify-content-center align-items-center text-center verify-content"
+                    control-tab="verify"
+                    ng-class="{
                         'active-slide-in': currentModalContent === 'verify',
                         'active-slide-out': currentModalContent !== 'verify'
                     }"
-                ng-attr-inert="{{ currentModalContent !== 'verify' ? true : undefined }}"
-                ng-cloak>
+                    ng-attr-inert="{{ currentModalContent !== 'verify' ? true : undefined }}"
+                    ng-cloak>
 
 
-                <!-- Empty for now -->
-                <div class="d-flex flex-column align-items-center justify-content-center animation-container">
+                    <!-- Empty for now -->
+                    <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                    <!-- <div class="d-flex flex-column align-items-center justify-content-center mb-3 some-animation">
+                        <!-- <div class="d-flex flex-column align-items-center justify-content-center mb-3 some-animation">
                             Hello
                         </div> -->
 
-                    <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
 
-                </div>
-
-                <!-- Header and Sub Title -->
-                <div class="row flex-column align-items-center justify-content-center mb-3 header">
-                    <p class="col-auto fs-1 fw-bold text-center mb-0">Verify Your Email</p>
-                    <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">We sent you a code through email. Enter it down below.</p>
-                </div>
-
-
-                <!-- Input Fields -->
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                        <label class="form-label">Code: </label>
                     </div>
-                    <div class="col-auto">
-                        <input
-                            type="text"
-                            class="form-control"
-                            placeholder="09XXX"
-                            ng-model="otpCode"
-                            ng-change="validateOtp('otpCode')">
+
+                    <!-- Header and Sub Title -->
+                    <div class="row flex-column align-items-center justify-content-center mb-3 header">
+                        <p class="col-auto fs-1 fw-bold text-center mb-0">Verify Your Email</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">We sent you a code through email. Enter it down below.</p>
                     </div>
-                </div>
 
 
-                <!-- Resend code Registration -->
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Didn't get a code?</span>
-
-                <a
-                    id="resend-code"
-                    href="javascript:void(0)"
-                    class="col-12 mb-0 text-center link-text"
-                    style="font-size: 0.875rem;"
-                    ng-click="resendRegistrationOtp()"
-                    ng-class="{ 'text-muted': otpCooldown, 'disabled': otpCooldown }"
-                    ng-if="!otpCooldown">
-                    Resend the code.
-                </a>
-
-                <span
-                    class="col-12 mb-0 text-center text-muted"
-                    style="font-size: 0.875rem;"
-                    ng-if="otpCooldown">
-                    Resend available in {{ otpCooldownSeconds }}s
-                </span>
+                    <!-- Input Fields -->
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                            <label class="form-label">Code: </label>
+                        </div>
+                        <div class="col-auto">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="09XXX"
+                                ng-model="otpCode"
+                                ng-change="validateOtp('otpCode')">
+                        </div>
+                    </div>
 
 
-                <!-- Login Button -->
-                <a
-                    id="verify-email"
-                    href="javascript:void(0)"
-                    class="col text-center my-5 px-5 py-2 modal-btn verify-btn d-flex justify-content-center align-items-center gap-2"
-                    ng-click="verifyAndProceed('register')"
-                    ng-class="{ 'disabled': isCreating }">
-                    <span ng-if="!isCreating">Verify</span>
-                    <span ng-if="isCreating">
-                        <i class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></i>
-                        Verifying...
-                    </span>
-                </a>
+                    <!-- Resend code Registration -->
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Didn't get a code?</span>
 
-
-
-
-                <!-- Direct to Login -->
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
-                <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
                     <a
+                        id="resend-code"
                         href="javascript:void(0)"
-                        class="link-text login-account"
+                        class="col-12 mb-0 text-center link-text"
                         style="font-size: 0.875rem;"
-                        ng-click="switchModalContent('login')">
-                        Log in
+                        ng-click="resendRegistrationOtp()"
+                        ng-class="{ 'text-muted': otpCooldown, 'disabled': otpCooldown }"
+                        ng-if="!otpCooldown">
+                        Resend the code.
                     </a>
-                    instead.
-                </p>
+
+                    <span
+                        class="col-12 mb-0 text-center text-muted"
+                        style="font-size: 0.875rem;"
+                        ng-if="otpCooldown">
+                        Resend available in {{ otpCooldownSeconds }}s
+                    </span>
+
+
+                    <!-- Login Button -->
+                    <a
+                        id="verify-email"
+                        href="javascript:void(0)"
+                        class="col text-center my-5 px-5 py-2 modal-btn verify-btn d-flex justify-content-center align-items-center gap-2"
+                        ng-click="verifyAndProceed('register')"
+                        ng-class="{ 'disabled': isCreating }">
+                        <span ng-if="!isCreating">Verify</span>
+                        <span ng-if="isCreating">
+                            <i class="spinner-border spinner-border-sm me-1" role="status" aria-hidden="true"></i>
+                            Verifying...
+                        </span>
+                    </a>
 
 
 
-            </div>
+
+                    <!-- Direct to Login -->
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
+                    <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                        <a
+                            href="javascript:void(0)"
+                            class="link-text login-account"
+                            style="font-size: 0.875rem;"
+                            ng-click="switchModalContent('login')">
+                            Log in
+                        </a>
+                        instead.
+                    </p>
 
 
 
-            <!-- Forgot Password Content -->
-            <div
-                id="forgot-pass"
-                class="d-flex flex-column justify-content-center align-items-center text-center w-100 forgot-pass"
-                control-tab="forgot-pass"
-                ng-class="{
+                </div>
+
+
+
+                <!-- Forgot Password Content -->
+                <div
+                    id="forgot-pass"
+                    class="d-flex flex-column justify-content-center align-items-center text-center w-100 forgot-pass"
+                    control-tab="forgot-pass"
+                    ng-class="{
                         'active-slide-in': currentModalContent === 'forgot-pass',
                         'active-slide-out': currentModalContent !== 'forgot-pass'
                     }"
-                ng-attr-inert="{{ currentModalContent !== 'forgot-pass' ? true : undefined }}"
-                ng-cloak>
+                    ng-attr-inert="{{ currentModalContent !== 'forgot-pass' ? true : undefined }}"
+                    ng-cloak>
 
-                <!-- OJT go logo -->
-                <div class="d-flex flex-column align-items-center justify-content-center animation-container">
+                    <!-- OJT go logo -->
+                    <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                    <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
 
-                </div>
+                    </div>
 
-                <!-- Header and Sub Title -->
-                <div class="row flex-column align-items-center justify-content-center mb-3 header">
-                    <p class="col-auto fs-1 fw-bold text-center mb-0">Forgot Password?</p>
-                    <p class="col-auto text-secondary text-center mb-5 w-75" style="font-size: 1rem;">No worries! Just enter your email address and we'll send you a link to reset your password.</p>
-                </div>
+                    <!-- Header and Sub Title -->
+                    <div class="row flex-column align-items-center justify-content-center mb-3 header">
+                        <p class="col-auto fs-1 fw-bold text-center mb-0">Forgot Password?</p>
+                        <p class="col-auto text-secondary text-center mb-5 w-75" style="font-size: 1rem;">No worries! Just enter your email address and we'll send you a link to reset your password.</p>
+                    </div>
 
 
-                <!-- Input Fields -->
-                <!-- 
+                    <!-- Input Fields -->
+                    <!-- 
                         Standby: 
                         ng-change="validateEmail();"
                         ng-class="{'highlight': !emailValid}"
                     -->
 
-                <div class="row g-3 align-items-center justify-content-between mb-3">
-                    <div class="col-auto" style="margin-right: 30px">
-                        <label class="form-label">Email: </label>
+                    <div class="row g-3 align-items-center justify-content-between mb-3">
+                        <div class="col-auto" style="margin-right: 30px">
+                            <label class="form-label">Email: </label>
+                        </div>
+                        <div class="col-auto">
+                            <input
+                                type="text"
+                                class="form-control"
+                                ng-model="accountEmail">
+                        </div>
+                        <!-- <small class="text-danger text-wrap" ng-show="emailError">{{ emailError }}</small> -->
                     </div>
-                    <div class="col-auto">
-                        <input
-                            type="text"
-                            class="form-control"
-                            ng-model="accountEmail">
-                    </div>
-                    <!-- <small class="text-danger text-wrap" ng-show="emailError">{{ emailError }}</small> -->
+
+
+                    <!-- Send Instruction Button -->
+                    <a
+                        id="login"
+                        href="javascript:void(0)"
+                        class="col text-center my-5 px-5 py-2 modal-btn instructions-btn"
+                        ng-click="sendForgotPassword()">
+                        Recover Password
+                    </a>
+
+
+                    <!-- Direct to Login -->
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Remembered your password?</span>
+                    <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                        Go ahead and
+                        <a
+                            href="javascript:void(0)"
+                            class="link-text login-account"
+                            style="font-size: 0.875rem;"
+                            ng-click="switchModalContent('login')">
+                            Log in
+                        </a>
+                        here.
+                    </p>
+
+
                 </div>
 
 
-                <!-- Send Instruction Button -->
-                <a
-                    id="login"
-                    href="javascript:void(0)"
-                    class="col text-center my-5 px-5 py-2 modal-btn instructions-btn"
-                    ng-click="sendForgotPassword()">
-                    Recover Password
-                </a>
-
-
-                <!-- Direct to Login -->
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Remembered your password?</span>
-                <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
-                    Go ahead and
-                    <a
-                        href="javascript:void(0)"
-                        class="link-text login-account"
-                        style="font-size: 0.875rem;"
-                        ng-click="switchModalContent('login')">
-                        Log in
-                    </a>
-                    here.
-                </p>
-
-
-            </div>
-
-
-            <!-- Added by Lorenzo @ 04/22/2025 - migrated @ 04/23/2025 -->
-            <!-- Verify Email - Forgot Password Content -->
-            <div
-                id="verify-forgot-pass-content"
-                class="d-flex flex-column justify-content-center align-items-center text-center verify-forgot-pass-content"
-                control-tab="verify-forgot-pass"
-                ng-class="{
+                <!-- Added by Lorenzo @ 04/22/2025 - migrated @ 04/23/2025 -->
+                <!-- Verify Email - Forgot Password Content -->
+                <div
+                    id="verify-forgot-pass-content"
+                    class="d-flex flex-column justify-content-center align-items-center text-center verify-forgot-pass-content"
+                    control-tab="verify-forgot-pass"
+                    ng-class="{
                         'active-slide-in': currentModalContent === 'verify-forgot-pass',
                         'active-slide-out': currentModalContent !== 'verify-forgot-pass'
                     }"
-                ng-attr-inert="{{ currentModalContent !== 'verify-forgot-pass' ? true : undefined }}"
-                ng-cloak>
+                    ng-attr-inert="{{ currentModalContent !== 'verify-forgot-pass' ? true : undefined }}"
+                    ng-cloak>
 
 
-                <!-- Empty for now -->
-                <div class="d-flex flex-column align-items-center justify-content-center animation-container">
+                    <!-- Empty for now -->
+                    <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                    <!-- <div class="d-flex flex-column align-items-center justify-content-center mb-3 some-animation">
+                        <!-- <div class="d-flex flex-column align-items-center justify-content-center mb-3 some-animation">
                             Hello
                         </div> -->
 
-                    <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
 
-                </div>
-
-                <!-- Header and Sub Title -->
-                <div class="row flex-column align-items-center justify-content-center mb-3 header">
-                    <p class="col-auto fs-1 fw-bold text-center mb-0">Password Recovery</p>
-                    <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">We have sent you a code in your email. Don't forget to also check your spam!</p>
-                </div>
-
-
-                <!-- Input Fields -->
-                <div class="row g-3 align-items-center mb-3">
-                    <div class="col-auto">
-                        <label class="form-label">Code: </label>
                     </div>
-                    <div class="col-auto">
-                        <input
-                            type="text"
-                            class="form-control"
-                            placeholder="09XXX"
-                            ng-model="passRecoveryOtp"
-                            ng-change="validateOtp('passRecoveryOtp')">
+
+                    <!-- Header and Sub Title -->
+                    <div class="row flex-column align-items-center justify-content-center mb-3 header">
+                        <p class="col-auto fs-1 fw-bold text-center mb-0">Password Recovery</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">We have sent you a code in your email. Don't forget to also check your spam!</p>
                     </div>
-                </div>
 
 
-                <!-- Resend code Forgot Password-->
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Didn't get a code?</span>
-                <a
-                    id="resend-code"
-                    href="javascript:void(0)"
-                    class="col-12 mb-0 text-center link-text"
-                    style="font-size: 0.875rem;"
-                    ng-click="resendForgotOtp()"
-                    ng-class="{ 'text-muted': otpCooldown, 'disabled': otpCooldown }"
-                    ng-if="!otpCooldown">
-                    Resend the code.
-                </a>
-
-                <span
-                    class="col-12 mb-0 text-center text-muted"
-                    style="font-size: 0.875rem;"
-                    ng-if="otpCooldown">
-                    Resend available in {{ otpCooldownSeconds }}s
-                </span>
+                    <!-- Input Fields -->
+                    <div class="row g-3 align-items-center mb-3">
+                        <div class="col-auto">
+                            <label class="form-label">Code: </label>
+                        </div>
+                        <div class="col-auto">
+                            <input
+                                type="text"
+                                class="form-control"
+                                placeholder="09XXX"
+                                ng-model="passRecoveryOtp"
+                                ng-change="validateOtp('passRecoveryOtp')">
+                        </div>
+                    </div>
 
 
-                <!-- Login Button -->
-                <a
-                    id="verify-email-pass-recovery"
-                    href="javascript:void(0)"
-                    class="col text-center my-5 px-5 py-2 modal-btn verify-btn"
-                    ng-click="verifyAndProceed('pass-recovery')">
-                    Verify
-                </a>
-
-
-
-                <!-- Direct to Login -->
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
-                <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                    <!-- Resend code Forgot Password-->
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Didn't get a code?</span>
                     <a
+                        id="resend-code"
                         href="javascript:void(0)"
-                        class="link-text login-account"
+                        class="col-12 mb-0 text-center link-text"
                         style="font-size: 0.875rem;"
-                        ng-click="switchModalContent('login')">
-                        Log in
+                        ng-click="resendForgotOtp()"
+                        ng-class="{ 'text-muted': otpCooldown, 'disabled': otpCooldown }"
+                        ng-if="!otpCooldown">
+                        Resend the code.
                     </a>
-                    instead.
-                </p>
+
+                    <span
+                        class="col-12 mb-0 text-center text-muted"
+                        style="font-size: 0.875rem;"
+                        ng-if="otpCooldown">
+                        Resend available in {{ otpCooldownSeconds }}s
+                    </span>
+
+
+                    <!-- Login Button -->
+                    <a
+                        id="verify-email-pass-recovery"
+                        href="javascript:void(0)"
+                        class="col text-center my-5 px-5 py-2 modal-btn verify-btn"
+                        ng-click="verifyAndProceed('pass-recovery')">
+                        Verify
+                    </a>
 
 
 
-            </div>
+                    <!-- Direct to Login -->
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
+                    <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                        <a
+                            href="javascript:void(0)"
+                            class="link-text login-account"
+                            style="font-size: 0.875rem;"
+                            ng-click="switchModalContent('login')">
+                            Log in
+                        </a>
+                        instead.
+                    </p>
 
 
-            <!-- Change Password Content -->
-            <div
-                id="change-password-content"
-                control-tab="change-pass"
-                class="d-flex flex-column justify-content-center align-items-center text-center change-password-content"
-                ng-class="{
+
+                </div>
+
+
+                <!-- Change Password Content -->
+                <div
+                    id="change-password-content"
+                    control-tab="change-pass"
+                    class="d-flex flex-column justify-content-center align-items-center text-center change-password-content"
+                    ng-class="{
                         'active-slide-in': currentModalContent === 'change-pass',
                         'active-slide-out': currentModalContent !== 'change-pass'
                     }"
-                ng-attr-inert="{{ currentModalContent !== 'change-pass' ? true : undefined }}"
-                ng-cloak>
+                    ng-attr-inert="{{ currentModalContent !== 'change-pass' ? true : undefined }}"
+                    ng-cloak>
 
-                <div class="d-flex flex-column align-items-center justify-content-center animation-container">
+                    <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                    <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>">
 
-                </div>
+                    </div>
 
-                <!-- Header and Sub Title -->
-                <div class="row flex-column align-items-center justify-content-center mb-3 header">
-                    <p class="col-auto fs-1 fw-bold text-center mb-0">Password Recovery</p>
-                    <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">Forgot your password? We can help easily!</p>
-                </div>
+                    <!-- Header and Sub Title -->
+                    <div class="row flex-column align-items-center justify-content-center mb-3 header">
+                        <p class="col-auto fs-1 fw-bold text-center mb-0">Password Recovery</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">Forgot your password? We can help easily!</p>
+                    </div>
 
 
-                <!-- Password Input field -->
-                <div class="d-flex flex-column justify-content-between gap-2 px-2 px-md-0">
+                    <!-- Password Input field -->
+                    <div class="d-flex flex-column justify-content-between gap-2 px-2 px-md-0">
 
-                    <!-- Password -->
-                    <div class="row g-3 align-items-center justify-content-center">
-                        <div class="col-12 col-md-5">
-                            <label class="col-form-label">Password: </label>
-                        </div>
-                        <div class="col-12 col-md-7">
-                            <div class="input-group custom-width">
-                                <input
-                                    type="{{ isNewPassVisible ? 'text' : 'password' }}"
-                                    class="form-control password"
-                                    ng-class="{'is-invalid': forgotPass.password.length > 0 && !passwordValid}"
-                                    ng-model="forgotPass.password"
-                                    ng-change="validatePassword('forgotPass')">
-                                <!-- Conditional Use of Icon depends on the current state of the password -->
-                                <span
-                                    id="toggle-pass-visibility"
-                                    class="input-group-text toggle-visibility"
-                                    ng-click="togglePasswordVisibility('isNewPassVisible')">
-                                    <i class="bi" ng-class="{'bi-eye': true, 'bi-eye-slash': false}"></i>
-                                </span><br />
+                        <!-- Password -->
+                        <div class="row g-3 align-items-center justify-content-center">
+                            <div class="col-12 col-md-5">
+                                <label class="col-form-label">Password: </label>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <div class="input-group custom-width">
+                                    <input
+                                        type="{{ isNewPassVisible ? 'text' : 'password' }}"
+                                        class="form-control password"
+                                        ng-class="{'is-invalid': forgotPass.password.length > 0 && !passwordValid}"
+                                        ng-model="forgotPass.password"
+                                        ng-change="validatePassword('forgotPass')">
+                                    <!-- Conditional Use of Icon depends on the current state of the password -->
+                                    <span
+                                        id="toggle-pass-visibility"
+                                        class="input-group-text toggle-visibility"
+                                        ng-click="togglePasswordVisibility('isNewPassVisible')">
+                                        <i class="bi" ng-class="{'bi-eye': true, 'bi-eye-slash': false}"></i>
+                                    </span><br />
+                                </div>
                             </div>
                         </div>
-                    </div>
 
-                    <!--Confirm Password -->
-                    <div class="row g-3 align-items-center justify-content-between">
-                        <div class="col-12 col-md-5">
-                            <label class="col-form-label">Confirm Password: </label>
-                        </div>
-                        <div class="col-12 col-md-7">
-                            <div class="input-group custom-width">
-                                <input
-                                    type="{{ isConfirmPassVisible ? 'text' : 'password' }}"
-                                    class="form-control password"
-                                    ng-class="{'is-invalid': forgotPass.confirmPass.length > 0 && !passChecks.matched}"
-                                    ng-model="forgotPass.confirmPass"
-                                    ng-change="validatePassword('forgotPass')">
-                                <!-- Conditional Use of Icon depends on the current state of the password -->
-                                <span
-                                    id="toggle-pass-visibility"
-                                    class="input-group-text toggle-visibility"
-                                    ng-click="togglePasswordVisibility('isConfirmPassVisible')">
-                                    <i class="bi" ng-class="{'bi-eye': true, 'bi-eye-slash': false}"></i>
-                                </span><br />
+                        <!--Confirm Password -->
+                        <div class="row g-3 align-items-center justify-content-between">
+                            <div class="col-12 col-md-5">
+                                <label class="col-form-label">Confirm Password: </label>
+                            </div>
+                            <div class="col-12 col-md-7">
+                                <div class="input-group custom-width">
+                                    <input
+                                        type="{{ isConfirmPassVisible ? 'text' : 'password' }}"
+                                        class="form-control password"
+                                        ng-class="{'is-invalid': forgotPass.confirmPass.length > 0 && !passChecks.matched}"
+                                        ng-model="forgotPass.confirmPass"
+                                        ng-change="validatePassword('forgotPass')">
+                                    <!-- Conditional Use of Icon depends on the current state of the password -->
+                                    <span
+                                        id="toggle-pass-visibility"
+                                        class="input-group-text toggle-visibility"
+                                        ng-click="togglePasswordVisibility('isConfirmPassVisible')">
+                                        <i class="bi" ng-class="{'bi-eye': true, 'bi-eye-slash': false}"></i>
+                                    </span><br />
+                                </div>
                             </div>
                         </div>
+
+
+                        <!-- added by Lorenzo @ 04/23/2025 -->
+                        <!-- password requirements -->
+                        <div class="rounded text-start mt-2 p-2 px-3 px-2 w-100 guidelines">
+                            <small
+                                ng-class="{'text-success': passChecks.length && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.length}">
+                                ✔ At least 8 characters</small><br />
+                            <small
+                                ng-class="{'text-success': passChecks.lower && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.lower}">
+                                ✔ 1 lowercase &
+                            </small>
+                            <small
+                                ng-class="{'text-success': passChecks.upper && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.upper}">
+                                1 uppercase
+                            </small><br />
+                            <small
+                                ng-class="{'text-success': passChecks.number && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.number}">
+                                ✔ At least 1 number
+                            </small> <br />
+                            <small
+                                ng-class="{'text-success': passChecks.special && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.special}">
+                                ✔ At least 1 special character
+                            </small> <br />
+                            <small
+                                ng-class="{'text-success': passChecks.matched && forgotPass.confirmPass, 'text-danger': forgotPass.confirmPass.length > 0 && !passChecks.matched}">
+                                ✔ Password Matched
+                            </small> <br />
+                        </div>
+
                     </div>
 
-
-                    <!-- added by Lorenzo @ 04/23/2025 -->
-                    <!-- password requirements -->
-                    <div class="rounded text-start mt-2 p-2 px-3 px-2 w-100 guidelines">
-                        <small
-                            ng-class="{'text-success': passChecks.length && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.length}">
-                            ✔ At least 8 characters</small><br />
-                        <small
-                            ng-class="{'text-success': passChecks.lower && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.lower}">
-                            ✔ 1 lowercase &
-                        </small>
-                        <small
-                            ng-class="{'text-success': passChecks.upper && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.upper}">
-                            1 uppercase
-                        </small><br />
-                        <small
-                            ng-class="{'text-success': passChecks.number && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.number}">
-                            ✔ At least 1 number
-                        </small> <br />
-                        <small
-                            ng-class="{'text-success': passChecks.special && forgotPass.password, 'text-danger': forgotPass.password.length > 0 && !passChecks.special}">
-                            ✔ At least 1 special character
-                        </small> <br />
-                        <small
-                            ng-class="{'text-success': passChecks.matched && forgotPass.confirmPass, 'text-danger': forgotPass.confirmPass.length > 0 && !passChecks.matched}">
-                            ✔ Password Matched
-                        </small> <br />
-                    </div>
-
-                </div>
-
-                <!-- Modified by Lorenzo @ 04/24/2025 -->
-                <!-- Change Password -->
-                <a
-                    id="change-pass-btn"
-                    href="javascript:void(0)"
-                    class="col text-center my-5 px-5 py-2 modal-btn change-pass-btn"
-                    ng-click="changePassword();"
-                    ng-class="{'disabled': !passwordValid}">
-                    Change Password
-                </a>
-
-
-
-                <!-- Direct to Login -->
-                <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
-                <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                    <!-- Modified by Lorenzo @ 04/24/2025 -->
+                    <!-- Change Password -->
                     <a
+                        id="change-pass-btn"
                         href="javascript:void(0)"
-                        class="link-text login-account"
-                        style="font-size: 0.875rem;"
-                        ng-click="switchModalContent('login')">
-                        Log in
+                        class="col text-center my-5 px-5 py-2 modal-btn change-pass-btn"
+                        ng-click="changePassword();"
+                        ng-class="{'disabled': !passwordValid}">
+                        Change Password
                     </a>
-                    instead.
-                </p>
+
+
+
+                    <!-- Direct to Login -->
+                    <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
+                    <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                        <a
+                            href="javascript:void(0)"
+                            class="link-text login-account"
+                            style="font-size: 0.875rem;"
+                            ng-click="switchModalContent('login')">
+                            Log in
+                        </a>
+                        instead.
+                    </p>
+
+                </div>
+
 
             </div>
 
@@ -2297,17 +1732,7 @@ function home_page_landing_page()
     </div>
 
 
-    <!-- 
-            Login/Register Modal
-            Version ni Leonardo
-        -->
 
-    <!-- End of Code Migrated @ 04/07/2025 -->
-
-
-
-    <!-- Added by Lorenzo @05/05/2025 -->
-    <!-- find match off canvas -->
 
     <!-- Off Canvas - job postings card for mobile view -->
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="fym-map-mobile" aria-labelledby="fym-map-mobile">

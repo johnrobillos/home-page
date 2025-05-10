@@ -17,70 +17,79 @@ app.run(function($document) {
 
 
 app.controller('angular_controller', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
-    $scope.showAllTeam = false; // Hidden by default
-    console.log('Controller loaded');
+     console.log('Controller loaded');
       $scope.credentials = {
         username: '',
         password: ''
 
     };
 
-    
-
     // Added by Charls @ 05/06/2025
 
     // Charls Added
 
-    $scope.activePage = 'home'; // Default page
-    
-    // Add this temporarily to your controller
-    console.log('Current page:', $scope.currentPage);
-    
-    $scope.showPage = function(page) {
-        $scope.currentPage = page; // Correctly assign the page name passed to the function
-    };
-    
-    
-           $scope.scrollToSection = function(sectionId) {
+$scope.activePage = 'home'; // Default page
+// Add this temporarily to your controller
+console.log('Current page:', $scope.currentPage);
+
+
+// Use controllerAs syntax (recommended)
+controllerAs: 'vm',
+// Then in HTML: ng-if="vm.activePage === 'contact'"
+
+// OR ensure parent-child scope relationship
+$scope.$parent.activePage = 'contact';
+
+
+$scope.showPage = function(page) {
+    $scope.currentPage = page; // Correctly assign the page name passed to the function
+};
+
+
+    $scope.scrollToSection = function(sectionId) {
         var element = document.getElementById(sectionId);
         if (element) {
-            window.scrollTo({
-                top: element.offsetTop - 100, // Optional: Add offset to adjust for header height
-                behavior: "smooth" // Smooth scrolling
-            });
+            setTimeout(function() {
+                $window.scrollTo({
+                    top: element.offsetTop - 100, // Optional: Add offset to adjust for header height
+                    behavior: "smooth" // Smooth scrolling
+                });
+            }, 100); // Add a timeout of 100ms
         }
     };
-    
-    // Navigation handler
-      $scope.setActivePage = function(page) {
-        $scope.activePage = page;
-        console.log('Active Page:', $scope.activePage); // Debugging
-        
-        // Close dropdown if open
-        $timeout(function() {
-          const dropdown = document.getElementById('policyDropdown');
-          if (dropdown) bootstrap.Dropdown.getInstance(dropdown)?.hide();
-        });
-        
-        // Smooth scroll to top
+
+// Navigation handler
+$scope.setActivePage = function(page) {
+    $scope.activePage = page;
+
+    console.log('Active Page:', $scope.activePage); // Debugging
+
+    // Smooth scroll to top
+    $timeout(function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      };
-    
-    
-    
-            $scope.$watch('activePage', function(newVal, oldVal) {
-                if (newVal !== oldVal) {
-                    console.log('Active Page:', newVal);
-                    // Scroll to top after view changes
-                    setTimeout(function() {
-                        window.scrollTo({
-                            top: 0,
-                            behavior: 'smooth'
-                        });
-                    }, 100); // delay ensures DOM is ready
-                }
-            });
-    
+    }, 0);
+};
+
+
+
+        $scope.$watch('activePage', function(newVal, oldVal) {
+            if (newVal !== oldVal) {
+                console.log('Active Page:', newVal);
+                // Scroll to top after view changes
+                setTimeout(function() {
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }, 100); // delay ensures DOM is ready
+            }
+        });
+
+        // Show the rest of the team
+$scope.showAllTeam = false; // Initialize as hidden
+$scope.toggleTeamVisibility = function() {
+    $scope.showAllTeam = !$scope.showAllTeam;
+};
 
 
         // teamwork lottie
@@ -602,7 +611,7 @@ jQuery(document).ready(function($) {
     // openLoginModalApply removed @04/07/2025
     
   
-    // For Drodowns List options revised &added 4-5-25  
+    // For Dropdowns List options revised &added 4-5-25  
 
     // For Course and Role
     // $scope.courseJobMapping = {};
@@ -1595,7 +1604,7 @@ jQuery(document).ready(function($) {
     // !!! Login/register modal animation
 
     // Modal visibility state
-    $scope.isModalActive = true;
+    $scope.isModalActive = false;
 
     // Which modal content is showing: 
     //      'login', 'register', 'verify', 'user-type, forgot-pass, verify-forgot-pass, or change-pass'
