@@ -706,27 +706,6 @@ body {
 
 /* Charls added */
 
-/* Ensure all links have a pointer cursor */
-a {
-    cursor: pointer;
-}
-
-/* Optional: Add hover effect for better user experience */
-a:hover {
-    text-decoration: underline;
-    /* Optional: Add underline on hover */
-}
-
-/* About us section div */
-.about-float {
-    transition: transform 2s ease, box-shadow 1.3s ease;
-}
-
-.about-float:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
-}
-
 /* Add to your stylesheet */
 [ng-if] {
     animation: fadeIn 0.3s ease;

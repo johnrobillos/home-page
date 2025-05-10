@@ -51,7 +51,7 @@ $scope.showPage = function(page) {
         if (element) {
             setTimeout(function() {
                 $window.scrollTo({
-                    top: element.offsetTop - 100, // Optional: Add offset to adjust for header height
+                    top: element.offsetTop - 200, // Optional: Add offset to adjust for header height
                     behavior: "smooth" // Smooth scrolling
                 });
             }, 100); // Add a timeout of 100ms
@@ -86,10 +86,17 @@ $scope.setActivePage = function(page) {
         });
 
         // Show the rest of the team
-$scope.showAllTeam = false; // Initialize as hidden
-$scope.toggleTeamVisibility = function() {
-    $scope.showAllTeam = !$scope.showAllTeam;
+        $scope.showAllTeam = false;
+
+$scope.toggleTeamVisibility = function () {
+  $scope.showAllTeam = !$scope.showAllTeam;
 };
+
+// Hide hidden team on section change
+$scope.$on('$locationChangeStart', function () {
+  $scope.showAllTeam = false;
+});
+        
 
 
         // teamwork lottie

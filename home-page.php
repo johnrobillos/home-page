@@ -40,6 +40,8 @@ function home_page_enqueue_script()
 
 
 
+
+
         // custom jQuery
         wp_enqueue_script(
             'home-page-script',
@@ -266,7 +268,7 @@ function home_page_landing_page()
                 <div class="row justify-content-between align-items-center col-xl-10 col-xxl-8 mx-auto">
 
                     <!-- Greeter -->
-                    <div class="col-md-7 col-xxl-6" id="page-top">
+                    <div class="col-md-7 col-xxl-6" id="page-top" style="margin-top: 100px;">
                         <div class="h-100 d-flex flex-column justify-content-between">
                             <img src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-no-label.png') ?>" alt="Logo" class="img-fluid mb-3">
                             <h5 class="fw-bold">Built by students, for students</h5>
@@ -290,7 +292,7 @@ function home_page_landing_page()
 
 
             <!-- Why OJT Jobs -->
-            <div id="whyojtgo" ng-show="activePage === 'home'" style="margin-top: 150px; overflow-x: hidden;" class="row justify-content-center">
+            <div id="whyojtgo" ng-show="activePage === 'home'" style="margin-top: 150px;" class="row justify-content-center">
 
                 <h1 class="display-4 text-primary fw-semibold text-center fs-2">WHY OJTGo?</h1>
 
@@ -742,110 +744,122 @@ function home_page_landing_page()
                 </div>
 
                 <!-- OJTGo Team -->
-                <section class="py-5" style="background-color: #6db5ff; color: white;" ng-init="showAllTeam = false">
+                <section class="py-5" style="color: rgb(0, 43, 86);" ng-init="showAllTeam = false">
                     <div class="container">
-                        <h2 class="text-center mb-5" style="color: white;">Meet the Team</h2>
+                        <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
+                            Meet the OJTGo Team
+                        </h1>
 
                         <!-- showed team -->
-                        <!-- CEO and COO -->
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center fw-bold fs-5" style="margin-top: 60px;">
                             <!-- CEO -->
                             <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/sirval.png"
                                         style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
                                 </div>
-                                <p class="text-center mt-2">CEO Mr. Valery Minello</p>
+                                <p class="text-center m-0">Mr. Valery Minello</p>
+                                <p class="text-center fw-normal m-0">CEO</p>
                             </div>
 
                             <!-- COO -->
                             <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/leo2.jpg"
                                         style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
                                 </div>
-                                <p class="text-center mt-2">COO Mr. Leonel Herrera</p>
+                                <p class="text-center m-0">Mr. Leonel Herrera</p>
+                                <p class="text-center fw-normal m-0">COO</p>
                             </div>
                         </div>
 
                         <!-- First Row: Only 4 Team Members -->
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center fw-bold fs-5 mt-4">
                             <!-- Team Member 1 -->
                             <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/lorenzo-1-scaled.jpg"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="lorenzo">
                                 </div>
-                                <p class="text-center mt-2">Lorenzo Daniel A. Jarata</p>
+                                <p class="text-center m-0">Lorenzo Daniel Jarata</p>
+                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
                             </div>
 
                             <!-- Team Member 2 -->
                             <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/millard-1-scaled.jpg"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="millard">
                                 </div>
-                                <p class="text-center mt-2">Kathrisha H. Sapon</p>
+                                <p class="text-center m-0">Millard John Ortillano</p>
+                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
                             </div>
 
                             <!-- Team Member 3 -->
                             <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Khianah">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/khianah-1.jpg"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="khianah">
                                 </div>
-                                <p class="text-center mt-2">Khianah Marie Gadacho</p>
+                                <p class="text-center m-0">Khianah Marie Gadacho</p>
+                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Computer Science</p>
                             </div>
 
                             <!-- Team Member 4 -->
                             <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Millard">
+                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/jazmine.jpg"
+                                        style="width: 100%; height: 100%; object-fit: cover;" alt="jazmine">
                                 </div>
-                                <p class="text-center mt-2">Millard John C. Ortillano</p>
+                                <p class="text-center m-0">Jazmine Danielle Gundran</p>
+                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Marketing</p>
                             </div>
                         </div>
 
 
                         <!-- Hidden team -->
                         <section ng-if="currentPage === 'rest' || true"> <!-- Set true for universal visibility -->
-                            <div class="row justify-content-center mt-4" ng-show="showAllTeam">
+                            <div class="row justify-content-center mt-4 fw-bold fs-5" ng-show="showAllTeam">
                                 <!-- Team Member 5 -->
                                 <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Aivie">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/aivie.jpg"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="aivie">
                                     </div>
-                                    <p class="text-center mt-2">Aivie C. Concepcion</p>
+                                    <p class="text-center m-0">Aivie Concepcion</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Marketing</p>
                                 </div>
 
                                 <!-- Team Member 6 -->
                                 <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Jazmine">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/katrishna.jpg"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="katrishna">
                                     </div>
-                                    <p class="text-center mt-2">Jazmine Danielle M. Gundran</p>
+                                    <p class="text-center m-0">Kathrisha Sapon</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
                                 </div>
 
                                 <!-- Team Member 7 -->
                                 <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Arvin">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/charls.jpg"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="charls">
                                     </div>
-                                    <p class="text-center mt-2">Arvin Charls D. Basco</p>
+                                    <p class="text-center m-0">Arvin Charls Basco</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
                                 </div>
 
                                 <!-- Team Member 8 -->
                                 <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-3">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgoteam.png"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="Arandelle">
+                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/arandelle.jpg"
+                                            style="width: 100%; height: 100%; object-fit: cover;" alt="arandelle">
                                     </div>
-                                    <p class="text-center mt-2">Arandelle N. Paguinto</p>
+                                    <p class="text-center m-0">Arandelle Paguinto</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
                                 </div>
+
                             </div>
                         </section>
 
@@ -854,7 +868,7 @@ function home_page_landing_page()
                             <button
                                 class="fw-semibold text-primary"
                                 style="border: none; background: none; padding: 0;"
-                                ng-click="showAllTeam = !showAllTeam">
+                                ng-click="toggleTeamVisibility()">
                                 {{ showAllTeam ? 'Hide All' : 'View All' }}
                             </button>
                         </div>
@@ -864,6 +878,7 @@ function home_page_landing_page()
 
             </div>
         </section>
+
 
         <!-- Contact Us Section -->
         <!-- Full-width container for the Contact Section -->
