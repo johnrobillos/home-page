@@ -176,10 +176,10 @@ function home_page_landing_page()
 
         <!-- Modified by Lorenzo @ 03/31/2025 -->
 
+        <!-- Modified by Charls -->
 
         <!-- navbar -->
-        <!-- navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary">
+        <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border border-lg-0">
             <div class="container-fluid">
                 <a class="navbar-brand" href="javascript:void(0)">
                     <img src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
@@ -190,7 +190,7 @@ function home_page_landing_page()
                 </a>
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex flex-column align-items-start align-items-lg-center mb-2 mb-lg-0" ng-cloak ng-show="isInitialized">
+                    <ul class="navbar-nav d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-1 gap-lg-1 mb-2 mb-lg-0" ng-cloak ng-show="isInitialized">
 
                         <!-- Home navbar -->
                         <li class="nav-item text-start">
@@ -226,9 +226,12 @@ function home_page_landing_page()
                         </li>
 
                         <!-- Contact navbar -->
-                        <li class="nav-item mb-3 mb-md-0" style="margin-right: 15px;">
-                            <a class="nav-link" href="javascript:void(0)" ng-click="scrollToSection('contact', $event)">Contact Us</a>
+                        <li class="nav-item mb-3 mb-lg-0 me-lg-3">
+                            <a class="nav-link" href="javascript:void(0)" ng-click="scrollToSection('contact', $event)" style="white-space: nowrap;">
+                                Contact Us
+                            </a>
                         </li>
+
 
                         <!-- Login Register -->
                         <li class="nav-item me-2">

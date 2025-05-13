@@ -815,6 +815,7 @@ html {
 
 
 @media screen and (max-width: 991px) {
+    
     .sidebar {
         width: 100%;
         height: auto;
