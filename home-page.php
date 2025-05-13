@@ -178,9 +178,9 @@ function home_page_landing_page()
 
 
         <!-- navbar -->
+        <!-- navbar -->
         <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary">
             <div class="container-fluid">
-
                 <a class="navbar-brand" href="javascript:void(0)">
                     <img src="<?php echo home_url('/wp-content/uploads/2025/03/OJTGO-630X310.png') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
                 </a>
@@ -190,36 +190,34 @@ function home_page_landing_page()
                 </a>
 
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav mb-2 mb-lg-0 align-items-center" ng-cloak ng-show="isInitialized">
+                    <ul class="navbar-nav d-flex flex-column align-items-start align-items-lg-center mb-2 mb-lg-0" ng-cloak ng-show="isInitialized">
 
                         <!-- Home navbar -->
-                        <li class="nav-item">
+                        <li class="nav-item text-start">
                             <a class="nav-link" href="javascript:void(0)" ng-click="setActivePage('home')">Home</a>
                         </li>
 
                         <!-- About Us Dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle px-2" href="javascript:void(0)" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item dropdown w-100 text-start">
+                            <a class="nav-link dropdown-toggle w-100 text-start" href="javascript:void(0)" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 About
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="aboutDropdown">
+                            <ul class="dropdown-menu w-100" aria-labelledby="aboutDropdown" style="border: none;">
                                 <li>
-                                    <a class="dropdown-item" href="javascript:void(0)"
-                                        ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="javascript:void(0)"
-                                        ng-click="setActivePage('news'); scrollToSection('news', $event)">News</a>
+                                    <a class="dropdown-item" href="javascript:void(0)" ng-click="setActivePage('news'); scrollToSection('news', $event)">News</a>
                                 </li>
                             </ul>
                         </li>
 
                         <!-- Legal Dropdown -->
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="javascript:void(0)" id="policyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <li class="nav-item dropdown w-100 text-start">
+                            <a class="nav-link dropdown-toggle w-100 text-start" href="javascript:void(0)" id="policyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Policy
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="policyDropdown">
+                            <ul class="dropdown-menu w-100" aria-labelledby="policyDropdown" style="border: none;">
                                 <li>
                                     <a class="dropdown-item" href="javascript:void(0)" ng-click="setActivePage('privacy')">Privacy Notice</a>
                                 </li>
@@ -228,25 +226,19 @@ function home_page_landing_page()
                         </li>
 
                         <!-- Contact navbar -->
-                        <li class="nav-item">
+                        <li class="nav-item mb-3 mb-md-0" style="margin-right: 15px;">
                             <a class="nav-link" href="javascript:void(0)" ng-click="scrollToSection('contact', $event)">Contact Us</a>
                         </li>
 
                         <!-- Login Register -->
                         <li class="nav-item me-2">
-                            <a class="rounded-3 navbar-btn"
-                                href="javascript:void(0)"
-                                ng-click="openLoginModalNav()">
+                            <a class="rounded-3 navbar-btn" href="javascript:void(0)" ng-click="openLoginModalNav()">
                                 Login
                             </a>
                         </li>
 
                         <li class="nav-item dropdown me-4 mt-3 mt-lg-0">
-                            <a class="rounded-3 navbar-btn"
-                                ng-click="openLoginModalNavReg(); show_reg_page_1 = true"
-                                href="javascript:void(0)"
-                                role="button"
-                                aria-expanded="false">
+                            <a class="rounded-3 navbar-btn" ng-click="openLoginModalNavReg(); show_reg_page_1 = true" href="javascript:void(0)" role="button" aria-expanded="false">
                                 Register
                             </a>
                         </li>
@@ -258,9 +250,9 @@ function home_page_landing_page()
 
                     </ul>
                 </div>
-
             </div>
         </nav>
+
 
         <!-- Home section test -->
         <section id="home" ng-show="activePage === 'home'">
@@ -753,127 +745,120 @@ function home_page_landing_page()
                         <!-- showed team -->
                         <div class="row justify-content-center fw-bold fs-5" style="margin-top: 60px;">
                             <!-- CEO -->
-                            <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/sirval.png"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Lorenzo">
+                            <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                <div class="team-img-container mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/sirval.png" alt="sir Val">
                                 </div>
-                                <p class="text-center m-0">Mr. Valery Minello</p>
+                                <p class="team-name text-center m-0">Mr. Valery Minello</p>
                                 <p class="text-center fw-normal m-0">CEO</p>
                             </div>
 
                             <!-- COO -->
-                            <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/leo2.jpg"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="Kathrisha">
+                            <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                <div class="team-img-container mb-2">
+                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/leo2.jpg" alt="sir Leo">
                                 </div>
-                                <p class="text-center m-0">Mr. Leonel Herrera</p>
+                                <p class="team-name text-center m-0">Mr. Leonel Herrera</p>
                                 <p class="text-center fw-normal m-0">COO</p>
                             </div>
-                        </div>
 
-                        <!-- First Row: Only 4 Team Members -->
-                        <div class="row justify-content-center fw-bold fs-5 mt-4">
-                            <!-- Team Member 1 -->
-                            <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/lorenzo-1-scaled.jpg"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="lorenzo">
-                                </div>
-                                <p class="text-center m-0">Lorenzo Daniel Jarata</p>
-                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
-                            </div>
-
-                            <!-- Team Member 2 -->
-                            <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/millard-1-scaled.jpg"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="millard">
-                                </div>
-                                <p class="text-center m-0">Millard John Ortillano</p>
-                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
-                            </div>
-
-                            <!-- Team Member 3 -->
-                            <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/khianah-1.jpg"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="khianah">
-                                </div>
-                                <p class="text-center m-0">Khianah Marie Gadacho</p>
-                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Computer Science</p>
-                            </div>
-
-                            <!-- Team Member 4 -->
-                            <div class="col-6 col-md-3 mb-4">
-                                <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/jazmine.jpg"
-                                        style="width: 100%; height: 100%; object-fit: cover;" alt="jazmine">
-                                </div>
-                                <p class="text-center m-0">Jazmine Danielle Gundran</p>
-                                <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Marketing</p>
-                            </div>
-                        </div>
-
-
-                        <!-- Hidden team -->
-                        <section ng-if="currentPage === 'rest' || true"> <!-- Set true for universal visibility -->
-                            <div class="row justify-content-center mt-4 fw-bold fs-5" ng-show="showAllTeam">
-                                <!-- Team Member 5 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/aivie.jpg"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="aivie">
+                            <div class="row justify-content-center fw-bold fs-5 mt-4">
+                                <!-- Team Member 1 -->
+                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                    <div class="team-img-container mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/lorenzo-1-scaled.jpg" alt="Lorenzo">
                                     </div>
-                                    <p class="text-center m-0">Aivie Concepcion</p>
+                                    <p class="text-center m-0">Lorenzo Daniel Jarata</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
+                                </div>
+
+                                <!-- Team Member 2 -->
+                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                    <div class="team-img-container mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/millard-1-scaled.jpg" alt="Millard">
+                                    </div>
+                                    <p class="text-center m-0">Millard John Ortillano</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
+                                </div>
+
+                                <!-- Team Member 3 -->
+                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                    <div class="team-img-container mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/khianah-1.jpg" alt="Khianah">
+                                    </div>
+                                    <p class="text-center m-0">Khianah Marie Gadacho</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Computer Science</p>
+                                </div>
+
+                                <!-- Team Member 4 -->
+                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                    <div class="team-img-container mb-2">
+                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/jazmine.jpg" alt="Jazmine">
+                                    </div>
+                                    <p class="text-center m-0">Jazmine Danielle Gundran</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Marketing</p>
                                 </div>
 
-                                <!-- Team Member 6 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/katrishna.jpg"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="katrishna">
-                                    </div>
-                                    <p class="text-center m-0">Kathrisha Sapon</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
-                                </div>
 
-                                <!-- Team Member 7 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/charls.jpg"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="charls">
-                                    </div>
-                                    <p class="text-center m-0">Arvin Charls Basco</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
-                                </div>
 
-                                <!-- Team Member 8 -->
-                                <div class="col-6 col-md-3 mb-4">
-                                    <div style="width: 200px; height: 200px; border-radius: 50%; overflow: hidden;" class="mx-auto mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/arandelle.jpg"
-                                            style="width: 100%; height: 100%; object-fit: cover;" alt="arandelle">
+                                <!-- Hidden team -->
+                                <section ng-if="currentPage === 'rest' || true"> <!-- Set true for universal visibility -->
+                                    <div class="row justify-content-center mt-4 fw-bold fs-5" ng-show="showAllTeam">
+                                        <!-- Team Member 5 -->
+                                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                            <div class="team-img-container mb-2">
+                                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/aivie.jpg" alt="Aivie">
+                                            </div>
+                                            <p class="text-center m-0">Aivie Concepcion</p>
+                                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Marketing</p>
+                                        </div>
+
+                                        <!-- Team Member 6 -->
+                                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                            <div class="team-img-container mb-2">
+                                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/katrishna-1.jpg"
+                                                    alt="Katrishna">
+                                            </div>
+                                            <p class="text-center m-0">Katrishna Sapon</p>
+                                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology
+                                            </p>
+                                        </div>
+
+                                        <!-- Team Member 7 -->
+                                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                            <div class="team-img-container mb-2">
+                                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/charls.jpg" alt="Charls">
+                                            </div>
+                                            <p class="text-center m-0">Arvin Charls Basco</p>
+                                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology
+                                            </p>
+                                        </div>
+
+                                        <!-- Team Member 8 -->
+                                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                            <div class="team-img-container mb-2">
+                                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/arandelle-1.jpg"
+                                                    alt="Arandelle">
+                                            </div>
+                                            <p class="text-center m-0">Arandelle Paguinto</p>
+                                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology
+                                            </p>
+                                        </div>
+
                                     </div>
-                                    <p class="text-center m-0">Arandelle Paguinto</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">BS Information Technology</p>
+                                </section>
+
+                                <!-- Toggle Button -->
+                                <div class="text-end mt-4">
+                                    <button
+                                        class="fw-semibold text-primary"
+                                        style="border: none; background: none; padding: 0;"
+                                        ng-click="toggleTeamVisibility()">
+                                        {{ showAllTeam ? 'Hide All' : 'View All' }}
+                                    </button>
                                 </div>
 
                             </div>
-                        </section>
-
-                        <!-- Toggle Button -->
-                        <div class="text-end mt-4">
-                            <button
-                                class="fw-semibold text-primary"
-                                style="border: none; background: none; padding: 0;"
-                                ng-click="toggleTeamVisibility()">
-                                {{ showAllTeam ? 'Hide All' : 'View All' }}
-                            </button>
-                        </div>
-
-                    </div>
                 </section>
 
             </div>

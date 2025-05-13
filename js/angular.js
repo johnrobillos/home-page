@@ -24,8 +24,6 @@ app.controller('angular_controller', function($scope, $http, $timeout, $window, 
 
     };
 
-    // Added by Charls @ 05/06/2025
-
     // Charls Added
 
 $scope.activePage = 'home'; // Default page
@@ -152,7 +150,42 @@ jQuery(document).ready(function($) {
             password: ''
         };
 
+        // Automatically collapse navbar on mobile when any nav-link is clicked
+        document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
+                if (el.classList.contains('dropdown-toggle')) {
+                    return;
+                }
+        
+                const collapseElement = document.getElementById('navbarSupportedContent');
+                const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+        
+                // Collapse only if it's currently shown
+                if (bsCollapse && collapseElement.classList.contains('show')) {
+                    bsCollapse.hide();
+                }
+            });
+        });
 
+        // Close the navbar when clicking outside of it
+        document.addEventListener('click', function (event) {
+            const navbar = document.getElementById('navbarSupportedContent');
+            const toggler = document.querySelector('.navbar-toggler');
+        
+            const isNavbarOpen = navbar.classList.contains('show');
+        
+            if (
+                isNavbarOpen &&
+                !navbar.contains(event.target) &&
+                !toggler.contains(event.target)
+            ) {
+                const bsCollapse = bootstrap.Collapse.getInstance(navbar);
+                if (bsCollapse) {
+                    bsCollapse.hide();
+                }
+            }
+        });
 
     // added by lorenzo @ 04/25/2025
 
