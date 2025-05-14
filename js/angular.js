@@ -7,11 +7,21 @@ app.run(function($sessionStorage) {
     delete $sessionStorage.emailForOtp;
 });
 
-app.run(function($document) {
-    $document.on('focusin', function(e) {
-        console.log('🔍 Focus moved to:', e.target);
-    });
+app.run(function($timeout) {
+    $timeout(function () {
+        const hash = window.location.hash;
+        if (hash) {
+            const el = document.querySelector(hash);
+            if (el) {
+                el.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        }
+    }, 500); // Wait for Angular to finish rendering
 });
+
 
 
 
@@ -1588,12 +1598,12 @@ jQuery(document).ready(function($) {
             if (response.data && response.data.success) {
                 $scope.apiUrl = response.data.data.api_url;
                 $scope.userRole = response.data.data.role;
-
+                $scope.isLoggedIn = true; // Not logged in
                 // Auto-redirect based on role
                 if ($scope.userRole === 'applicant') {
-                    window.location.href = '/app-dashboard';
+                     $scope.dashboardUrl = '/app-dashboard';
                 } else if ($scope.userRole === 'employer') {
-                    window.location.href = '/emp-dashboard';
+                    $scope.dashboardUrl = '/emp-dashboard';
                 }
 
             } else {
@@ -1877,6 +1887,57 @@ jQuery(document).ready(function($) {
     
     
     /************* End Millard Code Added 4-25  ************/
+    
+    /************* Jeal Code Added 05-14  ************/
+    
+    $scope.contactFormData = {
+        name: '',
+        email: '',
+        mobile: '',
+        message: ''
+    };
+    
+    $scope.submitContactForm = function () {
+        const { name, email, mobile, message } = $scope.contactFormData;
+    
+        if (!name || !email || !mobile || !message) {
+            alert('Please fill in all fields.');
+            return;
+        }
+    
+        grecaptcha.ready(function () {
+            grecaptcha.execute(adminAjax.recaptchaSiteKey, { action: 'submit' }).then(function (token) {
+                const formData = new FormData();
+                formData.append('action', 'submit_contact_form');
+                formData.append('name', name);
+                formData.append('email', email);
+                formData.append('mobile', mobile);
+                formData.append('message', message);
+                formData.append('recaptcha_token', token);
+    
+                fetch(`${window.location.origin}/wp-admin/admin-ajax.php`, {
+                    method: 'POST',
+                    body: formData
+                })
+                .then(res => res.json())
+                .then(res => {
+                    if (res.success) {
+                        alert(res.data.message);
+                        $scope.contactFormData = {}; // clear form
+                        $scope.$apply();
+                    } else {
+                        alert(res.data.message || 'Submission failed.');
+                    }
+                })
+                .catch(() => {
+                    alert('An error occurred while submitting the form.');
+                });
+            });
+        });
+    };
+    
+    /************* End Jeal Code Added 05-14  ************/    
+    
 
 });
 

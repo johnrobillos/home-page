@@ -15,6 +15,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+require_once plugin_dir_path(__FILE__) . 'api/contact_form.php';
 
 // Enqueue the script on the specific page
 function home_page_enqueue_script()
@@ -107,6 +108,16 @@ function home_page_enqueue_script()
             '1.0.2',
             true
         );
+        
+        // Google reCAPTCHA v3 (Retrieve site key dynamically)
+        $recaptcha_site_key = defined('RECAPTCHA_SITE_KEY') ? RECAPTCHA_SITE_KEY : '';
+        wp_enqueue_script(
+            'google-recaptcha',
+            "https://www.google.com/recaptcha/api.js?render=$recaptcha_site_key",
+            array(),
+            null,
+            true
+        );        
 
         // lottie
         wp_enqueue_script(
@@ -121,7 +132,9 @@ function home_page_enqueue_script()
         wp_localize_script('ojt-fym-form-js', 'adminAjax', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'secretKey' => OJT_SECRET_KEY,
-            'nonce' => wp_create_nonce('login_nonce') // ← include everything you need
+            'nonce' => wp_create_nonce('login_nonce'), // ← include everything you need
+            'recaptchaSiteKey' => RECAPTCHA_SITE_KEY // ✅ Add this!
+            
         ));
 
 
@@ -234,22 +247,29 @@ function home_page_landing_page()
 
 
                         <!-- Login Register -->
-                        <li class="nav-item me-2">
+                        <li class="nav-item me-2" ng-if="!isLoggedIn" >
                             <a class="rounded-3 navbar-btn" href="javascript:void(0)" ng-click="openLoginModalNav()">
                                 Login
                             </a>
                         </li>
 
-                        <li class="nav-item dropdown me-4 mt-3 mt-lg-0">
+                        <li class="nav-item dropdown me-4 mt-3 mt-lg-0" ng-if="!isLoggedIn" >
                             <a class="rounded-3 navbar-btn" ng-click="openLoginModalNavReg(); show_reg_page_1 = true" href="javascript:void(0)" role="button" aria-expanded="false">
                                 Register
                             </a>
                         </li>
 
                         <!-- Show "Dashboard" when user IS logged in -->
-                        <li class="nav-item me-2" ng-if="isLoggedIn">
-                            <a href="/applicant-dashboard" class="btn btn-sm text-dark border border-dark rounded-3">Dashboard</a>
+                        <li class="nav-item dropdown me-0 me-lg-4 mt-3 mt-lg-0" ng-if="isLoggedIn && dashboardUrl">
+                            <a
+                                class="rounded-3 navbar-btn" 
+                                ng-href="{{dashboardUrl}}"
+                                role="button"
+                            >
+                                Dashboard
+                            </a>
                         </li>
+
 
                     </ul>
                 </div>
@@ -272,8 +292,25 @@ function home_page_landing_page()
                                 A system built to empower students by connecting them with the right opportunities for their growth and success.
                             </p>
                             <div class="mt-3">
-                                <a id="show-login-modal" href="javascript:void(0);" class="btn btn-primary text-white">Find a Match</a>
+                                <!-- Show if logged in as applicant -->
+                                <a 
+                                    ng-if="isLoggedIn" 
+                                    ng-href="{{dashboardUrl}}" 
+                                    class="btn btn-primary text-white"
+                                >
+                                    Find a Match
+                                </a>
+                            
+                                <!-- Show if not logged in -->
+                                <a 
+                                    ng-if="!isLoggedIn" 
+                                    href="/" 
+                                    class="btn btn-primary text-white"
+                                >
+                                    Find a Match
+                                </a>
                             </div>
+
                         </div>
                     </div>
 
@@ -896,7 +933,7 @@ function home_page_landing_page()
 
                                 <div class="mb-3">
                                     <h5 class="fw-bold m-0">Email</h5>
-                                    <p class="m-0">dpo@ojtgo.com</p>
+                                    <p class="m-0">info@ojtgo.com</p>
                                 </div>
                             </div>
                         </div>
@@ -908,41 +945,41 @@ function home_page_landing_page()
                             <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
                             <div style="z-index: 1; position: relative;">
                                 <h3 class="fw-bold text-primary mb-4">Send Us a Message</h3>
-                                <form id="contact-us-form">
+                               <form name="contactForm" ng-submit="submitContactForm()" novalidate>
                                     <div class="mb-3">
                                         <!-- Name -->
                                         <label for="contact-us-name" class="form-label fw-semibold">Name</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-name" placeholder="e.g. John Doe" required>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <!-- Email -->
                                         <label for="contact-us-email" class="form-label fw-semibold">Email</label>
-                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-email" placeholder="johndoe@example.com" required>
+                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <!-- Mobile Number -->
                                         <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-mobile" placeholder="+63 9 xxxxxxxxx" required>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="+63 9 xxxxxxxxx" required>
                                     </div>
 
                                     <div class="mb-3">
                                         <!-- Message -->
                                         <label for="contact-us-message" class="form-label fw-semibold">Comment or Message</label>
-                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1;" id="contact-us-message" rows="4" placeholder="Start typing..." required></textarea>
+                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
                                     </div>
 
                                     <!-- Submit Button -->
                                     <div class="d-grid mt-4">
-                                        <button class="g-recaptcha btn text-white fw-bold py-2"
-                                            data-sitekey="6Lc-FdIqAAAAAAGoPZP-w6Fp8jFhdGlnAp0qNpeLj"
-                                            data-action="submit"
-                                            data-callback="onSubmit"
+                                        <button 
+                                            type="submit"
+                                            class="btn text-white fw-bold py-2"
                                             style="background-color: #0161aa; border: 1px solid #0161aa; font-size: 1.1rem;">
                                             Submit
                                         </button>
                                     </div>
+
                                 </form>
                             </div>
                         </div>
@@ -974,7 +1011,7 @@ function home_page_landing_page()
                             <div class="col-lg-4">
                                 <p class="fw-bold">Company</p>
                                 <p><a class="link link-secondary" href="javascript:void(0)" ng-click="setActivePage('home')"><small>Home</small></a></p>
-                                <p><a href="javascript:void(0)" class="link link-secondary" ng-click="scrollToSection('about', $event)"><small>About Us</small></a></p>
+                                <p><a href="#about" class="link link-secondary" ng-click="scrollToSection('about', $event)"><small>About Us</small></a></p>
                                 <p><a class="link link-secondary" href="javascript:void(0)" ng-click="setActivePage('news'); scrollToSection('news', $event)"><small>News</small></a></p>
                                 <p><a href="javascript:void(0)" class="link link-secondary" ng-click="scrollToSection('contact', $event)"><small>Contact Us</small></a></p>
                                 <p><a href="javascript:void(0)" class="link link-secondary" ng-click="scrollToSection('whyojtgo', $event)"><small>Why OJTGo?</small></a></p>
