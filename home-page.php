@@ -1191,10 +1191,21 @@ function home_page_landing_page()
 
                             <!-- Legality -->
                             <div class="col-lg-4 mt-3 mt-lg-0">
-                                <p class="fw-bold">Legal</p>
-                                <p><a class="text-white text-decoration-none" href="#privacy" ng-click="setActivePage('privacy')"><small>Privacy Notice</small></a></p>
-                                <p><a class="text-white text-decoration-none" href="#terms" ng-click="setActivePage('terms')"><small>Terms of use</small></a></p>
+                                <div class="ms-0 ms-lg-0">
+                                    <p class="fw-bold legal-offset">Legal</p>
+                                    <p>
+                                        <a class="text-white text-decoration-none legal-offset" href="#privacy" ng-click="setActivePage('privacy')">
+                                            <small>Privacy Notice</small>
+                                        </a>
+                                    </p>
+                                    <p>
+                                        <a class="text-white text-decoration-none legal-offset" href="#terms" ng-click="setActivePage('terms')">
+                                            <small>Terms of use</small>
+                                        </a>
+                                    </p>
+                                </div>
                             </div>
+
                         </div>
                     </div>
                 </div>

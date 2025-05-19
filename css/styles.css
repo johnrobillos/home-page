@@ -933,3 +933,12 @@ html {
         height: 90px;
     }
 }
+
+/* added by Charls */
+
+ /* Legal footer responsiveness */
+ @media (min-width: 992px) {
+     .legal-offset {
+         margin-left: 8rem !important;
+     }
+ }
