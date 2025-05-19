@@ -706,6 +706,7 @@ body {
 
 /* Charls added */
 
+
 /* Add to your stylesheet */
 [ng-if] {
     animation: fadeIn 0.3s ease;
@@ -732,6 +733,35 @@ body {
         transform: translateY(0);
     }
 }
+
+/* navbar hover */
+
+/* Change nav link color on hover */
+.navbar-nav .nav-link:hover,
+.navbar-nav .dropdown-item:hover {
+    color: #0059ff !important;
+    /* Change to any color you like */
+}
+
+/* news and events style */
+.card:hover {
+    transform: translateY(-5px);
+    transition: transform 0.3s ease;
+}
+
+/* news and events bg */
+/* .transparent-black-bg {
+    background-color: rgba(0, 0, 0, 0.7);
+} */
+
+/* Gradient overlay at the news cards */
+.news-overlay {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 30px 20px 20px;
+    background: linear-gradient(to top, rgba(0, 0.7, 0.7, 0.7), transparent);
+    color: rgb(255, 255, 255); }
 
 
 /* .blue-circle-left {
@@ -782,6 +812,52 @@ body {
     transform: translate(-100%, 160%);
     z-index: -1;
 
+}
+
+/* modal style for news */
+.news-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1050;
+    /* higher than everything else */
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    /* dim background */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow-y: auto;
+    padding: 20px;
+}
+
+.news-modal-content {
+    max-width: 900px;
+    width: 100%;
+    background: white;
+    border-radius: 10px;
+    position: relative;
+    animation: fadeInUp 0.3s ease-out;
+}
+
+body.modal-open {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+}
+
+/* Optional: smooth entry animation */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 

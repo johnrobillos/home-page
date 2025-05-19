@@ -7,20 +7,38 @@ app.run(function($sessionStorage) {
     delete $sessionStorage.emailForOtp;
 });
 
-app.run(function($timeout) {
+app.run(function($timeout, $window, $rootScope) {
+    console.log('app.run triggered');
+
     $timeout(function () {
         const hash = window.location.hash;
+        console.log('Hash:', hash);
+
         if (hash) {
-            const el = document.querySelector(hash);
+            const id = hash.substring(1); // "news" from "#news"
+            const el = document.getElementById(id);
+            console.log('Element found:', el);
+
+            // ✅ Only call if function exists (ensures controller is loaded)
+            if (typeof $rootScope.setActivePage === 'function') {
+                console.log(`Calling setActivePage('${id}')`);
+                $rootScope.setActivePage(id);
+            }
+
             if (el) {
-                el.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+                const offset = el.offsetTop - 30; // adjust for fixed header
+                $window.scrollTo({
+                    top: offset,
+                    behavior: 'smooth'
                 });
             }
         }
-    }, 500); // Wait for Angular to finish rendering
+    }, 1000); // Delay long enough to ensure DOM is ready
 });
+
+
+
+
 
 
 
@@ -38,15 +56,87 @@ app.controller('angular_controller', function($scope, $http, $timeout, $window, 
 
 $scope.activePage = 'home'; // Default page
 // Add this temporarily to your controller
-console.log('Current page:', $scope.currentPage);
+console.log('Current page:', $scope.activePage);
+
+// automatically scroll to the news section
+$scope.showFullNewsPage = false; // default to list
+
+$scope.openFullNews = function(news) {
+  $scope.selectedNews = news;
+  $scope.showFullNewsPage = true;
+
+  // Scroll to top for full news page
+  setTimeout(() => {
+    const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 100);
+};
+
+$scope.closeFullNews = function() {
+  $scope.showFullNewsPage = false;
+  $scope.selectedNews = null;
+
+};
+
+
+// for news section functionality
+$scope.newsList = [
+    {
+      title: 'OJTGo Has Officially Launched!',
+      summary: `We’re thrilled to announce that OJTGo is now LIVE and ready to support your internship journey! 🙌
+                This innovative platform is designed by students, for students, to make finding and securing OJT opportunities easier and faster. 
+                No more endless waiting or unanswered messages — with OJTGo, you can browse verified internships, apply directly to companies, and track 
+                your application status all in one place. Whether you’re just starting or looking for your next big break, OJTGo is here to help you take the 
+                next step in your career with confidence.`,
+      date: 'May 12, 2025',
+      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo1.jpg'
+    },
+
+    {
+      title: 'Tips to Land Your Dream Internship',
+              summary: `Check out our top tips to help you stand out in your OJT applications and get noticed by top companies. 
+              From crafting a strong resume to acing your interview, these simple but effective strategies will boost your chances of 
+              landing the internship you’ve always wanted. Start preparing now and take control of your future!`,
+      date: 'May 14, 2025',
+      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo3.jpg'
+    },
+
+    {
+      title: 'Internship Horror Stories – And How OJTGo Solves Them',
+      summary:'Internships should be stepping stones to your career — not nightmares. Unfortunately, many students face issues like unpaid work, vague job descriptions, and recruiters who disappear without a trace. In this post, we dive into these common internship horror stories and show exactly how OJTGo’s transparent and student-focused platform is designed to solve them. Say goodbye to frustration and hello to clear, fair, and meaningful internship opportunities!',
+      date: 'May 15, 2025',
+      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo5.jpg'
+    },
+        
+    {
+      title: 'OJTGo Team Speaks at Cavite State University',
+      summary: 'Our founders recently had the honor of speaking at Cavite State University, sharing valuable insights about the challenges students face during internships and how technology can transform the experience. They discussed the vision behind OJTGo — a platform built to connect students with real opportunities and make the internship process smoother and more transparent. This event marked a big step toward fostering stronger ties between education and industry through innovation.',
+      date: 'May 16, 2025',
+      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo2.jpg'
+    },
+
+    {
+        title: 'OJTGo Expands to More Schools Nationwide',
+        summary: 'We’re excited to announce that OJTGo is growing! Our platform is now partnering with even more colleges and universities across the Philippines, helping thousands of students access verified internship opportunities closer to home. This nationwide expansion reflects our commitment to bridging the gap between students and employers, providing a trusted, easy-to-use tool for career development no matter where you study.',
+        date: 'May 17, 2025',
+        image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo7.jpg'
+      },
+    
+      {
+        title: 'Student Testimonials: How OJTGo Helped Me Land an Internship',
+        summary: 'Don’t just take our word for it — hear from the students themselves! In this post, we share inspiring stories from real users who successfully found and secured valuable internships through OJTGo. From landing their first OJT role to gaining hands-on experience in their dream industries, these testimonials highlight how the platform makes a difference in students’ lives and futures.',
+        date: 'May 18, 2025',
+        image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo6.jpg'
+      },
+  ];
+  
+
 
 
 // Use controllerAs syntax (recommended)
 controllerAs: 'vm',
 // Then in HTML: ng-if="vm.activePage === 'contact'"
-
-// OR ensure parent-child scope relationship
-$scope.$parent.activePage = 'contact';
 
 
 $scope.showPage = function(page) {
@@ -59,7 +149,7 @@ $scope.showPage = function(page) {
         if (element) {
             setTimeout(function() {
                 $window.scrollTo({
-                    top: element.offsetTop - 200, // Optional: Add offset to adjust for header height
+                    top: element.offsetTop - 30, // Optional: Add offset to adjust for header height
                     behavior: "smooth" // Smooth scrolling
                 });
             }, 100); // Add a timeout of 100ms
@@ -78,20 +168,22 @@ $scope.setActivePage = function(page) {
     }, 0);
 };
 
+// ✅ Expose it globally so `app.run` can call it
+$rootScope.setActivePage = $scope.setActivePage;
 
 
-        $scope.$watch('activePage', function(newVal, oldVal) {
-            if (newVal !== oldVal) {
-                console.log('Active Page:', newVal);
-                // Scroll to top after view changes
-                setTimeout(function() {
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                }, 100); // delay ensures DOM is ready
-            }
-        });
+    $scope.$watch('activePage', function(newVal, oldVal) {
+        if (newVal !== oldVal) {
+            console.log('Active Page:', newVal);
+            // Scroll to top after view changes
+            setTimeout(function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            }, 100); // delay ensures DOM is ready
+        }
+    });
 
         // Show the rest of the team
         $scope.showAllTeam = false;
@@ -125,16 +217,16 @@ $scope.$on('$locationChangeStart', function () {
             path: "/wp-content/uploads/lottie/handshake.json" // Path to your Lottie JSON file
         });
 
-        // Inside a script block or JS file enqueued after lottie.min.js
-jQuery(document).ready(function($) {
-    var virtual_lottie = lottie.loadAnimation({
-        container: $("#virtual")[0],
-        renderer: 'svg',
-        loop: true,
-        autoplay: true,
-        path: "/wp-content/uploads/lottie/virtual_job.json"
+        // virutal lottie
+        jQuery(document).ready(function($) {
+        var virtual_lottie = lottie.loadAnimation({
+         container: $("#virtual")[0],
+         renderer: 'svg',
+         loop: true,
+         autoplay: true,
+         path: "/wp-content/uploads/lottie/virtual_job.json"
     });
-});
+ });
 
 
         // magnifying lottie
@@ -160,6 +252,7 @@ jQuery(document).ready(function($) {
             password: ''
         };
 
+        // Mobile navbar collapse
         // Automatically collapse navbar on mobile when any nav-link is clicked
         document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
             el.addEventListener('click', function (e) {
@@ -196,6 +289,43 @@ jQuery(document).ready(function($) {
                 }
             }
         });
+
+        
+
+// AngularJS controller logic
+$scope.selectedNews = null;
+$scope.showFullNewsPage = false;
+
+// Open full news view
+$scope.openFullNews = function(news) {
+  $scope.selectedNews = news;
+  $scope.showFullNewsPage = true;
+
+  // Scroll to full-news-section after DOM update
+  $timeout(function () {
+    var el = document.getElementById("full-news-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "auto", block: "start" });
+    }
+  }, 100); // Adjust delay if necessary
+};
+
+// Close full news view
+$scope.closeFullNews = function() {
+  $scope.selectedNews = null;
+  $scope.showFullNewsPage = false;
+};
+
+        
+
+          
+
+
+
+
+
+
+          
 
     // added by lorenzo @ 04/25/2025
 
