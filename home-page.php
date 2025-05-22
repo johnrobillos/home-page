@@ -381,8 +381,26 @@ function home_page_landing_page()
             </div>
         </section>
 
+        <!-- DPO Section -->
+        <section id="dpo" ng-show="activePage === 'home' || activePage === 'dpo'" class="py-4 bg-white mb-5">
+            <div class="container">
+                <div class="row align-items-center">
+                    <!-- Description on the left -->
+                    <div class="col-md-8">
+                        <p class="mt-5">
+                            PCES has been awarded the NPC Seal of Registration for complying with the
+                            Data Privacy Act of 2012 and related regulations. The certificate attests that
+                            PCES Inc. has taken necessary measures to safeguard user privacy and data security.
+                        </p>
+                    </div>
 
-
+                    <!-- Logo on the right -->
+                    <div class="col-md-4 text-center">
+                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/dpo.jpg" alt="DPO Logo" class="img-fluid" style="max-width: 200px;">
+                    </div>
+                </div>
+            </div>
+        </section>
 
         <!-- Privacy Notice Section -->
         <section id="privacy" ng-show="activePage === 'privacy'" class="bg-light py-5 bg-transparent">
@@ -955,25 +973,30 @@ function home_page_landing_page()
                     News and Events
                 </h1>
 
-                <!-- Responsive Featured Image with Overlay Text -->
-                <div class="position-relative mb-5" style="height: 400px; overflow: hidden; border-radius: 8px;">
+                <!-- Responsive Featured Image with Bottom-Left Overlay Text -->
+                <div class="position-relative mb-5 rounded-3 overflow-hidden" style="height: 450px;">
                     <!-- Background Image -->
                     <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/example-1.jpg" alt="OJTGo Feature"
                         class="w-100 h-100 img-fluid" style="object-fit: cover; filter: brightness(0.6);">
 
                     <!-- Dark Overlay -->
-                    <div class="position-absolute top-0 start-0 w-100 h-100" style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
+                    <div class="position-absolute top-0 start-0 w-100 h-100"
+                        style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
 
-                    <!-- Overlay Text -->
-                    <div class="position-absolute top-50 start-50 translate-middle text-center text-white px-3" style="z-index: 2; width: 100%;">
-                        <h2 class="fw-bold display-6 d-none d-md-block">OJTGo: Built by Students for Students</h2>
-                        <h3 class="fw-bold d-block d-md-none fs-4">OJTGo: Built by Students</h3>
+                    <!-- Overlay Text (Bottom-Left) -->
+                    <div class="position-absolute bottom-0 start-0 text-white px-4 pb-4"
+                        style="z-index: 2; max-width: 700px;">
+                        <h3 class="fw-bold display-6 d-none d-md-block">OJTGo: Built by Students</h3>
+                        <h4 class="fw-bold d-block d-md-none fs-4">OJTGo: Built by Students</h4>
 
-                        <p class="lead mt-3 mx-auto px-2" style="max-width: 700px; font-size: 1rem;">
+                        <p class="lead mt-2" style="font-size: 1.3rem;">
                             A platform created by students, dedicated to transforming your internship journey with transparency, opportunities, and real growth.
                         </p>
                     </div>
                 </div>
+
+
+
 
             </div>
 
@@ -988,7 +1011,7 @@ function home_page_landing_page()
 
                                 <img ng-src="{{news.image}}" class="w-100"
                                     alt="News Image"
-                                    style="height: 450px; width: 450px; display: block;">
+                                    style="height: 350px; width: 100%; object-fit: contain; display: block;">
 
                                 <div class="news-overlay p-3" style="flex-grow: 1; overflow: auto;">
                                     <h5 class="card-title mb-1 fw-bold">{{ news.title }}</h5>
@@ -1003,7 +1026,7 @@ function home_page_landing_page()
 
             <!-- Full News Detail View (only shown when viewing full news) -->
             <section id="full-news-section" ng-if="showFullNewsPage" class="full-news-section p-4 pt-5">
-                <div class="full-news-section p-4">
+                <div class="full-news-section p-2 p-md-4">
 
                     <button class="btn btn-outline-primary mt-3 mb-4" ng-click="closeFullNews()">← Back to News</button>
 
@@ -1011,7 +1034,7 @@ function home_page_landing_page()
                         <div class="col-md-6 position-relative">
                             <div class="w-100" style="height: 500px; overflow: hidden; border-radius: 8px;">
                                 <img ng-src="{{selectedNews.image}}" class="img-fluid w-100 h-100"
-                                    alt="News Image" style="object-fit: cover;">
+                                    alt="News Image" style="object-fit: contain;">
                             </div>
                         </div>
 
@@ -1021,32 +1044,32 @@ function home_page_landing_page()
                         </div>
                     </div>
 
-                    <div class="mt-4 px-5">
-                        <p style="font-size: 1.1rem;">{{ selectedNews.summary }}</p>
+                    <div class="mt-4 px-0 px-md-3">
+                        <p class="w-100" style="font-size: 1.1rem; background-color: rgba(0, 0, 0, 0.6); color: #ffffff; padding: 1rem; border-radius: 8px;">
+                            {{ selectedNews.summary }}
+                        </p>
                     </div>
                 </div>
             </section>
-
-
-
 
         </section>
 
 
         <!-- Contact Us Section -->
         <!-- Full-width container for the Contact Section -->
-        <div style="background-color:rgb(0, 43, 86); padding: 20px 0;" id="contact" ng-="activePage === 'home' || activePage === 'contact'">
+        <div style="background-color:rgb(173, 207, 241); padding: 20px 0;" id="contact">
             <div class="container">
-                <h3 class="display-4 text-white fw-semibold text-center mb-3">
+                <h4 class="fw-semibold text-center mb-3 fs-1 fs-lg-2" style="color:rgb(0, 50, 101);">
                     Bridge Students to Success—OJTGo Connects Them with the Right Opportunities
-                </h3>
+                </h4>
+
 
                 <div class="row justify-content-between align-items-center">
                     <!-- Contact Details -->
                     <div class="col-md-5 mb-4 mb-md-0 text-white">
-                        <div class="h-100 rounded-3 p-4 shadow-lg position-relative overflow-hidden">
+                        <div class="h-100 rounded-3 p-4 shadow-lg position-relative overflow-hidden" style="color:rgb(0, 50, 101);">
                             <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold text-white mb-3">Contact Information</h3>
+                                <h3 class="fw-bold mb-3" style="color:rgb(0, 50, 101);">Contact Information</h3>
                                 <p class="mb-3">Feel free to reach out to us with any questions or concerns.</p>
 
                                 <div class="mb-3">
@@ -1074,41 +1097,41 @@ function home_page_landing_page()
 
                     <!-- Contact Form -->
                     <div class="col-md-6">
-                        <div class="h-100 rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden">
+                        <div class="h-100 rounded-3 p-2 shadow-lg bg-white position-relative overflow-hidden">
                             <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
                             <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold text-primary mb-4">Send Us a Message</h3>
-                                <form name="contactForm" ng-submit="submitContactForm()" novalidate>
-                                    <div class="mb-3">
+                                <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
+                                <form name=" contactForm" ng-submit="submitContactForm()" novalidate>
+                                    <div class="mb-2">
                                         <!-- Name -->
                                         <label for="contact-us-name" class="form-label fw-semibold">Name</label>
                                         <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
                                     </div>
 
-                                    <div class="mb-3">
+                                    <div class="mb-2">
                                         <!-- Email -->
                                         <label for="contact-us-email" class="form-label fw-semibold">Email</label>
                                         <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
                                     </div>
 
-                                    <div class="mb-3">
+                                    <div class="mb-2">
                                         <!-- Mobile Number -->
                                         <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
                                         <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="+63 9 xxxxxxxxx" required>
                                     </div>
 
-                                    <div class="mb-3">
+                                    <div class="mb-2">
                                         <!-- Message -->
                                         <label for="contact-us-message" class="form-label fw-semibold">Comment or Message</label>
-                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
+                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;" ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
                                     </div>
 
                                     <!-- Submit Button -->
                                     <div class="d-grid mt-4">
                                         <button
                                             type="submit"
-                                            class="btn text-white fw-bold py-2"
-                                            style="background-color: #0161aa; border: 1px solid #0161aa; font-size: 1.1rem;">
+                                            class="btn text-white fw-bold py-1"
+                                            style="background-color:rgb(0, 50, 101);; border: 1px solid #0161aa; font-size: 1.1rem;">
                                             Submit
                                         </button>
                                     </div>
@@ -1362,7 +1385,7 @@ function home_page_landing_page()
                     <!-- Header and Sub Title -->
                     <div class="row flex-column align-items-center justify-content-center mb-3 header">
                         <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome!</p>
-                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">We are gald to have you!</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-90" style="font-size: 1rem;">We are glad to have you!</p>
                     </div>
 
                     <p class="text-center">Which type of user are you?</p>
@@ -1509,8 +1532,16 @@ function home_page_landing_page()
                                 ng-class="{'text-success': passChecks.special && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.special}">
                                 ✔ At least 1 special character</small> <br />
                         </div>
-                    </div>
-
+                        
+                        <div class="rounded text-start mt-2 p-2 condition">
+                        <p class="col-auto text-secondary text-center mb-0 w-100" style="font-size: 0.7rem;">
+                            By clicking Create Account, you agree to our
+                            <a href="/home/#terms" target="_blank" rel="nofollow">Terms of Use</a> and 
+                            <a href="/home/#privacy" target="_blank" rel="nofollow">Privacy Notice</a>.
+                            You may receive email notifications from us, and you can opt out at any time.
+                        </p>
+                        </div>                              
+                        
                     <!-- register Button -->
                     <a
                         id="create-acc-btn"
@@ -1534,7 +1565,10 @@ function home_page_landing_page()
                             Log in
                         </a>
                         instead.
-                    </p>
+                    </p>                        
+                    </div>
+
+
 
                 </div>
 

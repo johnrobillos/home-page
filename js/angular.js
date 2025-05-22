@@ -55,6 +55,7 @@ app.controller('angular_controller', function($scope, $http, $timeout, $window, 
     // Charls Added
 
 $scope.activePage = 'home'; // Default page
+$scope.showActivePage = 'contact';
 // Add this temporarily to your controller
 console.log('Current page:', $scope.activePage);
 
@@ -90,45 +91,45 @@ $scope.newsList = [
                 your application status all in one place. Whether you’re just starting or looking for your next big break, OJTGo is here to help you take the 
                 next step in your career with confidence.`,
       date: 'May 12, 2025',
-      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo1.jpg'
+      image: 'https://vin.ojtgo.com/wp-content/uploads/icons/OJTGO-630X310.png'
     },
 
-    {
-      title: 'Tips to Land Your Dream Internship',
-              summary: `Check out our top tips to help you stand out in your OJT applications and get noticed by top companies. 
-              From crafting a strong resume to acing your interview, these simple but effective strategies will boost your chances of 
-              landing the internship you’ve always wanted. Start preparing now and take control of your future!`,
-      date: 'May 14, 2025',
-      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo3.jpg'
-    },
+    // {
+    //   title: 'Tips to Land Your Dream Internship',
+    //           summary: `Check out our top tips to help you stand out in your OJT applications and get noticed by top companies. 
+    //           From crafting a strong resume to acing your interview, these simple but effective strategies will boost your chances of 
+    //           landing the internship you’ve always wanted. Start preparing now and take control of your future!`,
+    //   date: 'May 14, 2025',
+    //   image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo3.jpg'
+    // },
 
-    {
-      title: 'Internship Horror Stories – And How OJTGo Solves Them',
-      summary:'Internships should be stepping stones to your career — not nightmares. Unfortunately, many students face issues like unpaid work, vague job descriptions, and recruiters who disappear without a trace. In this post, we dive into these common internship horror stories and show exactly how OJTGo’s transparent and student-focused platform is designed to solve them. Say goodbye to frustration and hello to clear, fair, and meaningful internship opportunities!',
-      date: 'May 15, 2025',
-      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo5.jpg'
-    },
+    // {
+    //   title: 'Internship Horror Stories – And How OJTGo Solves Them',
+    //   summary:'Internships should be stepping stones to your career — not nightmares. Unfortunately, many students face issues like unpaid work, vague job descriptions, and recruiters who disappear without a trace. In this post, we dive into these common internship horror stories and show exactly how OJTGo’s transparent and student-focused platform is designed to solve them. Say goodbye to frustration and hello to clear, fair, and meaningful internship opportunities!',
+    //   date: 'May 15, 2025',
+    //   image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo5.jpg'
+    // },
         
-    {
-      title: 'OJTGo Team Speaks at Cavite State University',
-      summary: 'Our founders recently had the honor of speaking at Cavite State University, sharing valuable insights about the challenges students face during internships and how technology can transform the experience. They discussed the vision behind OJTGo — a platform built to connect students with real opportunities and make the internship process smoother and more transparent. This event marked a big step toward fostering stronger ties between education and industry through innovation.',
-      date: 'May 16, 2025',
-      image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo2.jpg'
-    },
+    // {
+    //   title: 'OJTGo Team Speaks at Cavite State University',
+    //   summary: 'Our founders recently had the honor of speaking at Cavite State University, sharing valuable insights about the challenges students face during internships and how technology can transform the experience. They discussed the vision behind OJTGo — a platform built to connect students with real opportunities and make the internship process smoother and more transparent. This event marked a big step toward fostering stronger ties between education and industry through innovation.',
+    //   date: 'May 16, 2025',
+    //   image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo2.jpg'
+    // },
 
-    {
-        title: 'OJTGo Expands to More Schools Nationwide',
-        summary: 'We’re excited to announce that OJTGo is growing! Our platform is now partnering with even more colleges and universities across the Philippines, helping thousands of students access verified internship opportunities closer to home. This nationwide expansion reflects our commitment to bridging the gap between students and employers, providing a trusted, easy-to-use tool for career development no matter where you study.',
-        date: 'May 17, 2025',
-        image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo7.jpg'
-      },
+    // {
+    //     title: 'OJTGo Expands to More Schools Nationwide',
+    //     summary: 'We’re excited to announce that OJTGo is growing! Our platform is now partnering with even more colleges and universities across the Philippines, helping thousands of students access verified internship opportunities closer to home. This nationwide expansion reflects our commitment to bridging the gap between students and employers, providing a trusted, easy-to-use tool for career development no matter where you study.',
+    //     date: 'May 17, 2025',
+    //     image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo7.jpg'
+    //   },
     
-      {
-        title: 'Student Testimonials: How OJTGo Helped Me Land an Internship',
-        summary: 'Don’t just take our word for it — hear from the students themselves! In this post, we share inspiring stories from real users who successfully found and secured valuable internships through OJTGo. From landing their first OJT role to gaining hands-on experience in their dream industries, these testimonials highlight how the platform makes a difference in students’ lives and futures.',
-        date: 'May 18, 2025',
-        image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo6.jpg'
-      },
+    //   {
+    //     title: 'Student Testimonials: How OJTGo Helped Me Land an Internship',
+    //     summary: 'Don’t just take our word for it — hear from the students themselves! In this post, we share inspiring stories from real users who successfully found and secured valuable internships through OJTGo. From landing their first OJT role to gaining hands-on experience in their dream industries, these testimonials highlight how the platform makes a difference in students’ lives and futures.',
+    //     date: 'May 18, 2025',
+    //     image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo6.jpg'
+    //   },
   ];
   
 
