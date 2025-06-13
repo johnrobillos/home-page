@@ -131,6 +131,7 @@ function home_page_enqueue_script()
 
         wp_localize_script('ojt-fym-form-js', 'adminAjax', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
+            'homeUrl' => home_url(),
             'secretKey' => OJT_SECRET_KEY,
             'nonce' => wp_create_nonce('login_nonce'), // ← include everything you need
             'recaptchaSiteKey' => RECAPTCHA_SITE_KEY // ✅ Add this!
@@ -290,7 +291,7 @@ function home_page_landing_page()
                     <!-- Greeter -->
                     <div class="col-md-7 col-xxl-6" id="page-top" style="margin-top: 100px;">
                         <div class="h-100 d-flex flex-column justify-content-between">
-                            <img src="/wp-content/uploads/2025/03/OJTGO-630X310.png" alt="Logo" class="img-fluid mb-3">
+                            <img src="/wp-content/uploads/icons/OJTGO-630X310.png" alt="Logo" class="img-fluid mb-3">
                             <h3 class="fw-bold">Built by students, for students</h3>
 
                             <p class="mt-4">
@@ -396,7 +397,7 @@ function home_page_landing_page()
 
                     <!-- Logo on the right -->
                     <div class="col-md-4 text-center">
-                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/dpo.jpg" alt="DPO Logo" class="img-fluid" style="max-width: 200px;">
+                        <img src="<?php echo home_url('/wp-content/uploads/icons/dpo.jpg') ?>" alt="DPO Logo" class="img-fluid" style="max-width: 200px;">
                     </div>
                 </div>
             </div>
@@ -694,7 +695,7 @@ function home_page_landing_page()
                     <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
                         About Us
                     </h1>
-                    <p class="lead mt-3">At <strong>OJTGo</strong>, we bridge the gap between education and industry, providing students with seamless access to valuable internship opportunities.
+                    <p class="lead mt-3">At <strong>OJTGo</strong>, we bridge the gap between education and industry, providing students with smooth or hassle-free access to valuable internship opportunities.
                         Our platform empowers students by connecting them with organizations that align with their academic backgrounds, career goals, and personal growth.
                         We believe internships are more than just academic requirements—they are stepping stones to meaningful careers.</p>
                 </div>
@@ -712,9 +713,9 @@ function home_page_landing_page()
                     </div>
                     <div>
                         <h2 class="text-primary">Our Vision</h2>
-                        <p class="lead mt-3">To be the leading digital platform for internships in the Philippines, ensuring every student gains practical
-                            experience that enhances their future career prospects. We strive to create a workforce-ready generation by
-                            bridging academia and industry through innovative and inclusive job matching technology.
+                        <p class="lead mt-3">To be the ultimate one-stop solution for all OJT needs, ensuring that every student gains practical experience to enhance
+                            their future career prospects. We strive to create a workforce-ready generation by bridging academia and industry through innovative and inclusive
+                            job-matching technology.
                         </p>
                     </div>
                 </div>
@@ -728,7 +729,8 @@ function home_page_landing_page()
                         <div class="row align-items-center">
                             <!-- Image -->
                             <div class="col-md-6 order-1 order-md-1 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo.png"
+                                <img
+                                    src="<?php echo home_url('/wp-content/uploads/icons/home/indtroduce.png') ?>"
                                     alt="introduce"
                                     class="img-fluid rounded shadow-lg"
                                     style="max-width: 90%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);">
@@ -756,7 +758,7 @@ function home_page_landing_page()
                             </div>
                             <!-- Image -->
                             <div class="col-md-6 order-1 order-md-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/solved-scaled.jpg"
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/solved-scaled.jpg') ?>"
                                     alt="Our Story" class="img-fluid rounded shadow">
                             </div>
                         </div>
@@ -769,7 +771,7 @@ function home_page_landing_page()
                         <div class="row align-items-center">
                             <!-- Image -->
                             <div class="col-md-6 order-1 order-md-1">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/solved-scaled.jpg"
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/solved-scaled.jpg') ?>"
                                     alt="Our Story" class="img-fluid rounded shadow">
                             </div>
                             <!-- Text -->
@@ -790,12 +792,16 @@ function home_page_landing_page()
                         Meet the OJTGo Team
                     </h1>
 
+                    <h1 class="display-4 fw-bold fs-3 text-center m-5" style="color:rgb(0, 43, 86);">
+                        Management Team
+                    </h1>
+
                     <!-- showed team -->
                     <div class="row justify-content-center fw-bold fs-5 mt-4">
                         <!-- Team Member 1 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/sirval.png" alt="sir Val">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirval.png') ?>" alt="sir Val">
                             </div>
                             <p class="text-center m-0">Valery Minello</p>
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Executive Officer</p>
@@ -804,7 +810,7 @@ function home_page_landing_page()
                         <!-- Team Member 2 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/leo2.jpg" alt="sir Leo">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/leo2.jpg') ?>" alt="sir Leo">
                             </div>
                             <p class="text-center m-0">Leo Herrera</p>
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Operating Officer</p>
@@ -813,16 +819,16 @@ function home_page_landing_page()
                         <!-- Team Member 3 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/sirjeal.jpg" alt="sir Jeal">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirjeal.jpg') ?>" alt="sir Jeal">
                             </div>
                             <p class="text-center m-0">Jeal Pascua</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Cybersecurity/Chief Finance Officer</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Finance Officer</p>
                         </div>
 
                         <!-- Team Member 4 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/john.jpg" alt="ma'am Jinah">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/john.jpg') ?>" alt="ma'am Jinah">
                             </div>
                             <p class="text-center m-0">John Ronald Robillos</p>
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web and System Developer/DPO</p>
@@ -831,7 +837,7 @@ function home_page_landing_page()
                         <!-- Team Member 5 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/jess-3.jpg" alt="sir Jess">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/jess.jpg') ?>" alt="sir Jess">
                             </div>
                             <p class="text-center m-0">Jess Baggao</p>
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
@@ -840,28 +846,28 @@ function home_page_landing_page()
                         <!-- Team Member 6 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/nicolee-2.jpg" alt="ma'am Nicole">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/jinah-1.jpg') ?>" alt="ma'am Jinah">
                             </div>
-                            <p class="text-center m-0">Roan Nicole Marcellana</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing Specialist</p>
+                            <p class="text-center m-0">Jinalyn Diamos</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">HR Manager</p>
                         </div>
 
                         <!-- Team Member 7 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/steph.jpg" alt="ma'am Steph">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/nicolee-2.jpg') ?>" alt="ma'am Nicole">
                             </div>
-                            <p class="text-center m-0">Stephanie Cuenca</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing Sales Associate</p>
+                            <p class="text-center m-0">Roan Nicole Marcellana</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing Manager</p>
                         </div>
 
                         <!-- Team Member 8 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/jinah-1.jpg" alt="ma'am Jinah">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/steph.jpg') ?>" alt="ma'am Steph">
                             </div>
-                            <p class="text-center m-0">Jinalyn Diamos</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">HR Manager</p>
+                            <p class="text-center m-0">Stephanie Cuenca</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing Sales Associate</p>
                         </div>
 
 
@@ -870,10 +876,14 @@ function home_page_landing_page()
                         <section ng-if="currentPage === 'rest' || true"> <!-- Set true for universal visibility -->
                             <div class="row justify-content-center mt-4 fw-bold fs-5" ng-show="showAllTeam">
 
+                                <h1 class="display-4 fw-bold fs-3 text-center m-5" style="color:rgb(0, 43, 86);">
+                                    Our OJT
+                                </h1>
+
                                 <!-- Team Member 9 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/lorenzo-scaled.jpg" alt="Lorenzo">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/lorenzo-scaled.jpg') ?>" alt="Lorenzo">
                                     </div>
                                     <p class="text-center m-0">Lorenzo Daniel Jarata</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Front-End Developer</p>
@@ -882,7 +892,7 @@ function home_page_landing_page()
                                 <!-- Team Member 10 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/millard-scaled.jpg" alt="Millard">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/millard-scaled.jpg') ?>" alt="Millard">
                                     </div>
                                     <p class="text-center m-0">Millard John Ortillano</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Back-End Developer</p>
@@ -891,7 +901,7 @@ function home_page_landing_page()
                                 <!-- Team Member 7 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/khianah.jpg" alt="Khianah">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/khianah.jpg') ?>" alt="Khianah">
                                     </div>
                                     <p class="text-center m-0">Khianah Marie Gadacho</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">UI/UX Designer</p>
@@ -900,7 +910,7 @@ function home_page_landing_page()
                                 <!-- Team Member 8 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/jazmine.jpg" alt="Jazmine">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/jazmine.jpg') ?>" alt="Jazmine">
                                     </div>
                                     <p class="text-center m-0">Jazmine Danielle Gundran</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing</p>
@@ -909,7 +919,7 @@ function home_page_landing_page()
                                 <!-- Team Member 9 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/aivie.jpg" alt="Aivie">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/aivie.jpg') ?>" alt="Aivie">
                                     </div>
                                     <p class="text-center m-0">Aivie Concepcion</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing</p>
@@ -918,8 +928,7 @@ function home_page_landing_page()
                                 <!-- Team Member 10 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/katrishna.jpg"
-                                            alt="Katrishna">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/katrishna.jpg') ?>" alt="Katrishna">
                                     </div>
                                     <p class="text-center m-0">Kathrisha Sapon</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Quality Assurance
@@ -929,7 +938,7 @@ function home_page_landing_page()
                                 <!-- Team Member 11 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/vin.png" alt="Charls">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/vin.png') ?>" alt="Charls">
                                     </div>
                                     <p class="text-center m-0">Arvin Charls Basco</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Front-End Developer
@@ -939,11 +948,33 @@ function home_page_landing_page()
                                 <!-- Team Member 12 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="https://vin.ojtgo.com/wp-content/uploads/icons/home/arandelle.jpg"
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/arandelle.jpg') ?>"
                                             alt="Arandelle">
                                     </div>
                                     <p class="text-center m-0">Arandelle Paguinto</p>
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
+                                    </p>
+                                </div>
+
+                                <!-- Team Member 13 -->
+                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                    <div class="team-img-container mb-2">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/jc.jpg') ?>"
+                                            alt="Arandelle">
+                                    </div>
+                                    <p class="text-center m-0">JC Despabiladeras</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
+                                    </p>
+                                </div>
+
+                                <!-- Team Member 14 -->
+                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                    <div class="team-img-container mb-2">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/mads.jpg') ?>"
+                                            alt="Arandelle">
+                                    </div>
+                                    <p class="text-center m-0">Madeleine Gonzales</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communication
                                     </p>
                                 </div>
 
@@ -976,7 +1007,7 @@ function home_page_landing_page()
                 <!-- Responsive Featured Image with Bottom-Left Overlay Text -->
                 <div class="position-relative mb-5 rounded-3 overflow-hidden" style="height: 450px;">
                     <!-- Background Image -->
-                    <img src="https://vin.ojtgo.com/wp-content/uploads/2025/05/example-1.jpg" alt="OJTGo Feature"
+                    <img src="<?php echo home_url('/wp-content/uploads/icons/home/example-1.jpg') ?>" alt="OJTGo Feature"
                         class="w-100 h-100 img-fluid" style="object-fit: cover; filter: brightness(0.6);">
 
                     <!-- Dark Overlay -->
@@ -1014,7 +1045,7 @@ function home_page_landing_page()
                                     style="height: 350px; width: 100%; object-fit: contain; display: block;">
 
                                 <div class="news-overlay p-3" style="flex-grow: 1; overflow: auto;">
-                                    <h5 class="card-title mb-1 fw-bold">{{ news.title }}</h5>
+                                    <h5 class="card-title mb-1 fw-semibold fs-5">{{ news.title }}</h5>
                                     <small class="text-light">Posted on {{ news.date }}</small>
                                 </div>
 
@@ -1060,7 +1091,7 @@ function home_page_landing_page()
         <div style="background-color:rgb(173, 207, 241); padding: 20px 0;" id="contact">
             <div class="container">
                 <h4 class="fw-semibold text-center mb-3 fs-1 fs-lg-2" style="color:rgb(0, 50, 101);">
-                    Bridge Students to Success—OJTGo Connects Them with the Right Opportunities
+                    Bridging Students to Success—OJTGo Connects Them with the Right Opportunities
                 </h4>
 
 
@@ -1075,7 +1106,7 @@ function home_page_landing_page()
                                 <div class="mb-3">
                                     <h5 class="fw-bold m-0">Office Address</h5>
                                     <p class="m-0">Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630</p>
-                                    <h5 class="fw-bold m-0">Sattelite Address</h5>
+                                    <h5 class="fw-bold m-0">Satellite Address</h5>
                                     <p class="m-0">One Building Lot 22 Blk 56, Costa Verde, Brgy Tejeros, Rosario Cavite
                                     </p>
                                 </div>
@@ -1117,7 +1148,7 @@ function home_page_landing_page()
                                     <div class="mb-2">
                                         <!-- Mobile Number -->
                                         <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="+63 9 xxxxxxxxx" required>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
                                     </div>
 
                                     <div class="mb-2">
@@ -1129,6 +1160,7 @@ function home_page_landing_page()
                                     <!-- Submit Button -->
                                     <div class="d-grid mt-4">
                                         <button
+                                            ng-class="{'disabled': onsubmit}"
                                             type="submit"
                                             class="btn text-white fw-bold py-1"
                                             style="background-color:rgb(0, 50, 101);; border: 1px solid #0161aa; font-size: 1.1rem;">
@@ -1189,7 +1221,7 @@ function home_page_landing_page()
                                 <p><a href="#about" class="text-white text-decoration-none" ng-click="setActivePage('about', $event);"><small>About Us</small></a></p>
                                 <p><a class="text-white text-decoration-none" href="#news" ng-click="setActivePage('news'); scrollToSection('news', $event)"><small>News</small></a></p>
                                 <p><a href="#contact" class="text-white text-decoration-none" ng-click="scrollToSection('contact', $event)"><small>Contact Us</small></a></p>
-                                <p><a href="#" class="text-white text-decoration-none" ng-click="scrollToSection('whyojtgo', $event)"><small>Why OJTGo?</small></a></p>
+                                <p><a href="#whyojtgo" class="text-white text-decoration-none" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)"><small>Why OJTGo?</small></a></p>
                             </div>
 
 
@@ -1532,40 +1564,40 @@ function home_page_landing_page()
                                 ng-class="{'text-success': passChecks.special && credentials.password, 'text-danger': credentials.password.length > 0 && !passChecks.special}">
                                 ✔ At least 1 special character</small> <br />
                         </div>
-                        
+
                         <div class="rounded text-start mt-2 p-2 condition">
-                        <p class="col-auto text-secondary text-center mb-0 w-100" style="font-size: 0.7rem;">
-                            By clicking Create Account, you agree to our
-                            <a href="/home/#terms" target="_blank" rel="nofollow">Terms of Use</a> and 
-                            <a href="/home/#privacy" target="_blank" rel="nofollow">Privacy Notice</a>.
-                            You may receive email notifications from us, and you can opt out at any time.
-                        </p>
-                        </div>                              
-                        
-                    <!-- register Button -->
-                    <a
-                        id="create-acc-btn"
-                        href="javascript:void(0)"
-                        class="col text-center my-5 px-5 py-2 modal-btn register-btn"
-                        ng-click="storeCredentials();"
-                        ng-class="{'disabled': isFormInvalid() && !passwordValid && !usernameValid}">
-                        Create Account
-                    </a>
+                            <p class="col-auto text-secondary text-center mb-0 w-100" style="font-size: 0.7rem;">
+                                By clicking Create Account, you agree to our
+                                <a href="/home/#terms" target="_blank" rel="nofollow">Terms of Use</a> and
+                                <a href="/home/#privacy" target="_blank" rel="nofollow">Privacy Notice</a>.
+                                You may receive email notifications from us, and you can opt out at any time.
+                            </p>
+                        </div>
 
-
-
-                    <!-- Direct to Login -->
-                    <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
-                    <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                        <!-- register Button -->
                         <a
+                            id="create-acc-btn"
                             href="javascript:void(0)"
-                            class="link-text login-account"
-                            style="font-size: 0.875rem;"
-                            ng-click="switchModalContent('login')">
-                            Log in
+                            class="col text-center my-5 px-5 py-2 modal-btn register-btn"
+                            ng-click="storeCredentials();"
+                            ng-class="{'disabled': isFormInvalid() && !passwordValid && !usernameValid}">
+                            Create Account
                         </a>
-                        instead.
-                    </p>                        
+
+
+
+                        <!-- Direct to Login -->
+                        <span class="col-12 text-center" style="font-size: 0.875rem;">Already have an account?</span>
+                        <p class="col-12 mb-0 text-center" style="font-size: 0.875rem;">
+                            <a
+                                href="javascript:void(0)"
+                                class="link-text login-account"
+                                style="font-size: 0.875rem;"
+                                ng-click="switchModalContent('login')">
+                                Log in
+                            </a>
+                            instead.
+                        </p>
                     </div>
 
 

@@ -321,7 +321,6 @@ html, body {
 .custom-fields {
 
     font-size: 16px;
-    color: red;
     border: 1px solid #0160af;
 }
 
@@ -766,7 +765,13 @@ body {
     bottom: 0;
     width: 100%;
     padding: 30px 20px 20px;
-    background: linear-gradient(to top, rgba(0, 0.7, 0.7, 0.7), transparent);
+    background: linear-gradient(to top,
+                rgba(0, 1, 1, 0.744) 20%,
+                rgba(0, 1, 1, 0.649) 40%,
+                rgba(0, 1, 1, 0.703) 50%,
+                rgba(0, 1, 1, 0.641) 65%,
+                rgba(0, 1, 1, 0.486) 85%,
+                rgba(0, 1, 1, 0) 100%);
     color: rgb(255, 255, 255); }
 
 
@@ -948,3 +953,4 @@ html {
          margin-left: 8rem !important;
      }
  }
+ 
