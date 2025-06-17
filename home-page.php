@@ -16,6 +16,7 @@ if (!defined('ABSPATH')) {
 }
 
 require_once plugin_dir_path(__FILE__) . 'api/contact_form.php';
+require_once plugin_dir_path(__FILE__) . 'api/fetch_backend.php';
 
 // Enqueue the script on the specific page
 function home_page_enqueue_script()
@@ -40,6 +41,13 @@ function home_page_enqueue_script()
         );
 
 
+        // Enqueue Bootstrap 5 CSS from CDN
+        wp_enqueue_style(
+            'bootstrap-css',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+            array(),
+            '5.3.0'
+        );
 
 
 
@@ -52,7 +60,23 @@ function home_page_enqueue_script()
             true
         );
 
+        // Enqueue Angular Sanitize (depends on angular-core)
+        wp_enqueue_script(
+            'angular-sanitize',
+            'https://ajax.googleapis.com/ajax/libs/angularjs/1.8.3/angular-sanitize.min.js',
+            ['angular-core'],
+            null,
+            true
+        );
 
+        // Your app script (depends on both AngularJS and Sanitize)
+        wp_enqueue_script(
+            'my-angular-app',
+            plugins_url('js/angular.js', __FILE__),
+            ['angular-core', 'angular-sanitize'],
+            null,
+            true
+        );
 
         // Angular JS
         wp_enqueue_script(
@@ -74,14 +98,14 @@ function home_page_enqueue_script()
             true
         );
 
-        // Enqueue ngStorage AFTER AngularJS
-        wp_enqueue_script(
-            'ngStorage',
-            'https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js',
-            array('angular-js'), // Ensure AngularJS is loaded first
-            null,
-            true
-        );
+        // // Enqueue ngStorage AFTER AngularJS
+        // wp_enqueue_script(
+        //     'ngStorage',
+        //     'https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js',
+        //     array('angular-js'), // Ensure AngularJS is loaded first
+        //     null,
+        //     true
+        // );
         wp_enqueue_script(
             'cryptojs',
             'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
@@ -99,12 +123,28 @@ function home_page_enqueue_script()
             true
         );
 
+        // ✅ Load Quill CSS and JS
+        wp_enqueue_script(
+            'quill-js',
+            'https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.min.js',
+            [],
+            null,
+            true
+        );
+
+        wp_enqueue_style(
+            'quill-css',
+            'https://cdn.jsdelivr.net/npm/quill@2.0.3/dist/quill.snow.css',
+            [],
+            null
+        );
+
 
         // Enqueue OJT Registration Form Script (Angular-based AJAX)
         wp_enqueue_script(
             'ojt-fym-form-js',
             plugin_dir_url(__FILE__) . 'js/ojt-fym-form.js',
-            array('angular-js', 'jquery'),
+            array('angular-js', 'jquery', 'quill-js'),
             '1.0.2',
             true
         );
@@ -128,7 +168,6 @@ function home_page_enqueue_script()
             true
         );
 
-
         wp_localize_script('ojt-fym-form-js', 'adminAjax', array(
             'ajaxurl' => admin_url('admin-ajax.php'),
             'homeUrl' => home_url(),
@@ -144,9 +183,6 @@ function home_page_enqueue_script()
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         );
 
-
-
-
         // High Chart Plugins
 
         // highchart js
@@ -161,14 +197,23 @@ function home_page_enqueue_script()
         // highchart - accessibility
         wp_enqueue_script('hightchart-accessibility', 'https://code.highcharts.com/modules/accessibility.js', array(), null, true);
 
+        // If using custom jQuery version (not recommended unless needed)
+        wp_deregister_script('jquery');
+
+        wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', array(), '3.7.1', true);
+
+        // Bootstrap JS
+        wp_enqueue_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'), '4.5.2', true);
+
+        // Bootstrap CSS (optional)
+        wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
 
         // Enqueue Select2 CSS & JS
         wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css');
+
         wp_enqueue_script('select2-js', 'https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/js/select2.min.js', array('jquery'), null, true);
     }
 }
-
-
 add_action('wp_enqueue_scripts', 'home_page_enqueue_script');
 
 
@@ -191,12 +236,12 @@ function home_page_landing_page()
             -> It ensures that the bootstrap is fully loaded 
             -> This solve the flickering hero-container on load of the website
     -->
-    <div class="pt-3 mt-5 px-0 mx-0" ng-app="angularApp" ng-controller="angular_controller" ng-cloak class="angular-cloak">
+    <div class="pt-3 mt-5 px-0 mx-0" ng-app="homeApp" ng-controller="homeController" ng-cloak class="angular-cloak">
 
 
         <!-- Modified by Lorenzo @ 03/31/2025 -->
 
-        <!-- Modified by Charls -->
+        <!-- Modified by Charls @ 04/10/2025-->
 
         <!-- navbar -->
         <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border border-lg-0">
@@ -222,35 +267,51 @@ function home_page_landing_page()
                             <a class="nav-link dropdown-toggle w-100 text-start" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 About
                             </a>
-                            <ul class="dropdown-menu w-100" aria-labelledby="aboutDropdown" style="border: none;">
+                            <ul class="dropdown-menu w-150" aria-labelledby="aboutDropdown" style="border: none;">
                                 <li>
                                     <a class="dropdown-item" href="#about" ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a>
                                 </li>
                                 <li>
-                                    <a class="dropdown-item" href="#news" ng-click="setActivePage('news'); scrollToSection('news', $event)">News</a>
+                                    <a class="dropdown-item" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
                                 </li>
-                            </ul>
-                        </li>
 
-                        <!-- Legal Dropdown -->
-                        <li class="nav-item dropdown w-100 text-start">
-                            <a class="nav-link dropdown-toggle w-100 text-start" id="policyDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Policy
-                            </a>
-                            <ul class="dropdown-menu w-100" aria-labelledby="policyDropdown" style="border: none;">
                                 <li>
-                                    <a class="dropdown-item" href="#privacy" ng-click="setActivePage('privacy')">Privacy Notice</a>
+                                    <a class="dropdown-item" href="#contact" ng-click="scrollToSection('contact'); scrollToSection('contact', $event)">Contact Us</a>
                                 </li>
-                                <li><a class="dropdown-item" href="#terms" ng-click="setActivePage('terms')">Terms of use</a></li>
+
+                                <!-- <li class="nav-item mb-3 mb-lg-0 me-lg-3">
+                                    <a class="nav-link" href="#contact" ng-click="scrollToSection('contact', $event)" style="white-space: nowrap;">
+                                        Contact Us
+                                    </a>
+                                </li> -->
                             </ul>
                         </li>
 
-                        <!-- Contact navbar -->
-                        <li class="nav-item mb-3 mb-lg-0 me-lg-3">
-                            <a class="nav-link" href="#contact" ng-click="scrollToSection('contact', $event)" style="white-space: nowrap;">
-                                Contact Us
+                        <!-- Resources -->
+                        <li class="nav-item dropdown w-100 text-start">
+                            <a class="nav-link dropdown-toggle w-100 text-start" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Resources
                             </a>
+                            <ul class="dropdown-menu w-150" aria-labelledby="resourcesDropdown" style="border: none;">
+                                <li>
+                                    <a class="dropdown-item" href="#blogs" ng-click="setActivePage('blogs'); scrollToSection('blogs', $event)">Blogs</a>
+                                </li>
+                            </ul>
                         </li>
+
+                        <!-- Help -->
+                        <li class="nav-item dropdown w-100 text-start">
+                            <a class="nav-link dropdown-toggle w-100 text-start" id="helpDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Help
+                            </a>
+                            <ul class="dropdown-menu w-150" aria-labelledby="helpDropdown" style="border: none;">
+                                <li>
+                                    <a class="dropdown-item" href="#how" ng-click="setActivePage('how')">How it works</a>
+                                </li>
+                                <li><a class="dropdown-item" href="#faq" ng-click="setActivePage('faq')">FAQ's</a></li>
+                            </ul>
+                        </li>
+
 
 
                         <!-- Login Register -->
@@ -281,6 +342,7 @@ function home_page_landing_page()
                 </div>
             </div>
         </nav>
+
 
 
         <!-- Home section test -->
@@ -345,13 +407,14 @@ function home_page_landing_page()
                         </div>
                     </div>
 
-                    <!-- No Resume Required -->
+                    <!-- Smarter than a resume -->
                     <div class="col-12 col-md-6 mb-4">
                         <div class="h-100 shadow rounded-2 border-muted p-3 bg-light d-flex flex-column">
                             <div id="virtual" style="height: 200px;"></div>
                             <div class="text-center mt-auto">
-                                <h2 class="fw-bold">No Resume Required</h2>
-                                <p>Students can showcase their skills and qualifications directly through the OJTGo system—eliminating the need for traditional resumes and simplifying the application process for both students and employers.</p>
+                                <h2 class="fw-bold">Smarter Than a Resume </h2>
+                                <p>Our patent-pending digital employment profile is more than just a resume replacement—it’s built for real time and efficient job matching.
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -403,7 +466,624 @@ function home_page_landing_page()
             </div>
         </section>
 
-        <!-- Privacy Notice Section -->
+        <!-- how it works section -->
+        <section id="how" ng-show="activePage === 'how'" class="py-5">
+            <div class="container">
+
+                <div class="how-it-works-content p-3 rounded-bottom" style="background: linear-gradient(to bottom, rgb(0, 43, 86) 0%, white 50%);">
+                    <h1 class="display-4 text-white fw-bold fs-2 text-center p-3 rounded-top">
+                        How OJTGo Works
+                    </h1>
+
+                    <div class="row g-4 mt-5">
+                        <!-- Step 1 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="step-box h-100 p-4 d-flex flex-column">
+                                <div class="step-number-container text-center mb-3">
+                                    <div class="step-number mx-auto">1</div>
+                                </div>
+                                <div id="step1" class="lottie-animation mb-3"></div>
+                                <div class="step-content flex-grow-1">
+                                    <h3 class="step-title text-center">Step 1: Register & Build Your Profile</h3>
+                                    <p class="step-description text-center">Sign up at www.ojtgo.com and create your student profile.
+                                        No resume needed—just input your course, skills, location, internship preferences, and any relevant
+                                        experiences or certifications. Our system showcases you directly to potential host companies.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="step-box h-100 p-4 d-flex flex-column">
+                                <div class="step-number-container text-center mb-3">
+                                    <div class="step-number mx-auto">2</div>
+                                </div>
+                                <div id="step2" class="lottie-animation mb-3"></div>
+                                <div class="step-content flex-grow-1">
+                                    <h3 class="step-title text-center">Step 2: Get Matched & Explore Opportunities</h3>
+                                    <p class="step-description text-center">Once your profile is complete, OJTGo automatically connects you
+                                        with real, verified companies based on your academic background, skills, and preferences. You’ll also
+                                        discover nearby internships through GeoMatch, making it easier to find opportunities that fit.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="step-box h-100 p-4 d-flex flex-column">
+                                <div class="step-number-container text-center mb-3">
+                                    <div class="step-number mx-auto">3</div>
+                                </div>
+                                <div id="step3" class="lottie-animation mb-3"></div>
+                                <div class="step-content flex-grow-1">
+                                    <h3 class="step-title text-center">Step 3: Apply & Connect</h3>
+                                    <p class="step-description text-center">Receive match notifications through your dashboard and email. Apply to
+                                        multiple internships and use the platform’s built-in messaging to chat directly with employers. Interviews
+                                        are done online—quick, easy, and no travel required.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="col-md-6 col-lg-3">
+                            <div class="step-box h-100 p-4 d-flex flex-column">
+                                <div class="step-number-container text-center mb-3">
+                                    <div class="step-number mx-auto">4</div>
+                                </div>
+                                <div id="step4" class="lottie-animation mb-3"></div>
+                                <div class="step-content flex-grow-1">
+                                    <h3 class="step-title text-center">Step 4: Start Your OJT</h3>
+                                    <p class="step-description text-center">Once you’re accepted, coordinate directly with your host company and start your internship journey.
+                                        Gain practical, hands-on experience without the usual stress or extra costs—so you can stay focused on graduation and your goals</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="container mt-5">
+                        <h2 class="text-center fw-bold" style="color:rgb(0, 43, 86);">Why OJTGo Works for You?</h2>
+
+                        <div class="row mt-4 align-items-center">
+                            <div>
+                                <ul class="list-unstyled">
+                                    <li class="mb-3"><strong>• No resumes required</strong> – Your profile says it all.</li>
+                                    <li class="mb-3"><strong>• Seamless matching system</strong> – No more endless searching.</li>
+                                    <li class="mb-3"><strong>• Verified companies only</strong> – Real, reliable opportunities.</li>
+                                    <li class="mb-3"><strong>• Always free for students</strong> – Because opportunity shouldn’t come with a price tag.</li>
+                                    <li class="mb-3"><strong>• Designed by former interns</strong> – We understand your needs.</li>
+                                </ul>
+                            </div>
+
+                            <div class="text-center p-4 rounded mt-4" style="background: linear-gradient(to right, #002B56, #006494); color: white;">
+                                <p class="mb-0">
+                                    <strong>OJTGo isn’t just a tool</strong> — it’s our solution to a problem we faced ourselves.<br>
+                                    Let’s make your internship journey easier, together.
+                                </p>
+                            </div>
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video Demo Section -->
+            <div class="container mt-5">
+                <h2 class="text-center fw-bold" style="color:rgb(0, 43, 86);">Watch OJTGo in Action</h2>
+                <p class="text-center mb-4">Explore how OJTGo works from both the Student and Employer perspectives.</p>
+
+                <div class="row g-4">
+                    <!-- Student Side Video -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm h-100 border-0">
+                            <div class="card-header text-white fw-semibold text-center" style="background-color: rgb(0, 43, 86);">
+                                Student Side Demo
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="https://www.youtube.com/embed/YOUR_STUDENT_VIDEO_ID"
+                                        title="Student Demo" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Employer Side Video -->
+                    <div class="col-md-6">
+                        <div class="card shadow-sm h-100 border-0">
+                            <div class="card-header text-white fw-semibold text-center" style="background-color: rgb(0, 43, 86);">
+                                Employer Side Demo
+                            </div>
+                            <div class="card-body p-0">
+                                <div class="ratio ratio-16x9">
+                                    <iframe src="https://www.youtube.com/embed/YOUR_EMPLOYER_VIDEO_ID"
+                                        title="Employer Demo" allowfullscreen></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" ng-show="activePage === 'faq'" class="py-5 bg-white">
+            <div class="container">
+
+                <div class="faq-content p-4 rounded shadow" style="background: linear-gradient(to bottom,rgb(255, 255, 255) 0%, #f9f9f9 100%);">
+                    <!-- Heading -->
+                    <h1 class="display-4 fw-bold fs-2 text-center mb-4" style="color: #002b56;">
+                        Frequently Asked Questions
+                    </h1>
+
+                    <div class="mx-auto" style="max-width: 900px;">
+                        <!-- Tabs -->
+                        <div class="d-flex justify-content-center gap-3 mb-4">
+                            <button class="custom-tab-button" ng-click="faqTab = 'ojtgo'">OJTGo</button>
+                            <button class="custom-tab-button" ng-click="faqTab = 'student'">Student</button>
+                            <button class="custom-tab-button" ng-click="faqTab = 'employer'">Employer</button>
+                        </div>
+
+                        <!-- FAQ List (Single Container) -->
+                        <div class="accordion">
+                            <!-- Unified ng-switch style -->
+                            <div ng-switch="faqTab">
+
+                                <!-- OJTGo FAQs -->
+                                <div ng-switch-when="ojtgo">
+                                    <div class="faq-item" ng-repeat="faq in ojtgoFaqs">
+                                        <div class="border-bottom py-2" ng-click="faq.open = !faq.open" style="cursor: pointer;">
+                                            {{ faq.question }}
+                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
+                                        </div>
+
+                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
+                                            ng-show="faq.open"
+                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
+                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
+                                            <ul ng-if="faq.answer.list">
+                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- Student FAQs -->
+                                <div ng-switch-when="student">
+                                    <div class="faq-item" ng-repeat="faq in studentFaqs">
+                                        <div class="border-bottom py-2" ng-click="faq.open = !faq.open" style="cursor: pointer;">
+                                            {{ faq.question }}
+                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
+                                        </div>
+
+                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
+                                            ng-show="faq.open"
+                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
+                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
+                                            <ul ng-if="faq.answer.list">
+                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Employer FAQs -->
+                                <div ng-switch-when="employer">
+                                    <div class="faq-item" ng-repeat="faq in employerFaqs">
+                                        <div class="border-bottom py-2" ng-click="faq.open = !faq.open" style="cursor: pointer;">
+                                            {{ faq.question }}
+                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
+                                        </div>
+
+                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
+                                            ng-show="faq.open"
+                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
+                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
+                                            <ul ng-if="faq.answer.list">
+                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </section>
+
+        <!-- Blogs Section -->
+        <section id="blogs" ng-show="activePage === 'blogs'" class="bg-white py-5">
+            <div class="container">
+                <!-- Section Title -->
+                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color: rgb(0, 43, 86);">
+                    Our Latest Blogs
+                </h1>
+
+                <!-- Blog card -->
+                <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                    <div class="col" ng-repeat="blog in blogs">
+                        <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-white d-flex flex-column"
+                            ng-class="{'expanded-card': selectedBlog === blog}"
+                            style="transition: all 0.3s ease; cursor: pointer;">
+
+                            <!-- Blog Media -->
+                            <img ng-if="blog.blog_media && !isVideo(blog.blog_media)"
+                                ng-src="{{blog.blog_media}}"
+                                class="card-img-top rounded"
+                                alt="{{blog.title_blog}}"
+                                style="max-height: 200px; object-fit: cover;">
+
+                            <video ng-if="blog.blog_media && isVideo(blog.blog_media)" controls
+                                class="card-img-top rounded"
+                                style="max-height: 200px; object-fit: cover;">
+                                <source ng-src="{{blog.blog_media}}" type="video/mp4">
+                            </video>
+
+                            <!-- Blog Content -->
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">{{blog.title_blog}}</h5>
+                                <small class="text-muted">{{blog.blog_date | date:'MMMM d, yyyy'}}</small>
+
+                                <!-- Collapsed -->
+                                <!--<p class="card-text mt-2" ng-if="selectedBlog !== blog">-->
+                                <!--    {{blog.blog_description | limitTo: 150}}...-->
+                                <!--    <span class="text-primary fw-semibold" ng-click="toggleBlogExpansion(blog)">See More</span>-->
+                                <!--</p>-->
+                                <!-- Collapsed Quill-rendered preview -->
+                                <div class="card-text mt-2" ng-if="selectedBlog !== blog">
+                                    <div ng-bind-html="blog.blog_description | limitHtmlTo: 150"></div>
+                                    <span class="text-primary fw-semibold" ng-click="toggleBlogExpansion(blog)">See More</span>
+                                </div>
+
+                                <!-- Expanded -->
+                                <div ng-if="selectedBlog === blog"
+                                    class="mt-3"
+                                    style="max-height: 300px; overflow-y: auto;">
+                                    <!--<p class="lh-lg text-dark" style="white-space: pre-line;">-->
+                                    <!--    {{blog.blog_description | unescape}}-->
+                                    <!--</p>-->
+                                    <div class="quill-wrapper" readonly-view="true">
+                                        <div quill-editor ng-model="blog.blog_description" style="height: 300px;"></div>
+                                    </div>
+
+                                </div>
+                                <button ng-if="selectedBlog === blog" class="btn btn-outline-secondary btn-sm mt-3"
+                                    ng-click="toggleBlogExpansion(null); $event.stopPropagation()">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div ng-if="blogs.length === 0" class="text-muted mt-3">No blog found.</div>
+            </div>
+        </section>
+
+        <!-- Highlights section -->
+        <section id="highlights" ng-show="activePage === 'highlights'" class="bg-white py-5">
+            <div class="container">
+                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded mb-5" style="background-color: rgb(0, 43, 86);">
+                    OJTGo Highlights
+                </h1>
+
+                <!-- Highlight Filters (Buttons) -->
+                <div class="container">
+                    <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
+                        <button class="btn btn-outline-primary"
+                            ng-class="{'active': activeHighlight === 'all'}"
+                            ng-click="activeHighlight='all'">
+                            All
+                        </button>
+                        <button class="btn btn-outline-primary"
+                            ng-class="{'active': activeHighlight === 'news'}"
+                            ng-click="activeHighlight = 'news'">
+                            News
+                        </button>
+                        <button class="btn btn-outline-primary"
+                            ng-class="{'active': activeHighlight === 'testimonial'}"
+                            ng-click="activeHighlight = 'testimonial'">
+                            Testimonials
+                        </button>
+                        <button class="btn btn-outline-primary"
+                            ng-class="{'active': activeHighlight === 'facebook'}"
+                            ng-click="activeHighlight = 'facebook'">
+                            Facebook
+                        </button>
+                        <button class="btn btn-outline-primary"
+                            ng-class="{'active': activeHighlight === 'instagram'}"
+                            ng-click="activeHighlight = 'instagram'">
+                            Instagram
+                        </button>
+                        <button class="btn btn-outline-primary"
+                            ng-class="{'active': activeHighlight === 'tiktok'}"
+                            ng-click="activeHighlight = 'tiktok'">
+                            TikTok
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Highlights Grid -->
+                <div class="row g-3">
+                    <div class="col-md-4 pb-3" ng-if="activeHighlight === 'all'" ng-repeat="post in allHighlights">
+
+                        <!-- news -->
+                        <div ng-if="post.type === 'news'"
+                            class="card h-100 shadow-sm border-0 rounded-4 pb-3 bg-white d-flex flex-column"
+                            ng-class="{'expanded-news': selectedNewsPost === post}"
+                            style="transition: all 0.3s ease; cursor: pointer;">
+
+                            <!-- Top Content -->
+                            <div class="flex-grow-1 d-flex flex-column ms-3">
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title my-2">{{post.title}}</h5>
+
+                                <!-- Collapsed Description -->
+                                <div class="card-text mt-2" ng-if="selectedNewsPost !== post">
+                                    <div ng-bind-html="post.description | limitHtmlTo: 150"></div>
+                                </div>
+
+                                <!-- Expanded Description -->
+                                <div ng-if="selectedNewsPost === post"
+                                    class="mt-2"
+                                    style="max-height: 220px; overflow-y: auto;">
+                                    <img ng-if="post.image"
+                                        ng-src="{{post.image}}"
+                                        class="img-fluid rounded-3 mb-3"
+                                        style="max-height: 200px; object-fit: cover;"
+                                        alt="{{post.title}}">
+
+                                    <div quill-editor ng-model="post.description"
+                                        readonly-view="true"
+                                        style="min-height:120px;max-height:300px;overflow:auto;">
+                                    </div>
+
+                                    <button class="btn btn-outline-secondary btn-sm mt-2"
+                                        ng-click="toggleNewsExpansion(null); $event.stopPropagation()">Close</button>
+                                </div>
+
+                                <!-- See More Link Always at Bottom -->
+                                <div class="mt-auto pt-2" ng-if="selectedNewsPost !== post">
+                                    <span class="text-primary fw-semibold d-inline-flex align-items-center gap-1" ng-click="toggleNewsExpansion(post)">
+                                        See More
+                                        <i class="fas fa-arrow-right ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Testimonial Card -->
+                        <div ng-if="post.type === 'testimonial'" class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 370px;">
+                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+                                <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
+                                    <small class="text-muted position-absolute" style="top:0; right:0; font-size: 0.85rem;">{{ post.date | date:'MMMM d, y' }}</small>
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+
+                                <!-- QuillJS Viewer for Testimonial -->
+                                <div class="text-center fw-semibold fs-5 my-3">
+                                    <div quill-editor ng-model="post.description" readonly-view="true"></div>
+                                </div>
+
+                                <div class="d-flex align-items-center mt-auto">
+                                    <img ng-src="{{post.image}}" alt="{{post.title}}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                                    <div>
+                                        <h6 class="mb-0">{{post.title}}</h6>
+                                        <small class="text-muted">{{post.role}}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Facebook Card -->
+                        <div ng-if="post.type === 'facebook'" class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
+                            <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title mt-2">{{post.title}}</h5>
+                                <!-- QuillJS Viewer for Facebook -->
+                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px;max-height:120px;overflow:auto;"></div>
+                                <div class="mt-auto pt-2">
+                                    <a ng-href="{{post.link}}" target="_blank" class="text-primary fw-semibold d-inline-flex align-items-center gap-1">
+                                        See more on Facebook
+                                        <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Instagram Card -->
+                        <div ng-if="post.type === 'instagram'" class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
+                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
+                                <!-- QuillJS Viewer for Instagram -->
+                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px;max-height:120px;overflow:auto;"></div>
+                                <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-danger fw-semibold d-inline-flex align-items-center gap-1">
+                                    View on Instagram
+                                    <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- TikTok Card -->
+                        <div ng-if="post.type === 'tiktok'" class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
+                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title mt-2">{{post.title}}</h5>
+                                <!-- QuillJS Viewer for TikTok -->
+                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px;max-height:120px;overflow:auto;"></div>
+                                <a ng-href="{{post.link}}" class="mt-auto text-dark fw-semibold d-inline-flex align-items-center gap-1" target="_blank">
+                                    Watch on TikTok
+                                    <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Specified post -->
+                <!-- News Section -->
+                <div class="row g-3 mb-4">
+                    <div class="col-md-4" ng-show="activeHighlight === 'news'"
+                        ng-repeat="post in newsPosts | orderBy:'-date'">
+
+                        <div class="card h-100 shadow-sm border-0 rounded-4 p-3 d-flex flex-column"
+                            ng-class="{'expanded-news': selectedNewsPost === post}"
+                            style="background-color: white; transition: all 0.3s ease; cursor: pointer;">
+
+                            <div class="d-flex flex-column h-100">
+                                <!-- Date and Title -->
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title my-2">{{ post.title }}</h5>
+
+                                <!-- Collapsed Description -->
+                                <div class="card-text mt-2" ng-if="selectedNewsPost !== post">
+                                    <div ng-bind-html="post.description | limitHtmlTo: 150"></div>
+                                </div>
+
+                                <!-- See More -->
+                                <div class="mt-auto pt-2" ng-if="selectedNewsPost !== post">
+                                    <span class="text-primary fw-semibold d-inline-flex align-items-center gap-1"
+                                        ng-click="toggleNewsExpansion(post)">
+                                        See More
+                                        <i class="fas fa-arrow-right ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                    </span>
+                                </div>
+
+                                <!-- Expanded Description -->
+                                <div ng-if="selectedNewsPost === post"
+                                    class="mt-3"
+                                    style="max-height: 300px; overflow-y: auto;">
+                                    <img ng-if="post.image"
+                                        ng-src="{{post.image}}"
+                                        class="img-fluid rounded-3 mb-3"
+                                        style="max-height: 200px; object-fit: cover;"
+                                        alt="{{post.title}}">
+
+                                    <div quill-editor
+                                        ng-model="post.description"
+                                        readonly-view="true"
+                                        style="min-height:120px; max-height:300px; overflow:auto;">
+                                    </div>
+
+                                    <button class="btn btn-outline-secondary btn-sm mt-2"
+                                        ng-click="toggleNewsExpansion(null); $event.stopPropagation()">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Testimonials -->
+                <div class="row g-3" ng-show="activeHighlight === 'testimonial'">
+                    <div class="col-md-4"
+                        ng-repeat="post in testimonialPosts | orderBy:'-date'">
+
+                        <!-- Testimonial Card -->
+                        <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 370px;">
+                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+
+                                <!-- Quote Icon & Date -->
+                                <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
+                                    <small class="text-muted position-absolute" style="top: 0; right: 0; font-size: 0.85rem;">
+                                        {{ post.date | date:'MMMM d, y' }}
+                                    </small>
+                                    <i class="fas fa-quote-right"></i>
+                                </div>
+
+                                <!-- QuillJS Viewer for Testimonial -->
+                                <div class="text-center fw-semibold fs-5 my-3">
+                                    <div quill-editor ng-model="post.description" readonly-view="true"></div>
+                                </div>
+
+                                <!-- Person Info -->
+                                <div class="d-flex align-items-center mt-auto">
+                                    <img ng-src="{{post.image}}" alt="{{post.title}}"
+                                        class="rounded-circle me-3"
+                                        style="width: 60px; height: 60px; object-fit: cover;">
+                                    <div>
+                                        <h6 class="mb-0">{{ post.title }}</h6>
+                                        <small class="text-muted">{{ post.role }}</small>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <!-- Facebook -->
+                <div class="row g-3" ng-show="activeHighlight === 'facebook'">
+                    <div class="col-md-4" ng-repeat="post in facebookPosts | orderBy:'-date'">
+                        <div class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
+                            <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title mt-2">{{post.title}}</h5>
+
+                                <!-- QuillJS Viewer for Facebook -->
+                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px; max-height:120px; overflow:auto;"></div>
+
+                                        <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-primary fw-semibold d-inline-flex align-items-center gap-1">
+                                            See more on Facebook
+                                        <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                    </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Instagram -->
+                <div class="row g-3" ng-show="activeHighlight === 'instagram'">
+                    <div class="col-md-4" ng-repeat="post in instagramPosts | orderBy:'-date'">
+                        <div class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
+                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
+
+                                <!-- QuillJS Viewer for Instagram -->
+                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px; max-height:120px; overflow:auto;"></div>
+
+                                <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-danger fw-semibold d-inline-flex align-items-center gap-1">
+                                    View on Instagram
+                                    <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TikTok -->
+                <div class="row g-3" ng-show="activeHighlight === 'tiktok'">
+                    <div class="col-md-4" ng-repeat="post in tiktokPosts | orderBy:'-date'">
+                        <div class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
+                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <h5 class="card-title mt-2">{{post.title}}</h5>
+
+                                <!-- QuillJS Viewer for TikTok -->
+                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px; max-height:120px; overflow:auto;"></div>
+
+                                <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-dark fw-semibold d-inline-flex align-items-center gap-1">
+                                    Watch on TikTok
+                                    <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Privacy Notice section -->
         <section id="privacy" ng-show="activePage === 'privacy'" class="bg-light py-5 bg-transparent">
             <div class="container">
                 <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
@@ -426,7 +1106,7 @@ function home_page_landing_page()
                         <li>Skills, personal preferences, and availability</li>
                     </ul><br>
 
-                    <p><strong>b) Character References</strong><br>
+                    <p><strong>) Character References</strong><br>
                         If references are added, interns must provide names, job titles, and contact details. It is the intern’s responsibility to obtain prior consent from these individuals before sharing their data.
                     </p><br>
 
@@ -995,96 +1675,6 @@ function home_page_landing_page()
             </section>
 
         </section>
-
-        <!-- News Section -->
-        <section id="news" ng-show="activePage === 'news'" class="bg-light py-5">
-
-            <div class="container">
-                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded mb-5" style="background-color:rgb(0, 43, 86);">
-                    News and Events
-                </h1>
-
-                <!-- Responsive Featured Image with Bottom-Left Overlay Text -->
-                <div class="position-relative mb-5 rounded-3 overflow-hidden" style="height: 450px;">
-                    <!-- Background Image -->
-                    <img src="<?php echo home_url('/wp-content/uploads/icons/home/example-1.jpg') ?>" alt="OJTGo Feature"
-                        class="w-100 h-100 img-fluid" style="object-fit: cover; filter: brightness(0.6);">
-
-                    <!-- Dark Overlay -->
-                    <div class="position-absolute top-0 start-0 w-100 h-100"
-                        style="background-color: rgba(0, 0, 0, 0.5); z-index: 1;"></div>
-
-                    <!-- Overlay Text (Bottom-Left) -->
-                    <div class="position-absolute bottom-0 start-0 text-white px-4 pb-4"
-                        style="z-index: 2; max-width: 700px;">
-                        <h3 class="fw-bold display-6 d-none d-md-block">OJTGo: Built by Students</h3>
-                        <h4 class="fw-bold d-block d-md-none fs-4">OJTGo: Built by Students</h4>
-
-                        <p class="lead mt-2" style="font-size: 1.3rem;">
-                            A platform created by students, dedicated to transforming your internship journey with transparency, opportunities, and real growth.
-                        </p>
-                    </div>
-                </div>
-
-
-
-
-            </div>
-
-            <!-- News List View (only shown when NOT viewing full news) -->
-            <section class="m-4 border rounded-5">
-                <div ng-if="!showFullNewsPage" class="news-list-section p-4">
-                    <div class="row row-cols-1 row-cols-md-3 g-4">
-                        <div class="col" ng-repeat="news in newsList">
-                            <div class="card h-500 shadow-sm border-0 d-flex flex-column p-0"
-                                ng-click="openFullNews(news)"
-                                style="cursor: pointer; overflow: hidden; position: relative; height: 350px;">
-
-                                <img ng-src="{{news.image}}" class="w-100"
-                                    alt="News Image"
-                                    style="height: 350px; width: 100%; object-fit: contain; display: block;">
-
-                                <div class="news-overlay p-3" style="flex-grow: 1; overflow: auto;">
-                                    <h5 class="card-title mb-1 fw-semibold fs-5">{{ news.title }}</h5>
-                                    <small class="text-light">Posted on {{ news.date }}</small>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- Full News Detail View (only shown when viewing full news) -->
-            <section id="full-news-section" ng-if="showFullNewsPage" class="full-news-section p-4 pt-5">
-                <div class="full-news-section p-2 p-md-4">
-
-                    <button class="btn btn-outline-primary mt-3 mb-4" ng-click="closeFullNews()">← Back to News</button>
-
-                    <div class="row">
-                        <div class="col-md-6 position-relative">
-                            <div class="w-100" style="height: 500px; overflow: hidden; border-radius: 8px;">
-                                <img ng-src="{{selectedNews.image}}" class="img-fluid w-100 h-100"
-                                    alt="News Image" style="object-fit: contain;">
-                            </div>
-                        </div>
-
-                        <div class="col-md-6 d-flex flex-column justify-content-end mt-3">
-                            <h3 class="text-primary fw-bold">{{ selectedNews.title }}</h3>
-                            <p class="text-muted"><small>Posted on {{ selectedNews.date }}</small></p>
-                        </div>
-                    </div>
-
-                    <div class="mt-4 px-0 px-md-3">
-                        <p class="w-100" style="font-size: 1.1rem; background-color: rgba(0, 0, 0, 0.6); color: #ffffff; padding: 1rem; border-radius: 8px;">
-                            {{ selectedNews.summary }}
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-        </section>
-
 
         <!-- Contact Us Section -->
         <!-- Full-width container for the Contact Section -->
@@ -2027,9 +2617,6 @@ function home_page_landing_page()
 
     </div>
 
-
-
-
     <!-- Off Canvas - job postings card for mobile view -->
     <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="fym-map-mobile" aria-labelledby="fym-map-mobile">
 
@@ -2049,18 +2636,6 @@ function home_page_landing_page()
     </div>
 
     </div>
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 <?php

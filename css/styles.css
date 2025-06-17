@@ -748,33 +748,6 @@ body {
     /* Change to any color you like */
 }
 
-/* news and events style */
-.card:hover {
-    transform: translateY(-5px);
-    transition: transform 0.3s ease;
-}
-
-/* news and events bg */
-/* .transparent-black-bg {
-    background-color: rgba(0, 0, 0, 0.7);
-} */
-
-/* Gradient overlay at the news cards */
-.news-overlay {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    padding: 30px 20px 20px;
-    background: linear-gradient(to top,
-                rgba(0, 1, 1, 0.744) 20%,
-                rgba(0, 1, 1, 0.649) 40%,
-                rgba(0, 1, 1, 0.703) 50%,
-                rgba(0, 1, 1, 0.641) 65%,
-                rgba(0, 1, 1, 0.486) 85%,
-                rgba(0, 1, 1, 0) 100%);
-    color: rgb(255, 255, 255); }
-
-
 /* .blue-circle-left {
     position: absolute;
     top: 50%;
@@ -823,33 +796,6 @@ body {
     transform: translate(-100%, 160%);
     z-index: -1;
 
-}
-
-/* modal style for news */
-.news-modal-backdrop {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1050;
-    /* higher than everything else */
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0, 0, 0, 0.6);
-    /* dim background */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow-y: auto;
-    padding: 20px;
-}
-
-.news-modal-content {
-    max-width: 900px;
-    width: 100%;
-    background: white;
-    border-radius: 10px;
-    position: relative;
-    animation: fadeInUp 0.3s ease-out;
 }
 
 body.modal-open {
@@ -945,12 +891,224 @@ html {
     }
 }
 
-/* added by Charls */
-
  /* Legal footer responsiveness */
  @media (min-width: 992px) {
      .legal-offset {
          margin-left: 8rem !important;
      }
  }
- 
+
+/* How It Works Section */
+#how {
+    background-color: #f8f9fa;
+}
+
+.how-it-works-content {
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.step-box {
+    background: white;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border-top: 4px solid rgb(0, 43, 86);
+    min-height: 400px;
+}
+
+.step-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+}
+
+.step-number-container {
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-number {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: rgb(0, 43, 86);
+    line-height: 1;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.step-title {
+    font-weight: 600;
+    color: #212529;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+}
+
+.step-description {
+    color: #495057;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.lottie-animation {
+    height: 120px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .step-box {
+        margin-bottom: 20px;
+        min-height: 380px;
+    }
+
+    .lottie-animation {
+        height: 100px;
+    }
+}
+
+/* faq styling */
+/* Custom tab buttons */
+.custom-tab-button {
+    background-color: white;
+    color: black;
+    border: 1px solid #ced4da;
+    padding: 8px 16px;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+}
+
+/* Remove Bootstrap's default red focus/active outline */
+.custom-tab-button:focus,
+.custom-tab-button:active,
+.custom-tab-button:focus:active {
+    outline: none !important;
+    box-shadow: none !important;
+    border-color: rgb(0, 43, 86) !important;
+    /* Blue border */
+    background-color: rgb(0, 43, 86) !important;
+    /* Blue background */
+    color: #ffffff !important;
+    /* White text */
+}
+
+/* Hover effect: Blue border and text */
+.custom-tab-button:hover {
+    background-color: transparent !important;
+    border-color: rgb(0, 43, 86)!important;
+    color: rgb(0, 43, 86) !important;
+}
+
+/* Optional: Make sure buttons don't use Bootstrap's red if inherited */
+.custom-tab-button {
+    border: 1px solid transparent;
+    background-color: transparent;
+    color: rgb(0, 43, 86);
+    transition: all 0.3s ease;
+    padding: 6px 12px;
+    border-radius: 4px;
+    font-weight: 500;
+}
+
+/* Add space between FAQ questions */
+.faq-question {
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+/* Optional: add a bit of space below the answer too */
+.faq-answer {
+    margin-bottom: 30px;
+}
+
+.faq-item {
+    margin-bottom: 30px;
+}
+
+/* Ensure all cards are the same height regardless of content */
+#highlights .card {
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#highlights .card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Remove hover effect for highlight cards */
+.row.g-4 .card:hover,
+.row.g-4 .card:focus,
+.row.g-4 .card:active {
+    box-shadow: none !important;
+    transform: none !important;
+    background: inherit !important;
+    border-color: inherit !important;
+}
+
+/* Blog expand content */
+.expanded-card {
+    max-height: 600px;
+    overflow-y: auto;
+    background-color: #fff;
+    border: 2px solid #dee2e6;
+}
+
+/* News expand content */
+.expanded-news {
+    background-color: #ffffff;
+    border: 1px solid #dee2e6;
+}
+
+/* testimonial card style */
+.card.testimonial-card {
+    max-height: 300px;
+}
+
+.card.testimonial-card .card-body {
+    overflow-y: auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+/* quill */
+/* .quill-content {
+    font-family: inherit;
+    font-size: 1rem;
+} */
+
+/* White overlay for Bootstrap modal */
+/* .modal-backdrop.show {
+    background-color: rgb(255, 255, 255);
+    /* white with some transparency */
+/* } */
+
+/* .modal {
+    z-index: 1060;
+    /* Bootstrap default */
+/* }
+
+.modal-backdrop {
+    z-index: 1050;
+    /* Just behind the modal */
+/* } */
+
+/* Custom styles for the modal */
+/* .close.ms-auto:hover,
+.close.ms-auto:focus {
+    background: #e3f0ff !important;
+} */
+
+/* .close.ms-auto:hover i,
+.close.ms-auto:focus i {
+    color: #0d6efd !important;
+} */ 
+
