@@ -567,7 +567,7 @@ function home_page_landing_page()
             </div>
 
             <!-- Video Demo Section -->
-            <div class="container mt-5">
+            <div class="container mt-5 d-none">
                 <h2 class="text-center fw-bold" style="color:rgb(0, 43, 86);">Watch OJTGo in Action</h2>
                 <p class="text-center mb-4">Explore how OJTGo works from both the Student and Employer perspectives.</p>
 
@@ -580,8 +580,8 @@ function home_page_landing_page()
                             </div>
                             <div class="card-body p-0">
                                 <div class="ratio ratio-16x9">
-                                    <iframe src="https://www.youtube.com/embed/YOUR_STUDENT_VIDEO_ID"
-                                        title="Student Demo" allowfullscreen></iframe>
+                                    <iframe src="https://www.youtube.com/embed/C0Lq6dO1pDE"
+                                        title="Student Demo" allowfullscreen style="width:100%;height:100%;"></iframe>
                                 </div>
                             </div>
                         </div>
@@ -707,27 +707,29 @@ function home_page_landing_page()
                 <!-- Blog card -->
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <div class="col" ng-repeat="blog in blogs">
+
                         <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-white d-flex flex-column"
                             ng-class="{'expanded-card': selectedBlog === blog}"
                             style="transition: all 0.3s ease; cursor: pointer;">
 
                             <!-- Blog Media -->
-                            <img ng-if="blog.blog_media && !isVideo(blog.blog_media)"
-                                ng-src="{{blog.blog_media}}"
+                            <img ng-if="blog.image"
+                                ng-src="{{blog.image}}"
+                                loading="lazy"
                                 class="card-img-top rounded"
                                 alt="{{blog.title_blog}}"
                                 style="max-height: 200px; object-fit: cover;">
-
+                            <!-- 
                             <video ng-if="blog.blog_media && isVideo(blog.blog_media)" controls
                                 class="card-img-top rounded"
                                 style="max-height: 200px; object-fit: cover;">
                                 <source ng-src="{{blog.blog_media}}" type="video/mp4">
-                            </video>
+                            </video> -->
 
                             <!-- Blog Content -->
                             <div class="card-body">
-                                <h5 class="card-title fw-bold">{{blog.title_blog}}</h5>
-                                <small class="text-muted">{{blog.blog_date | date:'MMMM d, yyyy'}}</small>
+                                <h5 class="card-title fw-bold">{{blog.title}}</h5>
+                                <small class="text-muted">{{blog.date | date:'MMMM d, yyyy'}}</small>
 
                                 <!-- Collapsed -->
                                 <!--<p class="card-text mt-2" ng-if="selectedBlog !== blog">-->
@@ -736,7 +738,7 @@ function home_page_landing_page()
                                 <!--</p>-->
                                 <!-- Collapsed Quill-rendered preview -->
                                 <div class="card-text mt-2" ng-if="selectedBlog !== blog">
-                                    <div ng-bind-html="blog.blog_description | limitHtmlTo: 150"></div>
+                                    <div ng-bind-html="blog.descriptionUnescaped | limitHtmlTo: 150"></div>
                                     <span class="text-primary fw-semibold" ng-click="toggleBlogExpansion(blog)">See More</span>
                                 </div>
 
@@ -748,7 +750,7 @@ function home_page_landing_page()
                                     <!--    {{blog.blog_description | unescape}}-->
                                     <!--</p>-->
                                     <div class="quill-wrapper" readonly-view="true">
-                                        <div quill-editor ng-model="blog.blog_description" style="height: 300px;"></div>
+                                        <div ng-bind-html="blog.descriptionUnescaped | trustAsHtml" style="height: 300px;"></div>
                                     </div>
 
                                 </div>
@@ -810,10 +812,10 @@ function home_page_landing_page()
 
                 <!-- Highlights Grid -->
                 <div class="row g-3">
-                    <div class="col-md-4 pb-3" ng-if="activeHighlight === 'all'" ng-repeat="post in allHighlights">
+                    <div class="col-md-4 pb-3" ng-show="activeHighlight === 'all'" ng-repeat="post in filteredHighlights ">
 
                         <!-- news -->
-                        <div ng-if="post.type === 'news'"
+                        <div ng-show="post.type === 'news'"
                             class="card h-100 shadow-sm border-0 rounded-4 pb-3 bg-white d-flex flex-column"
                             ng-class="{'expanded-news': selectedNewsPost === post}"
                             style="transition: all 0.3s ease; cursor: pointer;">
@@ -829,26 +831,27 @@ function home_page_landing_page()
                                 </div>
 
                                 <!-- Expanded Description -->
-                                <div ng-if="selectedNewsPost === post"
+                                <div ng-show="selectedNewsPost === post"
                                     class="mt-2"
                                     style="max-height: 220px; overflow-y: auto;">
-                                    <img ng-if="post.image"
+                                    <img ng-show="post.image"
                                         ng-src="{{post.image}}"
+                                        loading="lazy"
                                         class="img-fluid rounded-3 mb-3"
                                         style="max-height: 200px; object-fit: cover;"
                                         alt="{{post.title}}">
 
-                                    <div quill-editor ng-model="post.description"
-                                        readonly-view="true"
-                                        style="min-height:120px;max-height:300px;overflow:auto;">
+                                    <div ng-bind-html="post.description | trustAsHtml"
+                                        style="min-height:120px; max-height:300px; overflow:auto;">
                                     </div>
+
 
                                     <button class="btn btn-outline-secondary btn-sm mt-2"
                                         ng-click="toggleNewsExpansion(null); $event.stopPropagation()">Close</button>
                                 </div>
 
                                 <!-- See More Link Always at Bottom -->
-                                <div class="mt-auto pt-2" ng-if="selectedNewsPost !== post">
+                                <div class="mt-auto pt-2" ng-show="selectedNewsPost !== post">
                                     <span class="text-primary fw-semibold d-inline-flex align-items-center gap-1" ng-click="toggleNewsExpansion(post)">
                                         See More
                                         <i class="fas fa-arrow-right ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
@@ -858,20 +861,20 @@ function home_page_landing_page()
                         </div>
 
                         <!-- Testimonial Card -->
-                        <div ng-if="post.type === 'testimonial'" class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 370px;">
+                        <div ng-show="post.type === 'testimonial'" class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 370px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
                                     <small class="text-muted position-absolute" style="top:0; right:0; font-size: 0.85rem;">{{ post.date | date:'MMMM d, y' }}</small>
                                     <i class="fas fa-quote-right"></i>
                                 </div>
 
-                                <!-- QuillJS Viewer for Testimonial -->
+                                <!-- QuillJS Viewer for Testimonial All Category -->
                                 <div class="text-center fw-semibold fs-5 my-3">
-                                    <div quill-editor ng-model="post.description" readonly-view="true"></div>
+                                    <div ng-bind-html="post.descriptionUnescaped | trustAsHtml" style="font-size:15px"></div>
                                 </div>
 
                                 <div class="d-flex align-items-center mt-auto">
-                                    <img ng-src="{{post.image}}" alt="{{post.title}}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
+                                    <img ng-src="{{post.image}}" loading="lazy" alt="{{post.title}}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
                                     <div>
                                         <h6 class="mb-0">{{post.title}}</h6>
                                         <small class="text-muted">{{post.role}}</small>
@@ -881,12 +884,12 @@ function home_page_landing_page()
                         </div>
 
                         <!-- Facebook Card -->
-                        <div ng-if="post.type === 'facebook'" class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
+                        <div ng-show="post.type === 'facebook'" class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
                                 <!-- QuillJS Viewer for Facebook -->
-                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px;max-height:120px;overflow:auto;"></div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
                                 <div class="mt-auto pt-2">
                                     <a ng-href="{{post.link}}" target="_blank" class="text-primary fw-semibold d-inline-flex align-items-center gap-1">
                                         See more on Facebook
@@ -897,12 +900,12 @@ function home_page_landing_page()
                         </div>
 
                         <!-- Instagram Card -->
-                        <div ng-if="post.type === 'instagram'" class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
+                        <div ng-show="post.type === 'instagram'" class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
                                 <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
                                 <!-- QuillJS Viewer for Instagram -->
-                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px;max-height:120px;overflow:auto;"></div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
                                 <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-danger fw-semibold d-inline-flex align-items-center gap-1">
                                     View on Instagram
                                     <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
@@ -911,12 +914,12 @@ function home_page_landing_page()
                         </div>
 
                         <!-- TikTok Card -->
-                        <div ng-if="post.type === 'tiktok'" class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
+                        <div ng-show="post.type === 'tiktok'" class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
                                 <!-- QuillJS Viewer for TikTok -->
-                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px;max-height:120px;overflow:auto;"></div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
                                 <a ng-href="{{post.link}}" class="mt-auto text-dark fw-semibold d-inline-flex align-items-center gap-1" target="_blank">
                                     Watch on TikTok
                                     <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
@@ -931,7 +934,7 @@ function home_page_landing_page()
                 <!-- News Section -->
                 <div class="row g-3 mb-4">
                     <div class="col-md-4" ng-show="activeHighlight === 'news'"
-                        ng-repeat="post in newsPosts | orderBy:'-date'">
+                        ng-repeat="post in filteredHighlights | orderBy:'-date'">
 
                         <div class="card h-100 shadow-sm border-0 rounded-4 p-3 d-flex flex-column"
                             ng-class="{'expanded-news': selectedNewsPost === post}"
@@ -962,13 +965,13 @@ function home_page_landing_page()
                                     style="max-height: 300px; overflow-y: auto;">
                                     <img ng-if="post.image"
                                         ng-src="{{post.image}}"
+                                        loading="lazy"
                                         class="img-fluid rounded-3 mb-3"
                                         style="max-height: 200px; object-fit: cover;"
                                         alt="{{post.title}}">
 
-                                    <div quill-editor
-                                        ng-model="post.description"
-                                        readonly-view="true"
+                                    <div
+                                        ng-bind-html="post.description | trustAsHtml"
                                         style="min-height:120px; max-height:300px; overflow:auto;">
                                     </div>
 
@@ -982,8 +985,8 @@ function home_page_landing_page()
 
                 <!-- Testimonials -->
                 <div class="row g-3" ng-show="activeHighlight === 'testimonial'">
-                    <div class="col-md-4"
-                        ng-repeat="post in testimonialPosts | orderBy:'-date'">
+                    <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
+
 
                         <!-- Testimonial Card -->
                         <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 370px;">
@@ -999,12 +1002,12 @@ function home_page_landing_page()
 
                                 <!-- QuillJS Viewer for Testimonial -->
                                 <div class="text-center fw-semibold fs-5 my-3">
-                                    <div quill-editor ng-model="post.description" readonly-view="true"></div>
+                                    <div ng-bind-html="post.descriptionUnescaped | trustAsHtml" style="font-size: 15px;"></div>
                                 </div>
 
                                 <!-- Person Info -->
                                 <div class="d-flex align-items-center mt-auto">
-                                    <img ng-src="{{post.image}}" alt="{{post.title}}"
+                                    <img ng-src="{{post.image}}" loading="lazy" alt="{{post.title}}"
                                         class="rounded-circle me-3"
                                         style="width: 60px; height: 60px; object-fit: cover;">
                                     <div>
@@ -1021,20 +1024,20 @@ function home_page_landing_page()
 
                 <!-- Facebook -->
                 <div class="row g-3" ng-show="activeHighlight === 'facebook'">
-                    <div class="col-md-4" ng-repeat="post in facebookPosts | orderBy:'-date'">
+                    <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
                         <div class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
 
                                 <!-- QuillJS Viewer for Facebook -->
-                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px; max-height:120px; overflow:auto;"></div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px; max-height:120px; overflow:auto;"></div>
 
-                                        <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-primary fw-semibold d-inline-flex align-items-center gap-1">
-                                            See more on Facebook
-                                        <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
-                                    </a>
-                                
+                                <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-primary fw-semibold d-inline-flex align-items-center gap-1">
+                                    See more on Facebook
+                                    <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                </a>
+
                             </div>
                         </div>
                     </div>
@@ -1042,14 +1045,14 @@ function home_page_landing_page()
 
                 <!-- Instagram -->
                 <div class="row g-3" ng-show="activeHighlight === 'instagram'">
-                    <div class="col-md-4" ng-repeat="post in instagramPosts | orderBy:'-date'">
+                    <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
                         <div class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
                                 <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
 
                                 <!-- QuillJS Viewer for Instagram -->
-                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px; max-height:120px; overflow:auto;"></div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px; max-height:120px; overflow:auto;"></div>
 
                                 <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-danger fw-semibold d-inline-flex align-items-center gap-1">
                                     View on Instagram
@@ -1062,14 +1065,14 @@ function home_page_landing_page()
 
                 <!-- TikTok -->
                 <div class="row g-3" ng-show="activeHighlight === 'tiktok'">
-                    <div class="col-md-4" ng-repeat="post in tiktokPosts | orderBy:'-date'">
+                    <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
                         <div class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
 
                                 <!-- QuillJS Viewer for TikTok -->
-                                <div quill-editor ng-model="post.description" readonly-view="true" style="min-height:60px; max-height:120px; overflow:auto;"></div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px; max-height:120px; overflow:auto;"></div>
 
                                 <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-dark fw-semibold d-inline-flex align-items-center gap-1">
                                     Watch on TikTok
@@ -1566,7 +1569,7 @@ function home_page_landing_page()
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/lorenzo-scaled.jpg') ?>" alt="Lorenzo">
                                     </div>
                                     <p class="text-center m-0">Lorenzo Daniel Jarata</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Front-End Developer</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
                                 </div>
 
                                 <!-- Team Member 10 -->
@@ -1575,7 +1578,7 @@ function home_page_landing_page()
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/millard-scaled.jpg') ?>" alt="Millard">
                                     </div>
                                     <p class="text-center m-0">Millard John Ortillano</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Back-End Developer</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
                                 </div>
 
                                 <!-- Team Member 7 -->
@@ -1618,10 +1621,10 @@ function home_page_landing_page()
                                 <!-- Team Member 11 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/vin.png') ?>" alt="Charls">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/charlss.jpg') ?>" alt="Charls">
                                     </div>
                                     <p class="text-center m-0">Arvin Charls Basco</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Front-End Developer
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
                                     </p>
                                 </div>
 

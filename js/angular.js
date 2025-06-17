@@ -37,23 +37,23 @@ $scope.showActivePage = 'contact';
 // Modal state for news post
 $scope.selectedNewsPost = null;
 
-// $scope.showNewsDetails = function(post) {
-//     $scope.selectedNewsPost = post;
-//     $('#newsModal').modal('show');
-// };
+$scope.showNewsDetails = function(post) {
+    $scope.selectedNewsPost = post;
+    $('#newsModal').modal('show');
+};
 
-// $scope.selectedBlog = {};
+$scope.selectedBlog = {};
 
-// $scope.showBlogDetails = function(blog) {
-//     $scope.selectedBlog = blog;
-//     $('#blogModal').modal('show');
-// };
+$scope.showBlogDetails = function(blog) {
+    $scope.selectedBlog = blog;
+    $('#blogModal').modal('show');
+};
 
-// $scope.closeBlogModal = function() {
-//     $('#blogModal').modal('hide');
-//     $('.modal-backdrop').remove();
-//     $('body').removeClass('modal-open');
-// };
+$scope.closeBlogModal = function() {
+    $('#blogModal').modal('hide');
+    $('.modal-backdrop').remove();
+    $('body').removeClass('modal-open');
+};
 
 $scope.selectedBlog = null;
 
@@ -65,240 +65,342 @@ $scope.isVideo = function(mediaUrl) {
     return mediaUrl && mediaUrl.match(/\.(mp4|webm|ogg)$/i);
 };
 
-// BLOGS
-$scope.blogs = [];
+// // BLOGS
+// $scope.blogs = [];
 
-$scope.fetchBlogs = function () {
+// $scope.fetchBlogs = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=blog"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+
+//         // Filter only those with post_type === 'blog'
+//         const allPosts = response.data;
+//         $scope.blogs = allPosts
+//             .filter(blog => blog.post_type === 'blog')
+//             .map(blog => {
+//                 blog.blog_media = blog.blog_media.startsWith('http') ? blog.blog_media : baseURL + blog.blog_media;
+//                 return blog;
+//             });
+//     }, function (error) {
+//         console.error('Error fetching blogs:', error);
+//     });
+// };
+$scope.allHighlights = [];
+$scope.activeHighlight = 'all'; // Default to show all highlights
+// // sequenced list of all categories by posted date
+$scope.getFilteredHighlights = function() {
+    if ($scope.activeHighlight === 'all') {
+        // Return all highlights EXCEPT those with type 'blog'
+        return $scope.allHighlights.filter(post => post.type !== 'blog');
+    }
+    return $scope.allHighlights.filter(post => post.type === $scope.activeHighlight);
+};
+
+$scope.filteredHighlights = $scope.getFilteredHighlights();
+
+
+
+
+$scope.fetchAllHighlights = function () {
     $http({
         method: 'POST',
         url: adminAjax.ajaxurl,
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: "action=fetch_database&post_type=blog"
+        data: "action=fetch_database"
     }).then(function (response) {
         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
 
-        // Filter only those with post_type === 'blog'
-        const allPosts = response.data;
-        $scope.blogs = allPosts
-            .filter(blog => blog.post_type === 'blog')
-            .map(blog => {
-                blog.blog_media = blog.blog_media.startsWith('http') ? blog.blog_media : baseURL + blog.blog_media;
-                return blog;
-            });
+        function unescapeDescription(description) {
+            if (!description) return '';
+            return description
+                .replace(/\\'/g, "'")
+                .replace(/\\"/g, '"')
+                .replace(/\\n/g, '\n')
+                .replace(/\\\\/g, '\\');
+        }
+
+        const posts = response.data.map(post => {
+            const type = post.post_type; // already in DB
+            const blog_media = post.blog_media && post.blog_media.startsWith('http')
+                ? post.blog_media
+                : baseURL + post.blog_media;
+
+            return {
+                type: type,
+                title: post.title_blog,
+                role: post.role || '',
+                description: post.blog_description,
+                descriptionUnescaped: unescapeDescription(post.blog_description),
+                date: post.blog_date,
+                image: blog_media,
+                link: post.link || ''
+            };
+        });
+
+    // Split into two separate arrays
+    $scope.blogs = posts.filter(p => p.type === 'blog');
+    $scope.allHighlights = posts.filter(p => p.type !== 'blog')
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Set default filteredHighlights
+    $scope.filteredHighlights = $scope.getFilteredHighlights();
+    
     }, function (error) {
-        console.error('Error fetching blogs:', error);
+        console.error('Error fetching all highlights:', error);
     });
 };
 
-// sequenced list of all categories by posted date
-$scope.getFilteredHighlights = function() {
-    if ($scope.activeHighlight === 'all') {
-        return $scope.allHighlights; // Already merged and sorted!
-    }
-    switch ($scope.activeHighlight) {
-        case 'news': return $scope.newsPosts;
-        case 'testimonial': return $scope.testimonialPosts;
-        case 'facebook': return $scope.facebookPosts;
-        case 'instagram': return $scope.instagramPosts;
-        case 'tiktok': return $scope.tiktokPosts;
-        default: return [];
-    }
-};
+$scope.fetchAllHighlights();
 
-$scope.$watch('activePage', function(newVal) {
-    if (newVal === 'highlights') {
-        $scope.activeHighlight = 'all';
-    }
+$scope.$watch('activeHighlight', function () {
+    $scope.filteredHighlights = $scope.getFilteredHighlights();
 });
 
-// remove the backdrop when closing news modal
-// $scope.closeNewsModal = function() {
-//     $('#newsModal').modal('hide');
-//     // Remove any leftover backdrop just in case
-//     $('.modal-backdrop').remove();
-//     $('body').removeClass('modal-open');
-// };
 
-$scope.selectedNewsPost = null;
+// $scope.$watch('activePage', function(newVal) {
+//     if (newVal === 'highlights') {
+//         $scope.activeHighlight = 'all';
+//     }
+// });
+
+// // remove the backdrop when closing news modal
+// // $scope.closeNewsModal = function() {
+// //     $('#newsModal').modal('hide');
+// //     // Remove any leftover backdrop just in case
+// //     $('.modal-backdrop').remove();
+// //     $('body').removeClass('modal-open');
+// // };
+
+// $scope.selectedNewsPost = null;
 
 $scope.toggleNewsExpansion = function(post) {
   $scope.selectedNewsPost = ($scope.selectedNewsPost === post) ? null : post;
 };
 
 // Quilljs viewer
-// $scope.getQuillPreview = function(html) {
-//     if (!html) return '';
-//     // Optionally, strip tags and limit text for preview
-//     var div = document.createElement('div');
-//     div.innerHTML = html;
-//     var text = div.innerText || div.textContent || '';
-//     if (text.length > 200) {
-//         text = text.substring(0, 200) + '.....';
-//     }
-//     return $sce.trustAsHtml(text);
+$scope.getQuillPreview = function(html) {
+    if (!html) return '';
+    // Optionally, strip tags and limit text for preview
+    var div = document.createElement('div');
+    div.innerHTML = html;
+    var text = div.innerText || div.textContent || '';
+    if (text.length > 200) {
+        text = text.substring(0, 200) + '.....';
+    }
+    return $sce.trustAsHtml(text);
+};
+
+$scope.getQuillFull = function(html) {
+    return $sce.trustAsHtml(html || '');
+};
+
+// // NEWS
+// $scope.newsPosts = [];
+
+// $scope.fetchNews = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=news"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.newsPosts = response.data.map(post => {
+
+//             post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media
+//             };
+//         });
+//         $scope.mergeAllHighlights(); // <-- add this here
+//     }, function (error) {
+//         console.error('Error fetching news:', error);
+//     });
 // };
 
-// $scope.getQuillFull = function(html) {
-//     return $sce.trustAsHtml(html || '');
+// // TESTIMONIALS
+// $scope.testimonialPosts = [];
+
+// $scope.fetchTestimonials = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=testimonial"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.testimonialPosts = response.data.map(post => {
+
+//             function unescapeDescription(description) {
+//                 if (!description) return '';
+//                 return description
+//                     .replace(/\\'/g, "'")
+//                     .replace(/\\"/g, '"')
+//                     .replace(/\\n/g, '\n')
+//                     .replace(/\\\\/g, '\\');
+//             }            
+            
+//             post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 role: post.role,
+//                 description: post.blog_description,
+//                 descriptionUnescaped: unescapeDescription(post.blog_description),                
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching testimonials:', error);
+//     });
 // };
 
-// NEWS
-$scope.newsPosts = [];
+// // FACEBOOK
+// $scope.facebookPosts = [];
+// $scope.fetchFacebook = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=facebook"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.facebookPosts = response.data.map(post => {
 
-$scope.fetchNews = function () {
-    $http({
-        method: 'POST',
-        url: adminAjax.ajaxurl,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: "action=fetch_database&post_type=news"
-    }).then(function (response) {
-        const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-        $scope.newsPosts = response.data.map(post => {
+//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//                 link: post.link
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching Facebook posts:', error);
+//     });
+// };
 
-            post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-            return {
-                title: post.title_blog,
-                description: post.blog_description,
-                date: post.blog_date,
-                image: post.blog_media
-            };
-        });
-        $scope.mergeAllHighlights(); // <-- add this here
-    }, function (error) {
-        console.error('Error fetching news:', error);
-    });
-};
-
-// TESTIMONIALS
-$scope.testimonialPosts = [];
-
-$scope.fetchTestimonials = function () {
-    $http({
-        method: 'POST',
-        url: adminAjax.ajaxurl,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: "action=fetch_database&post_type=testimonial"
-    }).then(function (response) {
-        const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-        $scope.testimonialPosts = response.data.map(post => {
-
-            post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-            return {
-                title: post.title_blog,
-                role: post.role,
-                description: post.blog_description,
-                date: post.blog_date,
-                image: post.blog_media,
-            };
-        });
-        $scope.mergeAllHighlights();
-    }, function (error) {
-        console.error('Error fetching testimonials:', error);
-    });
-};
-
-// FACEBOOK
-$scope.facebookPosts = [];
-$scope.fetchFacebook = function () {
-    $http({
-        method: 'POST',
-        url: adminAjax.ajaxurl,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: "action=fetch_database&post_type=facebook"
-    }).then(function (response) {
-        const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-        $scope.facebookPosts = response.data.map(post => {
-
-            post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-            return {
-                title: post.title_blog,
-                description: post.blog_description,
-                date: post.blog_date,
-                image: post.blog_media,
-                link: post.link
-            };
-        });
-        $scope.mergeAllHighlights();
-    }, function (error) {
-        console.error('Error fetching Facebook posts:', error);
-    });
-};
-
-// INSTAGRAM
-$scope.instagramPosts = [];
-$scope.fetchInstagram = function () {
-    $http({
-        method: 'POST',
-        url: adminAjax.ajaxurl,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: "action=fetch_database&post_type=instagram"
-    }).then(function (response) {
-        const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-        $scope.instagramPosts = response.data.map(post => {
+// // INSTAGRAM
+// $scope.instagramPosts = [];
+// $scope.fetchInstagram = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=instagram"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.instagramPosts = response.data.map(post => {
         
-            post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-            return {
-                title: post.title_blog,
-                description: post.blog_description,
-                date: post.blog_date,
-                image: post.blog_media,
-                link: post.link
-            };
-        });
-        $scope.mergeAllHighlights();
-    }, function (error) {
-        console.error('Error fetching Instagram posts:', error);
-    });
-};
+//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//                 link: post.link
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching Instagram posts:', error);
+//     });
+// };
 
 
-// TIKTOK
-$scope.tiktokPosts = [];
-$scope.fetchTikTok = function () {
-    $http({
-        method: 'POST',
-        url: adminAjax.ajaxurl,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: "action=fetch_database&post_type=tiktok"
-    }).then(function (response) {
-        const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-        $scope.tiktokPosts = response.data.map(post => {
+// // TIKTOK
+// $scope.tiktokPosts = [];
+// $scope.fetchTikTok = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=tiktok"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.tiktokPosts = response.data.map(post => {
 
-            post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-            return {
-                title: post.title_blog,
-                description: post.blog_description,
-                date: post.blog_date,
-                image: post.blog_media,
-                link: post.link
-            };
-        });
-        $scope.mergeAllHighlights();
-    }, function (error) {
-        console.error('Error fetching TikTok posts:', error);
-    });
-};
+//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//                 link: post.link
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching TikTok posts:', error);
+//     });
+// };
 
-$scope.mergeAllHighlights = function () {
-    $scope.allHighlights = [].concat(
-        ($scope.newsPosts || []).map(post => ({ ...post, type: 'news' })),
-        ($scope.testimonialPosts || []).map(post => ({ ...post, type: 'testimonial' })),
-        ($scope.facebookPosts || []).map(post => ({ ...post, type: 'facebook' })),
-        ($scope.instagramPosts || []).map(post => ({ ...post, type: 'instagram' })),
-        ($scope.tiktokPosts || []).map(post => ({ ...post, type: 'tiktok' }))
-    );
-    $scope.allHighlights.sort(function (a, b) {
-        return new Date(b.date) - new Date(a.date);
-    });
-};
+// $scope.mergeAllHighlights = function () {
+//     function unescapeDescription(description) {
+//         if (!description) return '';
+//         return description
+//             .replace(/\\'/g, "'")
+//             .replace(/\\"/g, '"')
+//             .replace(/\\n/g, '\n')
+//             .replace(/\\\\/g, '\\');
+//     }
 
-// AUTO-LOAD on controller init
-$scope.fetchBlogs();
-$scope.fetchNews();
-$scope.fetchTestimonials(); // Add this
-$scope.fetchFacebook();
-$scope.fetchInstagram();
-$scope.fetchTikTok();
+//     $scope.allHighlights = [].concat(
+//         ($scope.newsPosts || []).map(post => ({
+//             ...post,
+//             type: 'news',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.testimonialPosts || []).map(post => ({
+//             ...post,
+//             type: 'testimonial',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.facebookPosts || []).map(post => ({
+//             ...post,
+//             type: 'facebook',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.instagramPosts || []).map(post => ({
+//             ...post,
+//             type: 'instagram',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.tiktokPosts || []).map(post => ({
+//             ...post,
+//             type: 'tiktok',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         }))
+//     );
+
+//     $scope.allHighlights.sort(function (a, b) {
+//         return new Date(b.date) - new Date(a.date);
+//     });
+// };
+
+
+
+
+
+// // AUTO-LOAD on controller init
+// $scope.fetchBlogs();
+// $scope.fetchNews();
+// $scope.fetchTestimonials(); // Add this
+// $scope.fetchFacebook();
+// $scope.fetchInstagram();
+// $scope.fetchTikTok();
+
+
           
       $scope.credentials = {
         username: '',
@@ -308,25 +410,25 @@ $scope.fetchTikTok();
 
 // Add this temporarily to your controller
 // automatically scroll to the news section
-// $scope.showFullNewsPage = false; // default to list
+$scope.showFullNewsPage = false; // default to list
 
-// $scope.openFullNews = function(news) {
-//   $scope.selectedNews = news;
-//   $scope.showFullNewsPage = true;
+$scope.openFullNews = function(news) {
+  $scope.selectedNews = news;
+  $scope.showFullNewsPage = true;
 
   // Scroll to top for full news page
-//   setTimeout(() => {
-//     const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
-//     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//     else window.scrollTo({ top: 0, behavior: 'smooth' });
-//   }, 100);
-// };
+  setTimeout(() => {
+    const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
+    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    else window.scrollTo({ top: 0, behavior: 'smooth' });
+  }, 100);
+};
 
-// $scope.closeFullNews = function() {
-//   $scope.showFullNewsPage = false;
-//   $scope.selectedNews = null;
+$scope.closeFullNews = function() {
+  $scope.showFullNewsPage = false;
+  $scope.selectedNews = null;
 
-// };
+};
 
 // Use controllerAs syntax (recommended)
 controllerAs: 'vm',
@@ -1968,6 +2070,12 @@ app.filter('limitHtmlTo', ['$sce', function($sce) {
     };
 }]);
 
+app.filter('trustAsHtml', ['$sce', function($sce) {
+    return function(html) {
+        return $sce.trustAsHtml(html);
+    };
+}]);
+
 
 
 app.filter('unescape', function () {
@@ -2004,7 +2112,6 @@ app.directive('quillEditor', function () {
 
             // ✅ Otherwise, initialize Quill with toolbar + editing
             var editor = new Quill(element[0], {
-                placeholder: 'No experiences, trainings/seminars, or certifications added yet.',
                 readOnly: true // start in read-only mode
             });
             
