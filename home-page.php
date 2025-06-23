@@ -1680,71 +1680,67 @@ function home_page_landing_page()
         </section>
 
         <!-- Contact Us Section -->
-        <div style="background-color:rgb(173, 207, 241); padding: 20px 0;" id="contact">
-            <div class="container">
-                <div class="row align-items-center">
-                    <!-- Left Column: Lottie + Heading -->
-                    <div class="col-md-6 mb-4 mb-md-0 d-flex flex-column align-items-center justify-content-center text-center text-md-start">
-                        <!-- Lottie Animation Container -->
-                        <div id="connect" style="width: 300px; height: 300px;"></div>
+        <div style="background-color: rgb(173, 207, 241); padding: 20px 0;" id="contact">
+            <div class="container-fluid px-4">
+                <div class="mx-auto" style="max-width: 1600px;">
+                    <div class="row align-items-center gx-5">
 
-                        <!-- Heading Text -->
-                        <h4 class="fw-semibold fs-1 fs-lg-2 mt-3" style="color:rgb(0, 50, 101);">
-                            Bridging Students to Success—<br class="d-none d-md-block">
-                            OJTGo Connects Them with the Right Opportunities
-                        </h4>
-                    </div>
+                        <!-- Left Column: Lottie + Heading -->
+                        <div class="col-md-6 mb-4 mb-md-0 d-flex flex-column align-items-center justify-content-center text-center text-md-start">
+                            <div id="yey" style="width: 100%; max-width: 800px; height: 300px;"></div>
+                            <h4 class="fw-semibold fs-1 fs-lg-2 mt-3" style="color: rgb(0, 50, 101);">
+                                Bridging Students to Success—<br class="d-none d-md-block">
+                                OJTGo Connects Them with the Right Opportunities
+                            </h4>
+                        </div>
 
-                    <!-- Right Column: Contact Form -->
-                    <div class="col-md-6">
-                        <div class="h-100 rounded-3 p-2 shadow-lg bg-white position-relative overflow-hidden">
-                            <div class="position-absolute top-0 start-0 w-100 h-100"
-                                style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;">
-                            </div>
-                            <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
-                                <form name="contactForm" ng-submit="submitContactForm()" novalidate>
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold">Name</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                            ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
-                                    </div>
-
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold">Email</label>
-                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                            ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
-                                    </div>
-
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold">Mobile Number</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                            ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
-                                    </div>
-
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold">Comment or Message</label>
-                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
-                                            ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
-                                    </div>
-
-                                    <div class="d-grid mt-4">
-                                        <button
-                                            ng-class="{'disabled': onsubmit}"
-                                            type="submit"
-                                            class="btn text-white fw-bold py-1"
-                                            style="background-color:rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
-                                            Submit
-                                        </button>
-                                    </div>
-                                </form>
+                        <!-- Right Column: Contact Form -->
+                        <div class="col-md-6">
+                            <div class="h-100 rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden">
+                                <div class="position-absolute top-0 start-0 w-100 h-100"
+                                    style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;">
+                                </div>
+                                <div style="z-index: 1; position: relative;">
+                                    <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
+                                    <form name="contactForm" ng-submit="submitContactForm()" novalidate>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Name</label>
+                                            <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                                ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Email</label>
+                                            <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                                ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Mobile Number</label>
+                                            <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                                ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label class="form-label fw-semibold">Comment or Message</label>
+                                            <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
+                                                ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
+                                        </div>
+                                        <div class="d-grid mt-4">
+                                            <button ng-class="{'disabled': onsubmit}" type="submit"
+                                                class="btn text-white fw-bold py-2"
+                                                style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
+                                                Submit
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
+                        <!-- End Right Column -->
+
                     </div>
-                    <!-- End Right Column -->
                 </div>
             </div>
         </div>
+
 
 
         <!-- Footer -->

@@ -573,11 +573,11 @@ $scope.$on('$locationChangeStart', function () {
 
         // connect lottie
         var emp_details = lottie.loadAnimation({
-            container: document.getElementById("connect"),
+            container: document.getElementById("yey"),
             renderer: 'svg',
             loop: true,
             autoplay: true,
-            path: "/wp-content/uploads/lottie/connect.json"
+            path: "/wp-content/uploads/lottie/yey.json"
         });
 
         $scope.credentials = {
