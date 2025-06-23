@@ -571,6 +571,15 @@ $scope.$on('$locationChangeStart', function () {
             path: "/wp-content/uploads/lottie/workforce_colored.json" // Path to your Lottie JSON file
         });
 
+        // connect lottie
+        var emp_details = lottie.loadAnimation({
+            container: document.getElementById("connect"),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: "/wp-content/uploads/lottie/connect.json"
+        });
+
         $scope.credentials = {
             username: '',
             password: ''

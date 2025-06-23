@@ -1680,120 +1680,94 @@ function home_page_landing_page()
         </section>
 
         <!-- Contact Us Section -->
-        <!-- Full-width container for the Contact Section -->
         <div style="background-color:rgb(173, 207, 241); padding: 20px 0;" id="contact">
             <div class="container">
-                <h4 class="fw-semibold text-center mb-3 fs-1 fs-lg-2" style="color:rgb(0, 50, 101);">
-                    Bridging Students to Success—OJTGo Connects Them with the Right Opportunities
-                </h4>
+                <div class="row align-items-center">
+                    <!-- Left Column: Lottie + Heading -->
+                    <div class="col-md-6 mb-4 mb-md-0 d-flex flex-column align-items-center justify-content-center text-center text-md-start">
+                        <!-- Lottie Animation Container -->
+                        <div id="connect" style="width: 300px; height: 300px;"></div>
 
-
-                <div class="row justify-content-between align-items-center">
-                    <!-- Contact Details -->
-                    <div class="col-md-5 mb-4 mb-md-0 text-white">
-                        <div class="h-100 rounded-3 p-4 shadow-lg position-relative overflow-hidden" style="color:rgb(0, 50, 101);">
-                            <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold mb-3" style="color:rgb(0, 50, 101);">Contact Information</h3>
-                                <p class="mb-3">Feel free to reach out to us with any questions or concerns.</p>
-
-                                <div class="mb-3">
-                                    <h5 class="fw-bold m-0">Office Address</h5>
-                                    <p class="m-0">Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630</p>
-                                    <h5 class="fw-bold m-0">Satellite Address</h5>
-                                    <p class="m-0">One Building Lot 22 Blk 56, Costa Verde, Brgy Tejeros, Rosario Cavite
-                                    </p>
-                                </div>
-
-                                <div class="mb-3">
-                                    <h5 class="fw-bold m-0">Landline Number</h5>
-                                    <p class="m-0">(046) 852-1073</p>
-                                    <h5 class="fw-bold m-0">Contact Number</h5>
-                                    <p class="m-0">0966-200-5909</p>
-                                </div>
-
-                                <div class="mb-3">
-                                    <h5 class="fw-bold m-0">Email</h5>
-                                    <p class="m-0">ojt@ojtgo.com</p>
-                                </div>
-                            </div>
-                        </div>
+                        <!-- Heading Text -->
+                        <h4 class="fw-semibold fs-1 fs-lg-2 mt-3" style="color:rgb(0, 50, 101);">
+                            Bridging Students to Success—<br class="d-none d-md-block">
+                            OJTGo Connects Them with the Right Opportunities
+                        </h4>
                     </div>
 
-                    <!-- Contact Form -->
+                    <!-- Right Column: Contact Form -->
                     <div class="col-md-6">
                         <div class="h-100 rounded-3 p-2 shadow-lg bg-white position-relative overflow-hidden">
-                            <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
+                            <div class="position-absolute top-0 start-0 w-100 h-100"
+                                style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;">
+                            </div>
                             <div style="z-index: 1; position: relative;">
                                 <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
-                                <form name=" contactForm" ng-submit="submitContactForm()" novalidate>
+                                <form name="contactForm" ng-submit="submitContactForm()" novalidate>
                                     <div class="mb-2">
-                                        <!-- Name -->
-                                        <label for="contact-us-name" class="form-label fw-semibold">Name</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
+                                        <label class="form-label fw-semibold">Name</label>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                            ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
                                     </div>
 
                                     <div class="mb-2">
-                                        <!-- Email -->
-                                        <label for="contact-us-email" class="form-label fw-semibold">Email</label>
-                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
+                                        <label class="form-label fw-semibold">Email</label>
+                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                            ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
                                     </div>
 
                                     <div class="mb-2">
-                                        <!-- Mobile Number -->
-                                        <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
+                                        <label class="form-label fw-semibold">Mobile Number</label>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                            ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
                                     </div>
 
                                     <div class="mb-2">
-                                        <!-- Message -->
-                                        <label for="contact-us-message" class="form-label fw-semibold">Comment or Message</label>
-                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;" ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
+                                        <label class="form-label fw-semibold">Comment or Message</label>
+                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
+                                            ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
                                     </div>
 
-                                    <!-- Submit Button -->
                                     <div class="d-grid mt-4">
                                         <button
                                             ng-class="{'disabled': onsubmit}"
                                             type="submit"
                                             class="btn text-white fw-bold py-1"
-                                            style="background-color:rgb(0, 50, 101);; border: 1px solid #0161aa; font-size: 1.1rem;">
+                                            style="background-color:rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
                                             Submit
                                         </button>
                                     </div>
-
                                 </form>
                             </div>
                         </div>
                     </div>
+                    <!-- End Right Column -->
                 </div>
             </div>
         </div>
 
 
         <!-- Footer -->
-        <div class="footer-container" style="background-color: #1565c0; color: white; padding: 10px;">
-            <div class="row justify-content-between">
+        <div class="footer-container" style="background-color: #1565c0; color: white; padding: 20px 10px;">
+            <div class="row justify-content-between align-items-center">
 
-                <!-- logo -->
-                <div class="col-lg-3 ps-lg-5 text-lg-start">
+                <!-- Logo and Social Icons -->
+                <div class="col-lg-3 text-lg-start" style="padding-left: 10rem;">
                     <div class="h-100 p-3">
                         <img style="height: 80px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>" alt="ojtgo-logo" class="footer-logo">
-                        <p class="m-0 text-secondary d-none"><i>Everybody deserves to reach their dream jobs!</i></p>
-
-                        <!-- Social Icons -->
                         <div class="social-icons mt-3 d-flex justify-content-lg-start gap-2">
-                            <a href="https://www.facebook.com/ojtgo.pces/" class="me-2" target="_blank">
-                                <div class="social-circle bg-light rounded-circle" style="width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center;">
+                            <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
+                                <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
                                     <i class="fab fa-facebook-f text-dark"></i>
                                 </div>
                             </a>
-                            <a href="https://www.instagram.com/ojtgo_pces/" class="me-2" target="_blank">
-                                <div class="social-circle bg-light rounded-circle" style="width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center;">
+                            <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
+                                <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
                                     <i class="fab fa-instagram text-dark"></i>
                                 </div>
                             </a>
-                            <a href="https://www.tiktok.com/@ojtgo_pces" class="me-2" target="_blank">
-                                <div class="social-circle bg-light rounded-circle" style="width: 35px; height: 35px; display: inline-flex; align-items: center; justify-content: center;">
+                            <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
+                                <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
                                     <i class="fab fa-tiktok text-dark"></i>
                                 </div>
                             </a>
@@ -1801,64 +1775,25 @@ function home_page_landing_page()
                     </div>
                 </div>
 
-                <!-- right panel -->
+                <!-- Centered Navigation (larger text and wider spacing) -->
                 <div class="col-lg-9 mt-3 mt-lg-0">
                     <div class="h-100 p-3">
-                        <div class="row justify-content-between">
-
-
-                            <!-- Company -->
-                            <div class="col-lg-4">
-                                <p class="fw-bold">Company</p>
-                                <p><a class="text-white text-decoration-none" href="#" ng-click="setActivePage('home')"><small>Home</small></a></p>
-                                <p><a href="#about" class="text-white text-decoration-none" ng-click="setActivePage('about', $event);"><small>About Us</small></a></p>
-                                <p><a class="text-white text-decoration-none" href="#news" ng-click="setActivePage('news'); scrollToSection('news', $event)"><small>News</small></a></p>
-                                <p><a href="#contact" class="text-white text-decoration-none" ng-click="scrollToSection('contact', $event)"><small>Contact Us</small></a></p>
-                                <p><a href="#whyojtgo" class="text-white text-decoration-none" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)"><small>Why OJTGo?</small></a></p>
-                            </div>
-
-
-                            <!-- Get In Touch -->
-                            <div class="col-lg-4 mt-3 mt-lg-0">
-                                <p class="fw-bold">Get in Touch</p>
-                                <div class="text-white">
-                                    <p class="mb-1 text-wrap text-white text-decoration-none">
-                                        <small><strong>Office Address:</strong> Level 10-01, One Global Place, 25th St. Corner, 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630, Philippines</small>
-                                    </p>
-                                    <p class="mb-1 text-wrap text-white text-decoration-none">
-                                        <small><strong>Satellite Address:</strong> One Building Lot 22 Blk 56, Costa Verde, Brgy Tejeros, Rosario Cavite</small>
-                                    </p>
-                                </div>
-
-                                <div class="text-white">
-                                    <p class="mb-1"><a href="mailto:ojt@ojtgo.com" class="text-white text-decoration-none"><small><strong>Email:</strong> ojt@ojtgo.com</small></a></p>
-                                    <p class="mb-1"><small><strong>Mobile No.:</strong> 0966-200-5909</small></p>
-                                    <p class="mb-1"><small><strong>Tel No.:</strong> (046) 852-1073</small></p>
-                                </div>
-                            </div>
-
-                            <!-- Legality -->
-                            <div class="col-lg-4 mt-3 mt-lg-0">
-                                <div class="ms-0 ms-lg-0">
-                                    <p class="fw-bold legal-offset">Legal</p>
-                                    <p>
-                                        <a class="text-white text-decoration-none legal-offset" href="#privacy" ng-click="setActivePage('privacy')">
-                                            <small>Privacy Notice</small>
-                                        </a>
-                                    </p>
-                                    <p>
-                                        <a class="text-white text-decoration-none legal-offset" href="#terms" ng-click="setActivePage('terms')">
-                                            <small>Terms of use</small>
-                                        </a>
-                                    </p>
-                                </div>
-                            </div>
-
+                        <div class="d-flex flex-column flex-lg-row flex-wrap justify-content-center align-items-center gap-5 text-center">
+                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#" ng-click="setActivePage('home')">Home</a>
+                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
+                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#news" ng-click="setActivePage('news'); scrollToSection('news', $event)">News</a>
+                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
+                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
+                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
+                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+
+
+
 
         <div
             id="modal-overlay"
