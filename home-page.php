@@ -446,7 +446,7 @@ function home_page_landing_page()
         </section>
 
         <!-- DPO Section -->
-        <section id="dpo" ng-show="activePage === 'home' || activePage === 'dpo'" class="py-4 bg-white mb-5">
+        <section id="dpo" ng-show="activePage === 'home' || activePage === 'dpo'" class="py-4 bg-white">
             <div class="container">
                 <div class="row align-items-center">
                     <!-- Description on the left -->
@@ -567,11 +567,12 @@ function home_page_landing_page()
             </div>
 
             <!-- Video Demo Section -->
-            <div class="container mt-5 d-none">
+            <div class="container mt-5">
                 <h2 class="text-center fw-bold" style="color:rgb(0, 43, 86);">Watch OJTGo in Action</h2>
                 <p class="text-center mb-4">Explore how OJTGo works from both the Student and Employer perspectives.</p>
 
                 <div class="row g-4">
+
                     <!-- Student Side Video -->
                     <div class="col-md-6">
                         <div class="card shadow-sm h-100 border-0">
@@ -580,12 +581,20 @@ function home_page_landing_page()
                             </div>
                             <div class="card-body p-0">
                                 <div class="ratio ratio-16x9">
-                                    <iframe src="https://www.youtube.com/embed/C0Lq6dO1pDE"
-                                        title="Student Demo" allowfullscreen style="width:100%;height:100%;"></iframe>
+                                    <iframe
+                                      width="100%"
+                                      height="100%"
+                                      src="https://www.youtube.com/embed/4Y3lLjOZkc4?rel=0"
+                                      title="Student Side Demo"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      allowfullscreen
+                                      style="border:0;">
+                                    </iframe>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <!-- Employer Side Video -->
                     <div class="col-md-6">
@@ -595,12 +604,21 @@ function home_page_landing_page()
                             </div>
                             <div class="card-body p-0">
                                 <div class="ratio ratio-16x9">
-                                    <iframe src="https://www.youtube.com/embed/YOUR_EMPLOYER_VIDEO_ID"
-                                        title="Employer Demo" allowfullscreen></iframe>
+                                    <iframe
+                                      width="100%"
+                                      height="100%"
+                                      src="https://www.youtube.com/embed/ToQ9amprkvk?rel=0"
+                                      title="Employer Side Demo"
+                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                      allowfullscreen
+                                      style="border:0;">
+                                    </iframe>
                                 </div>
                             </div>
                         </div>
                     </div>
+
+
                 </div>
             </div>
         </section>
@@ -1228,10 +1246,7 @@ function home_page_landing_page()
                     <h4>11. Contact Us</h4>
                     <p>For questions or concerns about your data privacy rights or to request data access or deletion, please contact our Data Protection Officer (DPO):</p>
                     <ul><br>
-
-                        <li><strong>PCES Inc.</strong> Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630</li>
                         <li><strong>Email:</strong> <a href="mailto:ojt@ojtgo.com" style="color: deepskyblue;">ojt@ojtgo.com</a></li>
-                        <li><strong>Phone:</strong> (02) 8628-2072</li>
                     </ul>
                 </div>
             </div>
@@ -1679,63 +1694,77 @@ function home_page_landing_page()
 
         </section>
 
-        <!-- Contact Us Section -->
-        <div style="background-color: rgb(173, 207, 241); padding: 20px 0;" id="contact">
-            <div class="container-fluid px-4">
-                <div class="mx-auto" style="max-width: 1600px;">
-                    <div class="row align-items-center gx-5">
+ <!-- Contact Us Section -->
+        <!-- Full-width container for the Contact Section -->
+        <div style="background-color:rgb(173, 207, 241); padding: 20px 0;" id="contact">
+            <div class="container">
 
-                        <!-- Left Column: Lottie + Heading -->
-                        <div class="col-md-6 mb-4 mb-md-0 d-flex flex-column align-items-center justify-content-center text-center text-md-start">
-                            <div id="yey" style="width: 100%; max-width: 800px; height: 300px;"></div>
-                            <h4 class="fw-semibold fs-1 fs-lg-2 mt-3" style="color: rgb(0, 50, 101);">
-                                Bridging Students to Success—<br class="d-none d-md-block">
-                                OJTGo Connects Them with the Right Opportunities
+
+                <div class="row justify-content-between align-items-center">
+
+                    <!-- Contact message -->
+                    <div class="col-md-5 mb-4 mb-md-0">
+                        <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between" style="background: linear-gradient(135deg, rgb(173, 207, 241), rgb(240, 250, 255)); color:rgb(0, 50, 101); padding-top: 40px; padding-bottom: 40px;">
+                            <div style="z-index: 1; position: relative;">
+                                <h3 class="fw-bold mb-3" style="color:rgb(0, 50, 101);">
+                                    <span class="me-2" style="font-size: 1.5rem;">&#9993;</span>Get in Touch
+                                </h3>
+                                <p class="mb-3" style="font-size: 1rem;">
+                                    Have questions, feedback, or need support? We're here to help! Reach out to the OJTGo team and we'll get back to you as soon as possible. Whether you're an intern or an employer, your intership journey is our priority.
+                                </p>
+
+                            </div>
+                            <h4 class="fw-semibold mt-4 fs-4 fs-lg-4" style="color:rgb(0, 50, 101);">
+                                Bridging Students to Success—<br>OJTGo Connects Them with the Right Opportunities
                             </h4>
                         </div>
+                    </div>
 
-                        <!-- Right Column: Contact Form -->
-                        <div class="col-md-6">
-                            <div class="h-100 rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden">
-                                <div class="position-absolute top-0 start-0 w-100 h-100"
-                                    style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;">
-                                </div>
-                                <div style="z-index: 1; position: relative;">
-                                    <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
-                                    <form name="contactForm" ng-submit="submitContactForm()" novalidate>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Name</label>
-                                            <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                                ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Email</label>
-                                            <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                                ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Mobile Number</label>
-                                            <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                                ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
-                                        </div>
-                                        <div class="mb-3">
-                                            <label class="form-label fw-semibold">Comment or Message</label>
-                                            <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
-                                                ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
-                                        </div>
-                                        <div class="d-grid mt-4">
-                                            <button ng-class="{'disabled': onsubmit}" type="submit"
-                                                class="btn text-white fw-bold py-2"
-                                                style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
-                                                Submit
-                                            </button>
-                                        </div>
-                                    </form>
-                                </div>
+                    <!-- Contact Form -->
+                    <div class="col-md-6">
+                        <div class="h-100 rounded-3 p-2 shadow-lg bg-white position-relative overflow-hidden">
+                            <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
+                            <div style="z-index: 1; position: relative;">
+                                <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
+                                <form name=" contactForm" ng-submit="submitContactForm()" novalidate>
+                                    <div class="mb-2">
+                                        <!-- Name -->
+                                        <label for="contact-us-name" class="form-label fw-semibold">Name</label>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <!-- Email -->
+                                        <label for="contact-us-email" class="form-label fw-semibold">Email</label>
+                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <!-- Mobile Number -->
+                                        <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <!-- Message -->
+                                        <label for="contact-us-message" class="form-label fw-semibold">Comment or Message</label>
+                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;" ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
+                                    </div>
+
+                                    <!-- Submit Button -->
+                                    <div class="d-grid mt-4">
+                                        <button
+                                            ng-class="{'disabled': onsubmit}"
+                                            type="submit"
+                                            class="btn text-white fw-bold py-1"
+                                            style="background-color:rgb(0, 50, 101);; border: 1px solid #0161aa; font-size: 1.1rem;">
+                                            Submit
+                                        </button>
+                                    </div>
+
+                                </form>
                             </div>
                         </div>
-                        <!-- End Right Column -->
-
                     </div>
                 </div>
             </div>
@@ -1743,50 +1772,52 @@ function home_page_landing_page()
 
 
 
-        <!-- Footer -->
-        <div class="footer-container" style="background-color: #1565c0; color: white; padding: 20px 10px;">
-            <div class="row justify-content-between align-items-center">
+<!-- Footer -->
+<div class="footer-container" style="background-color: #1565c0; color: white; padding: 20px 10px;">
+    <div class="container-fluid px-5"> <div class="row align-items-center d-lg-flex justify-content-lg-between">
+            <div class="col-12 col-lg-auto text-start mb-3 mb-lg-0">
+                <img style="height: 80px;"
+                     src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>"
+                     alt="ojtgo-logo"
+                     class="footer-logo mb-3">
 
-                <!-- Logo and Social Icons -->
-                <div class="col-lg-3 text-lg-start" style="padding-left: 10rem;">
-                    <div class="h-100 p-3">
-                        <img style="height: 80px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>" alt="ojtgo-logo" class="footer-logo">
-                        <div class="social-icons mt-3 d-flex justify-content-lg-start gap-2">
-                            <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
-                                <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
-                                    <i class="fab fa-facebook-f text-dark"></i>
-                                </div>
-                            </a>
-                            <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
-                                <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
-                                    <i class="fab fa-instagram text-dark"></i>
-                                </div>
-                            </a>
-                            <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
-                                <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center" style="width: 35px; height: 35px;">
-                                    <i class="fab fa-tiktok text-dark"></i>
-                                </div>
-                            </a>
+                <div class="social-icons d-flex justify-content-start gap-2">
+                    <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
+                        <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                             style="width: 35px; height: 35px;">
+                            <i class="fab fa-facebook-f text-dark"></i>
                         </div>
-                    </div>
-                </div>
-
-                <!-- Centered Navigation (larger text and wider spacing) -->
-                <div class="col-lg-9 mt-3 mt-lg-0">
-                    <div class="h-100 p-3">
-                        <div class="d-flex flex-column flex-lg-row flex-wrap justify-content-center align-items-center gap-5 text-center">
-                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#" ng-click="setActivePage('home')">Home</a>
-                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
-                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#news" ng-click="setActivePage('news'); scrollToSection('news', $event)">News</a>
-                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
-                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
-                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
-                            <a class="text-white text-decoration-none" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
+                    </a>
+                    <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
+                        <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                             style="width: 35px; height: 35px;">
+                            <i class="fab fa-instagram text-dark"></i>
                         </div>
-                    </div>
+                    </a>
+                    <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
+                        <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                             style="width: 35px; height: 35px;">
+                            <i class="fab fa-tiktok text-dark"></i>
+                        </div>
+                    </a>
                 </div>
             </div>
+
+            <div class="col-12 col-lg-auto pe-5 mt-3 mt-lg-0">
+                <nav class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
+                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#home" ng-click="setActivePage('home')">Home</a>
+                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
+                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
+                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
+                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
+                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
+                    <a class="text-white text-decoration-none py-1 py-lg-0" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
+                </nav>
+            </div>
+
         </div>
+    </div>
+</div>
 
 
 
