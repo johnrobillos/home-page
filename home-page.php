@@ -1774,52 +1774,54 @@ function home_page_landing_page()
 
 <!-- Footer -->
 <div class="footer-container" style="background-color: #1565c0; color: white; padding: 20px 10px;">
-    <div class="container-fluid px-5"> <div class="row align-items-center d-lg-flex justify-content-lg-between">
-            <div class="col-12 col-lg-auto text-start mb-3 mb-lg-0">
-                <img style="height: 80px;"
-                     src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>"
-                     alt="ojtgo-logo"
-                     class="footer-logo mb-3">
+  <div class="container-fluid px-2 px-md-2 px-lg-5">
+    <div class="row align-items-start align-items-lg-center d-lg-flex justify-content-lg-between">
 
-                <div class="social-icons d-flex justify-content-start gap-2">
-                    <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
-                        <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                             style="width: 35px; height: 35px;">
-                            <i class="fab fa-facebook-f text-dark"></i>
-                        </div>
-                    </a>
-                    <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
-                        <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                             style="width: 35px; height: 35px;">
-                            <i class="fab fa-instagram text-dark"></i>
-                        </div>
-                    </a>
-                    <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
-                        <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                             style="width: 35px; height: 35px;">
-                            <i class="fab fa-tiktok text-dark"></i>
-                        </div>
-                    </a>
-                </div>
+      <!-- Logo and Social Icons -->
+      <div class="col-12 col-lg-auto text-start mb-3 mb-lg-0">
+        <img style="height: 80px;"
+             src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>"
+             alt="ojtgo-logo"
+             class="footer-logo mb-3">
+
+        <div class="social-icons d-flex justify-content-start gap-2">
+          <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
+            <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                 style="width: 35px; height: 35px;">
+              <i class="fab fa-facebook-f text-dark"></i>
             </div>
-
-            <div class="col-12 col-lg-auto pe-5 mt-3 mt-lg-0">
-                <nav class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center">
-                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#home" ng-click="setActivePage('home')">Home</a>
-                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
-                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
-                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
-                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
-                    <a class="text-white text-decoration-none py-1 py-lg-0 me-lg-4" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
-                    <a class="text-white text-decoration-none py-1 py-lg-0" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
-                </nav>
+          </a>
+          <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
+            <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                 style="width: 35px; height: 35px;">
+              <i class="fab fa-instagram text-dark"></i>
             </div>
-
+          </a>
+          <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
+            <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                 style="width: 35px; height: 35px;">
+              <i class="fab fa-tiktok text-dark"></i>
+            </div>
+          </a>
         </div>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="col-12 col-lg-auto pe-5 mt-3 mt-lg-0">
+        <nav class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center text-start text-lg-start gap-2 gap-lg-3">
+          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#" ng-click="setActivePage('home')">Home</a>
+          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
+          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
+          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
+          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
+          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
+          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
+        </nav>
+      </div>
+
     </div>
+  </div>
 </div>
-
-
 
 
         <div
