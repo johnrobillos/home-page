@@ -8,20 +8,16 @@ app.run(function($sessionStorage) {
 });
 
 app.run(function($timeout, $window, $rootScope) {
-    console.log('app.run triggered');
 
     $timeout(function () {
         const hash = window.location.hash;
-        console.log('Hash:', hash);
 
         if (hash) {
             const id = hash.substring(1); // "news" from "#news"
             const el = document.getElementById(id);
-            console.log('Element found:', el);
 
             // ✅ Only call if function exists (ensures controller is loaded)
             if (typeof $rootScope.setActivePage === 'function') {
-                console.log(`Calling setActivePage('${id}')`);
                 $rootScope.setActivePage(id);
             }
 
@@ -45,7 +41,6 @@ app.run(function($timeout, $window, $rootScope) {
 
 
 app.controller('angular_controller', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
-     console.log('Controller loaded');
       $scope.credentials = {
         username: '',
         password: ''
@@ -57,7 +52,6 @@ app.controller('angular_controller', function($scope, $http, $timeout, $window, 
 $scope.activePage = 'home'; // Default page
 $scope.showActivePage = 'contact';
 // Add this temporarily to your controller
-console.log('Current page:', $scope.activePage);
 
 // automatically scroll to the news section
 $scope.showFullNewsPage = false; // default to list
@@ -84,14 +78,31 @@ $scope.closeFullNews = function() {
 // for news section functionality
 $scope.newsList = [
     {
-      title: 'OJTGo Has Officially Launched!',
-      summary: `We’re thrilled to announce that OJTGo is now LIVE and ready to support your internship journey! 🙌
-                This innovative platform is designed by students, for students, to make finding and securing OJT opportunities easier and faster. 
-                No more endless waiting or unanswered messages — with OJTGo, you can browse verified internships, apply directly to companies, and track 
-                your application status all in one place. Whether you’re just starting or looking for your next big break, OJTGo is here to help you take the 
-                next step in your career with confidence.`,
-      date: 'May 12, 2025',
-      image: 'https://vin.ojtgo.com/wp-content/uploads/icons/OJTGO-630X310.png'
+      title: 'Introducing OJTGo: Easier Internship Search Begins Today!',
+      
+      summary: `
+      
+        PCES Inc. has officially launched OJTGo, a platform created by and primarily for students seeking internship opportunities. 
+        OJTGo is built for easier access to internship search and more effective applications. OJTGo offers to facilitate your entire internship 
+        process, from application to completion.
+
+        By creating an account, OJTGo will match your course, skills, schedule, and location to the internship listings from the employers.
+
+        For every search result, a matching percentage will be displayed to help applicants select internships that fit their qualifications and preferences.
+
+        This feature enables students to save time by not looking into every search result and eliminates the need for printed resumes during application.
+
+        At the same time, this website will also benefit companies and employers looking for fresh talent. Employers will be able to fill in specific requirements 
+        for their listings, streamlining the hiring process by immediately identifying potential candidates compatible with the given requirements.
+
+        With its features and site details, OJTGo seeks to revolutionize the hiring and application process for internships. So, whether you’re an employer or an 
+        intern, OJTGo will help you make a go for it!
+
+        Let’s get you matched—register now!
+`,
+
+      date: 'May 25, 2025',
+      image: adminAjax.homeUrl + '/wp-content/uploads/icons/OJTGO-630X310.png'
     },
 
     // {
@@ -161,7 +172,6 @@ $scope.showPage = function(page) {
 $scope.setActivePage = function(page) {
     $scope.activePage = page;
 
-    console.log('Active Page:', $scope.activePage); // Debugging
 
     // Smooth scroll to top
     $timeout(function() {
@@ -175,7 +185,6 @@ $rootScope.setActivePage = $scope.setActivePage;
 
     $scope.$watch('activePage', function(newVal, oldVal) {
         if (newVal !== oldVal) {
-            console.log('Active Page:', newVal);
             // Scroll to top after view changes
             setTimeout(function() {
                 window.scrollTo({
@@ -396,7 +405,6 @@ $scope.closeFullNews = function() {
         }), {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function(response) {
-            console.log("Login Response:", response.data); // Debugging
     
             // ðŸ”¹ Fix: Ensure response format is correctly handled
             let responseData = response.data.data ? response.data.data : response.data;
@@ -419,7 +427,6 @@ $scope.closeFullNews = function() {
                         if (responseData.redirect) {
                             window.location.href = responseData.redirect;
                         } else {
-                            console.error("Missing redirect URL:", responseData);
                             Swal.fire("Error", "Redirect URL missing. Please contact support.", "error");
                         }
                     }
@@ -436,13 +443,11 @@ $scope.closeFullNews = function() {
                 }, 2000);
 
             } else {
-                console.error("Login Failed:", responseData);
                 Swal.fire("Login Failed", responseData.message || "Invalid credentials.", "error");
             
                 $scope.isCreating = false;          // Reset to false after process is finished
             }
         }, function(error) {
-            console.error("AJAX Error:", error);
             Swal.fire("Error", "An error occurred while logging in.", "error");
         
             $scope.isCreating = false;          // Reset to false after process is finished
@@ -514,14 +519,9 @@ $scope.closeFullNews = function() {
     // modified by Lorenzo @ 04/02/2025
     $scope.setUserType = function(userType) {
         
-        console.log('before: ', $scope.isCreating);
-        
-
-        // console.log("User selected:", userType);
         
         if ($sessionStorage.userCredentials) {
             delete $sessionStorage.userCredentials;
-            console.log("🧹 userCredentials session cleared.");
         }
   
         // Store user type
@@ -554,7 +554,6 @@ $scope.closeFullNews = function() {
         $scope.isCreating = true;
 
 
-        console.log("🔉 Verifying OTP and Proceeding...");
     
         if (target === "register") {            // Verification - registration
             var enteredOtp = $scope.otpCode;
@@ -659,7 +658,6 @@ $scope.closeFullNews = function() {
 
         
             }).catch(function(error) {
-                console.error("OTP validation failed:", error);
             
                 const message = error?.data?.message || 'OTP is incorrect or expired.';
             
@@ -685,8 +683,6 @@ $scope.closeFullNews = function() {
             var email = $sessionStorage.resetEmail;
             var enteredOtp = $scope.passRecoveryOtp;
         
-            console.log('📨 Email for OTP:', email);
-            console.log('🔢 Entered OTP:', enteredOtp);
         
             if (!email) {
                 Swal.fire({
@@ -1376,8 +1372,6 @@ $scope.closeFullNews = function() {
         };
     
         // 🛠️ Console to view user role before encryption
-        console.log("User Role (credentials.role):", $scope.credentials.role); 
-        console.log("Compiled User Data:", userData);
         
             // Encrypt before storing
         var encryptedData = encryptData(userData);
@@ -1385,11 +1379,9 @@ $scope.closeFullNews = function() {
         $rootScope.userCredentials = encryptedData;
         $sessionStorage.userCredentials = encryptedData;
     
-        console.log("Encrypted Credentials:", encryptedData);
 
         // 📨 Store raw email separately for OTP operations
         $sessionStorage.emailForOtp = userData.email;
-        console.log("Email for OTP:", $sessionStorage.emailForOtp);
 
         // ✅ Send OTP
         $http.post('/wp-json/myplugin/v1/send_otp/', {
@@ -1408,9 +1400,6 @@ $scope.closeFullNews = function() {
                 $scope.isCreating = false;
                 return;
             }       
-            
-            console.log("OTP Sent:", response.data);
-            
             
         
             Swal.fire({
@@ -1439,7 +1428,6 @@ $scope.closeFullNews = function() {
             });
 
         }).catch(function (error) {
-            console.error("OTP Error:", error.data.message || "Unknown error");
 
             Swal.fire({
                 icon: 'error',
@@ -1600,7 +1588,7 @@ $scope.closeFullNews = function() {
             }
             
         }, function (error) {
-            console.error("Error checking username:", error);
+
             $scope.usernameError = "Error checking username.";
             $scope.usernameValid = false;
         });
@@ -1628,7 +1616,6 @@ $scope.closeFullNews = function() {
         };
             
         // Format is valid, now check if email already exists in the WP database
-        console.log("Checking email:", $scope.credentials.email);
         
         $scope.emailError = "";
 
@@ -1643,7 +1630,6 @@ $scope.closeFullNews = function() {
                 'Content-Type': 'application/x-www-form-urlencoded'
             }
         }).then(function (response) {
-            console.log("Email check response:", response.data);
 
 
             if (response.data.success && response.data.data.exists) {
@@ -1656,7 +1642,6 @@ $scope.closeFullNews = function() {
 
             
         }, function (error) {
-            console.error("Error checking email:", error);
             $scope.emailError = "Error checking email.";
             $scope.emailValid = false;
         });
@@ -1838,11 +1823,8 @@ $scope.closeFullNews = function() {
         
         $timeout(() => {
             $scope.resetModalFields();          // reset value when navigating
-        }, 400); console.log('exits: ', $scope.currentModalContent)               
+        }, 400);             
         $scope.currentModalContent = target;
-
-        console.log(typeof target);
-        console.log('active: ', $scope.currentModalContent)
     }
 
 
@@ -1874,7 +1856,6 @@ $scope.closeFullNews = function() {
         }
             // ✅ Store trimmed email BEFORE request
             $sessionStorage.resetEmail = $scope.accountEmail.trim();
-            console.log('📦 Stored resetEmail:', $sessionStorage.resetEmail);
 
             
             Swal.fire({
@@ -1949,9 +1930,6 @@ $scope.closeFullNews = function() {
         const confirmPassword = $scope.forgotPass.confirmPass;
         const email = $sessionStorage.resetEmail;
     
-        console.log("📨 Email:", email);
-        console.log("🔐 New Password:", newPassword);
-        console.log("🔐 Confirm Password:", confirmPassword);
     
         $http.post('/wp-json/myplugin/v1/update_forgot_password/', {
             email: email,
@@ -2027,14 +2005,58 @@ $scope.closeFullNews = function() {
         mobile: '',
         message: ''
     };
+    $scope.onsubmit = false;
+    
     
     $scope.submitContactForm = function () {
         const { name, email, mobile, message } = $scope.contactFormData;
     
-        if (!name || !email || !mobile || !message) {
-            alert('Please fill in all fields.');
+        // Regex patterns
+        const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+        const mobilePattern = /^(?:\+63|09)\d{9}$/;
+    
+        // Validation
+        if (!name || name.trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Please enter your name.',
+                confirmButtonColor: '#d33'
+            });
             return;
         }
+    
+        if (!email || !emailPattern.test(email.trim())) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Please enter a valid email address.',
+                confirmButtonColor: '#d33'
+            });
+            return;
+        }
+    
+        if (!mobile) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Please enter a valid mobile number (e.g. +639xxxxxxxxx or 09xxxxxxxxx).',
+                confirmButtonColor: '#d33'
+            });
+            return;
+        }
+    
+        if (!message || message.trim() === '') {
+            Swal.fire({
+                icon: 'error',
+                title: 'Validation Error',
+                text: 'Please enter your message.',
+                confirmButtonColor: '#d33'
+            });
+            return;
+        }
+        
+        $scope.onsubmit = true; // disable button        
     
         grecaptcha.ready(function () {
             grecaptcha.execute(adminAjax.recaptchaSiteKey, { action: 'submit' }).then(function (token) {
@@ -2059,8 +2081,12 @@ $scope.closeFullNews = function() {
                     } else {
                         alert(res.data.message || 'Submission failed.');
                     }
+                    $scope.onsubmit = false; // re-enable button
+                    $scope.$apply();
                 })
                 .catch(() => {
+                    $scope.onsubmit = false; // re-enable button
+                    $scope.$apply();
                     alert('An error occurred while submitting the form.');
                 });
             });
