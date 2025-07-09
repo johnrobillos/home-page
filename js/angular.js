@@ -1,5 +1,12 @@
 var app = angular.module('homeApp', ['ngStorage']);
 
+// Deleting/clearing sessionStorage on page reload
+app.run(function($sessionStorage) {
+    // 🧹 Clear sessionStorage keys from ngStorage before any controller uses them
+    delete $sessionStorage.userCredentials;
+    delete $sessionStorage.emailForOtp;
+});
+
 app.run(function($timeout, $window, $rootScope) {
 
     $timeout(function () {
@@ -57,9 +64,22 @@ $scope.closeBlogModal = function() {
 
 $scope.selectedBlog = null;
 
-$scope.toggleBlogExpansion = function(blog) {
-    $scope.selectedBlog = ($scope.selectedBlog === blog) ? null : blog;
+// $scope.toggleBlogExpansion = function(blog) {
+//     $scope.selectedBlog = ($scope.selectedBlog === blog) ? null : blog;
+// };
+
+// Modal unified view
+$scope.modalExpansion = function(post) {
+    console.log(post);
+  $scope.selectedModal = post;
 };
+
+  
+
+//   testimonials modal view
+$scope.toggleTestimonialExpansion = function(post) {
+    $scope.selectedTestimonial = post;
+  };
 
 $scope.isVideo = function(mediaUrl) {
     return mediaUrl && mediaUrl.match(/\.(mp4|webm|ogg)$/i);
@@ -89,18 +109,19 @@ $scope.isVideo = function(mediaUrl) {
 //         console.error('Error fetching blogs:', error);
 //     });
 // };
-$scope.allHighlights = [];
-$scope.activeHighlight = 'all'; // Default to show all highlights
-// // sequenced list of all categories by posted date
-$scope.getFilteredHighlights = function() {
-    if ($scope.activeHighlight === 'all') {
-        // Return all highlights EXCEPT those with type 'blog'
-        return $scope.allHighlights.filter(post => post.type !== 'blog');
-    }
-    return $scope.allHighlights.filter(post => post.type === $scope.activeHighlight);
-};
 
-$scope.filteredHighlights = $scope.getFilteredHighlights();
+    $scope.allHighlights = [];
+    $scope.activeHighlight = 'all'; // Default to show all highlights
+    // // sequenced list of all categories by posted date
+    $scope.getFilteredHighlights = function() {
+        if ($scope.activeHighlight === 'all') {
+            // Return all highlights EXCEPT those with type 'blog'
+            return $scope.allHighlights.filter(post => post.type !== 'blog');
+        }
+        return $scope.allHighlights.filter(post => post.type === $scope.activeHighlight);
+    };
+    
+    $scope.filteredHighlights = $scope.getFilteredHighlights();
 
 
 
@@ -123,7 +144,7 @@ $scope.fetchAllHighlights = function () {
                 .replace(/\\\\/g, '\\');
         }
 
-        const posts = response.data.map(post => {
+        const posts = response.data.data.map(post => {
             const type = post.post_type; // already in DB
             const blog_media = post.blog_media && post.blog_media.startsWith('http')
                 ? post.blog_media
@@ -417,11 +438,11 @@ $scope.openFullNews = function(news) {
   $scope.showFullNewsPage = true;
 
   // Scroll to top for full news page
-  setTimeout(() => {
-    const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 100);
+//   setTimeout(() => {
+//     const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
+//     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//     else window.scrollTo({ top: 0, behavior: 'smooth' });
+//   }, 100);
 };
 
 $scope.closeFullNews = function() {
@@ -439,17 +460,17 @@ $scope.showPage = function(page) {
     $scope.currentPage = page; // Correctly assign the page name passed to the function
 };
 
-    $scope.scrollToSection = function(sectionId) {
-        var element = document.getElementById(sectionId);
-        if (element) {
-            setTimeout(function() {
-                $window.scrollTo({
-                    top: element.offsetTop - 30, // Optional: Add offset to adjust for header height
-                    behavior: "smooth" // Smooth scrolling
-                });
-            }, 100); // Add a timeout of 100ms
-        }
-    };
+
+// Scroll smoothly with optional offset (e.g., fixed navbar height)
+$scope.scrollToSection = function (sectionId) {
+    var element = document.getElementById(sectionId);
+    if (element) {
+      $window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  };
 
 // Navigation handler
 $scope.setActivePage = function(page) {
@@ -572,13 +593,13 @@ $scope.$on('$locationChangeStart', function () {
         });
 
         // connect lottie
-        var emp_details = lottie.loadAnimation({
-            container: document.getElementById("yey"),
-            renderer: 'svg',
-            loop: true,
-            autoplay: true,
-            path: "/wp-content/uploads/lottie/yey.json"
-        });
+        // var emp_details = lottie.loadAnimation({
+        //     container: document.getElementById("yey"),
+        //     renderer: 'svg',
+        //     loop: true,
+        //     autoplay: true,
+        //     path: "/wp-content/uploads/lottie/yey.json"
+        // });
 
         $scope.credentials = {
             username: '',
@@ -587,24 +608,24 @@ $scope.$on('$locationChangeStart', function () {
 
         // Mobile navbar collapse
         // Automatically collapse navbar on mobile when any nav-link is clicked
-        document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
-            el.addEventListener('click', function (e) {
-                // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
-                if (el.classList.contains('dropdown-toggle')) {
-                    return;
-                }
+        // document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
+        //     el.addEventListener('click', function (e) {
+        //         // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
+        //         if (el.classList.contains('dropdown-toggle')) {
+        //             return;
+        //         }
         
-                const collapseElement = document.getElementById('navbarSupportedContent');
-                const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+        //         const collapseElement = document.getElementById('navbarSupportedContent');
+        //         const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
         
-                // Collapse only if it's currently shown
-                if (bsCollapse && collapseElement.classList.contains('show')) {
-                    bsCollapse.hide();
-                }
-            });
-        });
+        //         // Collapse only if it's currently shown
+        //         if (bsCollapse && collapseElement.classList.contains('show')) {
+        //             bsCollapse.hide();
+        //         }
+        //     });
+        // });
 
-        // Close the navbar when clicking outside of it
+        // // Close the navbar when clicking outside of it
         document.addEventListener('click', function (event) {
             const navbar = document.getElementById('navbarSupportedContent');
             const toggler = document.querySelector('.navbar-toggler');
@@ -647,6 +668,26 @@ $scope.closeFullNews = function() {
   $scope.selectedNews = null;
   $scope.showFullNewsPage = false;
 };
+
+// for date and hour convert
+$scope.getFormattedDate = function(dateStr) {
+  const date = new Date(dateStr);
+  const options = {
+    year: 'numeric',
+    month: 'long', // Capitalized by default
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  };
+  return date.toLocaleString('en-US', options).replace('PM', 'pm').replace('AM', 'am');
+};
+
+$scope.post = {
+  date: new Date("2025-07-09 16:16:17") // ✅ Converts string to Date
+};
+
+
 
 // FAQ's
 $scope.faqTab = 'ojtgo';
@@ -696,12 +737,10 @@ $scope.ojtgoFaqs = [
       question: "Is this legit?",
       answer: {
         list: [
-          `Yes! We work with real companies actively looking for OJTs. Our goal is to make OJT placement 
-          affordable, fast, and stress-free for students. We also verify all companies first to ensure they 
-          are legitimate and provide a valuable internship experience.`,
-          `Absolutely! OJTGo works only with verified companies to guarantee real, value-adding internship 
-          experiences. Built from firsthand student experience, OJTGo’s mission is to make internship placement 
-          fast, affordable, and meaningful for everyone.`,
+          `Absolutely! OJTGo works only with verified companies, ensuring that every opportunity is legitimate
+           and provides a valuable internship experience. We carefully screen all companies first before listing 
+           them on the platform. Built from firsthand student experience, OJTGo is committed to making internship 
+           placement fast, affordable, and stress-free for students across the Philippines.`,
         ]
       },
       open: false
@@ -729,8 +768,8 @@ $scope.studentFaqs = [
         question: "Is there a fee to use OJTGo?",
         answer: {
           list: [
-            `Yes, it’s just ₱60 per month. This gives you access to smart internship matching, exclusive openings, 
-            and priority support—plus a 60-day money-back guarantee if you don’t get matched!`,
+            `Yes, it’s just ₱30 per month. This gives you access to smart internship matching, exclusive openings, 
+            and priority support`,
           ]
         },
         open: false
@@ -788,16 +827,6 @@ $scope.studentFaqs = [
         },
         open: false
       },
-
-      {
-        question: "What if I don’t get a placement at all?",
-        answer: {
-          list: [
-            `We’ve got your back. If you’re not matched within 60 days, we’ll refund your ₱60—no questions asked.`,
-          ]
-        },
-        open: false
-      },
 ];
 
 // for Employer FAQs  
@@ -845,6 +874,54 @@ $scope.employerFaqs = [
       },
 
   ];
+  
+  //   for modal to prevent from scrolling on top
+let scrollY = 0;
+
+document.addEventListener('show.bs.modal', function (e) {
+  scrollY = window.scrollY;
+  document.body.style.position = 'fixed';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.overflowY = 'scroll';
+  document.body.style.width = '100%';
+});
+
+document.addEventListener('hidden.bs.modal', function (e) {
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.overflowY = '';
+  document.body.style.width = '';
+  
+  // Delay scroll reset until styles are cleared
+  const scrollToRestore = scrollY;
+  setTimeout(() => {
+    window.scrollTo(0, scrollToRestore);
+  }, 0);
+});
+  
+$scope.toggleFaq = function (faqList, index) {
+    if (!faqList || !Array.isArray(faqList)) return;
+
+    faqList.forEach((faq, i) => {
+        faq.open = (i === index) ? !faq.open : false;
+    });
+};
+
+$scope.$watch('faqTab', function (newTab) {
+    if (newTab === 'ojtgo') {
+        $scope.ojtgoFaqs.forEach(faq => faq.open = false);
+    } else if (newTab === 'student') {
+        $scope.studentFaqs.forEach(faq => faq.open = false);
+    } else if (newTab === 'employer') {
+        $scope.employerFaqs.forEach(faq => faq.open = false);
+    }
+});
+
+
 
     // added by lorenzo @ 04/25/2025
 
@@ -2003,6 +2080,25 @@ $scope.employerFaqs = [
         });
     };
     
+            // Close all open notification dropdowns (mobile and desktop)
+        
+        document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
+                if (el.classList.contains('dropdown-toggle')) {
+                    return;
+                }
+        
+                const collapseElement = document.getElementById('navbarSupportedContent');
+                const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+        
+                // Collapse only if it's currently shown
+                if (bsCollapse && collapseElement.classList.contains('show')) {
+                    bsCollapse.hide();
+                }
+            });
+        });
+    
     /************* End Jeal Code Added 05-14  ************/    
     
 });
@@ -2050,7 +2146,10 @@ app.filter('limitHtmlTo', ['$sce', function($sce) {
 
             if (node.nodeType === Node.TEXT_NODE) {
                 const remaining = limit - count;
-                const text = node.nodeValue.slice(0, remaining);
+
+                // ✅ Safely clean backslashes from the actual text content
+                let text = node.nodeValue.replace(/\\/g, '').slice(0, remaining);
+
                 output += text;
                 count += text.length;
             } else if (node.nodeType === Node.ELEMENT_NODE) {
@@ -2066,7 +2165,9 @@ app.filter('limitHtmlTo', ['$sce', function($sce) {
 
         function getAttributes(el) {
             if (!el.attributes) return '';
-            return Array.from(el.attributes).map(attr => ` ${attr.name}="${attr.value}"`).join('');
+            return Array.from(el.attributes)
+                .map(attr => ` ${attr.name}="${attr.value}"`)
+                .join('');
         }
 
         traverse(div);
@@ -2079,9 +2180,19 @@ app.filter('limitHtmlTo', ['$sce', function($sce) {
     };
 }]);
 
+
+// app.filter('trustAsHtml', ['$sce', function($sce) {
+//     return function(html) {
+//         return $sce.trustAsHtml(html);
+//     };
+// }]);
+
+// Filter to clean HTML content
 app.filter('trustAsHtml', ['$sce', function($sce) {
     return function(html) {
-        return $sce.trustAsHtml(html);
+        if (!html) return '';
+        const cleaned = html.replace(/\\/g, ''); // 🔥 remove all backslashes
+        return $sce.trustAsHtml(cleaned);
     };
 }]);
 
@@ -2158,3 +2269,13 @@ app.directive('quillEditor', function () {
         }
     };
 });
+
+// uppercase filter for the first character in modal header
+app.filter('capitalize', function() {
+    return function(input) {
+      if (input && typeof input === 'string') {
+        return input.charAt(0).toUpperCase() + input.slice(1);
+      }
+      return input;
+    };
+  });

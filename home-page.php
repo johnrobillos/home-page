@@ -39,14 +39,23 @@ function home_page_enqueue_script()
             null,
             true
         );
+        
+        
+        // font style
+        wp_enqueue_style(
+            'font-style-ni-charls',
+            'https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap',
+            array(),
+            null
+        );
 
 
         // Enqueue Bootstrap 5 CSS from CDN
         wp_enqueue_style(
             'bootstrap-css',
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css',
             array(),
-            '5.3.0'
+            '5.3.2'
         );
 
 
@@ -203,10 +212,10 @@ function home_page_enqueue_script()
         wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', array(), '3.7.1', true);
 
         // Bootstrap JS
-        wp_enqueue_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'), '4.5.2', true);
+        // wp_enqueue_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'), '4.5.2', true);
 
         // Bootstrap CSS (optional)
-        wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
+        // wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
 
         // Enqueue Select2 CSS & JS
         wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css');
@@ -243,17 +252,20 @@ function home_page_landing_page()
 
         <!-- Modified by Charls @ 04/10/2025-->
 
-        <!-- navbar -->
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border border-lg-0">
             <div class="container-fluid">
-                <a class="navbar-brand" href="#" ng-click="setActivePage('home')">
+                <!-- Brand -->
+                <a class="navbar-brand" href="#home" ng-click="setActivePage('home')">
                     <img src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
                 </a>
 
-                <a href="javascript:void(0)" class="navbar-toggler border border-muted bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <!-- Toggler -->
+                <a href="javascript:void(0)" class="homeDropdownToggle navbar-toggler border border-muted bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </a>
 
+                <!-- Collapsible Content -->
                 <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                     <ul class="navbar-nav d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-1 gap-lg-1 mb-2 mb-lg-0" ng-cloak ng-show="isInitialized">
 
@@ -267,83 +279,51 @@ function home_page_landing_page()
                             <a class="nav-link dropdown-toggle w-100 text-start" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 About
                             </a>
-                            <ul class="dropdown-menu w-150" aria-labelledby="aboutDropdown" style="border: none;">
-                                <li>
-                                    <a class="dropdown-item" href="#about" ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a>
-                                </li>
-                                <li>
-                                    <a class="dropdown-item" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
-                                </li>
-
-                                <li>
-                                    <a class="dropdown-item" href="#contact" ng-click="scrollToSection('contact'); scrollToSection('contact', $event)">Contact Us</a>
-                                </li>
-
-                                <!-- <li class="nav-item mb-3 mb-lg-0 me-lg-3">
-                                    <a class="nav-link" href="#contact" ng-click="scrollToSection('contact', $event)" style="white-space: nowrap;">
-                                        Contact Us
-                                    </a>
-                                </li> -->
+                            <ul class="dropdown-menu w-100" aria-labelledby="aboutDropdown" style="border: none;">
+                                <li><a class="dropdown-item" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a></li>
+                                <li><a class="dropdown-item" href="#about" ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a></li>
+                                <li><a class="dropdown-item" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a></li>
                             </ul>
                         </li>
 
-                        <!-- Resources -->
+                        <!-- Resources Dropdown -->
                         <li class="nav-item dropdown w-100 text-start">
-                            <a class="nav-link dropdown-toggle w-100 text-start" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <a class="nav-link dropdown-toggle w-100 text-start" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Resources
                             </a>
-                            <ul class="dropdown-menu w-150" aria-labelledby="resourcesDropdown" style="border: none;">
-                                <li>
-                                    <a class="dropdown-item" href="#blogs" ng-click="setActivePage('blogs'); scrollToSection('blogs', $event)">Blogs</a>
-                                </li>
+                            <ul class="dropdown-menu w-100" aria-labelledby="resourcesDropdown" style="border: none;">
+                                <li><a class="dropdown-item" href="#blogs" ng-click="setActivePage('blogs'); scrollToSection('blogs', $event)">Blogs</a></li>
                             </ul>
                         </li>
 
-                        <!-- Help -->
+                        <!-- Help Dropdown -->
                         <li class="nav-item dropdown w-100 text-start">
                             <a class="nav-link dropdown-toggle w-100 text-start" id="helpDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Help
                             </a>
-                            <ul class="dropdown-menu w-150" aria-labelledby="helpDropdown" style="border: none;">
-                                <li>
-                                    <a class="dropdown-item" href="#how" ng-click="setActivePage('how')">How it works</a>
-                                </li>
-                                <li><a class="dropdown-item" href="#faq" ng-click="setActivePage('faq')">FAQ's</a></li>
+                            <ul class="dropdown-menu w-100" aria-labelledby="helpDropdown" style="border: none;">
+                                <li><a class="dropdown-item" href="#how" ng-click="setActivePage('how');">How it works</a></li>
+                                <li><a class="dropdown-item" href="#faq" ng-click="setActivePage('faq');">FAQ's</a></li>
                             </ul>
                         </li>
 
-
-
-                        <!-- Login Register -->
+                        <!-- Login/Register -->
                         <li class="nav-item me-2" ng-if="!isLoggedIn">
-                            <a class="rounded-3 navbar-btn" href="javascript:void(0)" ng-click="openLoginModalNav()">
-                                Login
-                            </a>
+                            <a class="rounded-3 navbar-btn" href="javascript:void(0)" ng-click="openLoginModalNav()">Login</a>
                         </li>
 
                         <li class="nav-item dropdown me-4 mt-3 mt-lg-0" ng-if="!isLoggedIn">
-                            <a class="rounded-3 navbar-btn" ng-click="openLoginModalNavReg(); show_reg_page_1 = true" href="javascript:void(0)" role="button" aria-expanded="false">
-                                Register
-                            </a>
+                            <a class="rounded-3 navbar-btn" ng-click="openLoginModalNavReg(); show_reg_page_1 = true" href="javascript:void(0)" role="button" aria-expanded="false">Register</a>
                         </li>
 
-                        <!-- Show "Dashboard" when user IS logged in -->
+                        <!-- Dashboard (if logged in) -->
                         <li class="nav-item dropdown me-0 me-lg-4 mt-3 mt-lg-0" ng-if="isLoggedIn && dashboardUrl">
-                            <a
-                                class="rounded-3 navbar-btn"
-                                ng-href="{{dashboardUrl}}"
-                                role="button">
-                                Dashboard
-                            </a>
+                            <a class="rounded-3 navbar-btn" ng-href="{{dashboardUrl}}" role="button">Dashboard</a>
                         </li>
-
-
                     </ul>
                 </div>
             </div>
         </nav>
-
-
 
         <!-- Home section test -->
         <section id="home" ng-show="activePage === 'home'">
@@ -475,7 +455,7 @@ function home_page_landing_page()
                         How OJTGo Works
                     </h1>
 
-                    <div class="row g-4 mt-5">
+                    <div class="row g-4 mt-1">
                         <!-- Step 1 -->
                         <div class="col-md-6 col-lg-3">
                             <div class="step-box h-100 p-4 d-flex flex-column">
@@ -569,7 +549,7 @@ function home_page_landing_page()
             <!-- Video Demo Section -->
             <div class="container mt-5">
                 <h2 class="text-center fw-bold" style="color:rgb(0, 43, 86);">Watch OJTGo in Action</h2>
-                <p class="text-center mb-4">Explore how OJTGo works from both the Student and Employer perspectives.</p>
+                <p class="text-center mb-4">See how OJTGo works from both the Student and Employer perspectives.</p>
 
                 <div class="row g-4">
 
@@ -577,7 +557,7 @@ function home_page_landing_page()
                     <div class="col-md-6">
                         <div class="card shadow-sm h-100 border-0">
                             <div class="card-header text-white fw-semibold text-center" style="background-color: rgb(0, 43, 86);">
-                                Student Side Demo
+                                Student Walkthrough
                             </div>
                             <div class="card-body p-0">
                                 <div class="ratio ratio-16x9">
@@ -600,7 +580,7 @@ function home_page_landing_page()
                     <div class="col-md-6">
                         <div class="card shadow-sm h-100 border-0">
                             <div class="card-header text-white fw-semibold text-center" style="background-color: rgb(0, 43, 86);">
-                                Employer Side Demo
+                                Employer Walkthrough
                             </div>
                             <div class="card-body p-0">
                                 <div class="ratio ratio-16x9">
@@ -649,7 +629,7 @@ function home_page_landing_page()
                                 <!-- OJTGo FAQs -->
                                 <div ng-switch-when="ojtgo">
                                     <div class="faq-item" ng-repeat="faq in ojtgoFaqs">
-                                        <div class="border-bottom py-2" ng-click="faq.open = !faq.open" style="cursor: pointer;">
+                                        <div class="border-bottom py-2" ng-click="toggleFaq(ojtgoFaqs, $index)" style="cursor: pointer;">
                                             {{ faq.question }}
                                             <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
                                         </div>
@@ -658,7 +638,7 @@ function home_page_landing_page()
                                             ng-show="faq.open"
                                             style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
                                             <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
-                                            <ul ng-if="faq.answer.list">
+                                            <ul ng-if="faq.answer.list" class="no-bullets">
                                                 <li ng-repeat="item in faq.answer.list">{{ item }}</li>
                                             </ul>
                                         </div>
@@ -670,7 +650,7 @@ function home_page_landing_page()
                                 <!-- Student FAQs -->
                                 <div ng-switch-when="student">
                                     <div class="faq-item" ng-repeat="faq in studentFaqs">
-                                        <div class="border-bottom py-2" ng-click="faq.open = !faq.open" style="cursor: pointer;">
+                                        <div class="border-bottom py-2" ng-click="toggleFaq(studentFaqs, $index)" style="cursor: pointer;">
                                             {{ faq.question }}
                                             <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
                                         </div>
@@ -679,7 +659,7 @@ function home_page_landing_page()
                                             ng-show="faq.open"
                                             style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
                                             <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
-                                            <ul ng-if="faq.answer.list">
+                                            <ul ng-if="faq.answer.list" class="no-bullets">
                                                 <li ng-repeat="item in faq.answer.list">{{ item }}</li>
                                             </ul>
                                         </div>
@@ -690,7 +670,7 @@ function home_page_landing_page()
                                 <!-- Employer FAQs -->
                                 <div ng-switch-when="employer">
                                     <div class="faq-item" ng-repeat="faq in employerFaqs">
-                                        <div class="border-bottom py-2" ng-click="faq.open = !faq.open" style="cursor: pointer;">
+                                        <div class="border-bottom py-2" ng-click="toggleFaq(employerFaqs, $index)" style="cursor: pointer;">
                                             {{ faq.question }}
                                             <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
                                         </div>
@@ -699,7 +679,7 @@ function home_page_landing_page()
                                             ng-show="faq.open"
                                             style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
                                             <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
-                                            <ul ng-if="faq.answer.list">
+                                            <ul ng-if="faq.answer.list" class="no-bullets">
                                                 <li ng-repeat="item in faq.answer.list">{{ item }}</li>
                                             </ul>
                                         </div>
@@ -722,12 +702,10 @@ function home_page_landing_page()
                     Our Latest Blogs
                 </h1>
 
-                <!-- Blog card -->
+                 <!-- Blog card -->
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <div class="col" ng-repeat="blog in blogs">
-
                         <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-white d-flex flex-column"
-                            ng-class="{'expanded-card': selectedBlog === blog}"
                             style="transition: all 0.3s ease; cursor: pointer;">
 
                             <!-- Blog Media -->
@@ -735,47 +713,24 @@ function home_page_landing_page()
                                 ng-src="{{blog.image}}"
                                 loading="lazy"
                                 class="card-img-top rounded"
-                                alt="{{blog.title_blog}}"
+                                alt="{{blog.title}}"
                                 style="max-height: 200px; object-fit: cover;">
-                            <!-- 
-                            <video ng-if="blog.blog_media && isVideo(blog.blog_media)" controls
-                                class="card-img-top rounded"
-                                style="max-height: 200px; object-fit: cover;">
-                                <source ng-src="{{blog.blog_media}}" type="video/mp4">
-                            </video> -->
 
                             <!-- Blog Content -->
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{blog.title}}</h5>
                                 <small class="text-muted">{{blog.date | date:'MMMM d, yyyy'}}</small>
 
-                                <!-- Collapsed -->
-                                <!--<p class="card-text mt-2" ng-if="selectedBlog !== blog">-->
-                                <!--    {{blog.blog_description | limitTo: 150}}...-->
-                                <!--    <span class="text-primary fw-semibold" ng-click="toggleBlogExpansion(blog)">See More</span>-->
-                                <!--</p>-->
                                 <!-- Collapsed Quill-rendered preview -->
-                                <div class="card-text mt-2" ng-if="selectedBlog !== blog">
+                                <div class="card-text mt-2">
                                     <div ng-bind-html="blog.descriptionUnescaped | limitHtmlTo: 150"></div>
-                                    <span class="text-primary fw-semibold" ng-click="toggleBlogExpansion(blog)">See More</span>
+                                    <span class="text-primary fw-semibold"
+                                        ng-click="modalExpansion(blog)"
+                                        data-bs-toggle="modal"
+                                        data-bs-target="#blogModal">
+                                        See More
+                                    </span>
                                 </div>
-
-                                <!-- Expanded -->
-                                <div ng-if="selectedBlog === blog"
-                                    class="mt-3"
-                                    style="max-height: 300px; overflow-y: auto;">
-                                    <!--<p class="lh-lg text-dark" style="white-space: pre-line;">-->
-                                    <!--    {{blog.blog_description | unescape}}-->
-                                    <!--</p>-->
-                                    <div class="quill-wrapper" readonly-view="true">
-                                        <div ng-bind-html="blog.descriptionUnescaped | trustAsHtml" style="height: 300px;"></div>
-                                    </div>
-
-                                </div>
-                                <button ng-if="selectedBlog === blog" class="btn btn-outline-secondary btn-sm mt-3"
-                                    ng-click="toggleBlogExpansion(null); $event.stopPropagation()">
-                                    Close
-                                </button>
                             </div>
                         </div>
                     </div>
@@ -828,49 +783,38 @@ function home_page_landing_page()
                     </div>
                 </div>
 
+                <hr class="mx-auto my-4" style="width: 80%; color: #001F3F;">
+
                 <!-- Highlights Grid -->
                 <div class="row g-3">
+
+                    <div class="fw-bold mb-4 mt-5 fs-4" style="color: #001F3F">
+                        Get the latest updates, features, and opportunities to boost your job search.
+                    </div>
+
                     <div class="col-md-4 pb-3" ng-show="activeHighlight === 'all'" ng-repeat="post in filteredHighlights ">
 
-                        <!-- news -->
+                        <!-- News -->
                         <div ng-show="post.type === 'news'"
                             class="card h-100 shadow-sm border-0 rounded-4 pb-3 bg-white d-flex flex-column"
-                            ng-class="{'expanded-news': selectedNewsPost === post}"
                             style="transition: all 0.3s ease; cursor: pointer;">
 
-                            <!-- Top Content -->
                             <div class="flex-grow-1 d-flex flex-column ms-3">
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
-                                <h5 class="card-title my-2">{{post.title}}</h5>
+                                <small class="text-muted">
+                                  {{ getFormattedDate(post.date) }}
+                                </small>
+                                <h5 class="card-title my-2">{{ post.title }}</h5>
 
                                 <!-- Collapsed Description -->
-                                <div class="card-text mt-2" ng-if="selectedNewsPost !== post">
+                                <div class="card-text mt-2">
                                     <div ng-bind-html="post.description | limitHtmlTo: 150"></div>
                                 </div>
 
-                                <!-- Expanded Description -->
-                                <div ng-show="selectedNewsPost === post"
-                                    class="mt-2"
-                                    style="max-height: 220px; overflow-y: auto;">
-                                    <img ng-show="post.image"
-                                        ng-src="{{post.image}}"
-                                        loading="lazy"
-                                        class="img-fluid rounded-3 mb-3"
-                                        style="max-height: 200px; object-fit: cover;"
-                                        alt="{{post.title}}">
-
-                                    <div ng-bind-html="post.description | trustAsHtml"
-                                        style="min-height:120px; max-height:300px; overflow:auto;">
-                                    </div>
-
-
-                                    <button class="btn btn-outline-secondary btn-sm mt-2"
-                                        ng-click="toggleNewsExpansion(null); $event.stopPropagation()">Close</button>
-                                </div>
-
-                                <!-- See More Link Always at Bottom -->
-                                <div class="mt-auto pt-2" ng-show="selectedNewsPost !== post">
-                                    <span class="text-primary fw-semibold d-inline-flex align-items-center gap-1" ng-click="toggleNewsExpansion(post)">
+                                <!-- See More Button -->
+                                <div class="mt-auto pt-2">
+                                    <span class="text-primary fw-semibold d-inline-flex align-items-center gap-1"
+                                        ng-click="modalExpansion(post)"
+                                        data-bs-toggle="modal" data-bs-target="#blogModal">
                                         See More
                                         <i class="fas fa-arrow-right ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
                                     </span>
@@ -878,38 +822,63 @@ function home_page_landing_page()
                             </div>
                         </div>
 
+
                         <!-- Testimonial Card -->
-                        <div ng-show="post.type === 'testimonial'" class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 370px;">
-                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+                        <div ng-show="post.type === 'testimonial'"
+                            class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column"
+                            style="max-height: 300px;">
+
+                            <div class="card-body d-flex flex-column h-100" style="min-height: 0;">
+
+                                <!-- Quote Icon & Date -->
                                 <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
-                                    <small class="text-muted position-absolute" style="top:0; right:0; font-size: 0.85rem;">{{ post.date | date:'MMMM d, y' }}</small>
+                                    <small class="text-muted position-absolute" style="top: 0; right: 0; font-size: 0.85rem;">
+                                      {{ getFormattedDate(post.date) }}
+                                    </small>
                                     <i class="fas fa-quote-right"></i>
                                 </div>
 
-                                <!-- QuillJS Viewer for Testimonial All Category -->
-                                <div class="text-center fw-semibold fs-5 my-3">
-                                    <div ng-bind-html="post.descriptionUnescaped | trustAsHtml" style="font-size:15px"></div>
+                                <!-- Description with ellipsis -->
+                                <div class="text-center fw-semibold flex-grow-1 mb-2 overflow-hidden text-truncate"
+                                    style="font-size: 15px; max-height: 90px; text-overflow: ellipsis; white-space: normal; overflow: hidden;">
+                                    <div ng-bind-html="post.descriptionUnescaped | trustAsHtml"></div>
                                 </div>
 
-                                <div class="d-flex align-items-center mt-auto">
-                                    <img ng-src="{{post.image}}" loading="lazy" alt="{{post.title}}" class="rounded-circle me-3" style="width: 60px; height: 60px; object-fit: cover;">
-                                    <div>
-                                        <h6 class="mb-0">{{post.title}}</h6>
-                                        <small class="text-muted">{{post.role}}</small>
+                                <!-- Footer with Profile & Eye Icon -->
+                                <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                    <div class="d-flex align-items-center">
+                                        <img ng-src="{{post.image}}" loading="lazy" alt="{{post.title}}"
+                                            class="rounded-circle me-2"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                        <div>
+                                            <h6 class="mb-0">{{ post.title }}</h6>
+                                            <small class="text-muted">{{ post.role }}</small>
+                                        </div>
                                     </div>
+
+                                    <!-- ✅ Eye Icon (only this triggers modal) -->
+                                    <button class="btn btn-sm text-primary"
+                                        ng-click="modalExpansion(post)"
+                                        data-bs-toggle="modal" data-bs-target="#blogModal"
+                                        aria-label="View Full Testimonial">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
 
+
                         <!-- Facebook Card -->
                         <div ng-show="post.type === 'facebook'" class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <small class="text-muted">
+                                      {{ getFormattedDate(post.date) }}
+                                    </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
                                 <!-- QuillJS Viewer for Facebook -->
                                 <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
                                 <div class="mt-auto pt-2">
-                                    <a ng-href="{{post.link}}" target="_blank" class="text-primary fw-semibold d-inline-flex align-items-center gap-1">
+                                    <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-primary fw-semibold d-inline-flex align-items-center gap-1">
                                         See more on Facebook
                                         <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
                                     </a>
@@ -918,27 +887,37 @@ function home_page_landing_page()
                         </div>
 
                         <!-- Instagram Card -->
-                        <div ng-show="post.type === 'instagram'" class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
-                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                        <div ng-show="post.type === 'instagram'" class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #fff0f6; max-height: 300px;">
+                            <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
+                                    <small class="text-muted">
+                                      {{ getFormattedDate(post.date) }}
+                                    </small>
                                 <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
+
                                 <!-- QuillJS Viewer for Instagram -->
-                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
-                                <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-danger fw-semibold d-inline-flex align-items-center gap-1">
-                                    View on Instagram
-                                    <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
-                                </a>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height: 60px; max-height: 120px; overflow: auto;"></div>
+
+                                <!-- Aligned at the bottom -->
+                                <div class="mt-auto pt-2">
+                                    <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-danger fw-semibold d-inline-flex align-items-center gap-1">
+                                        View on Instagram
+                                        <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                    </a>
+                                </div>
                             </div>
                         </div>
+
 
                         <!-- TikTok Card -->
                         <div ng-show="post.type === 'tiktok'" class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <small class="text-muted">
+                                      {{ getFormattedDate(post.date) }}
+                                    </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
                                 <!-- QuillJS Viewer for TikTok -->
                                 <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
-                                <a ng-href="{{post.link}}" class="mt-auto text-dark fw-semibold d-inline-flex align-items-center gap-1" target="_blank">
+                                <a ng-href="{{post.link}}" class="mt-3 text-dark fw-semibold d-inline-flex align-items-center gap-1" target="_blank">
                                     Watch on TikTok
                                     <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
                                 </a>
@@ -955,7 +934,6 @@ function home_page_landing_page()
                         ng-repeat="post in filteredHighlights | orderBy:'-date'">
 
                         <div class="card h-100 shadow-sm border-0 rounded-4 p-3 d-flex flex-column"
-                            ng-class="{'expanded-news': selectedNewsPost === post}"
                             style="background-color: white; transition: all 0.3s ease; cursor: pointer;">
 
                             <div class="d-flex flex-column h-100">
@@ -964,51 +942,32 @@ function home_page_landing_page()
                                 <h5 class="card-title my-2">{{ post.title }}</h5>
 
                                 <!-- Collapsed Description -->
-                                <div class="card-text mt-2" ng-if="selectedNewsPost !== post">
+                                <div class="card-text mt-2">
                                     <div ng-bind-html="post.description | limitHtmlTo: 150"></div>
                                 </div>
 
                                 <!-- See More -->
-                                <div class="mt-auto pt-2" ng-if="selectedNewsPost !== post">
+                                <div class="mt-auto pt-2">
                                     <span class="text-primary fw-semibold d-inline-flex align-items-center gap-1"
-                                        ng-click="toggleNewsExpansion(post)">
+                                        ng-click="modalExpansion(post)"
+                                        data-bs-toggle="modal" data-bs-target="#blogModal">
                                         See More
                                         <i class="fas fa-arrow-right ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
                                     </span>
-                                </div>
-
-                                <!-- Expanded Description -->
-                                <div ng-if="selectedNewsPost === post"
-                                    class="mt-3"
-                                    style="max-height: 300px; overflow-y: auto;">
-                                    <img ng-if="post.image"
-                                        ng-src="{{post.image}}"
-                                        loading="lazy"
-                                        class="img-fluid rounded-3 mb-3"
-                                        style="max-height: 200px; object-fit: cover;"
-                                        alt="{{post.title}}">
-
-                                    <div
-                                        ng-bind-html="post.description | trustAsHtml"
-                                        style="min-height:120px; max-height:300px; overflow:auto;">
-                                    </div>
-
-                                    <button class="btn btn-outline-secondary btn-sm mt-2"
-                                        ng-click="toggleNewsExpansion(null); $event.stopPropagation()">Close</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
+
                 <!-- Testimonials -->
                 <div class="row g-3" ng-show="activeHighlight === 'testimonial'">
                     <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
 
-
                         <!-- Testimonial Card -->
-                        <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 370px;">
-                            <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
+                        <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column" style="max-height: 300px;">
+                            <div class="card-body d-flex flex-column h-100" style="min-height: 0;">
 
                                 <!-- Quote Icon & Date -->
                                 <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
@@ -1018,20 +977,31 @@ function home_page_landing_page()
                                     <i class="fas fa-quote-right"></i>
                                 </div>
 
-                                <!-- QuillJS Viewer for Testimonial -->
-                                <div class="text-center fw-semibold fs-5 my-3">
-                                    <div ng-bind-html="post.descriptionUnescaped | trustAsHtml" style="font-size: 15px;"></div>
+                                <!-- Description with ellipsis -->
+                                <div class="text-center fw-semibold flex-grow-1 mb-2 overflow-hidden text-truncate"
+                                    style="font-size: 15px; max-height: 90px; text-overflow: ellipsis; white-space: normal; overflow: hidden;">
+                                    <div ng-bind-html="post.descriptionUnescaped | trustAsHtml"></div>
                                 </div>
 
-                                <!-- Person Info -->
-                                <div class="d-flex align-items-center mt-auto">
-                                    <img ng-src="{{post.image}}" loading="lazy" alt="{{post.title}}"
-                                        class="rounded-circle me-3"
-                                        style="width: 60px; height: 60px; object-fit: cover;">
-                                    <div>
-                                        <h6 class="mb-0">{{ post.title }}</h6>
-                                        <small class="text-muted">{{ post.role }}</small>
+                                <!-- Footer with Profile & Eye Icon -->
+                                <div class="d-flex justify-content-between align-items-center mt-auto pt-2 border-top">
+                                    <div class="d-flex align-items-center">
+                                        <img ng-src="{{post.image}}" loading="lazy" alt="{{post.title}}"
+                                            class="rounded-circle me-2"
+                                            style="width: 50px; height: 50px; object-fit: cover;">
+                                        <div>
+                                            <h6 class="mb-0">{{ post.title }}</h6>
+                                            <small class="text-muted">{{ post.role }}</small>
+                                        </div>
                                     </div>
+
+                                    <!-- Eye Icon -->
+                                    <button class="btn btn-sm text-primary"
+                                        ng-click="modalExpansion(post)"
+                                        data-bs-toggle="modal" data-bs-target="#blogModal"
+                                        aria-label="View Full Testimonial">
+                                        <i class="fas fa-eye"></i>
+                                    </button>
                                 </div>
                             </div>
                         </div>
@@ -1103,6 +1073,91 @@ function home_page_landing_page()
 
             </div>
         </section>
+        
+<!-- Unified Modal -->
+        <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="unifiedModalLabel" aria-hidden="true" data-bs-focus="false">
+            <!-- <pre>{{ selectedModal | json }}</pre> -->
+
+            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                <!-- Show modal content when any post is selected -->
+                <div class="modal-content" ng-show="selectedModal">
+
+                    <!-- Modal Header -->
+                    <div class="modal-header d-flex justify-content-between align-items-start flex-column flex-md-row">
+                        <h5 class="modal-type" id="unifiedModalLabel">{{ selectedModal.type | capitalize }}</h5>
+                        <div class="text-muted small ms-md-auto mt-2 mt-md-0">
+                            {{ selectedModal.date | date:'MMMM d, yyyy' }}
+                        </div>
+                    </div>
+
+
+                    <!-- Modal Body -->
+                    <div class="modal-body">
+
+                        <!-- Blog Layout -->
+                        <div ng-show="selectedModal.type === 'blog'">
+                            <img ng-show="selectedModal.image"
+                                ng-src="{{selectedModal.image}}"
+                                class="img-fluid rounded-3 mb-3 d-block mx-auto"
+                                alt="{{selectedModal.title}}"
+                                style="max-height: 300px; object-fit: cover;">
+                            <div class="quill-wrapper">
+                                <div ng-bind-html="selectedModal.descriptionUnescaped | trustAsHtml"></div>
+                            </div>
+                        </div>
+
+                        <!-- News Layout -->
+                        <div ng-show="selectedModal.type === 'news'">
+                            <img ng-show="selectedModal.image"
+                                ng-src="{{selectedModal.image}}"
+                                class="img-fluid rounded-3 mb-3 d-block mx-auto"
+                                alt="{{selectedModal.title}}"
+                                style="max-height: 300px; object-fit: cover;">
+                            <h6>{{selectedModal.title}}</h6>
+                            <div ng-bind-html="selectedModal.description | trustAsHtml"></div>
+                        </div>
+
+                        <!-- Testimonial Layout -->
+                        <div ng-show="selectedModal.type === 'testimonial'">
+
+                            <!-- Author Info at top -->
+                            <div class="d-flex align-items-center border-bottom pb-3 mb-3">
+                                <img ng-src="{{selectedModal.image}}" alt="{{selectedModal.title}}"
+                                    class="rounded-circle me-3"
+                                    style="width: 60px; height: 60px; object-fit: cover;">
+                                <div>
+                                    <h6 class="mb-0">{{ selectedModal.title }}</h6>
+                                    <small class="text-muted">{{ selectedModal.role }}</small>
+                                </div>
+                            </div>
+
+                            <!-- Quotation Icon aligned left -->
+                            <div class="text-primary mb-3" style="font-size: 2.5rem;">
+                                <i class="fas fa-quote-left"></i>
+                            </div>
+
+                            <!-- Full Description -->
+                            <div ng-bind-html="selectedModal.descriptionUnescaped | trustAsHtml"
+                                class="mb-4"
+                                style="font-size: 15px;"></div>
+                        </div>
+
+
+
+                    </div>
+
+                    <!-- Modal Footer -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary"
+                            data-bs-dismiss="modal"
+                            ng-click="modalExpansion(null)">
+                            Close
+                        </button>
+                    </div>
+
+                </div>
+            </div>
+        </div>
 
         <!-- Privacy Notice section -->
         <section id="privacy" ng-show="activePage === 'privacy'" class="bg-light py-5 bg-transparent">
@@ -1393,7 +1448,7 @@ function home_page_landing_page()
                     <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
                         About Us
                     </h1>
-                    <p class="lead mt-3">At <strong>OJTGo</strong>, we bridge the gap between education and industry, providing students with smooth or hassle-free access to valuable internship opportunities.
+                    <p class="mt-3" style="text-align: justify;">At <strong>OJTGo</strong>, we bridge the gap between education and industry, providing students with smooth or hassle-free access to valuable internship opportunities.
                         Our platform empowers students by connecting them with organizations that align with their academic backgrounds, career goals, and personal growth.
                         We believe internships are more than just academic requirements—they are stepping stones to meaningful careers.</p>
                 </div>
@@ -1404,14 +1459,14 @@ function home_page_landing_page()
                 <div class="container text-left">
                     <div class="mb-5">
                         <h2 class="text-primary">Our Mission</h2>
-                        <p class="lead mt-3">To empower students by providing them with seamless access to valuable internship opportunities,
+                        <p class="mt-3" style="text-align: justify;">To empower students by providing them with seamless access to valuable internship opportunities,
                             equipping them with the skills and experience needed to succeed in the professional world. We aim to connect
                             educational institutions, students, and employers in a collaborative environment that fosters growth, learning, and career readiness.
                         </p>
                     </div>
                     <div>
-                        <h2 class="text-primary">Our Vision</h2>
-                        <p class="lead mt-3">To be the ultimate one-stop solution for all OJT needs, ensuring that every student gains practical experience to enhance
+                        <h2 class=" text-primary">Our Vision</h2>
+                        <p class="mt-3" style="text-align: justify;">To be the ultimate one-stop solution for all OJT needs, ensuring that every student gains practical experience to enhance
                             their future career prospects. We strive to create a workforce-ready generation by bridging academia and industry through innovative and inclusive
                             job-matching technology.
                         </p>
@@ -1437,7 +1492,7 @@ function home_page_landing_page()
                             <!-- Text -->
                             <div class="col-md-6 order-2 order-md-2">
                                 <h2 class="text-primary">Introducing OJTGo</h2>
-                                <p>A platform built by students, for students. OJTGo aims to simplify the internship journey by connecting students, OJT coordinators, and host companies (HTEs) in one convenient, organized space. We designed it to reduce unnecessary costs, streamline the application process, and minimize mismatches between students and companies. With OJTGo, students can find internships that suit their course and location, while coordinators and companies can manage applications and assignments more efficiently. It is not just a platform. It is our way of solving a problem we experienced ourselves, and making things better for the future interns.</p>
+                                <p style="text-align: justify;">A platform built by students, for students. OJTGo aims to simplify the internship journey by connecting students, OJT coordinators, and host companies (HTEs) in one convenient, organized space. We designed it to reduce unnecessary costs, streamline the application process, and minimize mismatches between students and companies. With OJTGo, students can find internships that suit their course and location, while coordinators and companies can manage applications and assignments more efficiently. It is not just a platform. It is our way of solving a problem we experienced ourselves, and making things better for the future interns.</p>
                             </div>
                         </div>
                     </div>
@@ -1451,8 +1506,8 @@ function home_page_landing_page()
                             <!-- Text -->
                             <div class="col-md-6 order-2 order-md-1">
                                 <h2 class="text-primary">How it started?</h2>
-                                <p>We saw it firsthand. We were once interns ourselves, and we noticed a problem that has been around for generations. Every year, thousands of students search for internships, creating a high demand with limited quality opportunities. The competition is tough, and the process is expensive. If you were unlucky, you would end up mismatched with a company that does not help you grow.</p>
-                                <p>As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure of securing an internship—all while spending on transportation, meals, and application requirements. Most internships do not even offer basic allowances. This is the sad reality for many students, year after year.</p>
+                                <p style="text-align: justify;">We saw it firsthand. We were once interns ourselves, and we noticed a problem that has been around for generations. Every year, thousands of students search for internships, creating a high demand with limited quality opportunities. The competition is tough, and the process is expensive. If you were unlucky, you would end up mismatched with a company that does not help you grow.</p>
+                                <p style="text-align: justify;">As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure of securing an internship—all while spending on transportation, meals, and application requirements. Most internships do not even offer basic allowances. This is the sad reality for many students, year after year.</p>
                             </div>
                             <!-- Image -->
                             <div class="col-md-6 order-1 order-md-2">
@@ -1475,8 +1530,8 @@ function home_page_landing_page()
                             <!-- Text -->
                             <div class="col-md-6 order-2 order-md-2">
                                 <h2 class="text-primary">What we created?</h2>
-                                <p>We created a platform designed to reduce the cost and hassle of finding an internship. It connects students, OJT Coordinators, and host companies in one convenient space. The goal is to make internships more accessible and organized—for everyone involved.</p>
-                                <p>As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure of securing an internship—all while spending on transportation, meals, and application requirements. Most internships do not even offer basic allowances. This is the sad reality for many students, year after year.</p>
+                                <p style="text-align: justify;">We created a platform designed to reduce the cost and hassle of finding an internship. It connects students, OJT Coordinators, and host companies in one convenient space. The goal is to make internships more accessible and organized—for everyone involved.</p>
+                                <p style="text-align: justify;">As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure of securing an internship—all while spending on transportation, meals, and application requirements. Most internships do not even offer basic allowances. This is the sad reality for many students, year after year.</p>
                             </div>
                         </div>
                     </div>

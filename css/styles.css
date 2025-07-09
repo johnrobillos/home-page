@@ -1112,3 +1112,32 @@ html {
     color: #0d6efd !important;
 } */ 
 
+.description-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* Show 4 lines max */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.see-more-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(to top, #f8f9fa 70%, transparent);
+    color: #0d6efd;
+    font-size: 13px;
+    padding-top: 20px;
+    pointer-events: none;
+    /* So modal still opens on card click */ }
+
+    /* remove bullets for faq */
+        .no-bullets {
+            list-style-type: none;
+            padding-left: 0;
+            margin-left: 0;
+        }
+
