@@ -719,7 +719,9 @@ function home_page_landing_page()
                             <!-- Blog Content -->
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{blog.title}}</h5>
-                                <small class="text-muted">{{blog.date | date:'MMMM d, yyyy'}}</small>
+                                <small class="text-muted">
+                                  {{ getFormattedDate(post.date) }}
+                                </small>
 
                                 <!-- Collapsed Quill-rendered preview -->
                                 <div class="card-text mt-2">
@@ -796,7 +798,7 @@ function home_page_landing_page()
 
                         <!-- News -->
                         <div ng-show="post.type === 'news'"
-                            class="card h-100 shadow-sm border-0 rounded-4 pb-3 bg-white d-flex flex-column"
+                            class="card h-80 shadow-sm border-0 rounded-4 pb-3 bg-white d-flex flex-column"
                             style="transition: all 0.3s ease; cursor: pointer;">
 
                             <div class="flex-grow-1 d-flex flex-column ms-3">
@@ -811,12 +813,12 @@ function home_page_landing_page()
                                 </div>
 
                                 <!-- See More Button -->
-                                <div class="mt-auto pt-2">
+                                <div class="mt-auto p-2">
                                     <span class="text-primary fw-semibold d-inline-flex align-items-center gap-1"
                                         ng-click="modalExpansion(post)"
                                         data-bs-toggle="modal" data-bs-target="#blogModal">
                                         See More
-                                        <i class="fas fa-arrow-right ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                        <i class="fas fa-arrow-right ms-1" aria-hidden="true" style="font-size: 0.5rem;"></i>
                                     </span>
                                 </div>
                             </div>
@@ -873,16 +875,17 @@ function home_page_landing_page()
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">
                                       {{ getFormattedDate(post.date) }}
-                                    </small>
+                                </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
+
                                 <!-- QuillJS Viewer for Facebook -->
-                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
-                                <div class="mt-auto pt-2">
-                                    <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-primary fw-semibold d-inline-flex align-items-center gap-1">
-                                        See more on Facebook
-                                        <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
-                                    </a>
-                                </div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px; max-height:auto; overflow:auto;"></div>
+
+                                <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-primary fw-semibold d-inline-flex align-items-center gap-1">
+                                    See more on Facebook
+                                    <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
+                                </a>
+
                             </div>
                         </div>
 
@@ -895,7 +898,7 @@ function home_page_landing_page()
                                 <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
 
                                 <!-- QuillJS Viewer for Instagram -->
-                                <div ng-bind-html="post.description | trustAsHtml" style="min-height: 60px; max-height: 120px; overflow: auto;"></div>
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height: 60px; max-height: auto; overflow: auto;"></div>
 
                                 <!-- Aligned at the bottom -->
                                 <div class="mt-auto pt-2">
@@ -913,11 +916,11 @@ function home_page_landing_page()
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">
                                       {{ getFormattedDate(post.date) }}
-                                    </small>
+                                </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
                                 <!-- QuillJS Viewer for TikTok -->
-                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px;max-height:120px;overflow:auto;"></div>
-                                <a ng-href="{{post.link}}" class="mt-3 text-dark fw-semibold d-inline-flex align-items-center gap-1" target="_blank">
+                                <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px; max-height:auto; overflow:auto;"></div>
+                                <a ng-href="{{post.link}}" class="mt-auto text-dark fw-semibold d-inline-flex align-items-center gap-1" target="_blank">
                                     Watch on TikTok
                                     <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
                                 </a>
@@ -938,7 +941,9 @@ function home_page_landing_page()
 
                             <div class="d-flex flex-column h-100">
                                 <!-- Date and Title -->
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <small class="text-muted">
+                                  {{ getFormattedDate(post.date) }}
+                                </small>
                                 <h5 class="card-title my-2">{{ post.title }}</h5>
 
                                 <!-- Collapsed Description -->
@@ -972,7 +977,7 @@ function home_page_landing_page()
                                 <!-- Quote Icon & Date -->
                                 <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
                                     <small class="text-muted position-absolute" style="top: 0; right: 0; font-size: 0.85rem;">
-                                        {{ post.date | date:'MMMM d, y' }}
+                                      {{ getFormattedDate(post.date) }}
                                     </small>
                                     <i class="fas fa-quote-right"></i>
                                 </div>
@@ -1015,13 +1020,15 @@ function home_page_landing_page()
                     <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
                         <div class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <small class="text-muted">
+                                      {{ getFormattedDate(post.date) }}
+                                </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
 
                                 <!-- QuillJS Viewer for Facebook -->
                                 <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px; max-height:120px; overflow:auto;"></div>
 
-                                <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-primary fw-semibold d-inline-flex align-items-center gap-1">
+                                <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-primary fw-semibold d-inline-flex align-items-center gap-1">
                                     See more on Facebook
                                     <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
                                 </a>
@@ -1036,7 +1043,9 @@ function home_page_landing_page()
                     <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
                         <div class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <small class="text-muted">
+                                      {{ getFormattedDate(post.date) }}
+                                </small>
                                 <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
 
                                 <!-- QuillJS Viewer for Instagram -->
@@ -1056,13 +1065,15 @@ function home_page_landing_page()
                     <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
                         <div class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
-                                <small class="text-muted">{{ post.date | date:'MMMM d, y' }}</small>
+                                <small class="text-muted">
+                                      {{ getFormattedDate(post.date) }}
+                                </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
 
                                 <!-- QuillJS Viewer for TikTok -->
                                 <div ng-bind-html="post.description | trustAsHtml" style="min-height:60px; max-height:120px; overflow:auto;"></div>
 
-                                <a ng-href="{{post.link}}" target="_blank" class="mt-3 text-dark fw-semibold d-inline-flex align-items-center gap-1">
+                                <a ng-href="{{post.link}}" target="_blank" class="mt-auto text-dark fw-semibold d-inline-flex align-items-center gap-1">
                                     Watch on TikTok
                                     <i class="fas fa-hand-point-left ms-1" aria-hidden="true" style="font-size: 1rem;"></i>
                                 </a>
@@ -1074,7 +1085,7 @@ function home_page_landing_page()
             </div>
         </section>
         
-<!-- Unified Modal -->
+        <!-- Unified Modal -->
         <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="unifiedModalLabel" aria-hidden="true" data-bs-focus="false">
             <!-- <pre>{{ selectedModal | json }}</pre> -->
 
@@ -1086,7 +1097,7 @@ function home_page_landing_page()
                     <div class="modal-header d-flex justify-content-between align-items-start flex-column flex-md-row">
                         <h5 class="modal-type" id="unifiedModalLabel">{{ selectedModal.type | capitalize }}</h5>
                         <div class="text-muted small ms-md-auto mt-2 mt-md-0">
-                            {{ selectedModal.date | date:'MMMM d, yyyy' }}
+                            {{ getFormattedDate(post.date) }}
                         </div>
                     </div>
 
@@ -1182,7 +1193,7 @@ function home_page_landing_page()
                         <li>Skills, personal preferences, and availability</li>
                     </ul><br>
 
-                    <p><strong>) Character References</strong><br>
+                    <p><strong>b) Character References</strong><br>
                         If references are added, interns must provide names, job titles, and contact details. It is the intern’s responsibility to obtain prior consent from these individuals before sharing their data.
                     </p><br>
 
@@ -1438,7 +1449,7 @@ function home_page_landing_page()
         <div class="circle-decorations">
             <div class="blue-small-circle"></div>
             <div class="background-circle"></div>
-            <div class="blue-circle-lower-right"></div>
+        <!-- Hami 07/11: blue circle removed -->
         </div>
 
         <!-- About Us Section -->
@@ -1755,14 +1766,15 @@ function home_page_landing_page()
             <div class="container">
 
 
-                <div class="row justify-content-between align-items-center">
+<!-- Hami 07/11/25 Start: contact message and form changed -->
+                 <div class="row d-flex flex-wrap justify-content-center align-items-center" ng-class="'justify-content-start': showSecondForm">
 
                     <!-- Contact message -->
-                    <div class="col-md-5 mb-4 mb-md-0">
-                        <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between" style="background: linear-gradient(135deg, rgb(173, 207, 241), rgb(240, 250, 255)); color:rgb(0, 50, 101); padding-top: 40px; padding-bottom: 40px;">
+                   <div class="col-md-6 mb-4 mb-md-0 w-50-md-6" ng-class="'w-100': showSecondForm">
+                        <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between" style="background: linear-gradient(135deg, rgb(207, 220, 255), rgb(255, 255, 255)); color:rgb(0, 50, 101); padding-top: 40px; padding-bottom: 40px;">
                             <div style="z-index: 1; position: relative;">
                                 <h3 class="fw-bold mb-3" style="color:rgb(0, 50, 101);">
-                                    <span class="me-2" style="font-size: 1.5rem;">&#9993;</span>Get in Touch
+                                    <span><i class="bi bi-chat-square-dots-fill"></i></span> Get in Touch
                                 </h3>
                                 <p class="mb-3" style="font-size: 1rem;">
                                     Have questions, feedback, or need support? We're here to help! Reach out to the OJTGo team and we'll get back to you as soon as possible. Whether you're an intern or an employer, your intership journey is our priority.
@@ -1772,12 +1784,23 @@ function home_page_landing_page()
                             <h4 class="fw-semibold mt-4 fs-4 fs-lg-4" style="color:rgb(0, 50, 101);">
                                 Bridging Students to Success—<br>OJTGo Connects Them with the Right Opportunities
                             </h4>
+                             <button
+
+                                class="btn text-white fw-bold py-1"
+
+                                ng-click="showContactForm = true"
+
+                                style="background-color:rgb(0, 50, 101);; border: 1px solid #0161aa; font-size: 1.1rem;">
+
+                                Send us a message!
+
+                            </button>
                         </div>
                     </div>
 
                     <!-- Contact Form -->
-                    <div class="col-md-6">
-                        <div class="h-100 rounded-3 p-2 shadow-lg bg-white position-relative overflow-hidden">
+                    <div class="col-md-6" ng-show="showContactForm">
+                        <div class="h-100 rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden">
                             <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
                             <div style="z-index: 1; position: relative;">
                                 <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
@@ -1788,16 +1811,20 @@ function home_page_landing_page()
                                         <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
                                     </div>
 
-                                    <div class="mb-2">
+                                    <div class="mb-2 row">
+
+                                    <div class="col w-50">
                                         <!-- Email -->
                                         <label for="contact-us-email" class="form-label fw-semibold">Email</label>
-                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.email" placeholder="johndoe@example.com" required>
+                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.email" placeholder="e.g. johndoe@example.com" required>
                                     </div>
 
-                                    <div class="mb-2">
+                                    <div class="col w-50">
                                         <!-- Mobile Number -->
                                         <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="+639xxxxxxxxx" required>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="e.g. +639xxxxxxxxx" required>
+
+                                    </div>
                                     </div>
 
                                     <div class="mb-2">

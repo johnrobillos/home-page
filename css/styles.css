@@ -1141,3 +1141,20 @@ html {
             margin-left: 0;
         }
 
+/* Start Hami 07/11/25*/
+
+#privacy li, #privacy p, #terms li, #terms p, #contact p {
+    text-align: justify;
+}
+
+.blue-small-circle {
+    transform: translate(30%, 190%);
+}
+
+.background-circle {
+    transform: translate(30%, -20%); 
+}
+
+.bi-chat-square-dots-fill {
+   color:rgb(0, 50, 101);
+}
