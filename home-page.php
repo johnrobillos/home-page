@@ -1522,7 +1522,7 @@ function home_page_landing_page()
                             </div>
                             <!-- Image -->
                             <div class="col-md-6 order-1 order-md-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/solved-scaled.jpg') ?>"
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/howwestarted.jpg') ?>"
                                     alt="Our Story" class="img-fluid rounded shadow">
                             </div>
                         </div>
@@ -1535,7 +1535,7 @@ function home_page_landing_page()
                         <div class="row align-items-center">
                             <!-- Image -->
                             <div class="col-md-6 order-1 order-md-1">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/solved-scaled.jpg') ?>"
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/whatwecreated.jpg') ?>"
                                     alt="Our Story" class="img-fluid rounded shadow">
                             </div>
                             <!-- Text -->
@@ -1586,16 +1586,16 @@ function home_page_landing_page()
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirjeal.jpg') ?>" alt="sir Jeal">
                             </div>
                             <p class="text-center m-0">Jeal Pascua</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Finance Officer</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Technology Officer</p>
                         </div>
 
                         <!-- Team Member 4 -->
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/john.jpg') ?>" alt="ma'am Jinah">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/john.jpg') ?>" alt="ma'am John">
                             </div>
                             <p class="text-center m-0">John Ronald Robillos</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web and System Developer/DPO</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Sales Lead</p>
                         </div>
 
                         <!-- Team Member 5 -->
@@ -1604,7 +1604,7 @@ function home_page_landing_page()
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/jess.jpg') ?>" alt="sir Jess">
                             </div>
                             <p class="text-center m-0">Jess Baggao</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Security Officer</p>
                         </div>
 
                         <!-- Team Member 6 -->
@@ -1631,7 +1631,7 @@ function home_page_landing_page()
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/steph.jpg') ?>" alt="ma'am Steph">
                             </div>
                             <p class="text-center m-0">Stephanie Cuenca</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing Sales Associate</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications Manager</p>
                         </div>
 
 
@@ -1738,7 +1738,18 @@ function home_page_landing_page()
                                             alt="Arandelle">
                                     </div>
                                     <p class="text-center m-0">Madeleine Gonzales</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communication
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications
+                                    </p>
+                                </div>
+                                
+                                <!-- Team Member 15 -->
+                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                                    <div class="team-img-container mb-2">
+                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/hami.jpg') ?>"
+                                            alt="Arandelle">
+                                    </div>
+                                    <p class="text-center m-0">Hamidah Abdulqader Awad Salem</p>
+                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
                                     </p>
                                 </div>
 
@@ -1760,150 +1771,141 @@ function home_page_landing_page()
 
         </section>
 
- <!-- Contact Us Section -->
-        <!-- Full-width container for the Contact Section -->
-        <div style="background-color:rgb(173, 207, 241); padding: 20px 0;" id="contact">
-            <div class="container">
-
-
-<!-- Hami 07/11/25 Start: contact message and form changed -->
-                 <div class="row d-flex flex-wrap justify-content-center align-items-center" ng-class="'justify-content-start': showSecondForm">
-
-                    <!-- Contact message -->
-                   <div class="col-md-6 mb-4 mb-md-0 w-50-md-6" ng-class="'w-100': showSecondForm">
-                        <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between" style="background: linear-gradient(135deg, rgb(207, 220, 255), rgb(255, 255, 255)); color:rgb(0, 50, 101); padding-top: 40px; padding-bottom: 40px;">
-                            <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold mb-3" style="color:rgb(0, 50, 101);">
-                                    <span><i class="bi bi-chat-square-dots-fill"></i></span> Get in Touch
-                                </h3>
-                                <p class="mb-3" style="font-size: 1rem;">
-                                    Have questions, feedback, or need support? We're here to help! Reach out to the OJTGo team and we'll get back to you as soon as possible. Whether you're an intern or an employer, your intership journey is our priority.
-                                </p>
-
-                            </div>
-                            <h4 class="fw-semibold mt-4 fs-4 fs-lg-4" style="color:rgb(0, 50, 101);">
-                                Bridging Students to Success—<br>OJTGo Connects Them with the Right Opportunities
-                            </h4>
-                             <button
-
+        <!-- Contact Us Section -->
+        <div id="contact" class="d-flex flex-column h-100" style="margin-top: 0; padding: 60px 0; background-color: rgb(173, 207, 241);">
+          <div class="container mt-auto">
+            <div class="row justify-content-center align-items-center flex-wrap">
+                
+                <h3 class="fw-bold mt-3 fs-2 text-center" style="color: rgb(0, 50, 101);">
+                      Bridging Students to Success—<br>OJTGo Connects Them with the Right Opportunities
+                    </h3>
+        
+              <!-- Contact Message Box -->
+              <div class="col-md-6 mt-5">
+                <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between h-100"
+                     style="background: linear-gradient(135deg, rgb(207, 220, 255), rgb(255, 255, 255)); color: rgb(0, 50, 101);">
+                  <div style="z-index: 1; position: relative;">
+                    <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">
+                      <i class="bi bi-chat-square-dots-fill"></i> Get in Touch
+                    </h3>
+                    <p class="mb-3" style="font-size: 1rem;">
+                      Have questions, feedback, or need support? We're here to help! Reach out to the OJTGo team and we'll get back to you as soon as possible. Whether you're an intern or an employer, your internship journey is our priority.
+                    </p>
+                  </div>
+        
+                  <button class="btn text-white fw-bold py-1 mt-4"
+                          ng-click="showContactForm = !showContactForm"
+                          style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
+                    <span ng-hide="showContactForm">
+                        Send us a message!
+                    </span>
+                    <span ng-show="showContactForm">
+                        Go Back
+                    </span>
+                  </button>
+                </div>
+              </div>
+        
+              <!-- Contact Form -->
+              <div class="col-md-6 mt-3" ng-show="showContactForm">
+                <div class="rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden h-100">
+                  <div class="position-absolute top-0 start-0 w-100 h-100"
+                       style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
+                  <div style="z-index: 1; position: relative;">
+                    <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">Send Us a Message</h3>
+                    <form name="contactForm" ng-submit="submitContactForm()" novalidate>
+                      <div class="mb-2">
+                        <label class="form-label fw-semibold">Name</label>
+                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                               ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
+                      </div>
+        
+                      <div class="mb-2 row">
+                        <div class="col">
+                          <label class="form-label fw-semibold">Email</label>
+                          <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                 ng-model="contactFormData.email" placeholder="e.g. johndoe@example.com" required>
+                        </div>
+                        <div class="col">
+                          <label class="form-label fw-semibold">Mobile Number</label>
+                          <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                 ng-model="contactFormData.mobile" placeholder="e.g. +639xxxxxxxxx" required>
+                        </div>
+                      </div>
+        
+                      <div class="mb-2">
+                        <label class="form-label fw-semibold">Comment or Message</label>
+                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
+                                  ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
+                      </div>
+        
+                      <div class="d-grid mt-4">
+                        <button type="submit"
+                                ng-class="{'disabled': onsubmit}"
                                 class="btn text-white fw-bold py-1"
+                                style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
+                          Submit
+                        </button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+        
+            </div>
+          </div>
+        </div>
 
-                                ng-click="showContactForm = true"
+        <!-- Footer -->
+        <div class="footer-container" style="background-color: #1565c0; color: white; padding: 20px 10px; margin-top: 0;">
+        <div class="container-fluid px-2 px-md-2 px-lg-5">
+            <div class="row align-items-start align-items-lg-center d-lg-flex justify-content-lg-between">
 
-                                style="background-color:rgb(0, 50, 101);; border: 1px solid #0161aa; font-size: 1.1rem;">
+            <!-- Logo and Social Icons -->
+            <div class="col-12 col-lg-auto text-start mt-4 mb-lg-0">
+                <img style="height: 80px;"
+                    src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>"
+                    alt="ojtgo-logo"
+                    class="footer-logo mb-3">
 
-                                Send us a message!
-
-                            </button>
-                        </div>
+                <div class="social-icons d-flex justify-content-start gap-2 mb-4">
+                <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
+                    <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 35px; height: 35px;">
+                    <i class="fab fa-facebook-f text-dark"></i>
                     </div>
-
-                    <!-- Contact Form -->
-                    <div class="col-md-6" ng-show="showContactForm">
-                        <div class="h-100 rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden">
-                            <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
-                            <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold mb-4" style="color:rgb(0, 50, 101);">Send Us a Message</h3>
-                                <form name=" contactForm" ng-submit="submitContactForm()" novalidate>
-                                    <div class="mb-2">
-                                        <!-- Name -->
-                                        <label for="contact-us-name" class="form-label fw-semibold">Name</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
-                                    </div>
-
-                                    <div class="mb-2 row">
-
-                                    <div class="col w-50">
-                                        <!-- Email -->
-                                        <label for="contact-us-email" class="form-label fw-semibold">Email</label>
-                                        <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.email" placeholder="e.g. johndoe@example.com" required>
-                                    </div>
-
-                                    <div class="col w-50">
-                                        <!-- Mobile Number -->
-                                        <label for="contact-us-mobile" class="form-label fw-semibold">Mobile Number</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;" ng-model="contactFormData.mobile" placeholder="e.g. +639xxxxxxxxx" required>
-
-                                    </div>
-                                    </div>
-
-                                    <div class="mb-2">
-                                        <!-- Message -->
-                                        <label for="contact-us-message" class="form-label fw-semibold">Comment or Message</label>
-                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;" ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
-                                    </div>
-
-                                    <!-- Submit Button -->
-                                    <div class="d-grid mt-4">
-                                        <button
-                                            ng-class="{'disabled': onsubmit}"
-                                            type="submit"
-                                            class="btn text-white fw-bold py-1"
-                                            style="background-color:rgb(0, 50, 101);; border: 1px solid #0161aa; font-size: 1.1rem;">
-                                            Submit
-                                        </button>
-                                    </div>
-
-                                </form>
-                            </div>
-                        </div>
+                </a>
+                <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
+                    <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 35px; height: 35px;">
+                    <i class="fab fa-instagram text-dark"></i>
                     </div>
+                </a>
+                <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
+                    <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
+                        style="width: 35px; height: 35px;">
+                    <i class="fab fa-tiktok text-dark"></i>
+                    </div>
+                </a>
                 </div>
             </div>
+
+            <!-- Navigation Links -->
+            <div class="col-12 col-lg-auto pe-5 mt-3 mt-lg-0">
+                <nav class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center text-start text-lg-start gap-2 gap-lg-3">
+                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#home" ng-click="setActivePage('home')">Home</a>
+                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
+                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
+                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
+                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
+                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
+                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
+                </nav>
+            </div>
+
+            </div>
         </div>
-
-
-
-<!-- Footer -->
-<div class="footer-container" style="background-color: #1565c0; color: white; padding: 20px 10px;">
-  <div class="container-fluid px-2 px-md-2 px-lg-5">
-    <div class="row align-items-start align-items-lg-center d-lg-flex justify-content-lg-between">
-
-      <!-- Logo and Social Icons -->
-      <div class="col-12 col-lg-auto text-start mb-3 mb-lg-0">
-        <img style="height: 80px;"
-             src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>"
-             alt="ojtgo-logo"
-             class="footer-logo mb-3">
-
-        <div class="social-icons d-flex justify-content-start gap-2">
-          <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
-            <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                 style="width: 35px; height: 35px;">
-              <i class="fab fa-facebook-f text-dark"></i>
-            </div>
-          </a>
-          <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
-            <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                 style="width: 35px; height: 35px;">
-              <i class="fab fa-instagram text-dark"></i>
-            </div>
-          </a>
-          <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
-            <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                 style="width: 35px; height: 35px;">
-              <i class="fab fa-tiktok text-dark"></i>
-            </div>
-          </a>
         </div>
-      </div>
-
-      <!-- Navigation Links -->
-      <div class="col-12 col-lg-auto pe-5 mt-3 mt-lg-0">
-        <nav class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center text-start text-lg-start gap-2 gap-lg-3">
-          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#" ng-click="setActivePage('home')">Home</a>
-          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
-          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
-          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
-          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
-          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
-          <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
-        </nav>
-      </div>
-
-    </div>
-  </div>
-</div>
 
 
         <div
