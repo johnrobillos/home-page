@@ -1140,6 +1140,33 @@ html {
             padding-left: 0;
             margin-left: 0;
         }
+        
+                        /* For highlights scrollbar */
+                .scrollable-row {
+                    max-height: 400px;
+                    /* Adjust height as needed */
+                    overflow: auto;
+                    /* Enable scrolling */
+                    position: relative;
+                }
+        
+                /* Hide the scrollbar for Webkit-based browsers (Chrome, Safari, Edge) */
+                .scrollable-row::-webkit-scrollbar {
+                    display: none;
+                    /* Hide the scrollbar */
+                }
+        
+                /* Hide the scrollbar for Firefox */
+                .scrollable-row {
+                    scrollbar-width: none;
+                    /* For Firefox */
+                }
+        
+                /* Hide the scrollbar for Internet Explorer */
+                .scrollable-row {
+                    -ms-overflow-style: none;
+                    /* For Internet Explorer */
+                }
 
 /* Start Hami 07/11/25*/
 

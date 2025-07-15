@@ -466,8 +466,8 @@ function home_page_landing_page()
                                 <div class="step-content flex-grow-1">
                                     <h3 class="step-title text-center">Step 1: Register & Build Your Profile</h3>
                                     <p class="step-description text-center">Sign up at www.ojtgo.com and create your student profile.
-                                        No resume needed—just input your course, skills, location, internship preferences, and any relevant
-                                        experiences or certifications. Our system showcases you directly to potential host companies.</p>
+                                        Smarter than a resume—simply share your course, skills, location, internship preferences,
+                                        and any relevant experiences or certifications. Our system showcases you directly to potential host companies.</p>
                                 </div>
                             </div>
                         </div>
@@ -519,30 +519,63 @@ function home_page_landing_page()
                             </div>
                         </div>
                     </div>
+                    
+                    <!-- why ojtgo works for you -->
                     <div class="container mt-5">
-                        <h2 class="text-center fw-bold" style="color:rgb(0, 43, 86);">Why OJTGo Works for You?</h2>
+                        <h2 class="text-center fw-bold" style="background: linear-gradient(to right, #002B56, #006494); -webkit-background-clip: text; color: transparent;">
+                            Why OJTGo Works for You?
+                        </h2>
+
 
                         <div class="row mt-4 align-items-center">
-                            <div>
-                                <ul class="list-unstyled">
-                                    <li class="mb-3"><strong>• No resumes required</strong> – Your profile says it all.</li>
-                                    <li class="mb-3"><strong>• Seamless matching system</strong> – No more endless searching.</li>
-                                    <li class="mb-3"><strong>• Verified companies only</strong> – Real, reliable opportunities.</li>
-                                    <li class="mb-3"><strong>• Always free for students</strong> – Because opportunity shouldn’t come with a price tag.</li>
-                                    <li class="mb-3"><strong>• Designed by former interns</strong> – We understand your needs.</li>
-                                </ul>
+                            <!-- Left Column: List of Features -->
+                            <div class="col-md-6">
+                                <div class="list-group">
+                                    <div class="list-group-item d-flex justify-content-start align-items-center">
+                                        <i class="bi bi-file-earmark-text me-4 text-primary" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <strong>Smarter than a resume</strong><br>
+                                            Your profile says it all.
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-start align-items-center">
+                                        <i class="bi bi-arrow-right-circle me-4 text-primary" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <strong>Seamless matching system</strong><br>
+                                            No more endless searching.
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-start align-items-center">
+                                        <i class="bi bi-check-circle me-4 text-primary" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <strong>Verified companies only</strong><br>
+                                            Real, reliable opportunities.
+                                        </div>
+                                    </div>
+                                    <div class="list-group-item d-flex justify-content-start align-items-center">
+                                        <i class="bi bi-person-badge me-4 text-primary" style="font-size: 1.5rem;"></i>
+                                        <div>
+                                            <strong>Designed by former interns</strong><br>
+                                            We understand your needs.
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="text-center p-4 rounded mt-4" style="background: linear-gradient(to right, #002B56, #006494); color: white;">
-                                <p class="mb-0">
-                                    <strong>OJTGo isn’t just a tool</strong> — it’s our solution to a problem we faced ourselves.<br>
-                                    Let’s make your internship journey easier, together.
-                                </p>
+                            <!-- Right Column: Message -->
+                            <div class="col-md-6 mt-4 mt-md-0">
+                                <div class="card text-center p-4 rounded shadow-lg" style="background: linear-gradient(to right, #002B56, #006494); color: white;">
+                                    <div class="card-body">
+                                        <p class="card-text mb-0">
+                                            <strong>OJTGo isn’t just a tool</strong> — it’s our solution to a problem we faced ourselves.<br>
+                                            Let’s make your internship journey easier, together.
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
-
-
                         </div>
                     </div>
+                    
                 </div>
             </div>
 
@@ -788,13 +821,13 @@ function home_page_landing_page()
                 <hr class="mx-auto my-4" style="width: 80%; color: #001F3F;">
 
                 <!-- Highlights Grid -->
-                <div class="row g-3">
+                <div class="row g-3 scrollable-row">
 
                     <div class="fw-bold mb-4 mt-5 fs-4" style="color: #001F3F">
                         Get the latest updates, features, and opportunities to boost your job search.
                     </div>
 
-                    <div class="col-md-4 pb-3" ng-show="activeHighlight === 'all'" ng-repeat="post in filteredHighlights ">
+                    <div class="col-md-4 pb-3" ng-show="activeHighlight === 'all'" ng-repeat="post in filteredHighlights " id="post-{{post.id}}">
 
                         <!-- News -->
                         <div ng-show="post.type === 'news'"
@@ -1086,10 +1119,10 @@ function home_page_landing_page()
         </section>
         
         <!-- Unified Modal -->
-        <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="unifiedModalLabel" aria-hidden="true" data-bs-focus="false">
+        <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="unifiedModalLabel" aria-hidden="true" data-bs-focus="false" >
             <!-- <pre>{{ selectedModal | json }}</pre> -->
 
-            <div class="modal-dialog modal-lg modal-dialog-scrollable">
+            <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
                 <!-- Show modal content when any post is selected -->
                 <div class="modal-content" ng-show="selectedModal">
 
@@ -1452,9 +1485,9 @@ function home_page_landing_page()
         <!-- Hami 07/11: blue circle removed -->
         </div>
 
-        <!-- About Us Section -->
+        <!-- about us Section -->
         <section id="about" ng-show="activePage === 'about'">
-            <section class="bg-light text-center pt-5 pb-2">
+            <section class="bg-white text-center pt-5 pb-2">
                 <div class="container">
                     <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
                         About Us
@@ -1466,7 +1499,7 @@ function home_page_landing_page()
             </section>
 
             <!-- Mission and Vision Section -->
-            <section class="bg-light pt-2 pb-4">
+            <section class="bg-white pt-2 pb-4">
                 <div class="container text-left">
                     <div class="mb-5">
                         <h2 class="text-primary">Our Mission</h2>
@@ -1741,7 +1774,7 @@ function home_page_landing_page()
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications
                                     </p>
                                 </div>
-                                
+
                                 <!-- Team Member 15 -->
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
@@ -1771,89 +1804,90 @@ function home_page_landing_page()
 
         </section>
 
-        <!-- Contact Us Section -->
-        <div id="contact" class="d-flex flex-column h-100" style="margin-top: 0; padding: 60px 0; background-color: rgb(173, 207, 241);">
-          <div class="container mt-auto">
-            <div class="row justify-content-center align-items-center flex-wrap">
-                
-                <h3 class="fw-bold mt-3 fs-2 text-center" style="color: rgb(0, 50, 101);">
-                      Bridging Students to Success—<br>OJTGo Connects Them with the Right Opportunities
+        <!-- contact us Section -->
+        <div id="contact" class="d-flex flex-column h-100" style="margin-top: 0; padding: 60px 0; background: linear-gradient(to bottom, rgba(207, 220, 255, 1), rgba(255, 255, 255, 1), rgba(207, 220, 255, 1));">
+
+            <div class="container mt-auto">
+                <div class="row justify-content-center align-items-center flex-wrap">
+
+                    <h3 class="fw-bold mt-3 fs-2 text-center" style="color: rgb(0, 50, 101);">
+                        Bridging Students to Success—<br>OJTGo Connects Them with the Right Opportunities
                     </h3>
-        
-              <!-- Contact Message Box -->
-              <div class="col-md-6 mt-5">
-                <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between h-100"
-                     style="background: linear-gradient(135deg, rgb(207, 220, 255), rgb(255, 255, 255)); color: rgb(0, 50, 101);">
-                  <div style="z-index: 1; position: relative;">
-                    <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">
-                      <i class="bi bi-chat-square-dots-fill"></i> Get in Touch
-                    </h3>
-                    <p class="mb-3" style="font-size: 1rem;">
-                      Have questions, feedback, or need support? We're here to help! Reach out to the OJTGo team and we'll get back to you as soon as possible. Whether you're an intern or an employer, your internship journey is our priority.
-                    </p>
-                  </div>
-        
-                  <button class="btn text-white fw-bold py-1 mt-4"
-                          ng-click="showContactForm = !showContactForm"
-                          style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
-                    <span ng-hide="showContactForm">
-                        Send us a message!
-                    </span>
-                    <span ng-show="showContactForm">
-                        Go Back
-                    </span>
-                  </button>
-                </div>
-              </div>
-        
-              <!-- Contact Form -->
-              <div class="col-md-6 mt-3" ng-show="showContactForm">
-                <div class="rounded-3 p-4 shadow-lg bg-white position-relative overflow-hidden h-100">
-                  <div class="position-absolute top-0 start-0 w-100 h-100"
-                       style="background: linear-gradient(135deg, rgba(0, 99, 177, 0.1), rgba(255, 255, 255, 0.1)); z-index: 0;"></div>
-                  <div style="z-index: 1; position: relative;">
-                    <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">Send Us a Message</h3>
-                    <form name="contactForm" ng-submit="submitContactForm()" novalidate>
-                      <div class="mb-2">
-                        <label class="form-label fw-semibold">Name</label>
-                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                               ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
-                      </div>
-        
-                      <div class="mb-2 row">
-                        <div class="col">
-                          <label class="form-label fw-semibold">Email</label>
-                          <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                 ng-model="contactFormData.email" placeholder="e.g. johndoe@example.com" required>
-                        </div>
-                        <div class="col">
-                          <label class="form-label fw-semibold">Mobile Number</label>
-                          <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                 ng-model="contactFormData.mobile" placeholder="e.g. +639xxxxxxxxx" required>
-                        </div>
-                      </div>
-        
-                      <div class="mb-2">
-                        <label class="form-label fw-semibold">Comment or Message</label>
-                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
-                                  ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
-                      </div>
-        
-                      <div class="d-grid mt-4">
-                        <button type="submit"
-                                ng-class="{'disabled': onsubmit}"
-                                class="btn text-white fw-bold py-1"
+
+                    <!-- Contact Message Box -->
+                    <div class="col-md-6 mt-5">
+                        <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between h-100"
+                            style="background: linear-gradient(rgb(255, 255, 255)); color: rgb(0, 50, 101);">
+                            <div style="z-index: 1; position: relative;">
+                                <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">
+                                    <i class="bi bi-chat-square-dots-fill"></i> Get in Touch
+                                </h3>
+                                <p class="mb-3" style="font-size: 1rem;">
+                                    Have questions, feedback, or need support? We're here to help! Reach out to the OJTGo team and we'll get back to you as soon as possible. Whether you're an intern or an employer, your internship journey is our priority.
+                                </p>
+                            </div>
+
+                            <button class="btn text-white fw-bold py-1 mt-4"
+                                ng-click="showContactForm = !showContactForm"
                                 style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
-                          Submit
-                        </button>
-                      </div>
-                    </form>
-                  </div>
+                                <span ng-hide="showContactForm">
+                                    Send us a message!
+                                </span>
+                                <span ng-show="showContactForm">
+                                    Go Back
+                                </span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="col-md-6 mt-3" ng-show="showContactForm">
+                        <div class="rounded-3 p-4 shadow-lg bg-white position-relative h-100">
+                            <div class="position-absolute top-0 start-0 w-100 h-100"
+                                style="background: linear-gradient(135deg, rgba(255, 255, 255, 1)); z-index: 0;"></div>
+                            <div style="z-index: 1; position: relative;">
+                                <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">Send Us a Message</h3>
+                                <form name="contactForm" ng-submit="submitContactForm()" novalidate>
+                                    <div class="mb-2">
+                                        <label class="form-label fw-semibold">Name</label>
+                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                            ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
+                                    </div>
+
+                                    <div class="mb-2 row">
+                                        <div class="col">
+                                            <label class="form-label fw-semibold">Email</label>
+                                            <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                                ng-model="contactFormData.email" placeholder="e.g. johndoe@example.com" required>
+                                        </div>
+                                        <div class="col">
+                                            <label class="form-label fw-semibold">Mobile Number</label>
+                                            <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
+                                                ng-model="contactFormData.mobile" placeholder="e.g. +639xxxxxxxxx" required>
+                                        </div>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <label class="form-label fw-semibold">Comment or Message</label>
+                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
+                                            ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
+                                    </div>
+
+                                    <div class="d-grid mt-4">
+                                        <button type="submit"
+                                            ng-class="{'disabled': onsubmit}"
+                                            class="btn text-white fw-bold py-1"
+                                            style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
+                                            Submit
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
-              </div>
-        
             </div>
-          </div>
         </div>
 
         <!-- Footer -->

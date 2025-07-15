@@ -72,6 +72,7 @@ $scope.selectedBlog = null;
 $scope.modalExpansion = function(post) {
     console.log(post);
   $scope.selectedModal = post;
+  $scope.lastOpenedPostId = post.id;
 };
 
   
@@ -451,14 +452,32 @@ $scope.closeFullNews = function() {
 
 };
 
-// Use controllerAs syntax (recommended)
-controllerAs: 'vm',
-// Then in HTML: ng-if="vm.activePage === 'contact'"
-
-
 $scope.showPage = function(page) {
     $scope.currentPage = page; // Correctly assign the page name passed to the function
 };
+
+let scrollY = window.scrollY;
+
+document.addEventListener('show.bs.modal', function () {
+  // Freeze body scroll
+  document.body.style.position = 'absolute';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  document.body.style.overflow = 'hidden';
+});
+
+document.addEventListener('hidden.bs.modal', function () {
+  // Unfreeze body scroll
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  document.body.style.overflow = '';
+});
+
 
 
 // Scroll smoothly with optional offset (e.g., fixed navbar height)
@@ -490,12 +509,12 @@ $rootScope.setActivePage = $scope.setActivePage;
     $scope.$watch('activePage', function(newVal, oldVal) {
         if (newVal !== oldVal) {
             // Scroll to top after view changes
-            // setTimeout(function() {
-            //     window.scrollTo({
-            //         top: 0,
-            //         behavior: 'smooth'
-            //     });
-            // }, 100); // delay ensures DOM is ready
+            setTimeout(function() {
+                window.scrollTo({
+                 top: 0,
+                    behavior: 'smooth'
+                });
+             }, 100); // delay ensures DOM is ready
         }
     });
 
@@ -875,33 +894,8 @@ $scope.employerFaqs = [
 
   ];
   
-  //   for modal to prevent from scrolling on top
-let scrollY = 0;
+ 
 
-document.addEventListener('show.bs.modal', function (e) {
-  scrollY = window.scrollY;
-  document.body.style.position = 'fixed';
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.left = '0';
-  document.body.style.right = '0';
-  document.body.style.overflowY = 'scroll';
-  document.body.style.width = '100%';
-});
-
-document.addEventListener('hidden.bs.modal', function (e) {
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.left = '';
-  document.body.style.right = '';
-  document.body.style.overflowY = '';
-  document.body.style.width = '';
-  
-  // Delay scroll reset until styles are cleared
-  const scrollToRestore = scrollY;
-  setTimeout(() => {
-    window.scrollTo(0, scrollToRestore);
-  }, 0);
-});
   
 $scope.toggleFaq = function (faqList, index) {
     if (!faqList || !Array.isArray(faqList)) return;
