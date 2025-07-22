@@ -1,6 +1,31 @@
 /* Global Variables */
 
 
+
+/* style by Charls / July 15, 2025  */
+:root {
+    --light-blue: #A8DADC; 
+    /* landing page color and other buttons */
+    --deep-blue: #1D3557;
+    /* Used for primary branding elements like buttons, navigation bars, and footer background */
+    --light-gold: #E9C46A;
+    /* Primary CTA buttons (e.g., "Search", "Send Request"), highlights, or accent text */
+    --slate-gray: #A3B3B8;
+    /* Hover effect on job cards and other interactive elements */
+    --support-teal: #2A9D8F;
+    /* Secondary action buttons, badges, or info sections */
+    --text-dark: #264653;
+    /* Main text color for dark background or light badges */
+    --canvas: #F2F2F2;
+    /* Background color for field cards, forms, and other container elements */
+    --hover: #ffdf8d;
+}
+
+/* mission and vision style start */
+S
+/* mission and vision style end */
+
+
 /* Search botton state */
 .search-btn.disabled {
 
@@ -20,9 +45,27 @@
     background-color: #fd7e14 !important;
 }
 
+/* Sticky footer layout */
+html,
+body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
 
+.angular-cloak {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
 
+.main-content {
+    flex: 1 0 auto;
+}
 
+.footer-container {
+    flex-shrink: 0;
+}
 
 
 
@@ -35,14 +78,6 @@
 .information-entry-modal a {
 
     color: black; 
-}
-
-.modal-btn {
-
-    background-color: navy;
-    color: white !important;
-    border-radius: 10px;
-
 }
 
 .modal-overlay {
@@ -246,12 +281,6 @@
 
 
 
-
-
-
-
-
-
 /* Sir jess login reg form emp css*/
 .background-circle {
     position: absolute;
@@ -418,13 +447,80 @@ body {
 
 
 /* End of globaly set styles */
-
 .navbar-btn {
 
-    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%)) !important;
-    color: black !important;
+    background-color: var(--light-gold);
+    color: #264653 !important;
     padding: 5px 15px;
+    font-weight: bold;
 
+}
+
+.navbar-btn:hover {
+    background-color: var(--hover);
+    /* Change to a different color on hover */
+}
+
+.hire {
+
+    background-color: var(--light-gold) !important;
+    color: #264653 !important;
+    padding: 5px 15px;
+    font-weight: bolder !important;
+
+}
+
+.hire:hover {
+    background-color: var(--hover) !important;
+    /* Change to a different color on hover */
+}
+
+.hl-button {
+    color: #264653 !important;
+    padding: 5px 15px;
+    font-weight: bolder !important;
+    border-radius: 20px !important;
+}
+
+.hl-button:hover {
+    filter: brightness(95%);
+    transform: scale(1.02);
+    transition: 0.2s;
+}
+
+.hl-button.active {
+    background-color: var(--light-gold)!important;
+}
+
+/* for contact form styling */
+.white-placeholder::placeholder {
+    color: #c7c7c7 !important;
+    opacity: 1 !important;
+}
+/* end style */
+
+/* for overlay at home */
+.overlay {
+    position: absolute !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(5, 10, 20, 0.767), rgba(5, 10, 20, 0.582)) !important;
+    z-index: 1;
+    animation: fadeFromBottom 2s ease-in-out forwards !important;
+}
+
+@keyframes fadeFromBottom {
+    0% {
+        background: linear-gradient(to top, rgba(5, 10, 20, 0.76), rgba(5, 10, 20, 0.596)) !important;
+        /* Fully dark and non-transparent at the bottom */
+    }
+
+    100% {
+        background: linear-gradient(to top, rgba(5, 10, 20, 0), rgba(5, 10, 20, 0.63)) !important;
+        /* Fade to no color (transparent) at the bottom and lighter at the top */
+    }
 }
 
 /* Hero Container */
@@ -527,7 +623,7 @@ body {
 
 
 
-/* Job Details */
+/* Overview */
 
 .modal-send-request {
 
@@ -618,9 +714,7 @@ body {
 /* For password */
 .guidelines {
     font-size: 13px;
-    color: #666;
-    background: #f9f9f9;
-    border: 1px solid #ddd;
+    border: 1px solid var(--light-blue);
     line-height: 1.3;
     width: 310px; 
 }
@@ -739,13 +833,15 @@ body {
     }
 }
 
-/* navbar hover */
+/* navbar */
+.nav-link {
+    color: var(--text-dark) !important;
+}
 
 /* Change nav link color on hover */
 .navbar-nav .nav-link:hover,
 .navbar-nav .dropdown-item:hover {
-    color: #0059ff !important;
-    /* Change to any color you like */
+    color: var(--deep-blue) !important;
 }
 
 /* .blue-circle-left {
@@ -860,7 +956,7 @@ html {
     }
 }
 
-/* OJTGO Team Responsiveness */
+/* Hirebilis Team Responsiveness */
 .team-img-container {
     width: 180px;
     height: 180px;
@@ -1112,3 +1208,24 @@ html {
     color: #0d6efd !important;
 } */ 
 
+button.filter-btn, button.search-btn, #roles-block-scroll, .modal-btn{
+    background-color: var(--light-gold);
+    color: var(--deep-blue) !important;
+    border-radius: 10px;
+}
+button.filter-btn:hover, button.search-btn:hover, #roles-block-scroll:hover, .modal-btn:hover, .navbar-btn:hover {
+    background-color: var(--deep-blue) !important;
+     color: white !important;
+ }
+
+.form-select {
+    width: 200px;
+}
+
+.form-control:focus, 
+.form-select:focus {
+    border-color: var(--support-teal) !important;
+    box-shadow: 0 0 0 .25rem rgba(168, 218, 220, .8) !important;
+    border-width: 1px !important;
+    outline: none !important;
+}
