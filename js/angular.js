@@ -72,7 +72,6 @@ $scope.selectedBlog = null;
 $scope.modalExpansion = function(post) {
     console.log(post);
   $scope.selectedModal = post;
-  $scope.lastOpenedPostId = post.id;
 };
 
   
@@ -700,10 +699,6 @@ $scope.getFormattedDate = function(dateStr) {
     hour12: true
   };
   return date.toLocaleString('en-US', options).replace('PM', 'pm').replace('AM', 'am');
-};
-
-$scope.post = {
-  date: new Date("2025-07-09 16:16:17") // ✅ Converts string to Date
 };
 
 

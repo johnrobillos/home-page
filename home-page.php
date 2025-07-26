@@ -753,7 +753,7 @@ function home_page_landing_page()
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{blog.title}}</h5>
                                 <small class="text-muted">
-                                  {{ getFormattedDate(post.date) }}
+                                  {{ getFormattedDate(blog.date) }}
                                 </small>
 
                                 <!-- Collapsed Quill-rendered preview -->
@@ -1130,7 +1130,7 @@ function home_page_landing_page()
                     <div class="modal-header d-flex justify-content-between align-items-start flex-column flex-md-row">
                         <h5 class="modal-type" id="unifiedModalLabel">{{ selectedModal.type | capitalize }}</h5>
                         <div class="text-muted small ms-md-auto mt-2 mt-md-0">
-                            {{ getFormattedDate(post.date) }}
+                            {{ getFormattedDate(selectedModal.date) }}
                         </div>
                     </div>
 
@@ -1146,7 +1146,7 @@ function home_page_landing_page()
                                 alt="{{selectedModal.title}}"
                                 style="max-height: 300px; object-fit: cover;">
                             <div class="quill-wrapper">
-                                <div ng-bind-html="selectedModal.descriptionUnescaped | trustAsHtml"></div>
+                                <div quill-editor ng-model="selectedModal.description"></div>
                             </div>
                         </div>
 
