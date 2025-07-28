@@ -2,29 +2,22 @@
 
 
 
-/* style by Charls / July 15, 2025  */
+/* style by Charls / july 10, 2025  */
 :root {
-    --light-blue: #A8DADC; 
-    /* landing page color and other buttons */
     --deep-blue: #1D3557;
     /* Used for primary branding elements like buttons, navigation bars, and footer background */
     --light-gold: #E9C46A;
     /* Primary CTA buttons (e.g., "Search", "Send Request"), highlights, or accent text */
+    --hover: #ffdf8d;
     --slate-gray: #A3B3B8;
     /* Hover effect on job cards and other interactive elements */
-    --support-teal: #2A9D8F;
+    --support-teal: #A8DADC;
     /* Secondary action buttons, badges, or info sections */
-    --text-dark: #264653;
+    --text-dark: #000000;
     /* Main text color for dark background or light badges */
     --canvas: #F2F2F2;
-    /* Background color for field cards, forms, and other container elements */
-    --hover: #ffdf8d;
+    /* Background color for field cards, forms, and other container elements */
 }
-
-/* mission and vision style start */
-S
-/* mission and vision style end */
-
 
 /* Search botton state */
 .search-btn.disabled {
@@ -78,6 +71,14 @@ body {
 .information-entry-modal a {
 
     color: black; 
+}
+
+.modal-btn {
+
+    background-color: navy;
+    color: white !important;
+    border-radius: 10px;
+
 }
 
 .modal-overlay {
@@ -497,6 +498,18 @@ body {
     color: #c7c7c7 !important;
     opacity: 1 !important;
 }
+
+.form-control:focus {
+    border-color: #ffffff !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.form-control {
+    color: #ffffff !important;
+    background-color: transparent !important;
+    border-radius: 0 !important;
+}
 /* end style */
 
 /* for overlay at home */
@@ -714,7 +727,9 @@ body {
 /* For password */
 .guidelines {
     font-size: 13px;
-    border: 1px solid var(--light-blue);
+    color: #666;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
     line-height: 1.3;
     width: 310px; 
 }
@@ -1208,24 +1223,3 @@ html {
     color: #0d6efd !important;
 } */ 
 
-button.filter-btn, button.search-btn, #roles-block-scroll, .modal-btn{
-    background-color: var(--light-gold);
-    color: var(--deep-blue) !important;
-    border-radius: 10px;
-}
-button.filter-btn:hover, button.search-btn:hover, #roles-block-scroll:hover, .modal-btn:hover, .navbar-btn:hover {
-    background-color: var(--deep-blue) !important;
-     color: white !important;
- }
-
-.form-select {
-    width: 200px;
-}
-
-.form-control:focus, 
-.form-select:focus {
-    border-color: var(--support-teal) !important;
-    box-shadow: 0 0 0 .25rem rgba(168, 218, 220, .8) !important;
-    border-width: 1px !important;
-    outline: none !important;
-}

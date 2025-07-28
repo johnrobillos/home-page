@@ -1,5 +1,12 @@
 var app = angular.module('homeApp', ['ngStorage']);
 
+// Deleting/clearing sessionStorage on page reload
+app.run(function($sessionStorage) {
+    // 🧹 Clear sessionStorage keys from ngStorage before any controller uses them
+    delete $sessionStorage.userCredentials;
+    delete $sessionStorage.emailForOtp;
+});
+
 app.run(function($timeout, $window, $rootScope) {
 
     $timeout(function () {
@@ -273,42 +280,38 @@ $scope.showPage = function(page) {
     $scope.currentPage = page; // Correctly assign the page name passed to the function
 };
 
-    $scope.scrollToSection = function(sectionId) {
-        var element = document.getElementById(sectionId);
-        if (element) {
-            setTimeout(function() {
-                $window.scrollTo({
-                    top: element.offsetTop - 30, // Optional: Add offset to adjust for header height
-                    behavior: "smooth" // Smooth scrolling
-                });
-            }, 100); // Add a timeout of 100ms
-        }
-    };
+// Scroll smoothly with optional offset (e.g., fixed navbar height)
+$scope.scrollToSection = function(sectionId) {
+    var element = document.getElementById(sectionId);
+    if (element) {
+        $window.scrollTo({
+            top: element.offsetTop - 80, // adjust for navbar height
+            behavior: 'smooth'
+        });
+    } else {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+};
 
 // Navigation handler
 $scope.setActivePage = function(page) {
     $scope.activePage = page;
-
-
-    // Smooth scroll to top
     $timeout(function() {
         window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 0);
 };
-
-// Expose it globally so `app.run` can call it
 $rootScope.setActivePage = $scope.setActivePage;
 
 
     $scope.$watch('activePage', function(newVal, oldVal) {
         if (newVal !== oldVal) {
             // Scroll to top after view changes
-            // setTimeout(function() {
-            //     window.scrollTo({
-            //         top: 0,
-            //         behavior: 'smooth'
-            //     });
-            // }, 100); // delay ensures DOM is ready
+            setTimeout(function() {
+                window.scrollTo({
+                 top: 0,
+                    behavior: 'smooth'
+                });
+             }, 100); // delay ensures DOM is ready
         }
     });
 
@@ -486,6 +489,50 @@ $scope.$on('$locationChangeStart', function () {
             }
         });
 
+        // // auto close the navbar when clicked in mobile view
+            $scope.isInitialized = true;
+
+    $timeout(function () {
+        const collapseEl = document.getElementById('navbarSupportedContent');
+        const toggler = document.querySelector('.navbar-toggler');
+        const navLinks = collapseEl.querySelectorAll('.nav-link, .dropdown-item');
+
+        function autoCollapse(e) {
+            // Ignore if it's a dropdown toggle
+            if (e.target.classList.contains('dropdown-toggle')) return;
+
+            const bsCollapse = bootstrap.Collapse.getInstance(collapseEl);
+            if (bsCollapse && collapseEl.classList.contains('show')) {
+                bsCollapse.hide();
+            }
+        }
+
+        function outsideClickHandler(event) {
+            const isNavbarOpen = collapseEl.classList.contains('show');
+            if (
+                isNavbarOpen &&
+                !collapseEl.contains(event.target) &&
+                !toggler.contains(event.target)
+            ) {
+                const bsCollapse = bootstrap.Collapse.getInstance(collapseEl);
+                if (bsCollapse) {
+                    bsCollapse.hide();
+                }
+            }
+        }
+
+        // Attach listeners
+        navLinks.forEach(link => link.addEventListener('click', autoCollapse));
+        document.addEventListener('click', outsideClickHandler);
+
+        // Remove listeners on scope destroy
+        $scope.$on('$destroy', function () {
+            navLinks.forEach(link => link.removeEventListener('click', autoCollapse));
+            document.removeEventListener('click', outsideClickHandler);
+        });
+    });
+
+
 // AngularJS controller logic
 $scope.selectedNews = null;
 $scope.showFullNewsPage = false;
@@ -503,6 +550,9 @@ $scope.showFullNewsPage = false;
 //     }
 //   }, 100); // Adjust delay if necessary
 // };
+
+// navbar auto collapse
+
 
 
 // Close full news view

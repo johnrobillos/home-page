@@ -41,16 +41,13 @@ function home_page_enqueue_scripts()
         );
 
 
-        // Enqueue Bootstrap 5 CSS from CDN
+        // Bootstrap 5 CSS
         wp_enqueue_style(
             'bootstrap-css',
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css',
             array(),
-            '5.3.0'
+            '5.3.3'
         );
-
-        // b
-
 
 
         // custom jQuery
@@ -88,8 +85,6 @@ function home_page_enqueue_scripts()
             null,
             true
         );
-
-
 
         // AngularJS Route
         wp_enqueue_script(
@@ -139,7 +134,6 @@ function home_page_enqueue_scripts()
             array(),
             '1.10.5'
         );
-
 
         // Enqueue OJT Registration Form Script (Angular-based AJAX)
         wp_enqueue_script(
@@ -212,12 +206,6 @@ function home_page_enqueue_scripts()
 
         wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', array(), '3.7.1', true);
 
-        // Bootstrap JS
-        wp_enqueue_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'), '4.5.2', true);
-
-        // Bootstrap CSS (optional)
-        wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
-
         // Enqueue Select2 CSS & JS
         wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css');
 
@@ -246,13 +234,15 @@ function home_page_shortcode_function()
             <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border border-lg-0">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#" ng-click="setActivePage('home')">
-                        <img src="<?php echo home_url('/wp-content/uploads/icons/hirebilislogo.png') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
+                        <img src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-Twoline_small.svg') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
                     </a>
 
-                    <a href="javascript:void(0)" class="navbar-toggler border border-muted bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <!-- Toggler -->
+                    <a href="javascript:void(0)" class="homeDropdownToggle navbar-toggler border border-muted bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                     </a>
 
+                    <!-- Collapsible Content -->
                     <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
                         <ul class="navbar-nav d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-1 gap-lg-1 mb-2 mb-lg-0" ng-cloak ng-show="isInitialized">
 
@@ -268,32 +258,25 @@ function home_page_shortcode_function()
                                 </a>
                                 <ul class="dropdown-menu w-150" aria-labelledby="aboutDropdown" style="border: none;">
                                     <li>
-                                        <a class="dropdown-item" href="#about" ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a>
+                                        <a class="dropdown-item" href="#about" ng-click="setActivePage('about'); scrollToTop(); scrollToSection('about', $event)">About Us</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
+                                        <a class="dropdown-item" href="#highlights" ng-click="setActivePage('highlights'); scrollToTop(); scrollToSection('highlights', $event)">Highlights</a>
                                     </li>
-
                                     <li>
-                                        <a class="dropdown-item" href="#contact" ng-click="scrollToSection('contact'); scrollToSection('contact', $event)">Contact Us</a>
+                                        <a class="dropdown-item" href="#contact" ng-click="scrollToTop(); scrollToSection('contact', $event)">Contact Us</a>
                                     </li>
-
-                                    <!-- <li class="nav-item mb-3 mb-lg-0 me-lg-3">
-                                <a class="nav-link" href="#contact" ng-click="scrollToSection('contact', $event)" style="white-space: nowrap;">
-                                    Contact Us
-                                </a>
-                            </li> -->
                                 </ul>
                             </li>
 
                             <!-- Resources -->
                             <li class="nav-item dropdown w-100 text-start">
-                                <a class="nav-link dropdown-toggle w-100 text-start" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <a class="nav-link dropdown-toggle w-100 text-start" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     Resources
                                 </a>
                                 <ul class="dropdown-menu w-150" aria-labelledby="resourcesDropdown" style="border: none;">
                                     <li>
-                                        <a class="dropdown-item" href="#blogs" ng-click="setActivePage('blogs'); scrollToSection('blogs', $event)">Blogs</a>
+                                        <a class="dropdown-item" href="#blogs" ng-click="setActivePage('blogs'); scrollToTop(); scrollToSection('blogs', $event)">Blogs</a>
                                     </li>
                                 </ul>
                             </li>
@@ -305,11 +288,14 @@ function home_page_shortcode_function()
                                 </a>
                                 <ul class="dropdown-menu w-150" aria-labelledby="helpDropdown" style="border: none;">
                                     <li>
-                                        <a class="dropdown-item" href="#how" ng-click="setActivePage('how')">How it works</a>
+                                        <a class="dropdown-item" href="#how" ng-click="setActivePage('how'); scrollToTop()">How it works</a>
                                     </li>
-                                    <li><a class="dropdown-item" href="#faq" ng-click="setActivePage('faq')">FAQ's</a></li>
+                                    <li>
+                                        <a class="dropdown-item" href="#faq" ng-click="setActivePage('faq'); scrollToTop()">FAQ's</a>
+                                    </li>
                                 </ul>
                             </li>
+
 
                             <!-- Login Register -->
                             <li class="nav-item me-2" ng-if="!isLoggedIn">
@@ -390,7 +376,7 @@ function home_page_shortcode_function()
 
                         <!-- Right column: Hirebilis Logo -->
                         <div class="col-md-5 col-xxl-6 d-flex justify-content-center align-items-center">
-                            <img src="/wp-content/uploads/icons/hirebiliswhite.png"
+                            <img src="/wp-content/uploads/icons/Hirebilis-Twoline_white.svg"
                                 alt="Logo"
                                 class="img-fluid"
                                 style="max-width: 300px; margin-top: 185px;">
@@ -1230,145 +1216,101 @@ function home_page_shortcode_function()
 
                     <div style="background-color: rgba(0, 0, 0, 0.47); color: white; padding: 2rem; border-radius: 8px;">
 
-                        <p>At <strong>OJTGo</strong>, owned and operated by <strong>PCES Inc.</strong>, we are committed to protecting the privacy of all users—especially interns, employers,
-                            and OJT coordinators—who use our platform to facilitate On-the-Job Training (OJT) experiences. This Privacy Notice explains how we collect, use, store, and share your
-                            information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>OJTGo</strong>, you agree to the practices
-                            described in this notice. We encourage you to read it carefully.</p><br>
+                        <p><strong>Hirebilis</strong> is a purpose-driven job-matching platform committed to empowering Filipino
+                            job seekers by connecting them quickly and meaningfully with the right employment opportunities. It is
+                            owned and operated by <strong>PCES Inc.</strong> and designed for efficiency, equity, and user empowerment. Our platform
+                            supports users at every step of their job search journey.
+                        </p>
+
+                        <p>At <strong>Hirebilis</strong>, your privacy is important to us. This Privacy Policy explains how we collect, use,
+                            protect, and share information when you access or use our platform in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;">Privacy Act of 2012</a> and guidelines from the <strong>National Privacy Commission (NPC)</strong>.
+                            By using Hirebilis, you agree to the terms of this policy.
+                        </p>
+
                         <h4>1. Information We Collect</h4>
-                        <p><strong>a) Intern Information</strong><br>
-                            When interns register on OJTGo, we collect the following information:
-                        </p>
                         <ul>
-                            <li>Name, birthdate, email address, and phone number</li>
-                            <li>Educational background, academic course, and required OJT hours</li>
-                            <li>Skills, personal preferences, and availability</li>
-                        </ul><br>
+                            <li><strong>Personal Information:</strong> Full name, email, contact number, date of birth, location, employment history, educational background, skills, interests, and job preferences.</li>
+                            <li><strong>Character References:</strong> Names, job titles, and contact info (shared with prior consent).</li>
+                            <li><strong>Employer/Entity Information:</strong> Company name, industry, contact details, verification documents, job post information.</li>
+                            <li><strong>Non-Personal Information:</strong> Device/browser data, IP address, usage activity.</li>
+                        </ul>
 
-                        <p><strong>) Character References</strong><br>
-                            If references are added, interns must provide names, job titles, and contact details. It is the intern’s responsibility to obtain prior consent from these individuals before sharing their data.
-                        </p><br>
-
-                        <p><strong>c) Employer/Entity Information</strong><br>
-                            Employers must provide:
-                        </p>
+                        <h4>2. How We Use Your Information</h4>
                         <ul>
-                            <li>Company name, industry, and contact information</li>
-                            <li>Business documents for verification</li>
-                            <li>Details about internship posts (e.g., requirements, duration, responsibilities)</li>
-                        </ul><br>
+                            <li>Match job seekers with opportunities based on preferences and skills.</li>
+                            <li>Facilitate applications and platform communication.</li>
+                            <li>Notify users about relevant jobs.</li>
+                            <li>Improve platform performance and user experience.</li>
+                            <li>Enable employers to find qualified candidates.</li>
+                            <li>Provide customer support.</li>
+                            <li>Send promotional emails (with user consent).</li>
+                            <li>Ensure platform security and prevent fraud.</li>
+                        </ul>
+                        <p><strong>We do not sell your personal data to third parties.</strong></p>
 
-                        <p><strong>d) OJT Coordinators</strong><br>
-                            Coordinators register with academic institution details and create unique coordinator codes for interns to use when linking their accounts.
-                        </p><br>
-
-                        <p><strong>e) Non-Personal Information</strong><br>
-                            We collect device and browser info, IP address, and usage activity to improve system performance and user experience.</p><br>
-
-                        <h4><strong>2. How We Use Your Information</strong></h4>
-                        <p>Your information is used for the following purposes:</p>
+                        <h4>3. Information Sharing and Disclosure</h4>
                         <ul>
-                            <li>Match interns to suitable internship positions based on skills, availability, and preferences</li>
-                            <li>Facilitate job applications, communication, and system notifications</li>
-                            <li>Allow interns to log Daily Time Records (DTR), submit reports, and track internship completion</li>
-                            <li>Provide OJT Coordinators with access to supervise and validate intern progress</li>
-                            <li>Generate system analytics to improve platform features and ensure proper service delivery</li>
-                            <li>Comply with legal, institutional, and regulatory requirements</li>
-                            <li>Send optional announcements or promotional emails (only with your consent)</li>
-                        </ul><br>
-
-                        <h4><strong>3. Information Sharing</strong></h4>
-                        <p>Your data may be shared with:</p>
-                        <ul>
-                            <li>Employers, when you apply for an internship</li>
-                            <li>Interns, when viewing details of matching opportunities</li>
-                            <li>OJT Coordinators, for academic monitoring and assessment</li>
-                            <li>Service providers, for hosting, storage, and security (under strict confidentiality agreements)</li>
-                            <li>Government or legal authorities, if required by law, court order, or subpoena</li>
-                        </ul><br>
-
-                        <p>We do not sell or lease your personal data to any third party.</p><br>
+                            <li>With employers who post relevant jobs.</li>
+                            <li>With applicants viewing job opportunities.</li>
+                            <li>With trusted service providers under confidentiality agreements.</li>
+                            <li>With authorities when legally required or to protect platform integrity.</li>
+                        </ul>
 
                         <h4>4. Data Security</h4>
-                        <p>OJTGo implements technical and organizational measures to protect your data:</p>
                         <ul>
-                            <li>HTTPS encryption of all data transmissions</li>
-                            <li>Web Application Firewall (WAF) to block threats</li>
-                            <li>Access control is limited to authorized personnel</li>
-                            <li>Regular security audits and vulnerability assessments</li>
-                        </ul><br>
+                            <li>HTTPS encryption for all data transmission.</li>
+                            <li>Web Application Firewall (WAF).</li>
+                            <li>Access control limited to authorized staff.</li>
+                            <li>Regular audits and security testing.</li>
+                        </ul>
+                        <p><strong>Disclaimer:</strong> While no system is 100% secure, we continually improve our protection measures.</p>
 
-                        <p>Disclaimer: While we take strong precautions, no system is 100% secure. We continuously improve our security infrastructure to reduce risks.
-                        </p><br>
+                        <h4>5. Cookies and Tracking Technologies</h4>
+                        <p>We use cookies to enhance your experience and analyze platform usage. You can manage cookie settings in your browser.</p>
 
-                        <h3>5. Cookies and Tracking</h3>
-                        <p>We use cookies and tracking tools to:</p>
+                        <h4>6. Your Choices and Rights</h4>
                         <ul>
-                            <li>Personalize your experience</li>
-                            <li>Understand usage patterns</li>
-                            <li>Recommend location-based opportunities (with your consent)</li>
-                        </ul><br>
-
-                        <p>
-                            You may manage or disable cookies and location tracking in your browser or device settings.
-                        </p><br>
-
-                        <h4>6. Your Privacy Choices</h4>
-                        <p>You may exercise the following at any time:</p>
-                        <ul>
-                            <li>Update your profile through your account dashboard</li>
-                            <li>Manage communication preferences, including unsubscribing from emails</li>
-                            <li>Access or delete your personal data, subject to retention rules outlined below</li>
-                        </ul><br>
-
-                        <p>For sensitive actions (e.g., account deletion), some verification steps or coordinator approval may be required.</p><br>
+                            <li>Update your profile via your dashboard.</li>
+                            <li>Manage email preferences and unsubscribe anytime.</li>
+                            <li>Request access or deletion of your data (subject to verification).</li>
+                        </ul>
 
                         <h4>7. Retention of Personal Information</h4>
-
-                        <p><strong>a) General Retention Policy</strong><br>
-                            We retain personal data for only one (1) year, unless required longer by law, accreditation, or academic compliance.</p><br>
-
-                        <p><strong>b) Specific Retention Schedules</strong><br>
-                            <strong>Intern data:</strong> Retained during account activity and up to 1 year after deactivation or inactivity.<br>
-                            <strong>Employer data:</strong> Retained up to 1 year after account deletion.<br>
-                            <strong>Job applications:</strong> Retained up to 1 year for reference and record keeping.<br>
-                            <strong>DTR logs and reports:</strong> Stored for 1 year after internship completion or account deletion.<br>
-                            <strong>Coordinator data:</strong> Retained for up to 1 year after account deactivation.
-                        </p><br>
-
-                        <p><strong>c) Legal or Institutional Exceptions</strong><br>
-                            Some data may be retained longer to meet institutional audit requirements or legal obligations.</p><br>
-
-                        <p><strong>d) Data Minimization and Security</strong><br>
-                            We strictly collect only necessary data and apply encryption and access control to ensure secure storage during the retention period.</p><br>
+                        <p><strong>a) General Policy:</strong> We retain data for 1 year unless required longer by law or institutional rules.</p>
+                        <p><strong>b) Specific Schedules:</strong></p>
+                        <ul>
+                            <li><strong>Applicant data:</strong> Retained during account activity and up to 1 year after inactivity.</li>
+                            <li><strong>Employer data:</strong> Retained up to 1 year post-deletion.</li>
+                            <li><strong>Job applications:</strong> Retained up to 1 year.</li>
+                        </ul>
+                        <p><strong>c) Legal/Institutional Exceptions:</strong> Some data may be kept longer for audits or compliance.</p>
+                        <p><strong>d) Data Minimization:</strong> We collect only necessary data and use encryption and access control to safeguard it.</p>
 
                         <h4>8. Consent and Lawful Processing</h4>
-                        <p>By using OJTGo, you voluntarily consent to the collection, use, and processing of your data for the purposes stated. You may withdraw your consent at any time by changing your account settings or contacting us. If you use OJTGo from outside the Philippines, you agree to the cross-border transfer of your data to the Philippines for lawful processing.</p><br>
+                        <p>By using Hirebilis, you consent to our data practices. You may withdraw your consent anytime via your account or by contacting us. Cross-border users agree to data transfer to the Philippines.</p>
 
                         <h4>9. Your Rights Under the Law</h4>
-                        <p>In accordance with RA 10173 (Data Privacy Act of 2012), you have the right to:</p>
                         <ul>
-                            <li>Be informed about how your data is processed</li>
-                            <li>Access your personal data</li>
-                            <li>Correct inaccurate or outdated information</li>
-                            <li>Request deletion or restrict processing</li>
-                            <li>Object to unauthorized processing</li>
-                            <li>Lodge a complaint with the National Privacy Commission (NPC)</li>
-                        </ul><br>
-
-                        <p>Learn more: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank" style="color: deepskyblue;">https://privacy.gov.ph/data-subject-rights/</a></p><br>
+                            <li>Be informed about your data use.</li>
+                            <li>Access and correct your data.</li>
+                            <li>Request deletion or limit processing.</li>
+                            <li>Object to unauthorized processing.</li>
+                            <li>File a complaint with the <strong>National Privacy Commission (NPC)</strong>.</li>
+                        </ul>
+                        <p>More info: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank" style="color: deepskyblue;">https://privacy.gov.ph/data-subject-rights/</a></p>
 
                         <h4>10. Updates to This Notice</h4>
-                        <p>We may revise this Privacy Notice to reflect changes in law, technology, or our services. The latest version will always be available on OJTGo.com with an updated "Effective Date." Continued use of our platform constitutes acceptance of any updates.</p><br>
+                        <p>This policy may be updated due to legal or service changes. The most current version is published on <strong>OJTGo.com</strong>. Continued use indicates agreement to changes.</p>
 
                         <h4>11. Contact Us</h4>
-                        <p>For questions or concerns about your data privacy rights or to request data access or deletion, please contact our Data Protection Officer (DPO):</p>
-                        <ul><br>
-
-                            <li><strong>PCES Inc.</strong> Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Brgy. Fort Bonifacio, Taguig City 1630</li>
+                        <p>For data privacy concerns, access, or deletion requests, contact our Data Protection Officer:</p>
+                        <ul>
+                            <li><strong>PCES Inc.</strong> Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Taguig City 1630</li>
                             <li><strong>Email:</strong> <a href="mailto:ojt@ojtgo.com" style="color: deepskyblue;">ojt@ojtgo.com</a></li>
                             <li><strong>Phone:</strong> (02) 8628-2072</li>
                         </ul>
                     </div>
+
                 </div>
             </section>
 
@@ -1380,17 +1322,16 @@ function home_page_shortcode_function()
                     </h2>
 
                     <div style="background-color: rgba(0, 0, 0, 0.47); color: white; padding: 2rem; border-radius: 8px;">
-
                         <h4 class="mt-4"><strong>Employer</strong></h4>
                         <ol class="mt-3">
                             <li><strong>Account Creation and Registration</strong><br>
-                                Employers must register for an account and provide accurate and up-to-date information to access and use the Website’s services. You are responsible for keeping your account credentials, including your username and password, confidential. Notify us immediately if you suspect unauthorized access or use of your account.
+                                Employers must register for an account and provide accurate and up-to-date information to access and use the Website’s services. You are responsible for keeping your account credentials, including your username and password, confidential. Notify us immediately if you suspect unauthorized access or use of your account.
                             </li>
                             <li class="mt-3"><strong>Job Postings and Content</strong><br>
                                 By posting job openings, you confirm that all submitted content is accurate, complete, and lawful. You are solely responsible for the content of your job postings and any resulting outcomes. Do not post illegal, defamatory, offensive, or inappropriate content. We reserve the right to remove or modify any content that violates these Terms or our content guidelines.
                             </li>
                             <li class="mt-3"><strong>Candidate Selection and Communication</strong><br>
-                                You are solely responsible for selecting and hiring candidates. We do not guarantee any intern’s qualifications, suitability, or performance. All interactions, negotiations, and hiring decisions between you and the intern are entirely your responsibility. OJTGo has no role in employment arrangements.
+                                You are solely responsible for selecting and hiring candidates. We do not guarantee any applicant’s qualifications, suitability, or performance. All interactions, negotiations, and hiring decisions between employer and the applicant are entirely your responsibility. Hirebilis has no role in employment arrangements.
                             </li>
                             <li class="mt-3"><strong>Intellectual Property</strong><br>
                                 The Website and all its content—including text, graphics, logos, and software—are protected by intellectual property rights owned by us or our licensors. You may not reproduce, modify, distribute, or use any part of the Website without explicit permission.
@@ -1399,7 +1340,7 @@ function home_page_shortcode_function()
                                 You agree to use the Website at your own risk. We are not liable for any direct, indirect, incidental, consequential, or punitive damages resulting from your use of the Website or any errors in the content provided.
                             </li>
                             <li class="mt-3"><strong>Indemnification</strong><br>
-                                You agree to indemnify and hold OJTGo harmless from any claims, losses, damages, or expenses arising from your use of the Website, violation of these Terms, or breach of any applicable laws.
+                                You agree to indemnify and hold Hirebilis harmless from any claims, losses, damages, or expenses arising from your use of the Website, violation of these Terms, or breach of any applicable laws.
                             </li>
                             <li class="mt-3"><strong>Modification of Terms</strong><br>
                                 We reserve the right to update these Terms at any time without prior notice. Changes will take effect immediately upon being posted. Continued use of the Website indicates your acceptance of the updated Terms.
@@ -1411,35 +1352,35 @@ function home_page_shortcode_function()
                                 If any provision of these Terms is deemed invalid or unenforceable, the remaining provisions will remain in full force and effect.
                             </li>
                             <li class="mt-3"><strong>Entire Agreement</strong><br>
-                                These Terms constitute the entire agreement between you and OJTGo regarding your use of the Website as an employer, superseding any prior agreements or understandings.
+                                These Terms constitute the entire agreement between you and Hirebilis regarding your use of the Website as an employer, superseding any prior agreements or understandings.
                             </li>
                         </ol>
 
-                        <h4 class="mt-5"><strong>Intern</strong></h4>
+                        <h4 class="mt-5"><strong>Applicant</strong></h4>
                         <ol class="mt-3">
                             <li><strong>Account Creation and Registration</strong><br>
-                                Interns must register for an account and provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your account credentials. Report any unauthorized use of your account immediately.
+                                Applicant must register for an account and provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your account credentials. Report any unauthorized use of your account immediately.
                             </li>
                             <li class="mt-3"><strong>Eligibility and Responsibilities</strong><br>
-                                You confirm that you are a student or recent graduate eligible for OJT. You agree to conduct yourself professionally and honestly in all interactions with host companies and coordinators.
+                                You confirm that you are a Filipino job seeker. You agree to conduct yourself professionally and honestly in all interactions with host companies and organizations.
                             </li>
-                            <li class="mt-3"><strong>Application and Internship Conduct</strong><br>
-                                You affirm that all information in your application is truthful and complete. You are solely responsible for ensuring your internship complies with your academic requirements. Misrepresentation, misconduct, or unprofessional behavior may result in suspension or termination of your account.
+                            <li class="mt-3"><strong>Application Conduct</strong><br>
+                                You affirm that all information in your application is truthful and complete. You are solely responsible for ensuring your application complies with your requirements. Misrepresentation, misconduct, or unprofessional behavior may result in suspension or termination of your account.
                             </li>
                             <li class="mt-3"><strong>Matching and Placement</strong><br>
-                                OJTGo facilitates connections but does not guarantee placement. Internship selection and approval are determined solely by host companies. We are not responsible for any outcomes, including mismatches or rejections.
+                                Hirebilis facilitates connections but does not guarantee placement. Application selection and approval are determined solely by host companies. We are not responsible for any outcomes, including mismatches or rejections.
                             </li>
                             <li class="mt-3"><strong>Data Use and Communication</strong><br>
                                 You consent to the collection and use of your personal data for internship matching, communication with HTEs and coordinators, and academic monitoring. System notifications and optional promotional messages may be sent to you, which can be managed via your account settings.
                             </li>
                             <li class="mt-3"><strong>Intellectual Property</strong><br>
-                                All materials you upload (e.g., resumes, cover letters) remain your intellectual property. By submitting them, you grant OJTGo a limited, non-exclusive license to use them solely for internship facilitation.
+                                All materials you upload, your intellectual property. By submitting them, you grant Hirebilis a limited, non-exclusive license to use them solely for internship facilitation.
                             </li>
                             <li class="mt-3"><strong>Limitation of Liability</strong><br>
-                                OJTGo is not liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of the Website or any interaction with employers or coordinators.
+                                Hirebilis is not liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of the Website or any interaction with employers.
                             </li>
                             <li class="mt-3"><strong>Indemnification</strong><br>
-                                You agree to indemnify and hold harmless OJTGo from any claims, damages, or expenses resulting from your use of the Website or any breach of these Terms.
+                                You agree to indemnify and hold harmless Hirebilis from any claims, damages, or expenses resulting from your use of the Website or any breach of these Terms.
                             </li>
                             <li class="mt-3"><strong>Modification of Terms</strong><br>
                                 These Terms may be modified at any time without prior notice. Continued use of the Website after updates indicates your acceptance of the revised Terms.
@@ -1451,50 +1392,11 @@ function home_page_shortcode_function()
                                 If any term is deemed invalid or unenforceable, the remainder shall continue to apply in full effect.
                             </li>
                             <li class="mt-3"><strong>Entire Agreement</strong><br>
-                                These Terms represent the entire agreement between you and OJTGo regarding your use of the Website as an intern.
-                            </li>
-                        </ol>
-
-                        <h4 class="mt-5"><strong>Coordinator</strong></h4>
-                        <ol class="mt-3">
-                            <li><strong>Account Creation and Registration</strong><br>
-                                Coordinators must create an account and provide accurate information to use the Website’s services. Keep your login credentials secure and notify us of any unauthorized access.
-                            </li>
-                            <li class="mt-3"><strong>Eligibility and Responsibilities</strong><br>
-                                You confirm that you are authorized by your institution to manage OJT activities. You are responsible for the proper supervision of student interns and ensuring that institutional guidelines are met.
-                            </li>
-                            <li class="mt-3"><strong>Student Monitoring and Supervision</strong><br>
-                                You are accountable for overseeing student progress and ensuring proper internship conduct. Maintain regular communication with both interns and host companies.
-                            </li>
-                            <li class="mt-3"><strong>Data Access and Use</strong><br>
-                                You may access student data strictly for academic supervision and monitoring purposes. Any misuse of data may result in disciplinary actions.
-                            </li>
-                            <li class="mt-3"><strong>Communication and Professional Conduct</strong><br>
-                                Maintain respectful, professional communication with all users. Misconduct may lead to suspension or termination of access.
-                            </li>
-                            <li class="mt-3"><strong>Intellectual Property</strong><br>
-                                The Website’s content is protected by intellectual property laws. Do not reproduce or use content without permission.
-                            </li>
-                            <li class="mt-3"><strong>Limitation of Liability</strong><br>
-                                OJTGo is not liable for any damages arising from the use of the Website or any decision made in connection with student management.
-                            </li>
-                            <li class="mt-3"><strong>Indemnification</strong><br>
-                                You agree to indemnify and defend OJTGo from any claims or damages resulting from your use of the Website or breach of these Terms.
-                            </li>
-                            <li class="mt-3"><strong>Modification of Terms</strong><br>
-                                These Terms may be updated at any time without prior notice. Your continued use of the Website signifies acceptance of any changes.
-                            </li>
-                            <li class="mt-3"><strong>Termination</strong><br>
-                                Your access may be suspended or terminated if you violate these Terms or engage in misconduct.
-                            </li>
-                            <li class="mt-3"><strong>Severability</strong><br>
-                                If any provision is found to be invalid, the rest of the Terms will remain in effect.
-                            </li>
-                            <li class="mt-3"><strong>Entire Agreement</strong><br>
-                                These Terms represent the full agreement between you and OJTGo regarding your role as a coordinator on the Website.
+                                These Terms represent the entire agreement between you and Hirebilis regarding your use of the Website as an intern.
                             </li>
                         </ol>
                     </div>
+
             </section>
 
             <!-- about us section -->
@@ -1617,26 +1519,37 @@ function home_page_shortcode_function()
                     <div class="container">
                         <h2 class="text-center mb-4" style="color: var(--deep-blue); font-weight: bold;">OUR VALUES</h2>
                         <div class="row justify-content-center g-4 mt-5">
-                            <div class="col-md-6 col-lg-3 text-center">
-                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center" style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
+                            <!-- Hire Fast -->
+                            <div class="col-6 col-md-3 text-center">
+                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center"
+                                    style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
                                     <div id="fast" style="width:100%; height:100%;"></div>
                                 </div>
                                 <p class="fw-semibold" style="color: #333;">Hire Fast</p>
                             </div>
-                            <div class="col-md-6 col-lg-3 text-center">
-                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center" style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
+
+                            <!-- Seamless Process -->
+                            <div class="col-6 col-md-3 text-center">
+                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center"
+                                    style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
                                     <div id="seamless" style="width:100%; height:100%;"></div>
                                 </div>
                                 <p class="fw-semibold" style="color: #333;">Seamless Process</p>
                             </div>
-                            <div class="col-md-6 col-lg-3 text-center">
-                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center" style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
+
+                            <!-- Empower Users -->
+                            <div class="col-6 col-md-3 text-center">
+                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center"
+                                    style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
                                     <div id="empower" style="width:100%; height:100%;"></div>
                                 </div>
                                 <p class="fw-semibold" style="color: #333;">Empower Users</p>
                             </div>
-                            <div class="col-md-6 col-lg-3 text-center">
-                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center" style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
+
+                            <!-- Grow Together -->
+                            <div class="col-6 col-md-3 text-center">
+                                <div class="icon-container rounded-3 mb-3 d-flex align-items-center justify-content-center"
+                                    style="background-color: var(--slate-gray); width: 100px; height: 100px; margin: 0 auto;">
                                     <div id="grow" style="width:100%; height:100%;"></div>
                                 </div>
                                 <p class="fw-semibold" style="color: #333;">Grow Together</p>
@@ -1644,6 +1557,7 @@ function home_page_shortcode_function()
                         </div>
                     </div>
                 </section>
+
 
             </section>
 
@@ -1733,7 +1647,7 @@ function home_page_shortcode_function()
                 <div class="row align-items-center d-lg-flex justify-content-lg-between">
                     <div class="col-12 col-lg-auto text-start mt-4 mb-lg-0">
                         <img style="height: 80px;"
-                            src="<?php echo home_url('/wp-content/uploads/icons/hirebiliswhite.png') ?>"
+                            src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-Twoline_white.svg') ?>"
                             alt="logo"
                             class="footer-logo mb-3">
 
@@ -1766,7 +1680,7 @@ function home_page_shortcode_function()
                             <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
                             <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
                             <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
-                            <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyhirebilis'); scrollToSection('whyhirebilis', $event)">Why Hirebilis?</a>
+                            <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#whyhirebilis" ng-click="setActivePage('whyhirebilis'); scrollToSection('whyhirebilis', $event)">Why Hirebilis?</a>
                             <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
                             <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
                         </nav>
@@ -1814,7 +1728,7 @@ function home_page_shortcode_function()
                     <!-- Empty for now -->
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>">
 
                     </div>
 
@@ -1907,7 +1821,7 @@ function home_page_shortcode_function()
 
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>">
 
                     </div>
 
@@ -1952,7 +1866,7 @@ function home_page_shortcode_function()
 
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>">
 
                     </div>
 
@@ -2105,7 +2019,7 @@ function home_page_shortcode_function()
                     <!-- Empty for now -->
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>">
 
                     </div>
 
@@ -2196,7 +2110,7 @@ function home_page_shortcode_function()
                     <!-- OJT go logo -->
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>">
 
                     </div>
 
@@ -2263,7 +2177,7 @@ function home_page_shortcode_function()
                         Hello
                     </div> -->
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>">
 
                     </div>
 
@@ -2350,7 +2264,7 @@ function home_page_shortcode_function()
 
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>">
 
                     </div>
 
