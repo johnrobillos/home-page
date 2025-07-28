@@ -234,7 +234,7 @@ function home_page_shortcode_function()
             <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border border-lg-0">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#" ng-click="setActivePage('home')">
-                        <img src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-Twoline_small.svg') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
+                        <img src="<?php echo home_url('/wp-content/uploads/icons/Hirebilis-630X310-Outlined.svg') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
                     </a>
 
                     <!-- Toggler -->
