@@ -1204,7 +1204,7 @@ function home_page_landing_page()
         </div>
 
         <!-- Privacy Notice section -->
-        <section id="privacy" ng-show="activePage === 'privacy'" class="bg-light py-5 bg-transparent">
+        <section id="privacy" ng-show="activePage === 'privacy'" class="py-5 bg-transparent">
             <div class="container">
                 <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
                     Privacy Notice
@@ -1214,7 +1214,7 @@ function home_page_landing_page()
 
                     <p>At <strong>OJTGo</strong>, owned and operated by <strong>PCES Inc.</strong>, we are committed to protecting the privacy of all users—especially interns, employers,
                         and OJT coordinators—who use our platform to facilitate On-the-Job Training (OJT) experiences. This Privacy Notice explains how we collect, use, store, and share your
-                        information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>OJTGo</strong>, you agree to the practices
+                        information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>OJTGo</strong>, you agree to the practices
                         described in this notice. We encourage you to read it carefully.</p><br>
                     <h4>1. Information We Collect</h4>
                     <p><strong>a) Intern Information</strong><br>
@@ -1270,7 +1270,7 @@ function home_page_landing_page()
 
                     <p>We do not sell or lease your personal data to any third party.</p><br>
 
-                    <h4>4. Data Security</h4>
+                    <h4><strong>4. Data Security</strong></h4>
                     <p>OJTGo implements technical and organizational measures to protect your data:</p>
                     <ul>
                         <li>HTTPS encryption of all data transmissions</li>
@@ -1282,7 +1282,7 @@ function home_page_landing_page()
                     <p>Disclaimer: While we take strong precautions, no system is 100% secure. We continuously improve our security infrastructure to reduce risks.
                     </p><br>
 
-                    <h3>5. Cookies and Tracking</h3>
+                    <h4><strong>5. Cookies and Tracking</strong></h4>
                     <p>We use cookies and tracking tools to:</p>
                     <ul>
                         <li>Personalize your experience</li>
@@ -1294,7 +1294,7 @@ function home_page_landing_page()
                         You may manage or disable cookies and location tracking in your browser or device settings.
                     </p><br>
 
-                    <h4>6. Your Privacy Choices</h4>
+                    <h4><strong>6. Your Privacy Choices</strong></h4>
                     <p>You may exercise the following at any time:</p>
                     <ul>
                         <li>Update your profile through your account dashboard</li>
@@ -1304,7 +1304,7 @@ function home_page_landing_page()
 
                     <p>For sensitive actions (e.g., account deletion), some verification steps or coordinator approval may be required.</p><br>
 
-                    <h4>7. Retention of Personal Information</h4>
+                    <h4><strong>7. Retention of Personal Information</strong></h4>
 
                     <p><strong>a) General Retention Policy</strong><br>
                         We retain personal data for only one (1) year, unless required longer by law, accreditation, or academic compliance.</p><br>
@@ -1323,10 +1323,13 @@ function home_page_landing_page()
                     <p><strong>d) Data Minimization and Security</strong><br>
                         We strictly collect only necessary data and apply encryption and access control to ensure secure storage during the retention period.</p><br>
 
-                    <h4>8. Consent and Lawful Processing</h4>
+                    <h4><strong>8. Consent and Lawful Processing</strong></h4>
                     <p>By using OJTGo, you voluntarily consent to the collection, use, and processing of your data for the purposes stated. You may withdraw your consent at any time by changing your account settings or contacting us. If you use OJTGo from outside the Philippines, you agree to the cross-border transfer of your data to the Philippines for lawful processing.</p><br>
+                    
+                    <h4><strong>8.1. Parental Consent for Minors</strong></h4>
+                    <p>OJTGo is intended for use by individuals who are of legal age. If you are below 18 years old, you are required to obtain consent from your parent or legal guardian before registering or submitting any personal information on the platform.</p><br>
 
-                    <h4>9. Your Rights Under the Law</h4>
+                    <h4><strong>9. Your Rights Under the Law</strong></h4>
                     <p>In accordance with RA 10173 (Data Privacy Act of 2012), you have the right to:</p>
                     <ul>
                         <li>Be informed about how your data is processed</li>
@@ -1337,15 +1340,25 @@ function home_page_landing_page()
                         <li>Lodge a complaint with the National Privacy Commission (NPC)</li>
                     </ul><br>
 
-                    <p>Learn more: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank" style="color: deepskyblue;">https://privacy.gov.ph/data-subject-rights/</a></p><br>
+                    <p>Learn more: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank">https://privacy.gov.ph/data-subject-rights/</a></p><br>
 
                     <h4>10. Updates to This Notice</h4>
                     <p>We may revise this Privacy Notice to reflect changes in law, technology, or our services. The latest version will always be available on OJTGo.com with an updated "Effective Date." Continued use of our platform constitutes acceptance of any updates.</p><br>
 
                     <h4>11. Contact Us</h4>
-                    <p>For questions or concerns about your data privacy rights or to request data access or deletion, please contact our Data Protection Officer (DPO):</p>
-                    <ul><br>
-                        <li><strong>Email:</strong> <a href="mailto:ojt@ojtgo.com" style="color: deepskyblue;">ojt@ojtgo.com</a></li>
+                    <p>We're here to assist you with any questions or support needs you may have. Our dedicated team is committed to providing timely and helpful responses to ensure your experience with our platform is smooth and productive.</p>
+                    <!-- <ul class="contact-list">
+                        <li>To request access to or deletion of your personal data, please contact us via email (<a href="mailto:support@ojtgo.com">support@ojtgo.com</a>).</li>
+                    </ul> -->
+                    <p>To request access to or deletion of your personal data,</p>
+                    <ul class="dpo-contact">
+                        <li><strong>Email:</strong> <a href="mailto:support@ojtgo.com">support@ojtgo.com</a></li>
+                    </ul>
+                    <p>For Data Privacy Concerns:</p>
+                    <ul class="dpo-contact">
+                        <li><strong>John Ronald Robillos</strong></li>
+                        <li>Data Protection Officer</li>
+                        <li><strong>Email:</strong> <a href="mailto:dpo@ojtgo.com">dpo@ojtgo.com</a></li>
                     </ul>
                 </div>
             </div>

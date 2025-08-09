@@ -1185,3 +1185,66 @@ html {
 .bi-chat-square-dots-fill {
    color:rgb(0, 50, 101);
 }
+
+/* Start of JCD 08/08/25*/
+/* I worked on updating the Contacts below the Privacy Policy by adding DPO email
+and updating support email. */
+
+
+/* All link */
+a{
+    color: deepskyblue!important;
+}
+a:hover{
+    color: rgb(0, 43, 86)!important;
+    text-decoration: wavy;
+}
+
+/* Headers: For Each numbered Sections */
+#privacy h4,
+#privacy-policy h4 {
+    color: white;
+    margin: 1.5rem 0 1rem;
+}
+
+#privacy ul,
+#privacy-policy ul {
+    list-style: none;
+    padding-left: 20px;
+    margin: 0.5rem 0 1.5rem;
+}
+
+/* Regular Texts */
+#privacy ul li,
+#privacy-policy ul li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    color: #ffffff;
+}
+
+/* Email Addess: Default */
+#privacy a[href^="mailto:"],
+#privacy-policy a[href^="mailto:"] {
+    color: #00bfff;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+/* Email Addess: On Hover */
+#privacy a[href^="mailto:"]:hover,
+#privacy-policy a[href^="mailto:"]:hover {
+    color: #0086cc;
+    text-decoration: underline;
+}
+
+/* Vertical Line on the Left */
+.dpo-contact {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid deepskyblue;
+}
+
+.dpo-contact li:first-child {
+    font-weight: 600;
+    color: deepskyblue;
+}
