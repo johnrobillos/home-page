@@ -1208,13 +1208,13 @@ function home_page_shortcode_function()
             </section>
 
             <!-- privacy notice section -->
-            <section id="privacy" ng-show="activePage === 'privacy'" class="bg-light py-5 bg-transparent">
+            <section id="privacy" ng-show="activePage === 'privacy'" class="py-5 bg-transparent">
                 <div class="container">
                     <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:#001F3F;">
                         Privacy Notice
                     </h1>
 
-                    <div style="background-color: rgba(0, 0, 0, 0.47); color: white; padding: 2rem; border-radius: 8px;">
+                    <div style="background-color: #F2F2F2; color: #1D3557; padding: 2rem; border-radius: 8px;">
 
                         <p><strong>Hirebilis</strong> is a purpose-driven job-matching platform committed to empowering Filipino
                             job seekers by connecting them quickly and meaningfully with the right employment opportunities. It is
@@ -1223,7 +1223,7 @@ function home_page_shortcode_function()
                         </p>
 
                         <p>At <strong>Hirebilis</strong>, your privacy is important to us. This Privacy Policy explains how we collect, use,
-                            protect, and share information when you access or use our platform in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;">Privacy Act of 2012</a> and guidelines from the <strong>National Privacy Commission (NPC)</strong>.
+                            protect, and share information when you access or use our platform in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer">Privacy Act of 2012</a> and guidelines from the <strong>National Privacy Commission (NPC)</strong>.
                             By using Hirebilis, you agree to the terms of this policy.
                         </p>
 
@@ -1297,17 +1297,21 @@ function home_page_shortcode_function()
                             <li>Object to unauthorized processing.</li>
                             <li>File a complaint with the <strong>National Privacy Commission (NPC)</strong>.</li>
                         </ul>
-                        <p>More info: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank" style="color: deepskyblue;">https://privacy.gov.ph/data-subject-rights/</a></p>
+                        <p>More info: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank">https://privacy.gov.ph/data-subject-rights/</a></p>
 
                         <h4>10. Updates to This Notice</h4>
-                        <p>This policy may be updated due to legal or service changes. The most current version is published on <strong>OJTGo.com</strong>. Continued use indicates agreement to changes.</p>
+                        <p>This policy may be updated due to legal or service changes. The most current version is published on <strong>Hirebilis.com</strong>. Continued use indicates agreement to changes.</p>
 
                         <h4>11. Contact Us</h4>
-                        <p>For data privacy concerns, access, or deletion requests, contact our Data Protection Officer:</p>
-                        <ul>
-                            <li><strong>PCES Inc.</strong> Level 10-01, One Global Place, 25th St. corner 5th Ave., Bonifacio Global City, Taguig City 1630</li>
-                            <li><strong>Email:</strong> <a href="mailto:ojt@ojtgo.com" style="color: deepskyblue;">ojt@ojtgo.com</a></li>
-                            <li><strong>Phone:</strong> (02) 8628-2072</li>
+                        <p>For general inquiries and support, please contact:</p>
+                        <ul class="contact-list">
+                            <li><strong>Support:</strong> <a href="mailto:support@hirebilis.com">support@hirebilis.com</a></li>
+                        </ul>
+                        <p>For Data Privacy Concerns:</p>
+                        <ul class="dpo-contact">
+                            <li><strong>John Ronald Robillos</strong></li>
+                            <li>Data Protection Officer</li>
+                            <li><strong>Email:</strong> <a href="mailto:dpo@hirebilis.com">dpo@hirebilis.com</a></li>
                         </ul>
                     </div>
 

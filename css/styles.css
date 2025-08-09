@@ -859,18 +859,6 @@ body {
     color: var(--deep-blue) !important;
 }
 
-/* .blue-circle-left {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    width: 30vw;
-    height: 30vw;
-    background-color: #6db5ff;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-} */
-
 .blue-circle-lower-right {
     position: absolute;
     top: 30%;
@@ -1190,36 +1178,59 @@ html {
     flex-direction: column;
 }
 
-/* quill */
-/* .quill-content {
-    font-family: inherit;
-    font-size: 1rem;
-} */
 
-/* White overlay for Bootstrap modal */
-/* .modal-backdrop.show {
-    background-color: rgb(255, 255, 255);
-    /* white with some transparency */
-/* } */
 
-/* .modal {
-    z-index: 1060;
-    /* Bootstrap default */
-/* }
+/* Added by JCD @ Aug/09/2025 */
+/* This is for the hirebilis.com/home#privacy design for dpo and support@hirebilis.com */
 
-.modal-backdrop {
-    z-index: 1050;
-    /* Just behind the modal */
-/* } */
+/* All link */
+a{
+    color: #be8a06!important;
+}
+a:hover{
+    color: #2A9D8F!important;
+    text-decoration: wavy;
+}
 
-/* Custom styles for the modal */
-/* .close.ms-auto:hover,
-.close.ms-auto:focus {
-    background: #e3f0ff !important;
-} */
+/* Headers */
+#privacy h4,
+#privacy-policy h4 {
+    color: black;
+    font-weight: 600;
+    margin: 1.5rem 0 1rem;
+}
 
-/* .close.ms-auto:hover i,
-.close.ms-auto:focus i {
-    color: #0d6efd !important;
-} */ 
+#privacy ul,
+#privacy-policy ul {
+    list-style: none;
+    padding-left: 20px;
+    margin: 0.5rem 0 1.5rem;
+}
 
+/* Regular Texts */
+#privacy ul li,
+#privacy-policy ul li {
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+    color: #264653;
+}
+/* Email Addess: Default */
+#privacy a[href^="mailto:"],
+#privacy-policy a[href^="mailto:"] {
+    color: #be8a06;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+/* Email Addess: On Hover */
+#privacy a[href^="mailto:"]:hover,
+#privacy-policy a[href^="mailto:"]:hover {
+    color: #2A9D8F;
+    text-decoration: underline;
+}
+
+/* Vertical Line on the Left */
+.dpo-contact {
+    margin-top: 1rem;
+    padding-left: 1rem;
+    border-left: 3px solid #2A9D8F;
+}
