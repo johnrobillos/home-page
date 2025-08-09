@@ -1595,7 +1595,7 @@ function home_page_landing_page()
 
                     <!-- showed team -->
                     <div class="row justify-content-center fw-bold fs-5 mt-4">
-                        <!-- Team Member 1 -->
+                        
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirval.png') ?>" alt="sir Val">
@@ -1604,7 +1604,7 @@ function home_page_landing_page()
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Executive Officer</p>
                         </div>
 
-                        <!-- Team Member 2 -->
+                       
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/leo2.jpg') ?>" alt="sir Leo">
@@ -1613,7 +1613,7 @@ function home_page_landing_page()
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Operating Officer</p>
                         </div>
 
-                        <!-- Team Member 3 -->
+                        
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirjeal.jpg') ?>" alt="sir Jeal">
@@ -1622,7 +1622,7 @@ function home_page_landing_page()
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Technology Officer</p>
                         </div>
 
-                        <!-- Team Member 4 -->
+                        
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/john.jpg') ?>" alt="ma'am John">
@@ -1631,7 +1631,7 @@ function home_page_landing_page()
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Sales Lead</p>
                         </div>
 
-                        <!-- Team Member 5 -->
+                        
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/jess.jpg') ?>" alt="sir Jess">
@@ -1640,7 +1640,7 @@ function home_page_landing_page()
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Security Officer</p>
                         </div>
 
-                        <!-- Team Member 6 -->
+                        
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/jinah-1.jpg') ?>" alt="ma'am Jinah">
@@ -1649,7 +1649,7 @@ function home_page_landing_page()
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">HR Manager</p>
                         </div>
 
-                        <!-- Team Member 7 -->
+                        
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/nicolee-2.jpg') ?>" alt="ma'am Nicole">
@@ -1658,7 +1658,7 @@ function home_page_landing_page()
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing Manager</p>
                         </div>
 
-                        <!-- Team Member 8 -->
+                        
                         <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                             <div class="team-img-container mb-2">
                                 <img src="<?php echo home_url('/wp-content/uploads/icons/home/steph.jpg') ?>" alt="ma'am Steph">
@@ -1666,10 +1666,19 @@ function home_page_landing_page()
                             <p class="text-center m-0">Stephanie Cuenca</p>
                             <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications Manager</p>
                         </div>
+                        
+                        
+                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
+                            <div class="team-img-container mb-2">
+                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/ana.png') ?>" alt="ma'am Ana">
+                            </div>
+                            <p class="text-center m-0">Ana Grace Cabradilla</p>
+                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications Associate</p>
+                        </div>
 
 
 
-                        <!-- Hidden team -->
+                        <!-- hidden team -->
                         <section ng-if="currentPage === 'rest' || true"> <!-- Set true for universal visibility -->
                             <div class="row justify-content-center mt-4 fw-bold fs-5" ng-show="showAllTeam">
 
@@ -1677,7 +1686,7 @@ function home_page_landing_page()
                                     Our OJT
                                 </h1>
 
-                                <!-- Team Member 9 -->
+                               
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/lorenzo-scaled.jpg') ?>" alt="Lorenzo">
@@ -1686,7 +1695,7 @@ function home_page_landing_page()
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
                                 </div>
 
-                                <!-- Team Member 10 -->
+                                
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/millard-scaled.jpg') ?>" alt="Millard">
@@ -1695,7 +1704,7 @@ function home_page_landing_page()
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
                                 </div>
 
-                                <!-- Team Member 7 -->
+                                
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/khianah.jpg') ?>" alt="Khianah">
@@ -1704,7 +1713,7 @@ function home_page_landing_page()
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">UI/UX Designer</p>
                                 </div>
 
-                                <!-- Team Member 8 -->
+                                
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/jazmine.jpg') ?>" alt="Jazmine">
@@ -1713,7 +1722,7 @@ function home_page_landing_page()
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing</p>
                                 </div>
 
-                                <!-- Team Member 9 -->
+                              
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/aivie.jpg') ?>" alt="Aivie">
@@ -1722,7 +1731,7 @@ function home_page_landing_page()
                                     <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing</p>
                                 </div>
 
-                                <!-- Team Member 10 -->
+                              
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/katrishna.jpg') ?>" alt="Katrishna">
@@ -1732,7 +1741,7 @@ function home_page_landing_page()
                                     </p>
                                 </div>
 
-                                <!-- Team Member 11 -->
+                                
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/charlss.jpg') ?>" alt="Charls">
@@ -1742,7 +1751,7 @@ function home_page_landing_page()
                                     </p>
                                 </div>
 
-                                <!-- Team Member 12 -->
+                               
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/arandelle.jpg') ?>"
@@ -1753,7 +1762,7 @@ function home_page_landing_page()
                                     </p>
                                 </div>
 
-                                <!-- Team Member 13 -->
+                                
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/jc.jpg') ?>"
@@ -1764,7 +1773,7 @@ function home_page_landing_page()
                                     </p>
                                 </div>
 
-                                <!-- Team Member 14 -->
+                                
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/mads.jpg') ?>"
@@ -1775,7 +1784,7 @@ function home_page_landing_page()
                                     </p>
                                 </div>
 
-                                <!-- Team Member 15 -->
+                                
                                 <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
                                     <div class="team-img-container mb-2">
                                         <img src="<?php echo home_url('/wp-content/uploads/icons/home/hami.jpg') ?>"
