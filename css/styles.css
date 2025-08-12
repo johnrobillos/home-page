@@ -1195,7 +1195,7 @@ a:hover{
 /* Headers */
 #privacy h4,
 #privacy-policy h4 {
-    color: black;
+   
     font-weight: 600;
     margin: 1.5rem 0 1rem;
 }
@@ -1233,4 +1233,9 @@ a:hover{
     margin-top: 1rem;
     padding-left: 1rem;
     border-left: 3px solid #2A9D8F;
+}
+
+.dpo-contact li:first-child {
+    font-weight: 600;
+    color: #2A9D8F;
 }

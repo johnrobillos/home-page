@@ -1215,7 +1215,7 @@ function home_page_shortcode_function()
                     </h1>
 
                     <div style="background-color: #F2F2F2; color: #1D3557; padding: 2rem; border-radius: 8px;">
-
+                        <h3><strong>This Privacy Notice was last updated in August 2025.</strong></h3>
                         <p><strong>Hirebilis</strong> is a purpose-driven job-matching platform committed to empowering Filipino
                             job seekers by connecting them quickly and meaningfully with the right employment opportunities. It is
                             owned and operated by <strong>PCES Inc.</strong> and designed for efficiency, equity, and user empowerment. Our platform
@@ -1288,6 +1288,9 @@ function home_page_shortcode_function()
 
                         <h4>8. Consent and Lawful Processing</h4>
                         <p>By using Hirebilis, you consent to our data practices. You may withdraw your consent anytime via your account or by contacting us. Cross-border users agree to data transfer to the Philippines.</p>
+                        
+                        <h4>8.1. Parental Consent for Minors</h4>
+                        <p>OJTGo is intended for use by individuals who are of legal age. If you are below 18 years old, you are required to obtain consent from your parent or legal guardian before registering or submitting any personal information on the platform.</p><br>
 
                         <h4>9. Your Rights Under the Law</h4>
                         <ul>
@@ -1303,15 +1306,17 @@ function home_page_shortcode_function()
                         <p>This policy may be updated due to legal or service changes. The most current version is published on <strong>Hirebilis.com</strong>. Continued use indicates agreement to changes.</p>
 
                         <h4>11. Contact Us</h4>
-                        <p>For general inquiries and support, please contact:</p>
-                        <ul class="contact-list">
-                            <li><strong>Support:</strong> <a href="mailto:support@hirebilis.com">support@hirebilis.com</a></li>
+                        <p>We're here to assist you with any questions or support needs you may have. Our dedicated team is committed to providing timely and helpful responses to ensure your experience with our platform is smooth and productive.</p>
+
+                        <p>To request access to or deletion of your personal data,</p>
+                        <ul class="dpo-contact">
+                            <li><strong>Email:</strong> <a href="mailto:support@ojtgo.com">support@hirebilis.com</a></li>
                         </ul>
                         <p>For Data Privacy Concerns:</p>
                         <ul class="dpo-contact">
                             <li><strong>John Ronald Robillos</strong></li>
                             <li>Data Protection Officer</li>
-                            <li><strong>Email:</strong> <a href="mailto:dpo@hirebilis.com">dpo@hirebilis.com</a></li>
+                            <li><strong>Email:</strong> <a href="mailto:dpo@ojtgo.com">dpo@hirebilis.com</a></li>
                         </ul>
                     </div>
 
