@@ -15,7 +15,15 @@ if (!defined('ABSPATH')) {
  * Enqueue styles and scripts for PCES homepage
  */
 function pces_homepage_enqueue_assets() {
-    // Only enqueue on pages that use our shortcodes
+    // Always load Bootstrap Icons on frontend
+    wp_enqueue_style(
+        'bootstrap-icons',
+        'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css',
+        array(),
+        '1.10.0'
+    );
+
+    // Only enqueue other assets on pages that use our shortcodes
     global $post;
     if (is_a($post, 'WP_Post') && (
         has_shortcode($post->post_content, 'pces_hero') ||
@@ -32,14 +40,6 @@ function pces_homepage_enqueue_assets() {
             'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
             array(),
             '5.3.0'
-        );
-
-        // Font Awesome for icons
-        wp_enqueue_style(
-            'font-awesome',
-            'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css',
-            array(),
-            '6.4.0'
         );
 
         // Custom PCES Homepage CSS
@@ -107,32 +107,32 @@ function pces_services_shortcode($atts) {
     // Services data - easy to edit by modifying this array
     $services = array(
         array(
-            'icon' => 'fas fa-users',
+            'icon' => 'bi-people',
             'title' => 'HR Services',
             'description' => 'Comprehensive human resource solutions for your business needs.'
         ),
         array(
-            'icon' => 'fas fa-chart-line',
+            'icon' => 'bi-graph-up',
             'title' => 'Business Analytics',    
             'description' => 'Data-driven insights to help your business grow and succeed.'
         ),
         array(
-            'icon' => 'fas fa-cogs',
+            'icon' => 'bi-gear',
             'title' => 'Process Optimization',
             'description' => 'Streamline your operations for maximum efficiency and productivity.'
         ),
         array(
-            'icon' => 'fas fa-handshake',
+            'icon' => 'bi-handshake',
             'title' => 'Client Relations',
             'description' => 'Build stronger relationships with your customers and partners.'
         ),
         array(
-            'icon' => 'fas fa-laptop-code',
+            'icon' => 'bi-laptop',
             'title' => 'Technology Solutions',
             'description' => 'Modern technology solutions to digitize your business processes.'
         ),
         array(
-            'icon' => 'fas fa-graduation-cap',
+            'icon' => 'bi-mortarboard',
             'title' => 'Training & Development',
             'description' => 'Professional development programs for your team members.'
         )
@@ -170,32 +170,32 @@ function pces_differentiators_shortcode($atts) {
     // Differentiators data - easy to edit by modifying this array
     $differentiators = array(
         array(
-            'icon' => 'fas fa-star',
+            'icon' => 'bi-star',
             'title' => 'Quality Service',
             'description' => 'Top-notch quality in everything we deliver to our clients.'
         ),
         array(
-            'icon' => 'fas fa-clock',
+            'icon' => 'bi-clock',
             'title' => '24/7 Support',
             'description' => 'Round-the-clock assistance whenever you need us.'
         ),
         array(
-            'icon' => 'fas fa-shield-alt',
+            'icon' => 'bi-shield',
             'title' => 'Secure Solutions',
             'description' => 'Your data and business information are always protected.'
         ),
         array(
-            'icon' => 'fas fa-rocket',
+            'icon' => 'bi-rocket',
             'title' => 'Fast Delivery',
             'description' => 'Quick turnaround times without compromising quality.'
         ),
         array(
-            'icon' => 'fas fa-heart',
+            'icon' => 'bi-heart',
             'title' => 'Filipino Values',
             'description' => 'Built on Filipino values of respect, integrity, and excellence.'
         ),
         array(
-            'icon' => 'fas fa-trophy',
+            'icon' => 'bi-trophy',
             'title' => 'Proven Results',
             'description' => 'Track record of successful projects and satisfied clients.'
         )
