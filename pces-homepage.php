@@ -108,33 +108,23 @@ function pces_services_shortcode($atts) {
     $services = array(
         array(
             'icon' => 'bi-people',
-            'title' => 'HR Services',
+            'title' => 'OJTGo',
             'description' => 'Comprehensive human resource solutions for your business needs.'
         ),
         array(
             'icon' => 'bi-graph-up',
-            'title' => 'Business Analytics',    
+            'title' => 'Chains2Chances',    
             'description' => 'Data-driven insights to help your business grow and succeed.'
         ),
         array(
             'icon' => 'bi-gear',
-            'title' => 'Process Optimization',
+            'title' => 'PWD-E',
             'description' => 'Streamline your operations for maximum efficiency and productivity.'
         ),
         array(
-            'icon' => 'bi-handshake',
-            'title' => 'Client Relations',
+            'icon' => 'bi-gear',
+            'title' => 'Hirebilis',
             'description' => 'Build stronger relationships with your customers and partners.'
-        ),
-        array(
-            'icon' => 'bi-laptop',
-            'title' => 'Technology Solutions',
-            'description' => 'Modern technology solutions to digitize your business processes.'
-        ),
-        array(
-            'icon' => 'bi-mortarboard',
-            'title' => 'Training & Development',
-            'description' => 'Professional development programs for your team members.'
         )
     );
     
@@ -142,21 +132,40 @@ function pces_services_shortcode($atts) {
     $output = '<section class="pces-services py-5" id="services">';
     $output .= '<div class="container">';
     $output .= '<h2 class="text-center mb-5">Services Catered Towards Everyone\'s Needs</h2>';
-    $output .= '<div class="row">';
+    $output .= '<div class="row align-items-center">';
     
-    foreach($services as $service) {
-        $output .= '<div class="col-md-4 mb-4">';
-        $output .= '<div class="service-card text-center h-100 p-4">';
-        $output .= '<i class="' . esc_attr($service['icon']) . ' service-icon fa-3x mb-3"></i>';
-        $output .= '<h4 class="mb-3">' . esc_html($service['title']) . '</h4>';
-        $output .= '<p>' . esc_html($service['description']) . '</p>';
-        $output .= '</div>';
-        $output .= '</div>';
+    // Left column - 4 services (8 columns)
+    $output .= '<div class="col-lg-8 mb-4 mb-lg-0">';
+    $output .= '<div class="row g-4">';
+    
+    // Only show first 4 services
+    $first_four_services = array_slice($services, 0, 4);
+    
+    foreach($first_four_services as $service) {
+        $output .= '<div class="col-md-6">';
+        $output .= '<div class="service-card h-100 p-4 d-flex flex-column">';
+        $output .= '<div class="d-flex align-items-center mb-3">';
+        $output .= '<i class="' . esc_attr($service['icon']) . ' fs-2 text-primary me-3"></i>';
+        $output .= '<h4 class="mb-0">' . esc_html($service['title']) . '</h4>';
+        $output .= '</div>'; // Close flex container
+        $output .= '<p class="mb-0">' . esc_html($service['description']) . '</p>';
+        $output .= '</div>'; // Close service-card
+        $output .= '</div>'; // Close col
     }
     
-    $output .= '</div>';
-    $output .= '</div>';
-    $output .= '</section>';
+    $output .= '</div>'; // Close row
+    $output .= '</div>'; // Close left column
+    
+    // Right column - Image (4 columns)
+    $output .= '<div class="col-lg-4">';
+    $output .= '<div class="position-relative h-100">';
+    $output .= '<img src="' . esc_url(home_url('/wp-content/uploads/icons/services/services-image.jpg')) . '" alt="Services" class="img-fluid rounded-3 shadow">';
+    $output .= '</div>'; // Close position-relative
+    $output .= '</div>'; // Close right column
+    
+    $output .= '</div>'; // Close main row
+    $output .= '</div>'; // Close container
+    $output .= '</section>'; // Close section
     
     return $output;
 }
@@ -209,12 +218,12 @@ function pces_differentiators_shortcode($atts) {
     
     foreach($differentiators as $differentiator) {
         $output .= '<div class="col-md-6 col-lg-4 mb-4">';
-        $output .= '<div class="differentiator-card text-center h-100 p-3">';
-        $output .= '<i class="' . esc_attr($differentiator['icon']) . ' differentiator-icon fa-2x mb-3"></i>';
-        $output .= '<h5 class="mb-3">' . esc_html($differentiator['title']) . '</h5>';
-        $output .= '<p class="small">' . esc_html($differentiator['description']) . '</p>';
-        $output .= '</div>';
-        $output .= '</div>';
+        $output .= '<div class="differentiator-card text-center h-100 p-4">';
+        $output .= '<i class="' . esc_attr($differentiator['icon']) . ' fs-1 text-primary mb-3"></i>';
+        $output .= '<h5 class="mb-3 fw-bold">' . esc_html($differentiator['title']) . '</h5>';
+        $output .= '<p class="mb-0">' . esc_html($differentiator['description']) . '</p>';
+        $output .= '</div>'; // Close differentiator-card
+        $output .= '</div>'; // Close col
     }
     
     $output .= '</div>';
