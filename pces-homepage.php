@@ -269,7 +269,7 @@ function pces_clients_shortcode($atts) {
         if ($logo_url) {
             $output .= '<div class="col-6 col-md-3 mb-4">';
             $output .= '<div class="client-logo-wrapper text-center">';
-            $output .= '<img src="' . esc_url($logo_url) . '" alt="Client Logo" class="client-logo img-fluid">';
+            $output .= '<img src="' . esc_url($logo_url) . '" alt="PCES Inc Logo" class="client-logo img-fluid">';
             $output .= '</div>';
             $output .= '</div>';
         }
@@ -406,19 +406,35 @@ function pces_footer_shortcode($atts) {
     // Start output buffering
     ob_start();
     
-    // Parse attributes and pass to footer function
-    $args = shortcode_atts(array(
-        'logo_url'      => '',
-        'company_name'  => get_bloginfo('name'),
-        'bg_color'      => '#f8f9fa',
-        'text_color'    => '#212529',
-        'accent_color'  => '#0073aa',
-    ), $atts);
+    // Default values that match the template
+    $defaults = array(
+        'logo_url'      => home_url('/wp-content/uploads/icons/services/pces_inc_2025.svg'),
+        'company_name'  => get_bloginfo('PCES Inc'),
+        'social_links'  => array(
+            'facebook'  => array('url' => 'https://www.facebook.com/PCESInc1', 'icon' => 'bi-facebook'),
+            'instagram' => array('url' => 'https://www.instagram.com/pces_inc', 'icon' => 'bi-instagram'),
+            'tiktok'    => array('url' => 'https://www.tiktok.com/@pces_incorporated', 'icon' => 'bi-tiktok'),
+            'youtube'   => array('url' => 'https://www.youtube.com/@pces_inc', 'icon' => 'bi-youtube'),
+        ),
+        'legal_links'   => array(
+            'terms'     => array('url' => '#', 'title' => 'Terms of Use'),
+            'privacy'   => array('url' => '#', 'title' => 'Privacy Notice')
+        ),
+        'bg_color'      => '#0066cc',
+        'text_color'    => '#ffffff',
+        'accent_color'  => '#004994',
+    );
     
-    // Convert string booleans to actual booleans
-    foreach ($args as $key => $value) {
-        if ($value === 'true') $args[$key] = true;
-        if ($value === 'false') $args[$key] = false;
+    // Parse attributes with our defaults
+    $args = shortcode_atts($defaults, $atts);
+    
+    // Handle social_links and legal_links if passed as JSON strings
+    if (isset($atts['social_links']) && is_string($atts['social_links'])) {
+        $args['social_links'] = json_decode(wp_unslash($atts['social_links']), true);
+    }
+    
+    if (isset($atts['legal_links']) && is_string($atts['legal_links'])) {
+        $args['legal_links'] = json_decode(wp_unslash($atts['legal_links']), true);
     }
     
     // Load the footer with the provided arguments

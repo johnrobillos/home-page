@@ -376,20 +376,34 @@
     opacity: 0.8;
 }
 
-.pces-footer .social-links a {
+.pces-footer .social-links {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+}
+
+.pces-footer .social-link {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background-color: rgba(255, 255, 255, 0.1);
     transition: all 0.3s ease;
+    background-color: transparent;
+    color: #ffffff ; /* Force white color for all icons */
 }
 
-.pces-footer .social-links a:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.pces-footer .social-link:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.pces-footer .social-link i {
+    color: inherit;
 }
 
 .pces-footer h5 {
