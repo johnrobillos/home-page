@@ -85,9 +85,11 @@
     box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
 }
 
-.service-icon {
-    color: #007bff;
-    transition: all 0.3s ease;
+.service-card img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+    flex-shrink: 0; /* Prevents SVG from shrinking */
 }
 
 .service-card:hover .service-icon {

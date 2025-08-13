@@ -107,24 +107,20 @@ function pces_services_shortcode($atts) {
     // Services data - easy to edit by modifying this array
     $services = array(
         array(
-            'icon' => 'bi-people',
             'title' => 'OJTGo',
-            'description' => 'Comprehensive human resource solutions for your business needs.'
+            'description' => 'Connects students to internship opportunities that match their education, career goals, and personal growth, making the journey from classroom to career smooth and meaningful.'
         ),
         array(
-            'icon' => 'bi-graph-up',
             'title' => 'Chains2Chances',    
-            'description' => 'Data-driven insights to help your business grow and succeed.'
+            'description' => 'Links justice-involved individuals with inclusive employers, supporting reentry through skills, opportunity, and shared purpose.'
         ),
         array(
-            'icon' => 'bi-gear',
             'title' => 'PWD-E',
-            'description' => 'Streamline your operations for maximum efficiency and productivity.'
+            'description' => 'Bridges persons with disabilities to employers who value diversity, offering accessible and dignified employment opportunities.'
         ),
         array(
-            'icon' => 'bi-gear',
             'title' => 'Hirebilis',
-            'description' => 'Build stronger relationships with your customers and partners.'
+            'description' => 'Quickly connects Filipino job seekers to the right opportunities—fast, fair, and matched to their skills and goals.'
         )
     );
     
@@ -142,10 +138,14 @@ function pces_services_shortcode($atts) {
     $first_four_services = array_slice($services, 0, 4);
     
     foreach($first_four_services as $service) {
+        // Convert service title to lowercase and replace spaces with hyphens for the image filename
+        $image_filename = strtolower(str_replace(' ', '-', $service['title'])) . '.svg';
+        $image_url = home_url('/wp-content/uploads/icons/services/' . $image_filename);
+        
         $output .= '<div class="col-md-6">';
         $output .= '<div class="service-card h-100 p-4 d-flex flex-column">';
         $output .= '<div class="d-flex align-items-center mb-3">';
-        $output .= '<i class="' . esc_attr($service['icon']) . ' fs-2 text-primary me-3"></i>';
+        $output .= '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($service['title']) . ' icon" class="me-3" style="width: 40px; height: 40px; object-fit: contain;">';
         $output .= '<h4 class="mb-0">' . esc_html($service['title']) . '</h4>';
         $output .= '</div>'; // Close flex container
         $output .= '<p class="mb-0">' . esc_html($service['description']) . '</p>';
