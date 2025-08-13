@@ -43,6 +43,19 @@
     opacity: 0.9;
 }
 
+.btn-primary {
+    background-color: #0066cc;
+    border-color: #0066cc;
+    transition: all 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #0052a3;
+    border-color: #0052a3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
 .pces-hero .btn-primary {
     background-color: #ffffff;
     border-color: #ffffff;
@@ -205,10 +218,14 @@
 @media (max-width: 768px) {
     .pces-hero {
         padding: 60px 0;
+        background: url('path-to-your-hero-image.jpg') no-repeat center center;
+        background-size: cover;
+        position: relative;
     }
     
     .hero-title {
         font-size: 2.5rem;
+        line-height: 1.2;
     }
     
     .hero-tagline {

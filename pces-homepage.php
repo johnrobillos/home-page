@@ -83,16 +83,20 @@ function pces_hero_shortcode($atts) {
     $cta_link = "#services";
     
     // Build HTML output
-    $output = '<section class="pces-hero">';
-    $output .= '<div class="container">';
-    $output .= '<div class="row align-items-center min-vh-75">';
-    $output .= '<div class="col-lg-6">';
+    $output = '<section class="pces-hero position-relative py-5">';
+    $output .= '<div class="container position-relative z-1">';
+    $output .= '<div class="row min-vh-75 align-items-center">';
+    $output .= '<div class="col-lg-7">';
     $output .= '<h1 class="hero-title display-4 fw-bold text-white mb-4">' . esc_html($company_name) . '</h1>';
-    $output .= '<p class="hero-tagline lead text-white mb-4">' . esc_html($tagline) . '</p>';
-    $output .= '<a href="' . esc_url($cta_link) . '" class="btn btn-primary btn-lg">' . esc_html($cta_text) . '</a>';
-    $output .= '</div>';
-    $output .= '</div>';
-    $output .= '</div>';
+    $output .= '<div class="divider bg-white mb-4" style="width: 80px; height: 4px;"></div>';
+    $output .= '<p class="hero-tagline fs-5 text-white mb-5">' . esc_html($tagline) . '</p>';
+    $output .= '<a href="' . esc_url($cta_link) . '" class="btn btn-primary btn-lg px-5 py-3 fw-bold">' . esc_html($cta_text) . '</a>';
+    $output .= '</div>'; // Close col-lg-7
+    $output .= '</div>'; // Close row
+    $output .= '</div>'; // Close container
+    
+    // Add overlay for better text readability
+    $output .= '<div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"></div>';
     $output .= '</section>';
     
     return $output;
@@ -184,8 +188,8 @@ function pces_differentiators_shortcode($atts) {
             'description' => 'We build niche platforms with smart matching algorithms for specific jobseekers, such as PDLs or persons with disabilities.'
         ),
         array(
-            'icon' => 'bi-clock',
-            'title' => '2Lower Barriers to Entry',
+            'icon' => 'bi-bar-chart',
+            'title' => 'Lower Barriers to Entry',
             'description' => 'Our systems are designed to minimize costs and speed up recruitment for both applicants and employers.'
         ),
         array(
@@ -194,17 +198,17 @@ function pces_differentiators_shortcode($atts) {
             'description' => ' We comply with the Data Privacy Act of 2012 by storing data securely with encryption and never selling personal information. This provides a specific,'
         ),
         array(
-            'icon' => 'bi-rocket',
+            'icon' => 'bi-shield-check',
             'title' => 'Verified and Legitimate Jobs',
             'description' => 'We vet employers and check job postings against labor laws to ensure safe and legal opportunities. '
         ),
         array(
-            'icon' => 'bi-heart',
+            'icon' => 'bi-people',
             'title' => 'Connecting Diverse Filipino Talent',
             'description' => 'We connect Filipino jobseekers, including students, skilled professionals, and disadvantaged groups, with employers who value their talents.'
         ),
         array(
-            'icon' => 'bi-trophy',
+            'icon' => 'bi-sliders',
             'title' => 'Customizable Platforms',
             'description' => 'We can design and deploy white-label job boards and matching systems tailored to the specific needs of schools, NGOs, LGUs, and private companies.'
         )
