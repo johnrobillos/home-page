@@ -1,0 +1,364 @@
+/**
+ * PCES Homepage Custom Styles
+ * Version: 1.0
+ * 
+ * This file contains all custom styles for the PCES homepage shortcodes.
+ * It works alongside Bootstrap 5.3.0 for layout and components.
+ */
+
+/* ===== HERO SECTION STYLES ===== */
+.pces-hero {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+}
+
+.pces-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.1);
+    z-index: 1;
+}
+
+.pces-hero .container {
+    position: relative;
+    z-index: 2;
+}
+
+.hero-title {
+    font-size: 3rem;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+}
+
+.hero-tagline {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.pces-hero .btn-primary {
+    background-color: #ffffff;
+    border-color: #ffffff;
+    color: #007bff;
+    font-weight: 600;
+    padding: 12px 30px;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.pces-hero .btn-primary:hover {
+    background-color: #f8f9fa;
+    border-color: #f8f9fa;
+    color: #0056b3;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== SERVICES SECTION STYLES ===== */
+.pces-services {
+    background-color: #f8f9fa;
+}
+
+.pces-services h2 {
+    color: #333;
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+.service-card {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+}
+
+.service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+}
+
+.service-icon {
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.service-card:hover .service-icon {
+    color: #0056b3;
+    transform: scale(1.1);
+}
+
+.service-card h4 {
+    color: #333;
+    font-weight: 600;
+}
+
+.service-card p {
+    color: #666;
+    line-height: 1.6;
+}
+
+/* ===== DIFFERENTIATORS SECTION STYLES ===== */
+.pces-differentiators {
+    background-color: #ffffff;
+}
+
+.pces-differentiators h2 {
+    color: #333;
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+.differentiator-card {
+    background: #f8f9fa;
+    border-radius: 15px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    border: 1px solid #e9ecef;
+    min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.differentiator-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    background: #ffffff;
+}
+
+.differentiator-icon {
+    color: #007bff;
+    transition: all 0.3s ease;
+}
+
+.differentiator-card:hover .differentiator-icon {
+    color: #0056b3;
+    transform: scale(1.1);
+}
+
+.differentiator-card h5 {
+    color: #333;
+    font-weight: 600;
+    font-size: 1rem;
+}
+
+.differentiator-card p {
+    color: #666;
+    line-height: 1.5;
+    margin-bottom: 0;
+}
+
+/* ===== CLIENT LOGOS SECTION STYLES ===== */
+.pces-clients {
+    background-color: #f8f9fa;
+}
+
+.pces-clients h2 {
+    color: #333;
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+.client-logo-wrapper {
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.client-logo {
+    max-height: 80px;
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+    object-fit: contain;
+}
+
+.client-logo-wrapper:hover .client-logo {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.client-logo-wrapper:hover {
+    transform: translateY(-2px);
+}
+
+/* Ensure logos are properly centered and sized */
+.client-logo-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 120px;
+}
+
+/* ===== RESPONSIVE DESIGN ===== */
+@media (max-width: 768px) {
+    .pces-hero {
+        padding: 60px 0;
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1.1rem;
+    }
+    
+    .pces-services h2 {
+        font-size: 2rem;
+    }
+    
+    .pces-differentiators h2 {
+        font-size: 2rem;
+    }
+    
+    .pces-clients h2 {
+        font-size: 2rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .pces-hero {
+        padding: 40px 0;
+    }
+    
+    .hero-title {
+        font-size: 2rem;
+    }
+    
+    .hero-tagline {
+        font-size: 1rem;
+    }
+    
+    .pces-services h2 {
+        font-size: 1.75rem;
+    }
+    
+    .pces-differentiators h2 {
+        font-size: 1.75rem;
+    }
+    
+    .pces-clients h2 {
+        font-size: 1.75rem;
+    }
+    
+    .service-card {
+        margin-bottom: 1.5rem;
+    }
+    
+    .differentiator-card {
+        margin-bottom: 1.5rem;
+        min-height: 180px;
+    }
+    
+    .client-logo {
+        max-height: 60px;
+    }
+    
+    .client-logo-wrapper {
+        min-height: 100px;
+        padding: 15px;
+    }
+}
+
+/* ===== GROWTH METRICS SECTION STYLES ===== */
+.pces-metrics {
+    background-color: #ffffff;
+}
+
+.pces-metrics h2 {
+    color: #333;
+    font-weight: 700;
+    font-size: 2.5rem;
+}
+
+.metrics-chart {
+    padding: 20px;
+    transition: all 0.3s ease;
+}
+
+.metrics-chart h4 {
+    color: #333;
+    font-weight: 600;
+    font-size: 1.25rem;
+}
+
+.chart-image {
+    max-width: 100%;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.metrics-chart:hover .chart-image {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Ensure consistent chart sizing */
+.chart-image {
+    max-height: 400px;
+    object-fit: contain;
+}
+
+/* Responsive adjustments for metrics */
+@media (max-width: 768px) {
+    .pces-metrics h2 {
+        font-size: 2rem;
+    }
+    
+    .metrics-chart {
+        margin-bottom: 2rem;
+    }
+    
+    .chart-image {
+        max-height: 300px;
+    }
+}
+
+@media (max-width: 576px) {
+    .pces-metrics h2 {
+        font-size: 1.75rem;
+    }
+    
+    .metrics-chart h4 {
+        font-size: 1.1rem;
+    }
+    
+    .chart-image {
+        max-height: 250px;
+    }
+}
+
+/* ===== UTILITY CLASSES ===== */
+.min-vh-75 {
+    min-height: 75vh;
+}
+
+/* ===== GENERAL IMPROVEMENTS ===== */
+.pces-services .container,
+.pces-hero .container {
+    max-width: 1200px;
+}
+
+/* Smooth scrolling for anchor links */
+html {
+    scroll-behavior: smooth;
+}
+
+/* Focus styles for accessibility */
+.btn:focus,
+.btn:focus-visible {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
