@@ -378,6 +378,61 @@ function pces_get_media_url($filename) {
 }
 
 /**
+ * Load the reusable footer template
+ *
+ * @param array $args Optional. Array of footer arguments. See pces-footer.php for available options.
+ * @return void
+ */
+function pces_load_footer($args = array()) {
+    $template_path = plugin_dir_path(__FILE__) . 'templates/pces-footer.php';
+    
+    // Only load if the template file exists
+    if (file_exists($template_path)) {
+        // Extract args to make them available in the template
+        extract(wp_parse_args($args, array()));
+        include $template_path;
+    } else {
+        // Fallback to a simple footer if template is missing
+        echo '<!-- PCES Footer: Template not found -->';
+    }
+}
+
+/**
+ * Shortcode to display the footer
+ * 
+ * Usage: [pces_footer key1="value1" key2="value2"]
+ */
+function pces_footer_shortcode($atts) {
+    // Start output buffering
+    ob_start();
+    
+    // Parse attributes and pass to footer function
+    $args = shortcode_atts(array(
+        'logo_url'      => '',
+        'company_name'  => get_bloginfo('name'),
+        'bg_color'      => '#f8f9fa',
+        'text_color'    => '#212529',
+        'accent_color'  => '#0073aa',
+    ), $atts);
+    
+    // Convert string booleans to actual booleans
+    foreach ($args as $key => $value) {
+        if ($value === 'true') $args[$key] = true;
+        if ($value === 'false') $args[$key] = false;
+    }
+    
+    // Load the footer with the provided arguments
+    pces_load_footer($args);
+    
+    // Return the buffered content
+    return ob_get_clean();
+}
+add_shortcode('pces_footer', 'pces_footer_shortcode');
+
+// Add action to allow other plugins to use our footer
+do_action('pces_footer_loaded');
+
+/**
  * Plugin activation hook
  */
 function pces_homepage_activate() {
