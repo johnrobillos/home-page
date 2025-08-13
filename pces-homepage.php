@@ -124,7 +124,7 @@ function pces_services_shortcode($atts) {
         ),
         array(
             'title' => 'Hirebilis',
-            'description' => 'Quickly connects Filipino job seekers to the right opportunities—fast, fair, and matched to their skills and goals.'
+            'description' => 'Hirebilis is a customizable employment and skills-matching platform that can be tailored to the specific needs of any industry. It is designed for use by corporations, small businesses, and government institutions.'
         )
     );
     
