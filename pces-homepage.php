@@ -180,33 +180,33 @@ function pces_differentiators_shortcode($atts) {
     $differentiators = array(
         array(
             'icon' => 'bi-star',
-            'title' => 'Quality Service',
-            'description' => 'Top-notch quality in everything we deliver to our clients.'
+            'title' => 'Specialized Matching',
+            'description' => 'We build niche platforms with smart matching algorithms for specific jobseekers, such as PDLs or persons with disabilities.'
         ),
         array(
             'icon' => 'bi-clock',
-            'title' => '24/7 Support',
-            'description' => 'Round-the-clock assistance whenever you need us.'
+            'title' => '2Lower Barriers to Entry',
+            'description' => 'Our systems are designed to minimize costs and speed up recruitment for both applicants and employers.'
         ),
         array(
             'icon' => 'bi-shield',
-            'title' => 'Secure Solutions',
-            'description' => 'Your data and business information are always protected.'
+            'title' => 'Data Privacy Compliant',
+            'description' => ' We comply with the Data Privacy Act of 2012 by storing data securely with encryption and never selling personal information. This provides a specific,'
         ),
         array(
             'icon' => 'bi-rocket',
-            'title' => 'Fast Delivery',
-            'description' => 'Quick turnaround times without compromising quality.'
+            'title' => 'Verified and Legitimate Jobs',
+            'description' => 'We vet employers and check job postings against labor laws to ensure safe and legal opportunities. '
         ),
         array(
             'icon' => 'bi-heart',
-            'title' => 'Filipino Values',
-            'description' => 'Built on Filipino values of respect, integrity, and excellence.'
+            'title' => 'Connecting Diverse Filipino Talent',
+            'description' => 'We connect Filipino jobseekers, including students, skilled professionals, and disadvantaged groups, with employers who value their talents.'
         ),
         array(
             'icon' => 'bi-trophy',
-            'title' => 'Proven Results',
-            'description' => 'Track record of successful projects and satisfied clients.'
+            'title' => 'Customizable Platforms',
+            'description' => 'We can design and deploy white-label job boards and matching systems tailored to the specific needs of schools, NGOs, LGUs, and private companies.'
         )
     );
     
