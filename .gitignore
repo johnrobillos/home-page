@@ -1,0 +1,22 @@
+# Test files
+test-metrics-shortcode.php
+test-shortcodes.html
+*.test.php
+*.test.html
+
+# Development documentation (optional)
+*.md
+!README.md
+
+# Editor/IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Dependency directories
+node_modules/
+vendor/

@@ -113,7 +113,7 @@ function pces_services_shortcode($atts) {
         ),
         array(
             'icon' => 'fas fa-chart-line',
-            'title' => 'Business Analytics',
+            'title' => 'Business Analytics',    
             'description' => 'Data-driven insights to help your business grow and succeed.'
         ),
         array(
