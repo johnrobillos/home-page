@@ -378,6 +378,105 @@ function pces_get_media_url($filename) {
 }
 
 /**
+ * Load the reusable header template
+ * 
+ * @param array $args Optional. Array of header arguments. See pces-header.php for available options.
+ * @return void
+ */
+function pces_load_header($args = array()) {
+    $template_path = plugin_dir_path(__FILE__) . 'templates/pces-header.php';
+    
+    // Check if the template file exists
+    if (file_exists($template_path)) {
+        // Extract args to make them available in the template
+        extract(wp_parse_args($args, array()));
+        
+        // Start output buffering
+        ob_start();
+        
+        // Include the template file
+        include $template_path;
+        
+        // Get the output and clean the buffer
+        $output = ob_get_clean();
+        
+        // Output the header
+        echo $output;
+    } else {
+        // Fallback if template file is missing
+        echo '<!-- Header template not found -->';
+    }
+}
+
+/**
+ * Shortcode to display the header
+ * 
+ * Usage: [pces_header key1="value1" key2="value2"]
+ * 
+ * @param array $atts Shortcode attributes.
+ * @return string Rendered header HTML.
+ */
+function pces_header_shortcode($atts) {
+    // Parse shortcode attributes
+    $args = shortcode_atts(
+        array(
+            // Logo settings
+            'logo_url'      => '',
+            'logo_alt'      => get_bloginfo('name'),
+            
+            // Navigation links (comma-separated list of title|url pairs)
+            'nav_links'     => '',
+            
+            // Colors
+            'bg_color'      => '#ffffff',
+            'text_color'    => '#333333',
+            'hover_color'   => '#F54927',
+            
+            // CTA Button
+            'cta_text'      => 'Get Started',
+            'cta_url'       => '#get-started',
+            'cta_style'     => 'btn-primary',
+        ),
+        $atts,
+        'pces_header'
+    );
+    
+    // Parse nav_links if provided as a shortcode attribute
+    if (!empty($args['nav_links'])) {
+        $nav_links = array();
+        $links = explode(',', $args['nav_links']);
+        
+        foreach ($links as $link) {
+            $parts = explode('|', trim($link));
+            if (count($parts) === 2) {
+                $key = sanitize_title($parts[0]);
+                $nav_links[$key] = array(
+                    'title' => $parts[0],
+                    'url'   => $parts[1]
+                );
+            }
+        }
+        
+        if (!empty($nav_links)) {
+            $args['nav_links'] = $nav_links;
+        }
+    }
+    
+    // Start output buffering
+    ob_start();
+    
+    // Load the header with the provided arguments
+    pces_load_header($args);
+    
+    // Return the buffered output
+    return ob_get_clean();
+}
+add_shortcode('pces_header', 'pces_header_shortcode');
+
+// Add action to allow other plugins to use our header
+do_action('pces_header_loaded');
+
+/**
  * Load the reusable footer template
  *
  * @param array $args Optional. Array of footer arguments. See pces-footer.php for available options.

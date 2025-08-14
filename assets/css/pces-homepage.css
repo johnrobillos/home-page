@@ -289,6 +289,133 @@
     }
 }
 
+/* ===== HEADER STYLES ===== */
+.pces-header {
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 1000;
+    transition: all 0.3s ease;
+}
+
+.pces-header .navbar-brand {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    align-items: center;
+}
+
+.pces-header .navbar-brand img {
+    transition: all 0.3s ease;
+}
+
+.pces-header .navbar-nav {
+    margin-left: 2rem;
+}
+
+.pces-header .nav-link {
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.pces-header .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 1rem;
+    right: 1rem;
+    height: 2px;
+    background-color: currentColor;
+    transform: scaleX(0);
+    transform-origin: center;
+    transition: transform 0.3s ease;
+}
+
+.pces-header .nav-link:hover::after,
+.pces-header .nav-link:focus::after {
+    transform: scaleX(1);
+}
+
+.pces-header .btn {
+    padding: 0.5rem 1.5rem;
+    border-radius: 25px;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    letter-spacing: 0.5px;
+}
+
+.pces-header .btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile menu styles */
+.pces-header .navbar-toggler {
+    padding: 0.5rem;
+    border: 1px solid;
+    border-radius: 4px;
+}
+
+.pces-header .navbar-toggler:focus {
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+    outline: none;
+}
+
+.pces-header .navbar-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.55%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+}
+
+/* Responsive adjustments */
+@media (max-width: 991.98px) {
+    .pces-header .navbar-collapse {
+        padding: 1rem 0;
+        margin-top: 1rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+    
+    .pces-header .nav-link {
+        padding: 0.75rem 0;
+    }
+    
+    .pces-header .nav-link::after {
+        display: none;
+    }
+    
+    .pces-header .d-flex {
+        margin-top: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(0, 0, 0, 0.05);
+    }
+}
+
+/* Sticky header effect */
+.pces-header.sticky {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    animation: slideDown 0.5s ease-out;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+@keyframes slideDown {
+    from {
+        transform: translateY(-100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+/* Add padding to body when header is sticky */
+body.admin-bar .pces-header.sticky {
+    top: 32px; /* Account for WordPress admin bar */
+}
+
 /* ===== GROWTH METRICS SECTION STYLES ===== */
 .pces-metrics {
     background-color: #ffffff;
@@ -457,7 +584,7 @@
 
 /* Footer Logo */
 .pces-footer .footer-logo {
-    max-height: 160px !important;
+    max-height: 70px !important;
     width: auto;
     transition: all 0.3s ease;
 }
