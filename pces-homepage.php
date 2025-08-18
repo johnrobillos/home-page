@@ -75,213 +75,44 @@ add_action('wp_enqueue_scripts', 'pces_homepage_enqueue_assets');
  * Hero Section Shortcode
  * Usage: [pces_hero]
  */
-function pces_hero_shortcode($atts) {
-    // Content variables - easy to edit
-    $company_name = "Philippines Central Engagement Services Inc.";
-    $tagline = "Created by Filipinos for the Filipinos";
-    $cta_text = "Learn More";
-    $cta_link = "#services";
-    
-    // Build HTML output
-    $output = '<section class="pces-hero position-relative py-5">';
-    $output .= '<div class="container position-relative z-1">';
-    $output .= '<div class="row min-vh-75 align-items-center">';
-    $output .= '<div class="col-lg-7">';
-    $output .= '<h1 class="hero-title display-4 fw-bold text-white mb-4">' . esc_html($company_name) . '</h1>';
-    $output .= '<div class="divider bg-white mb-4" style="width: 80px; height: 4px;"></div>';
-    $output .= '<p class="hero-tagline fs-5 text-white mb-5">' . esc_html($tagline) . '</p>';
-    $output .= '<a href="' . esc_url($cta_link) . '" class="btn btn-primary btn-lg px-5 py-3 fw-bold">' . esc_html($cta_text) . '</a>';
-    $output .= '</div>'; // Close col-lg-7
-    $output .= '</div>'; // Close row
-    $output .= '</div>'; // Close container
-    
-    // Add overlay for better text readability
-    $output .= '<div class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50"></div>';
-    $output .= '</section>';
-    
-    return $output;
-}
-add_shortcode('pces_hero', 'pces_hero_shortcode');
+add_shortcode('pces_hero', function() {
+    ob_start();
+    include_once plugin_dir_path(__FILE__) . 'templates/pces_hero_shortcode.php';
+    return ob_get_clean();
+});
 
 /**
  * Services Section Shortcode
  * Usage: [pces_services]
  */
-function pces_services_shortcode($atts) {
-    // Services data - easy to edit by modifying this array
-    $services = array(
-        array(
-            'title' => 'OJTGo',
-            'description' => 'Connects students to internship opportunities that match their education, career goals, and personal growth, making the journey from classroom to career smooth and meaningful.'
-        ),
-        array(
-            'title' => 'Chains2Chances',    
-            'description' => 'Links justice-involved individuals with inclusive employers, supporting reentry through skills, opportunity, and shared purpose.'
-        ),
-        array(
-            'title' => 'PWD-E',
-            'description' => 'Bridges persons with disabilities to employers who value diversity, offering accessible and dignified employment opportunities.'
-        ),
-        array(
-            'title' => 'Hirebilis',
-            'description' => 'Hirebilis is a customizable employment and skills-matching platform that can be tailored to the specific needs of any industry. It is designed for use by corporations, small businesses, and government institutions.'
-        )
-    );
-    
-    // Build HTML output
-    $output = '<section class="pces-services py-5" id="services">';
-    $output .= '<div class="container">';
-    $output .= '<h2 class="text-center mb-5">Services Catered Towards Everyone\'s Needs</h2>';
-    $output .= '<div class="row align-items-center">';
-    
-    // Left column - 4 services (8 columns)
-    $output .= '<div class="col-lg-8 mb-4 mb-lg-0">';
-    $output .= '<div class="row g-4">';
-    
-    // Only show first 4 services
-    $first_four_services = array_slice($services, 0, 4);
-    
-    foreach($first_four_services as $service) {
-        // Convert service title to lowercase and replace spaces with hyphens for the image filename
-        $image_filename = strtolower(str_replace(' ', '-', $service['title'])) . '.svg';
-        $image_url = home_url('/wp-content/uploads/icons/services/' . $image_filename);
-        
-        $output .= '<div class="col-md-6">';
-        $output .= '<div class="service-card h-100 p-4 d-flex flex-column">';
-        $output .= '<div class="d-flex align-items-center mb-3">';
-        $output .= '<img src="' . esc_url($image_url) . '" alt="' . esc_attr($service['title']) . ' icon" class="me-3" style="width: 40px; height: 40px; object-fit: contain;">';
-        $output .= '<h4 class="mb-0">' . esc_html($service['title']) . '</h4>';
-        $output .= '</div>'; // Close flex container
-        $output .= '<p class="mb-0">' . esc_html($service['description']) . '</p>';
-        $output .= '</div>'; // Close service-card
-        $output .= '</div>'; // Close col
-    }
-    
-    $output .= '</div>'; // Close row
-    $output .= '</div>'; // Close left column
-    
-    // Right column - Image (4 columns)
-    $output .= '<div class="col-lg-4">';
-    $output .= '<div class="position-relative h-100">';
-    $output .= '<img src="' . esc_url(home_url('/wp-content/uploads/icons/services/services-image.jpg')) . '" alt="Services" class="img-fluid rounded-3 shadow">';
-    $output .= '</div>'; // Close position-relative
-    $output .= '</div>'; // Close right column
-    
-    $output .= '</div>'; // Close main row
-    $output .= '</div>'; // Close container
-    $output .= '</section>'; // Close section
-    
-    return $output;
-}
-add_shortcode('pces_services', 'pces_services_shortcode');
+
+add_shortcode('pces_services', function() {
+    ob_start();
+    include_once plugin_dir_path(__FILE__) . 'templates/pces_services_shortcode.php';
+    return ob_get_clean();
+});
 
 /**
  * Differentiators Section Shortcode
  * Usage: [pces_differentiators]
  */
-function pces_differentiators_shortcode($atts) {
-    // Differentiators data - easy to edit by modifying this array
-    $differentiators = array(
-        array(
-            'icon' => 'bi-star',
-            'title' => 'Specialized Matching',
-            'description' => 'We build niche platforms with smart matching algorithms for specific jobseekers, such as PDLs or persons with disabilities.'
-        ),
-        array(
-            'icon' => 'bi-bar-chart',
-            'title' => 'Lower Barriers to Entry',
-            'description' => 'Our systems are designed to minimize costs and speed up recruitment for both applicants and employers.'
-        ),
-        array(
-            'icon' => 'bi-shield',
-            'title' => 'Data Privacy Compliant',
-            'description' => ' We comply with the Data Privacy Act of 2012 by storing data securely with encryption and never selling personal information. This provides a specific,'
-        ),
-        array(
-            'icon' => 'bi-shield-check',
-            'title' => 'Verified and Legitimate Jobs',
-            'description' => 'We vet employers and check job postings against labor laws to ensure safe and legal opportunities. '
-        ),
-        array(
-            'icon' => 'bi-people',
-            'title' => 'Connecting Diverse Filipino Talent',
-            'description' => 'We connect Filipino jobseekers, including students, skilled professionals, and disadvantaged groups, with employers who value their talents.'
-        ),
-        array(
-            'icon' => 'bi-sliders',
-            'title' => 'Customizable Platforms',
-            'description' => 'We can design and deploy white-label job boards and matching systems tailored to the specific needs of schools, NGOs, LGUs, and private companies.'
-        )
-    );
-    
-    // Build HTML output
-    $output = '<section class="pces-differentiators py-5">';
-    $output .= '<div class="container">';
-    $output .= '<h2 class="text-center mb-5">What Makes Us Different</h2>';
-    $output .= '<div class="row">';
-    
-    foreach($differentiators as $differentiator) {
-        $output .= '<div class="col-md-6 col-lg-4 mb-4">';
-        $output .= '<div class="differentiator-card text-center h-100 p-4">';
-        $output .= '<i class="' . esc_attr($differentiator['icon']) . ' fs-1 text-primary mb-3"></i>';
-        $output .= '<h5 class="mb-3 fw-bold">' . esc_html($differentiator['title']) . '</h5>';
-        $output .= '<p class="mb-0">' . esc_html($differentiator['description']) . '</p>';
-        $output .= '</div>'; // Close differentiator-card
-        $output .= '</div>'; // Close col
-    }
-    
-    $output .= '</div>';
-    $output .= '</div>';
-    $output .= '</section>';
-    
-    return $output;
-}
-add_shortcode('pces_differentiators', 'pces_differentiators_shortcode');
+
+add_shortcode('pces_differentiators', function() {
+    ob_start();
+    include_once plugin_dir_path(__FILE__) . 'templates/pces_differentiators_shortcode.php';
+    return ob_get_clean();
+});
 
 /**
  * Client Logos Section Shortcode
  * Usage: [pces_clients]
  */
-function pces_clients_shortcode($atts) {
-    // Client logo filenames - easy to edit by modifying this array
-    // Just add the filename, the shortcode will handle the full Media Library URL
-    $client_logos = array(
-        'client-logo-1.png',
-        'client-logo-2.png', 
-        'client-logo-3.png',
-        'client-logo-4.png',
-        'client-logo-5.png',
-        'client-logo-6.png',
-        'client-logo-7.png',
-        'client-logo-8.png'
-    );
-    
-    // Build HTML output
-    $output = '<section class="pces-clients py-5">';
-    $output .= '<div class="container">';
-    $output .= '<h2 class="text-center mb-5">Trusted by these Leading Companies</h2>';
-    $output .= '<div class="row justify-content-center">';
-    
-    foreach($client_logos as $logo_filename) {
-        // Generate WordPress Media Library URL programmatically
-        $logo_url = pces_get_media_url($logo_filename);
-        
-        if ($logo_url) {
-            $output .= '<div class="col-6 col-md-3 mb-4">';
-            $output .= '<div class="client-logo-wrapper text-center">';
-            $output .= '<img src="' . esc_url($logo_url) . '" alt="PCES Inc Logo" class="client-logo img-fluid">';
-            $output .= '</div>';
-            $output .= '</div>';
-        }
-    }
-    
-    $output .= '</div>';
-    $output .= '</div>';
-    $output .= '</section>';
-    
-    return $output;
-}
-add_shortcode('pces_clients', 'pces_clients_shortcode');
+
+add_shortcode('pces_clients', function() {
+    ob_start();
+    include_once plugin_dir_path(__FILE__) . 'templates/pces_clients_shortcode.php';
+    return ob_get_clean();
+});
 
 /**
  * Growth Metrics Section Shortcode

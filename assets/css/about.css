@@ -1,0 +1,448 @@
+/**
+ * PCES About Us Page CSS
+ * Styles specific to the About Us page
+ * 
+ * @package PCES_Homepage
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   About Hero Section
+   ========================================================================== */
+
+.pces-about-hero {
+    background: linear-gradient(135deg, var(--pces-light) 0%, #fff 100%);
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.pces-about-hero-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.pces-about-logo {
+    text-align: center;
+}
+
+.pces-about-logo img {
+    max-width: 120px;
+    height: auto;
+}
+
+.pces-about-hero-text h1 {
+    font-size: 2.5rem;
+    color: var(--pces-primary);
+    margin-bottom: 1rem;
+    font-weight: 700;
+}
+
+.pces-about-hero-text p {
+    font-size: 1.1rem;
+    color: var(--pces-secondary);
+    line-height: 1.6;
+}
+
+.pces-about-hero-image {
+    text-align: center;
+}
+
+.pces-about-hero-image img {
+    max-width: 150px;
+    height: auto;
+    border-radius: 50%;
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+/* ==========================================================================
+   Company Info Section
+   ========================================================================== */
+
+.pces-about-company {
+    padding: 4rem 0;
+    background-color: #fff;
+}
+
+.pces-company-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: start;
+}
+
+.pces-company-text h2 {
+    font-size: 2rem;
+    color: var(--pces-dark);
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.pces-company-text h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--pces-primary);
+}
+
+.pces-company-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--pces-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.pces-company-image {
+    text-align: center;
+}
+
+.pces-company-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+/* ==========================================================================
+   Team Section
+   ========================================================================== */
+
+.pces-about-team {
+    padding: 4rem 0;
+    background-color: var(--pces-light);
+}
+
+.pces-team-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.pces-team-header h2 {
+    font-size: 2rem;
+    color: var(--pces-dark);
+    margin-bottom: 1rem;
+}
+
+.pces-team-header p {
+    font-size: 1.1rem;
+    color: var(--pces-secondary);
+}
+
+.pces-org-tree {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.pces-org-level {
+    margin-bottom: 3rem;
+}
+
+.pces-org-level-1 {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 2rem;
+}
+
+.pces-org-level-2 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    justify-items: center;
+}
+
+.pces-team-member {
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow);
+    text-align: center;
+    max-width: 280px;
+    transition: all 0.3s ease;
+}
+
+.pces-team-member:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+.pces-team-member img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+    border: 4px solid var(--pces-primary);
+}
+
+.pces-team-member h3 {
+    font-size: 1.25rem;
+    color: var(--pces-dark);
+    margin-bottom: 0.5rem;
+}
+
+.pces-team-member .position {
+    font-size: 1rem;
+    color: var(--pces-primary);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.pces-team-member p {
+    font-size: 0.9rem;
+    color: var(--pces-secondary);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Mission & Vision Section
+   ========================================================================== */
+
+.pces-about-mission {
+    padding: 4rem 0;
+    background: #fff;
+}
+
+.pces-mission-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+}
+
+.pces-mission-item {
+    text-align: center;
+    padding: 2rem;
+}
+
+.pces-mission-item h2 {
+    font-size: 2rem;
+    color: var(--pces-primary);
+    margin-bottom: 2rem;
+    position: relative;
+}
+
+.pces-mission-item h2::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background: var(--pces-orange);
+}
+
+.pces-mission-item p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--pces-secondary);
+}
+
+/* ==========================================================================
+   Partners Section
+   ========================================================================== */
+
+.pces-about-partners {
+    padding: 4rem 0;
+    background-color: var(--pces-light);
+}
+
+.pces-partners-header {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.pces-partners-header h2 {
+    font-size: 2rem;
+    color: var(--pces-dark);
+    margin-bottom: 1rem;
+}
+
+.pces-partners-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.pces-partner-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pces-partner-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+.pces-partner-logo {
+    width: 120px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 1.5rem;
+}
+
+.pces-partner-card h3 {
+    font-size: 1.25rem;
+    color: var(--pces-dark);
+    margin-bottom: 1rem;
+}
+
+.pces-partner-card p {
+    font-size: 0.9rem;
+    color: var(--pces-secondary);
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+}
+
+.pces-partner-card .pces-btn {
+    font-size: 0.9rem;
+    padding: 0.5rem 1.5rem;
+}
+
+/* ==========================================================================
+   DPO Section
+   ========================================================================== */
+
+.pces-about-dpo {
+    padding: 4rem 0;
+    background: #fff;
+}
+
+.pces-dpo-content {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.pces-dpo-image {
+    text-align: center;
+}
+
+.pces-dpo-image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+.pces-dpo-text h2 {
+    font-size: 1.75rem;
+    color: var(--pces-dark);
+    margin-bottom: 2rem;
+    line-height: 1.3;
+}
+
+.pces-dpo-text p {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: var(--pces-secondary);
+    margin-bottom: 1.5rem;
+}
+
+.pces-dpo-text .highlight {
+    background: linear-gradient(120deg, var(--pces-primary) 0%, var(--pces-blue) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 600;
+}
+
+/* ==========================================================================
+   Responsive Design for About Page
+   ========================================================================== */
+
+/* Mobile */
+@media (max-width: 767.98px) {
+    .pces-about-hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .pces-about-hero-text h1 {
+        font-size: 2rem;
+    }
+    
+    .pces-company-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pces-org-level-2 {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .pces-mission-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pces-partners-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .pces-dpo-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pces-dpo-text h2 {
+        font-size: 1.5rem;
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .pces-about-hero-content {
+        grid-template-columns: 1fr 2fr;
+        gap: 2rem;
+    }
+    
+    .pces-company-content {
+        gap: 3rem;
+    }
+    
+    .pces-org-level-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pces-partners-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pces-dpo-content {
+        gap: 3rem;
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+    .pces-about-hero-text h1 {
+        font-size: 3rem;
+    }
+    
+    .pces-company-content {
+        gap: 5rem;
+    }
+    
+    .pces-mission-content {
+        gap: 5rem;
+    }
+    
+    .pces-dpo-content {
+        gap: 5rem;
+    }
+}

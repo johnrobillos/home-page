@@ -1,0 +1,352 @@
+/**
+ * PCES Homepage Specific CSS
+ * Styles specific to the homepage/landing page
+ * 
+ * @package PCES_Homepage
+ * @since 1.0.0
+ */
+
+/* ==========================================================================
+   Hero Section
+   ========================================================================== */
+
+.pces-hero {
+    background: linear-gradient(135deg, var(--pces-primary) 0%, var(--pces-navy) 100%);
+    color: #fff;
+    padding: 5rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.pces-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="50" cy="50" r="1" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+    opacity: 0.1;
+}
+
+.pces-hero-content {
+    position: relative;
+    z-index: 2;
+}
+
+.pces-hero h1 {
+    font-size: 3.5rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.pces-hero .lead {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.pces-hero .pces-btn {
+    font-size: 1.1rem;
+    padding: 1rem 2rem;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* ==========================================================================
+   Services Section
+   ========================================================================== */
+
+.pces-services {
+    background-color: var(--pces-light);
+}
+
+.pces-services-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 3rem;
+    align-items: center;
+}
+
+.pces-services-cards {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+}
+
+.pces-service-card {
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pces-service-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+.pces-service-card img {
+    width: 60px;
+    height: 60px;
+    margin-bottom: 1rem;
+    object-fit: contain;
+}
+
+.pces-service-card h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--pces-primary);
+}
+
+.pces-service-card p {
+    color: var(--pces-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+.pces-services-hero {
+    text-align: center;
+}
+
+.pces-services-hero img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+/* ==========================================================================
+   Differentiators Section
+   ========================================================================== */
+
+.pces-differentiators {
+    padding: 4rem 0;
+}
+
+.pces-differentiators h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--pces-dark);
+}
+
+.pces-differentiators-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+.pces-differentiator-item {
+    text-align: center;
+    padding: 2rem 1rem;
+    background: #fff;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow);
+    transition: all 0.3s ease;
+}
+
+.pces-differentiator-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+.pces-differentiator-item i {
+    font-size: 3rem;
+    color: var(--pces-primary);
+    margin-bottom: 1rem;
+}
+
+.pces-differentiator-item h3 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+    color: var(--pces-dark);
+}
+
+.pces-differentiator-item p {
+    color: var(--pces-secondary);
+    font-size: 0.9rem;
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   Client Logos Section
+   ========================================================================== */
+
+.pces-clients {
+    background-color: var(--pces-light);
+    padding: 3rem 0;
+}
+
+.pces-clients h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: var(--pces-dark);
+}
+
+.pces-clients-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.pces-client-item {
+    background: #fff;
+    padding: 2rem;
+    border-radius: var(--pces-border-radius-lg);
+    box-shadow: var(--pces-box-shadow);
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.pces-client-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--pces-box-shadow-lg);
+}
+
+.pces-client-logo {
+    width: 120px;
+    height: 80px;
+    object-fit: contain;
+    margin-bottom: 1rem;
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+}
+
+.pces-client-item:hover .pces-client-logo {
+    filter: grayscale(0%);
+}
+
+.pces-client-item h4 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+    color: var(--pces-dark);
+}
+
+.pces-client-item p {
+    color: var(--pces-secondary);
+    font-size: 0.85rem;
+    line-height: 1.5;
+}
+
+/* ==========================================================================
+   Growth Metrics Section
+   ========================================================================== */
+
+.pces-metrics {
+    padding: 4rem 0;
+    background: linear-gradient(135deg, var(--pces-primary) 0%, var(--pces-navy) 100%);
+    color: #fff;
+}
+
+.pces-metrics h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    color: #fff;
+}
+
+.pces-metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 3rem;
+    align-items: center;
+}
+
+.pces-metric-chart {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.1);
+    padding: 2rem;
+    border-radius: var(--pces-border-radius-lg);
+    backdrop-filter: blur(10px);
+}
+
+.pces-metric-chart img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--pces-border-radius);
+    margin-bottom: 1rem;
+}
+
+.pces-metric-chart h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.pces-metric-chart p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   Responsive Design for Homepage
+   ========================================================================== */
+
+/* Mobile */
+@media (max-width: 767.98px) {
+    .pces-hero {
+        padding: 3rem 0;
+    }
+    
+    .pces-hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .pces-services-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pces-services-cards {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .pces-differentiators-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .pces-clients-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .pces-metrics-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+}
+
+/* Tablet */
+@media (min-width: 768px) and (max-width: 991.98px) {
+    .pces-services-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    .pces-differentiators-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .pces-clients-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Large Desktop */
+@media (min-width: 1200px) {
+    .pces-hero h1 {
+        font-size: 4rem;
+    }
+    
+    .pces-services-cards {
+        gap: 2rem;
+    }
+    
+    .pces-differentiators-grid {
+        gap: 3rem;
+    }
+}
