@@ -39,7 +39,7 @@ function pces_homepage_enqueue_assets() {
             'bootstrap-css',
             'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
             array(),
-            '5.3.0'
+            '5.3.3'
         );
 
         // Custom PCES Homepage CSS
@@ -77,7 +77,7 @@ add_action('wp_enqueue_scripts', 'pces_homepage_enqueue_assets');
  */
 add_shortcode('pces_hero', function() {
     ob_start();
-    include_once plugin_dir_path(__FILE__) . 'templates/pces_hero_shortcode.php';
+    include_once plugin_dir_path(__FILE__) . 'sections/pces_hero_shortcode.php';
     return ob_get_clean();
 });
 
@@ -87,7 +87,7 @@ add_shortcode('pces_hero', function() {
  */
 add_shortcode('pces_services', function() {
     ob_start();
-    include_once plugin_dir_path(__FILE__) . 'templates/pces_services_shortcode.php';
+    include_once plugin_dir_path(__FILE__) . 'sections/pces_services_shortcode.php';
     return ob_get_clean();
 });
 
@@ -97,7 +97,7 @@ add_shortcode('pces_services', function() {
  */
 add_shortcode('pces_differentiators', function() {
     ob_start();
-    include_once plugin_dir_path(__FILE__) . 'templates/pces_differentiators_shortcode.php';
+    include_once plugin_dir_path(__FILE__) . 'sections/pces_differentiators_shortcode.php';
     return ob_get_clean();
 });
 
@@ -107,7 +107,7 @@ add_shortcode('pces_differentiators', function() {
  */
 add_shortcode('pces_clients', function() {
     ob_start();
-    include_once plugin_dir_path(__FILE__) . 'templates/pces_clients_shortcode.php';
+    include_once plugin_dir_path(__FILE__) . 'sections/pces_clients_shortcode.php';
     return ob_get_clean();
 });
 
@@ -117,7 +117,7 @@ add_shortcode('pces_clients', function() {
  */
 add_shortcode('pces_metrics', function() {
     ob_start();
-    include_once plugin_dir_path(__FILE__) . 'templates/pces_metrics_shortcode.php';
+    include_once plugin_dir_path(__FILE__) . 'sections/pces_metrics_shortcode.php';
     return ob_get_clean();
 });
 
@@ -164,7 +164,7 @@ function pces_get_media_url($filename) {
  * @return void
  */
 function pces_load_header($args = array()) {
-    $template_path = plugin_dir_path(__FILE__) . 'templates/pces-header.php';
+    $template_path = plugin_dir_path(__FILE__) . 'sections/pces-header.php';
     
     // Check if the template file exists
     if (file_exists($template_path)) {
@@ -263,7 +263,7 @@ do_action('pces_header_loaded');
  * @return void
  */
 function pces_load_footer($args = array()) {
-    $template_path = plugin_dir_path(__FILE__) . 'templates/pces-footer.php';
+    $template_path = plugin_dir_path(__FILE__) . 'sections/pces-footer.php';
     
     // Only load if the template file exists
     if (file_exists($template_path)) {
