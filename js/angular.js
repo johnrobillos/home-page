@@ -2090,6 +2090,23 @@ $scope.$watch('faqTab', function (newTab) {
     
     /************* End Jeal Code Added 05-14  ************/    
     
+        $scope.originalSlides = [
+      { id: 1, image: '/wp-content/uploads/icons/partners/ARCHIPELAGO PHILIPPINE FERRIES CORP.png' },
+      { id: 2, image: '/wp-content/uploads/icons/partners/FOODSHAP.png' },
+      { id: 3, image: '/wp-content/uploads/icons/partners/GLOBAL TRANSCO ICT SOLUTIONS.png' },
+      { id: 4, image: '/wp-content/uploads/icons/partners/HUNTER_S HUB INC.jpg' },
+      { id: 5, image: '/wp-content/uploads/icons/partners/MINDSHARE MULTIPURPOSE COOPERATIVE.png' },
+      { id: 6, image: '/wp-content/uploads/icons/partners/MployOS Virtual Background (002).png' },
+      { id: 7, image: '/wp-content/uploads/icons/partners/SPARTAN ALLIED SERVICES.png' },
+      { id: 8, image: '/wp-content/uploads/icons/partners/THE TRIBUTE HOTEL.png' },
+      { id: 9, image: '/wp-content/uploads/icons/partners/VALOREM DAMUS.png' },
+      { id: 10, image: '/wp-content/uploads/icons/partners/WORK SYNC SOLUTION CORP.png' },
+      { id: 11, image: '/wp-content/uploads/icons/partners/YOU SOURCE.png' }
+    ];
+    
+    // Manually repeat 3 times for loop effect
+    $scope.slides = $scope.originalSlides.concat($scope.originalSlides).concat($scope.originalSlides);
+    
 });
 
 app.directive('controlTab', function($timeout) {

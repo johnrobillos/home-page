@@ -253,6 +253,7 @@ function home_page_landing_page()
         <!-- Modified by Charls @ 04/10/2025-->
 
         <!-- Navbar -->
+        <!-- Navbar -->
         <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border border-lg-0">
             <div class="container-fluid">
                 <!-- Brand -->
@@ -293,6 +294,16 @@ function home_page_landing_page()
                             </a>
                             <ul class="dropdown-menu w-100" aria-labelledby="resourcesDropdown" style="border: none;">
                                 <li><a class="dropdown-item" href="#blogs" ng-click="setActivePage('blogs'); scrollToSection('blogs', $event)">Blogs</a></li>
+                            </ul>
+                        </li>
+
+                        <!-- partnership -->
+                        <li class="nav-item dropdown w-100 text-start">
+                            <a class="nav-link dropdown-toggle w-100 text-start" id="partnersDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                Partnerships
+                            </a>
+                            <ul class="dropdown-menu w-100" aria-labelledby="partnersDropdown" style="border: none;">
+                                <li><a class="dropdown-item" href="#companies" ng-click="setActivePage('companies'); scrollToSection('companies', $event)">Companies</a></li>
                             </ul>
                         </li>
 
@@ -424,6 +435,22 @@ function home_page_landing_page()
                 </div>
             </div>
         </section>
+        
+        <!-- AngularJS Carousel Section -->
+        <div class="company-carousel-section" id="companies" ng-show="activePage === 'home'">
+            <div class="fade-left"></div>
+            <div class="fade-right"></div>
+
+            <h5 class="carousel-title mb-5">COMPANIES REGISTERED IN OJTGO</h5>
+
+            <div class="carousel-track-container mt-5 mb-5">
+                <div class="carousel-track" ng-style="{ width: (slides.length * 175) + 'px' }">
+                    <div class="carousel-slide" ng-repeat="slide in slides track by $index">
+                        <img ng-src="{{slide.image}}" alt="Company Logo">
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- DPO Section -->
         <section id="dpo" ng-show="activePage === 'home' || activePage === 'dpo'" class="py-4 bg-white">
