@@ -67,6 +67,45 @@ function pces_homepage_enqueue_assets() {
             '1.0',
             true
         );
+
+        // Enqueue Highcharts dependencies for metrics section
+        if (has_shortcode($post->post_content, 'pces_metrics')) {
+            // AngularJS
+            wp_enqueue_script(
+                'angular-js',
+                'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js',
+                array(),
+                '1.6.9',
+                true
+            );
+
+            // Highcharts
+            wp_enqueue_script(
+                'highcharts',
+                'https://code.highcharts.com/highcharts.js',
+                array(),
+                '11.0.0',
+                true
+            );
+
+            // Highcharts Angular directive
+            wp_enqueue_script(
+                'highcharts-angular',
+                'https://code.highcharts.com/highcharts-ng/dist/highcharts-ng.min.js',
+                array('angular-js', 'highcharts'),
+                '1.0.0',
+                true
+            );
+
+            // Dashboard charts JavaScript
+            wp_enqueue_script(
+                'pces-dashboard-charts',
+                plugins_url('assets/js/dashboard-charts.js', __FILE__),
+                array('angular-js', 'highcharts-angular'),
+                '1.0',
+                true
+            );
+        }
     }
 }
 add_action('wp_enqueue_scripts', 'pces_homepage_enqueue_assets');

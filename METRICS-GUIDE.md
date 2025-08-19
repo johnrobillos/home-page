@@ -1,7 +1,7 @@
 # Growth Metrics Section Guide
 
 ## Overview
-The `[pces_metrics]` shortcode displays growth charts in a professional 2-column layout that automatically stacks on mobile devices.
+The `[pces_metrics]` shortcode displays interactive Highcharts in a professional 2-column layout that automatically stacks on mobile devices. This section uses AngularJS + Highcharts for dynamic, interactive data visualization.
 
 ## Usage
 Simply add the shortcode to any WordPress page or post:
@@ -9,88 +9,139 @@ Simply add the shortcode to any WordPress page or post:
 [pces_metrics]
 ```
 
-## Required Images
-Upload these images to your WordPress Media Library:
+## Interactive Charts Included
 
-1. **growth-pie-chart.png** - For the pie chart (left column)
-2. **growth-bar-chart.png** - For the bar chart (right column)
+1. **Pie Chart** - Active Job Posts by category (left column)
+   - Interactive tooltips showing percentages
+   - Color-coded segments for IT, Business, Agriculture, Misc.
+   - Filter buttons for future functionality
+
+2. **Bar Chart** - Registered Users growth (top right)
+   - Monthly progression data
+   - Hover effects with exact values
+
+3. **Line Chart** - Visitor Hits tracking (bottom right)
+   - Daily visitor statistics
+   - Smooth line visualization
 
 ## How to Update Content
 
-### Changing Chart Images
-1. Upload new chart images to WordPress Media Library
-2. Edit the plugin file: `pces-homepage.php`
-3. Find the `pces_metrics_shortcode` function
-4. Update these variables:
-   ```php
-   $pie_chart_filename = 'your-new-pie-chart.png';
-   $bar_chart_filename = 'your-new-bar-chart.png';
-   ```
+### Changing Chart Data
+Edit the file: `/assets/js/dashboard-charts.js`
+
+**Pie Chart Data:**
+```javascript
+data: [
+    { name: 'IT', y: 33.3, color: '#1D57A5' },
+    { name: 'Business', y: 22.2, color: '#F57D51' },
+    { name: 'Agriculture', y: 22.2, color: '#4D960E' },
+    { name: 'Misc.', y: 22.3, color: '#F5BC53' }
+]
+```
+
+**Bar Chart Data:**
+```javascript
+data: [400, 750, 950, 1000], // Monthly values
+categories: ['May', 'Jun', 'Jul', 'Aug'] // Month labels
+```
+
+**Line Chart Data:**
+```javascript
+data: [100, 125, 140, 120, 95, 110, 130, 115], // Daily values
+categories: ['1', '2', '3', '4', '5', '6', '7', '8'] // Day labels
+```
 
 ### Changing Section Title
-In the same function, update:
+Edit the file: `/sections/pces_metrics_shortcode.php`
 ```php
 $section_title = 'Your New Title Here';
 ```
 
 ### Changing Chart Titles
-Update these variables:
+In the same file, update:
 ```php
 $pie_chart_title = 'Your Pie Chart Title';
 $bar_chart_title = 'Your Bar Chart Title';
+$line_chart_title = 'Your Line Chart Title';
 ```
 
-## Layout Features
+## Technical Implementation
 
-### Desktop Layout
-- 2-column layout (50% width each)
-- Charts display side by side
-- Hover effects on chart images
+### Dependencies
+The shortcode automatically loads these libraries when used:
+- **AngularJS 1.6.9** - For data binding and interactivity
+- **Highcharts 11.0.0** - For chart rendering
+- **Highcharts-NG** - Angular directive for Highcharts integration
 
-### Mobile Layout
+### Layout Features
+
+#### Desktop Layout
+- Large pie chart (70% width) on left
+- Two smaller charts (30% width) stacked on right
+- Interactive hover effects and tooltips
+- Professional styling with white cards and shadows
+
+#### Mobile Layout
 - Single column layout
 - Charts stack vertically
-- Responsive image sizing
+- Responsive sizing maintains readability
+- Touch-friendly interactions
 
 ## Styling
 The section uses these CSS classes:
-- `.pces-metrics` - Main section container
-- `.metrics-chart` - Individual chart container
-- `.chart-image` - Chart image styling
+- `.container-fluid[ng-app="pcesChartsApp"]` - Main section container
+- `.chart-card` - Individual chart containers with white background
+- `.chart-title` - Chart title styling
+- `.btn-outline-primary` - Filter button styling
 
 ## Troubleshooting
 
-### Charts Not Showing
-1. Check that images are uploaded to Media Library
-2. Verify image filenames match the variables in the code
-3. Ensure images are publicly accessible
+### Charts Not Loading
+1. Check browser console for JavaScript errors
+2. Ensure AngularJS and Highcharts are loading properly
+3. Verify the shortcode is used correctly: `[pces_metrics]`
+4. Clear browser and WordPress cache
 
 ### Layout Issues
-1. Clear browser cache
-2. Clear WordPress cache
-3. Check for CSS conflicts with theme
+1. Check for CSS conflicts with theme
+2. Ensure Bootstrap 5 is loaded
+3. Verify responsive breakpoints are working
+4. Check for z-index conflicts with other elements
+
+### Data Not Updating
+1. Clear browser cache after editing `/assets/js/dashboard-charts.js`
+2. Check JavaScript console for syntax errors
+3. Ensure JSON data format is correct
+
+## Performance Notes
+- Charts only load when the shortcode is present on the page
+- Libraries are loaded from CDN for optimal performance
+- AngularJS app is scoped to prevent conflicts
 
 ## Requirements Met
-- ✅ 5.1: Creates `[pces_metrics]` shortcode for chart display
-- ✅ 5.2: Sets up 2-column layout for pie chart and bar chart images  
-- ✅ 5.3: Adds chart image references with Media Library URLs
+- ✅ 5.1: Creates `[pces_metrics]` shortcode for interactive chart display
+- ✅ 5.2: Sets up responsive 2-column layout with 3 charts
+- ✅ 5.3: Uses Highcharts for professional data visualization
+- ✅ 5.4: Implements interactive features (tooltips, hover effects)
 - ✅ 5.5: Tests responsive stacking on mobile devices
+- ✅ 5.6: Provides easy data update mechanism
 
 ## Example Output
-The shortcode generates clean HTML with Bootstrap classes:
+The shortcode generates interactive AngularJS application:
 ```html
-<section class="pces-metrics py-5">
-    <div class="container">
-        <h2 class="text-center mb-5">Backed by Measurable Growth</h2>
-        <div class="row justify-content-center">
-            <div class="col-md-6 mb-4">
-                <div class="metrics-chart text-center">
-                    <h4 class="mb-3">Revenue Growth</h4>
-                    <img src="[media-library-url]" alt="Revenue Growth" class="chart-image img-fluid">
-                </div>
+<div class="container-fluid py-5" ng-app="pcesChartsApp" ng-controller="ChartsController">
+    <h2 class="text-center mb-5">Backed by Measurable Growth</h2>
+    <div class="row">
+        <div class="col-md-7">
+            <div class="chart-card p-4 h-100">
+                <h4 class="chart-title">Active Job Posts</h4>
+                <highcharts-ng config="pieChartConfig"></highcharts-ng>
+                <!-- Filter buttons -->
             </div>
-            <!-- Second chart column -->
+        </div>
+        <div class="col-md-5">
+            <!-- Bar and Line charts -->
         </div>
     </div>
-</section>
+</div>
 ```
