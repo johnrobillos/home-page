@@ -27,6 +27,11 @@ $hero_background = array(
     'image_alt' => 'PCES Hero Background', // Alt text for accessibility
     'fallback_color' => '#007bff' // Fallback color if image fails to load
 );
+
+// Extended section content
+$mission_text = "At PCES Inc., we believe that everyone deserves access to meaningful work—regardless of background, ability, or life circumstance. As a proudly Filipino-led technology company, we are driven by a mission to create inclusive, purpose-centered employment solutions that reflect the diversity of our communities.";
+$tagline_part1 = "Created by Filipinos";
+$tagline_part2 = "for the Filipinos";
 ?>
 
 <!-- Hero Section - Responsive Design with Enhanced Semantic Markup and Accessibility -->
@@ -98,8 +103,61 @@ $hero_background = array(
         </div>
     </div>
 </section>
-
+<section class="hero-extended py-5">
+    <div class="container">
+        <div class="row align-items-center">
+            <!-- Mission paragraph -->
+            <div class="col-lg-6">
+                <p class="mission-text"><?php echo esc_html($mission_text); ?></p>
+            </div>
+            
+            <!-- Tagline -->
+            <div class="col-lg-6 text-center">
+                <div class="tagline-container">
+                    <h2 class="tagline-part1"><?php echo esc_html($tagline_part1); ?></h2>
+                    <h2 class="tagline-part2"><?php echo esc_html($tagline_part2); ?></h2>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
 <style>
+/* Extended Hero Section Styling */
+.hero-extended {
+    background: white;
+    padding: 80px 0;
+    margin-top: -20px; /* Slight overlap with main hero */
+}
+
+.mission-text {
+    color: #666666;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    margin: 0;
+    padding-right: 40px;
+}
+
+.tagline-container {
+    padding-left: 40px;
+}
+
+.tagline-part1 {
+    color: #1a237e;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 10px;
+}
+
+.tagline-part2 {
+    color: #dc3545;
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 0;
+}
+
+
 /* PCES Hero Section - Mobile-First Responsive Design with Enhanced Accessibility */
 
 /* Skip Link for Keyboard Navigation - WCAG 2.1 AA Compliance */
@@ -900,6 +958,7 @@ $hero_background = array(
 }
 
 /* Optimized Desktop Layout (≥992px) - Enhanced Overlay Design with Cross-Browser Support */
+
 @media (min-width: 992px) {
     /* Reset mobile stacked layout for desktop */
     .pces-hero-redesign {
@@ -1121,6 +1180,37 @@ $hero_background = array(
         -webkit-box-shadow: 0 12px 35px rgba(0, 86, 179, 0.6);
         -moz-box-shadow: 0 12px 35px rgba(0, 86, 179, 0.6);
     }
+}
+
+/* Desktop overlap fix: anchor hero card to bottom and expand width when height is tight */
+@media (min-width: 992px) {
+    .pces-hero-redesign .hero-content-wrapper {
+        /* Fill the viewport so absolute children can reference the full hero height */
+        min-height: 100vh;
+    }
+    .pces-hero-redesign .hero-content-block {
+        /* Prevent overlap with next section by anchoring to the bottom of the hero */
+        top: auto;
+        bottom: 40px;
+        -webkit-transform: none;
+        -moz-transform: none;
+        -ms-transform: none;
+        -o-transform: none;
+        transform: none;
+        /* Allow more horizontal room on desktop so text wraps less */
+        max-width: clamp(560px, 38vw, 760px);
+    }
+}
+
+/* When desktop viewport height is short, widen the card further so it fits vertically */
+@media (min-width: 1200px) and (max-height: 850px) {
+    .pces-hero-redesign .hero-content-block { max-width: clamp(620px, 44vw, 840px); }
+    .pces-hero-redesign .hero-description { max-width: 100%; }
+}
+
+@media (min-width: 1400px) and (max-height: 800px) {
+    .pces-hero-redesign .hero-content-block { max-width: clamp(680px, 48vw, 900px); }
+    .pces-hero-redesign .hero-description { max-width: 100%; }
 }
 
 /* High Contrast Mode Support - Enhanced Accessibility */
