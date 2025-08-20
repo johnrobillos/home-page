@@ -15,7 +15,24 @@ if (!defined('ABSPATH')) {
  * Enqueue styles and scripts for PCES homepage
  */
 function pces_homepage_enqueue_assets() {
-    // Always load Bootstrap Icons on frontend
+    // Only enqueue assets on pages that use our shortcodes
+    global $post;
+    if (!is_a($post, 'WP_Post')) {
+        return;
+    }
+    
+    $has_shortcode = has_shortcode($post->post_content, 'pces_hero') ||
+                    has_shortcode($post->post_content, 'pces_services') ||
+                    has_shortcode($post->post_content, 'pces_differentiators') ||
+                    has_shortcode($post->post_content, 'pces_clients') ||
+                    has_shortcode($post->post_content, 'pces_metrics') ||
+                    has_shortcode($post->post_content, 'pces_news');
+    
+    if (!$has_shortcode) {
+        return;
+    }
+
+    // Always load Bootstrap Icons with high priority
     wp_enqueue_style(
         'bootstrap-icons',
         'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css',
@@ -23,92 +40,100 @@ function pces_homepage_enqueue_assets() {
         '1.10.0'
     );
 
-    // Only enqueue other assets on pages that use our shortcodes
-    global $post;
-    if (is_a($post, 'WP_Post') && (
-        has_shortcode($post->post_content, 'pces_hero') ||
-        has_shortcode($post->post_content, 'pces_services') ||
-        has_shortcode($post->post_content, 'pces_differentiators') ||
-        has_shortcode($post->post_content, 'pces_clients') ||
-        has_shortcode($post->post_content, 'pces_metrics') ||
-        has_shortcode($post->post_content, 'pces_news')
-    )) {
-        
-        // Bootstrap CSS (using same version as existing plugin)
-        wp_enqueue_style(
-            'bootstrap-css',
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
-            array(),
-            '5.3.3'
-        );
+    // Load Bootstrap CSS with high priority
+    wp_enqueue_style(
+        'pces-bootstrap-css',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css',
+        array(),
+        '5.3.3'
+    );
 
-        // Custom PCES Homepage CSS
-        wp_enqueue_style(
-            'pces-homepage-css',
-            plugins_url('assets/css/pces-homepage.css', __FILE__),
-            array('bootstrap-css'),
-            '1.0'
-        );
+    // Custom PCES Homepage CSS with high priority
+    wp_enqueue_style(
+        'pces-homepage-css',
+        plugins_url('assets/css/pces-homepage.css', __FILE__),
+        array('pces-bootstrap-css'),
+        filemtime(plugin_dir_path(__FILE__) . 'assets/css/pces-homepage.css')
+    );
 
-        // Bootstrap JS Bundle (includes Popper)
-        wp_enqueue_script(
-            'bootstrap-js',
-            'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
-            array('jquery'),
-            '5.3.0',
-            true
-        );
-
-        // Custom PCES Homepage JavaScript (optional)
-        wp_enqueue_script(
-            'pces-homepage-js',
-            plugins_url('assets/js/pces-homepage.js', __FILE__),
-            array('jquery'),
-            '1.0',
-            true
-        );
-
-        // Enqueue Highcharts dependencies for metrics section
-        if (has_shortcode($post->post_content, 'pces_metrics')) {
-            // AngularJS
-            wp_enqueue_script(
-                'angular-js',
-                'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js',
-                array(),
-                '1.6.9',
-                true
-            );
-
-            // Highcharts
-            wp_enqueue_script(
-                'highcharts',
-                'https://code.highcharts.com/highcharts.js',
-                array(),
-                '11.0.0',
-                true
-            );
-
-            // Highcharts Angular directive
-            wp_enqueue_script(
-                'highcharts-angular',
-                'https://code.highcharts.com/highcharts-ng/dist/highcharts-ng.min.js',
-                array('angular-js', 'highcharts'),
-                '1.0.0',
-                true
-            );
-
-            // Dashboard charts JavaScript
-            wp_enqueue_script(
-                'pces-dashboard-charts',
-                plugins_url('assets/js/dashboard-charts.js', __FILE__),
-                array('angular-js', 'highcharts-angular'),
-                '1.0',
-                true
-            );
+    // Add inline styles to ensure our service cards look correct
+    $custom_css = "
+        .service-card {
+            background: #ffffff !important;
+            border: 1px solid #e0e0e0 !important;
+            border-radius: 12px !important;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
         }
+        .service-card:hover {
+            transform: translateY(-5px) !important;
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
+            border-color: #cce0ff !important;
+        }
+    ";
+    
+    wp_add_inline_style('pces-homepage-css', $custom_css);
+
+    // Bootstrap JS Bundle (includes Popper)
+    wp_enqueue_script(
+        'pces-bootstrap-js',
+        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
+        array('jquery'),
+        '5.3.0',
+        true
+    );
+
+    // Custom PCES Homepage JavaScript
+    wp_enqueue_script(
+        'pces-homepage-js',
+        plugins_url('assets/js/pces-homepage.js', __FILE__),
+        array('jquery', 'pces-bootstrap-js'),
+        filemtime(plugin_dir_path(__FILE__) . 'assets/js/pces-homepage.js'),
+        true
+    );
+
+    // Enqueue Highcharts dependencies for metrics section if needed
+    if (has_shortcode($post->post_content, 'pces_metrics')) {
+        // AngularJS
+        wp_enqueue_script(
+            'pces-angular-js',
+            'https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.9/angular.min.js',
+            array(),
+            '1.6.9',
+            true
+        );
+
+        // Highcharts
+        wp_enqueue_script(
+            'pces-highcharts',
+            'https://code.highcharts.com/highcharts.js',
+            array(),
+            '11.0.0',
+            true
+        );
+
+        // Highcharts Angular directive
+        wp_enqueue_script(
+            'pces-highcharts-angular',
+            'https://code.highcharts.com/highcharts-ng/dist/highcharts-ng.min.js',
+            array('pces-angular-js', 'pces-highcharts'),
+            '1.0.0',
+            true
+        );
+
+        // Dashboard charts JavaScript
+        wp_enqueue_script(
+            'pces-dashboard-charts',
+            plugins_url('assets/js/dashboard-charts.js', __FILE__),
+            array('pces-angular-js', 'pces-highcharts-angular'),
+            filemtime(plugin_dir_path(__FILE__) . 'assets/js/dashboard-charts.js'),
+            true
+        );
     }
 }
-add_action('wp_enqueue_scripts', 'pces_homepage_enqueue_assets');
+
+// Hook with higher priority to ensure our styles load after theme
+add_action('wp_enqueue_scripts', 'pces_homepage_enqueue_assets', 20);
 
 /**
  * Hero Section Shortcode
@@ -196,6 +221,7 @@ function pces_get_media_url($filename) {
     $file_path = $upload_dir['basedir'] . '/' . $filename;
     return file_exists($file_path) ? $file_url : '';
 }
+
 /**
  * Load the reusable header template
  * 
