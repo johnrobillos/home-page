@@ -306,8 +306,8 @@ $tagline_part2 = "for the Filipinos";
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 60px 80px;
+    margin: 0 auto !important;
+    padding: 60px 80px !important;
 }
 
 /* Mobile Typography - Optimized for Small Screens with Enhanced Contrast */
