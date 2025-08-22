@@ -225,6 +225,11 @@ $tagline_part2 = "for the Filipinos";
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 20px;
+    overflow: hidden;
 }
 
 /* Background Container - Mobile: Top Section with Enhanced Cross-Browser Support */
@@ -283,24 +288,32 @@ $tagline_part2 = "for the Filipinos";
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+    width: 100%;
+    max-width: 1800px; /* Increased from default container width */
+    margin: 0 auto;
+    padding: 0 20px; /* Add some side padding */
+}
+
+.hero-content-wrapper .container {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 40px; /* Add more horizontal padding */
 }
 
 /* Content Block - Mobile First Design */
 .hero-content-block {
     background: #ffffff;
-    padding: 30px 20px;
     border-radius: 8px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    max-width: 100%;
-    margin: 0 15px;
-    text-align: center;
-    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 60px 80px;
 }
 
 /* Mobile Typography - Optimized for Small Screens with Enhanced Contrast */
 .hero-headline {
     color: #1a1a1a; /* Improved contrast ratio: 15.3:1 (WCAG AAA) */
-    font-size: 1.75rem; /* 28px - Mobile optimized */
+    font-size: 0.75rem; /* 28px - Mobile optimized */
     font-weight: 700;
     line-height: 1.2;
     margin-bottom: 20px;
@@ -1421,6 +1434,60 @@ $tagline_part2 = "for the Filipinos";
         /* Print layout optimization */
         min-height: auto !important;
         page-break-inside: avoid;
+    }
+}
+
+/* Container adjustments for full width */
+.pces-hero-redesign {
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.hero-content-wrapper {
+    width: 100%;
+    max-width: 1800px; /* Increased from default container width */
+    margin: 0 auto;
+    padding: 0 20px; /* Add some side padding */
+}
+
+/* Update the container class to be full width */
+.hero-content-wrapper .container {
+    max-width: 100%;
+    width: 100%;
+    padding: 0 40px; /* Add more horizontal padding */
+}
+
+/* Adjust content width for better readability */
+.hero-content-block {
+    max-width: 1200px; /* Wider content area */
+    margin: 0 auto;
+    padding: 40px 0;
+}
+
+/* Update responsive breakpoints */
+@media (min-width: 1200px) {
+    .hero-content-wrapper .container {
+        padding: 0 60px;
+    }
+    
+    .hero-content-block {
+        padding: 80px 0;
+    }
+}
+
+/* Responsive padding adjustments */
+@media (max-width: 992px) {
+    .hero-content-block {
+        padding: 40px 30px;
+    }
+}
+
+@media (max-width: 768px) {
+    .hero-content-block {
+        padding: 30px 20px;
     }
 }
 </style>
