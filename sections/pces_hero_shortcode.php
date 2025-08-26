@@ -16,7 +16,7 @@ $hero_content = array(
     'headline' => 'Philippines Central Engagement Services Inc.',
     'description' => 'Opportunities shouldn\'t be a privilege. We create job platforms so under served Filipinos can rise, grow, and thrive — because when doors are open, the sky is never the limit.',
     'cta_text' => 'Explore Our Services',
-    'cta_link' => '#services'
+    'cta_link' => 'https://hamipces.bilishire.com/services/'
 );
 
 // Background configuration (placeholder during development)
@@ -30,7 +30,7 @@ $hero_background = array(
 
 // Extended section content
 $mission_text = "At PCES Inc., we believe that everyone deserves access to meaningful work—regardless of background, ability, or life circumstance. As a proudly Filipino-led technology company, we are driven by a mission to create inclusive, purpose-centered employment solutions that reflect the diversity of our communities.";
-$tagline_part1 = "Created by Filipinos";
+$tagline_part1 = "Made by Filipinos";
 $tagline_part2 = "for the Filipinos";
 ?>
 
@@ -44,83 +44,76 @@ $tagline_part2 = "for the Filipinos";
     <a href="#main-content" class="skip-link sr-only sr-only-focusable">
         Skip to main content
     </a>
-    
     <!-- Background Container with Enhanced Accessibility -->
-    <div class="hero-background" 
-         <?php if ($hero_background['type'] === 'image' && !empty($hero_background['image_url'])): ?>
-         style="background-image: url('<?php echo esc_url($hero_background['image_url']); ?>'); background-color: <?php echo esc_attr($hero_background['fallback_color']); ?>;"
-         role="img"
-         aria-label="<?php echo esc_attr($hero_background['image_alt']); ?>"
-         <?php else: ?>
-         style="background-color: <?php echo esc_attr($hero_background['value']); ?>;"
-         aria-hidden="true"
-         <?php endif; ?>>
-    </div>
-    
+    <div class="hero-background"></div>
+
     <!-- Content Container with Landmark -->
-    <div class="hero-content-wrapper" role="main">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <div class="hero-content-block" 
-                         role="region" 
-                         aria-label="Company introduction and services">
-                        
-                        <!-- Main Headline with Proper Hierarchy -->
-                        <h1 id="hero-headline" 
-                            class="hero-headline"
-                            tabindex="-1">
-                            <?php echo esc_html($hero_content['headline']); ?>
-                        </h1>
-                        
-                        <!-- Description Text with Enhanced Semantics -->
-                        <p id="hero-description" 
-                           class="hero-description"
-                           role="text"
-                           aria-live="polite">
-                            <?php echo esc_html($hero_content['description']); ?>
-                        </p>
-                        
-                        <!-- Call-to-Action Button with Enhanced Accessibility -->
-                        <a href="<?php echo esc_url($hero_content['cta_link']); ?>" 
-                           class="hero-cta-button btn" 
-                           role="button"
-                           aria-label="<?php echo esc_attr($hero_content['cta_text'] . ' - Navigate to our services section to learn more about what we offer'); ?>"
-                           aria-describedby="hero-description"
-                           tabindex="0"
-                           data-action="navigate-services"
-                           title="<?php echo esc_attr('Learn more about ' . $hero_content['cta_text']); ?>">
-                            <span class="button-text" aria-hidden="false">
-                                <?php echo esc_html($hero_content['cta_text']); ?>
-                            </span>
-                            <span class="sr-only">
-                                (Opens services section)
-                            </span>
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <div class="hero-content-block justify-content-start text-start" 
+            role="region" 
+            aria-label="Company introduction and services">
+        
+        <!-- Main Headline with Proper Hierarchy -->
+        <h1 id="hero-headline" 
+            class="hero-headline"
+            tabindex="-1">                                                                                           
+            <?php echo esc_html($hero_content['headline']); ?>
+        </h1>
+        
+        <!-- Description Text with Enhanced Semantics -->
+        <p id="hero-description" 
+            class="hero-description"
+            role="text"
+            aria-live="polite">
+            <?php echo esc_html($hero_content['description']); ?>
+        </p>
+        
+        <!-- Call-to-Action Button with Enhanced Accessibility -->
+        <a href="<?php echo esc_url($hero_content['cta_link']); ?>" 
+            class="hero-cta-button btn" 
+            role="button"
+            aria-label="<?php echo esc_attr($hero_content['cta_text'] . ' - Navigate to our services section to learn more about what we offer'); ?>"
+            aria-describedby="hero-description"
+            tabindex="0"
+            data-action="navigate-services"
+            title="<?php echo esc_attr('Learn more about ' . $hero_content['cta_text']); ?>">
+            <span class="button-text" aria-hidden="false">
+                <?php echo esc_html($hero_content['cta_text']); ?>
+            </span>
+            <span class="sr-only">
+                (Opens services section)
+            </span>
+        </a>
     </div>
+
+    <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+            <filter id="round">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="5" result="blur" />    
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9" result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop"/>
+            </filter>
+        </defs>
+    </svg>
 </section>
 <section class="hero-extended py-5">
     <div class="container">
-        <div class="row align-items-center">
-            <!-- Mission paragraph -->
-            <div class="col-lg-6">
-                <p class="mission-text"><?php echo esc_html($mission_text); ?></p>
+        <div class="row d-flex flex-md-row-reverse align-items-stretch justify-content-between">
+            
+            <!-- Tagline Column -->
+            <div class="col-md-6 d-flex flex-column justify-content-between text-end mb-5">
+                <h2 class="tagline-part1"><?php echo esc_html($tagline_part1); ?></h2>
+                <h2 class="tagline-part2"><?php echo esc_html($tagline_part2); ?></h2>
             </div>
             
-            <!-- Tagline -->
-            <div class="col-lg-6 text-center">
-                <div class="tagline-container">
-                    <h2 class="tagline-part1"><?php echo esc_html($tagline_part1); ?></h2>
-                    <h2 class="tagline-part2"><?php echo esc_html($tagline_part2); ?></h2>
-                </div>
+            <!-- Mission Paragraph Column -->
+            <div class="col-md-6 d-flex flex-column text-md-start text-end justify-content-between">
+                <p class="mission-text"><?php echo esc_html($mission_text); ?></p>
             </div>
+
         </div>
     </div>
 </section>
+
 <style>
 /* Extended Hero Section Styling */
 .hero-extended {
@@ -134,24 +127,18 @@ $tagline_part2 = "for the Filipinos";
     font-size: 1.1rem;
     line-height: 1.7;
     margin: 0;
-    padding-right: 40px;
-}
-
-.tagline-container {
-    padding-left: 40px;
 }
 
 .tagline-part1 {
-    color: #1a237e;
-    font-size: 3rem;
+    color: #03045E;
+    font-size: 3.75rem;
     font-weight: 700;
     line-height: 1.1;
-    margin-bottom: 10px;
 }
 
 .tagline-part2 {
-    color: #dc3545;
-    font-size: 3rem;
+    color: #b80000;
+    font-size: 3.75rem;
     font-weight: 700;
     line-height: 1.1;
     margin-bottom: 0;
@@ -212,7 +199,6 @@ $tagline_part2 = "for the Filipinos";
 /* Mobile Base Styles (320px and up) - Stacked Layout with Cross-Browser Support */
 .pces-hero-redesign {
     position: relative;
-    min-height: 100vh;
     /* Cross-browser flexbox support */
     display: -webkit-box;
     display: -ms-flexbox;
@@ -227,96 +213,42 @@ $tagline_part2 = "for the Filipinos";
     box-sizing: border-box;
     width: 100%;
     max-width: 100%;
-    margin: 0;
-    padding: 20px;
+    padding: 2.5rem;
     overflow: hidden;
 }
 
 /* Background Container - Mobile: Top Section with Enhanced Cross-Browser Support */
 .hero-background {
-    width: 100%;
-    height: 40vh; /* 40% of viewport height for mobile */
-    min-height: 250px;
-    -webkit-box-ordinal-group: 2;
-    -ms-flex-order: 1;
-    order: 1; /* Background appears first on mobile */
-    -webkit-flex-shrink: 0;
-    -ms-flex-negative: 0;
-    flex-shrink: 0;
-    
-    /* Enhanced background image properties with cross-browser support */
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover; /* Ensures image covers entire container */
-    background-position: center center; /* Centers image on mobile */
-    background-repeat: no-repeat; /* Prevents image repetition */
-    
-    /* Cross-browser transition support */
-    -webkit-transition: background-image 0.3s ease-in-out;
-    -moz-transition: background-image 0.3s ease-in-out;
-    -o-transition: background-image 0.3s ease-in-out;
-    transition: background-image 0.3s ease-in-out;
-    
-    /* Cross-browser box-sizing */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    
-    /* Current: Solid blue placeholder color (#007bff) */
-    /* Future: Will display background image with color fallback */
+  filter: url(#round);
+  margin-top: 2.5rem;
 }
 
-/* Content Wrapper - Mobile: Below Background with Cross-Browser Support */
-.hero-content-wrapper {
-    -webkit-box-flex: 1;
-    -ms-flex: 1;
-    flex: 1;
-    -webkit-box-ordinal-group: 3;
-    -ms-flex-order: 2;
-    order: 2; /* Content appears second on mobile */
-    /* Cross-browser flexbox support */
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    padding: 30px 0;
-    background: #f8f9fa; /* Light background for content area */
-    /* Cross-browser box-sizing */
-    -webkit-box-sizing: border-box;
-    -moz-box-sizing: border-box;
-    box-sizing: border-box;
-    width: 100%;
-    max-width: 1800px; /* Increased from default container width */
-    margin: 0 auto;
-    padding: 0 20px; /* Add some side padding */
+.hero-background::before {
+  content: "";
+  display: block;
+  background-image: url(https://hamipces.bilishire.com/wp-content/uploads/designs/hero.webp);
+  background-color: #2596BE;
+  background-repeat: no-repeat;
+  background-position: bottom right;
+  background-size: cover;
+  width: 100%;
+  max-width: 1360px;
+  aspect-ratio: 1360/830;
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 39% 100%, 39% 56%, 0 56%);
+  transition: 0.2s ease-in-out;
 }
 
-.hero-content-wrapper .container {
-    max-width: 100%;
-    width: 100%;
-    padding: 0 40px; /* Add more horizontal padding */
-}
-
-/* Content Block - Mobile First Design */
 .hero-content-block {
-    background: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    max-width: 1200px;
-    margin: 0 auto !important;
-    padding: 60px 80px !important;
+    max-width: 100%;
+    width: 38.82%;
+    margin-top: -20rem; /* Add more horizontal padding */
 }
 
 /* Mobile Typography - Optimized for Small Screens with Enhanced Contrast */
 .hero-headline {
-    color: #1a1a1a; /* Improved contrast ratio: 15.3:1 (WCAG AAA) */
-    font-size: 0.75rem; /* 28px - Mobile optimized */
+    color: #2596BE; /* Improved contrast ratio: 15.3:1 (WCAG AAA) */
+    font-size: 33px;
     font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 20px;
     word-wrap: break-word;
     /* Enhanced readability */
     text-rendering: optimizeLegibility;
@@ -501,90 +433,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Optimized Desktop Layout (≥992px) - Enhanced Overlay Design with Cross-Browser Support */
 @media (min-width: 992px) {
-    /* Reset mobile stacked layout for desktop */
-    .pces-hero-redesign {
-        flex-direction: row;
-        align-items: center;
-        /* Cross-browser flex support */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-    }
-    
-    .hero-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 100%;
-        order: unset;
-        z-index: 1;
-        /* Enhanced desktop background positioning with cross-browser support */
-        background-position: center right; /* Focus on right side for desktop overlay */
-        /* Cross-browser background-size support */
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        /* Improved background attachment for better performance */
-        background-attachment: scroll; /* Better performance than fixed */
-    }
-    
-    .hero-content-wrapper {
-        position: relative;
-        z-index: 2;
-        order: unset;
-        background: transparent;
-        padding: 80px 0;
-        flex: unset;
-        /* Cross-browser flex support */
-        -webkit-box-flex: 0;
-        -ms-flex: none;
-    }
-    
-    .hero-content-block {
-        position: absolute;
-        left: 60px;
-        top: 50%;
-        /* Cross-browser transform support */
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-        transform: translateY(-50%);
-        margin: 0;
-        text-align: left;
-        max-width: 500px;
-        width: auto;
-        /* Enhanced clipped corner effect with fallback */
-        clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
-        -webkit-clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
-        /* Fallback for browsers that don't support clip-path */
-        border-radius: 8px 0 8px 8px;
-        padding: 50px 40px;
-        /* Enhanced shadow for better depth */
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
-        /* Cross-browser box-shadow support */
-        -webkit-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
-    
-    .hero-headline {
-        font-size: 2.5rem;
-        margin-bottom: 30px;
-        color: #1a1a1a; /* Maintain high contrast on desktop */
-        line-height: 1.2; /* Optimized for desktop reading */
-        /* Enhanced typography rendering */
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
     
     .hero-description {
         font-size: 1.1rem;
@@ -644,23 +492,7 @@ $tagline_part2 = "for the Filipinos";
 
 /* Optimized Large Desktop (≥1200px) - Enhanced Typography and Spacing */
 @media (min-width: 1200px) {
-    .hero-background {
-        /* Optimize background positioning for large screens */
-        background-position: center right;
-        /* Enhanced background properties for large displays */
-        background-attachment: scroll; /* Better performance */
-    }
-    
-    .hero-content-block {
-        left: 80px;
-        max-width: 550px;
-        padding: 60px 50px;
-        /* Enhanced shadow for large screens */
-        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.12);
-        -webkit-box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.12);
-        -moz-box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.12);
-    }
-    
+   
     .hero-headline {
         font-size: 2.8rem;
         line-height: 1.15; /* Optimized for large displays */
@@ -684,15 +516,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Ultra-wide Desktop Optimization (≥1400px) - Enhanced for Large Displays */
 @media (min-width: 1400px) {
-    .hero-content-block {
-        left: 100px;
-        max-width: 600px;
-        padding: 70px 60px;
-        /* Enhanced shadow for ultra-wide displays */
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
-        -webkit-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
-        -moz-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
     
     .hero-headline {
         font-size: 3rem;
@@ -725,24 +548,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Optimized Tablet Breakpoint (577px - 767px) - Enhanced Transitions */
 @media (min-width: 577px) and (max-width: 767px) {
-    .hero-background {
-        height: 45vh;
-        min-height: 300px;
-        /* Improved background positioning for tablet */
-        background-position: center center;
-    }
-    
-    .hero-content-wrapper {
-        padding: 35px 0;
-    }
-    
-    .hero-content-block {
-        max-width: 600px;
-        padding: 40px 35px;
-        margin: 0 auto;
-        /* Enhanced shadow for better depth perception */
-        box-shadow: 0 6px 25px rgba(0, 0, 0, 0.12);
-    }
     
     .hero-headline {
         font-size: 2rem; /* 32px */
@@ -776,26 +581,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Optimized Large Tablet Breakpoint (768px - 991px) - Smooth Desktop Transition */
 @media (min-width: 768px) and (max-width: 991px) {
-    .hero-background {
-        height: 50vh;
-        min-height: 350px;
-        /* Prepare for desktop transition */
-        background-position: center right;
-    }
-    
-    .hero-content-wrapper {
-        padding: 40px 0;
-    }
-    
-    .hero-content-block {
-        max-width: 650px;
-        padding: 45px 40px;
-        margin: 0 auto;
-        /* Enhanced visual hierarchy */
-        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.15);
-        /* Subtle preparation for desktop clipped corner */
-        border-radius: 8px 8px 8px 8px;
-    }
     
     .hero-headline {
         font-size: 2.2rem; /* 35.2px */
@@ -828,22 +613,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Mobile Breakpoint: 320px (iPhone SE, small phones) */
 @media (max-width: 320px) {
-    .hero-background {
-        height: 35vh;
-        min-height: 200px;
-        /* Adjust background positioning for very small screens */
-        background-position: center center;
-    }
-    
-    .hero-content-wrapper {
-        padding: 20px 0;
-    }
-    
-    .hero-content-block {
-        padding: 25px 15px;
-        margin: 0 10px;
-        border-radius: 6px;
-    }
     
     .hero-headline {
         font-size: 1.5rem; /* 24px */
@@ -871,19 +640,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Mobile Breakpoint: 375px (iPhone 6/7/8, standard mobile) */
 @media (min-width: 321px) and (max-width: 375px) {
-    .hero-background {
-        height: 38vh;
-        min-height: 220px;
-    }
-    
-    .hero-content-wrapper {
-        padding: 25px 0;
-    }
-    
-    .hero-content-block {
-        padding: 28px 18px;
-        margin: 0 12px;
-    }
     
     .hero-headline {
         font-size: 1.625rem; /* 26px */
@@ -904,19 +660,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Mobile Breakpoint: 414px (iPhone Plus, large phones) */
 @media (min-width: 376px) and (max-width: 414px) {
-    .hero-background {
-        height: 40vh;
-        min-height: 240px;
-    }
-    
-    .hero-content-wrapper {
-        padding: 28px 0;
-    }
-    
-    .hero-content-block {
-        padding: 30px 20px;
-        margin: 0 15px;
-    }
     
     .hero-headline {
         font-size: 1.75rem; /* 28px */
@@ -937,22 +680,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Small Mobile Adjustments (415px - 576px) */
 @media (min-width: 415px) and (max-width: 576px) {
-    .hero-background {
-        height: 42vh;
-        min-height: 260px;
-    }
-    
-    .hero-content-wrapper {
-        padding: 30px 0;
-    }
-    
-    .hero-content-block {
-        padding: 32px 25px;
-        margin: 0 20px;
-        max-width: 500px;
-        margin-left: auto;
-        margin-right: auto;
-    }
     
     .hero-headline {
         font-size: 1.875rem; /* 30px */
@@ -973,79 +700,7 @@ $tagline_part2 = "for the Filipinos";
 /* Optimized Desktop Layout (≥992px) - Enhanced Overlay Design with Cross-Browser Support */
 
 @media (min-width: 992px) {
-    /* Reset mobile stacked layout for desktop */
-    .pces-hero-redesign {
-        flex-direction: row;
-        align-items: center;
-        /* Cross-browser flex support */
-        display: -webkit-box;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-box-orient: horizontal;
-        -webkit-box-direction: normal;
-        -ms-flex-direction: row;
-        -webkit-box-align: center;
-        -ms-flex-align: center;
-    }
     
-    .hero-background {
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        height: 100%;
-        order: unset;
-        z-index: 1;
-        /* Enhanced desktop background positioning with cross-browser support */
-        background-position: center right; /* Focus on right side for desktop overlay */
-        /* Cross-browser background-size support */
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-        /* Improved background attachment for better performance */
-        background-attachment: scroll; /* Better performance than fixed */
-    }
-    
-    .hero-content-wrapper {
-        position: relative;
-        z-index: 2;
-        order: unset;
-        background: transparent;
-        padding: 80px 0;
-        flex: unset;
-        /* Cross-browser flex support */
-        -webkit-box-flex: 0;
-        -ms-flex: none;
-    }
-    
-    .hero-content-block {
-        position: absolute;
-        left: 60px;
-        top: 50%;
-        /* Cross-browser transform support */
-        -webkit-transform: translateY(-50%);
-        -moz-transform: translateY(-50%);
-        -ms-transform: translateY(-50%);
-        -o-transform: translateY(-50%);
-        transform: translateY(-50%);
-        margin: 0;
-        text-align: left;
-        max-width: 500px;
-        width: auto;
-        /* Enhanced clipped corner effect with fallback */
-        clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
-        -webkit-clip-path: polygon(0 0, calc(100% - 40px) 0, 100% 40px, 100% 100%, 0 100%);
-        /* Fallback for browsers that don't support clip-path */
-        border-radius: 8px 0 8px 8px;
-        padding: 50px 40px;
-        /* Enhanced shadow for better depth */
-        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
-        /* Cross-browser box-shadow support */
-        -webkit-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
-        -moz-box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15), 0 4px 12px rgba(0, 0, 0, 0.1);
-    }
     
     .hero-headline {
         font-size: 2.5rem;
@@ -1116,22 +771,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Optimized Large Desktop (≥1200px) - Enhanced Typography and Spacing */
 @media (min-width: 1200px) {
-    .hero-background {
-        /* Optimize background positioning for large screens */
-        background-position: center right;
-        /* Enhanced background properties for large displays */
-        background-attachment: scroll; /* Better performance */
-    }
-    
-    .hero-content-block {
-        left: 80px;
-        max-width: 550px;
-        padding: 60px 50px;
-        /* Enhanced shadow for large screens */
-        box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.12);
-        -webkit-box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.12);
-        -moz-box-shadow: 0 16px 50px rgba(0, 0, 0, 0.18), 0 6px 18px rgba(0, 0, 0, 0.12);
-    }
     
     .hero-headline {
         font-size: 2.8rem;
@@ -1156,16 +795,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Ultra-wide Desktop Optimization (≥1400px) - Enhanced for Large Displays */
 @media (min-width: 1400px) {
-    .hero-content-block {
-        left: 100px;
-        max-width: 600px;
-        padding: 70px 60px;
-        /* Enhanced shadow for ultra-wide displays */
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
-        -webkit-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
-        -moz-box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2), 0 8px 24px rgba(0, 0, 0, 0.15);
-    }
-    
     .hero-headline {
         font-size: 3rem;
         margin-bottom: 35px;
@@ -1195,36 +824,6 @@ $tagline_part2 = "for the Filipinos";
     }
 }
 
-/* Desktop overlap fix: anchor hero card to bottom and expand width when height is tight */
-@media (min-width: 992px) {
-    .pces-hero-redesign .hero-content-wrapper {
-        /* Fill the viewport so absolute children can reference the full hero height */
-        min-height: 100vh;
-    }
-    .pces-hero-redesign .hero-content-block {
-        /* Prevent overlap with next section by anchoring to the bottom of the hero */
-        top: auto;
-        bottom: 40px;
-        -webkit-transform: none;
-        -moz-transform: none;
-        -ms-transform: none;
-        -o-transform: none;
-        transform: none;
-        /* Allow more horizontal room on desktop so text wraps less */
-        max-width: clamp(560px, 38vw, 760px);
-    }
-}
-
-/* When desktop viewport height is short, widen the card further so it fits vertically */
-@media (min-width: 1200px) and (max-height: 850px) {
-    .pces-hero-redesign .hero-content-block { max-width: clamp(620px, 44vw, 840px); }
-    .pces-hero-redesign .hero-description { max-width: 100%; }
-}
-
-@media (min-width: 1400px) and (max-height: 800px) {
-    .pces-hero-redesign .hero-content-block { max-width: clamp(680px, 48vw, 900px); }
-    .pces-hero-redesign .hero-description { max-width: 100%; }
-}
 
 /* High Contrast Mode Support - Enhanced Accessibility */
 @media (prefers-contrast: high) {
@@ -1344,30 +943,6 @@ $tagline_part2 = "for the Filipinos";
     }
 }
 
-/* CSS Grid Fallback for Older Browsers */
-@supports not (display: flex) {
-    .pces-hero-redesign {
-        display: block;
-    }
-    
-    .hero-background {
-        display: block;
-        float: none;
-        width: 100%;
-    }
-    
-    .hero-content-wrapper {
-        display: block;
-        clear: both;
-    }
-    
-    .hero-content-block {
-        display: block;
-        margin: 20px auto;
-        max-width: 90%;
-    }
-}
-
 /* Enhanced CSS Validation and Browser Compatibility */
 * {
     /* Ensure consistent box-sizing across all browsers */
@@ -1423,71 +998,5 @@ $tagline_part2 = "for the Filipinos";
         color: #666666;
     }
     
-    .hero-background {
-        /* Print background handling */
-        background: #f0f0f0 !important;
-        -webkit-print-color-adjust: exact;
-        color-adjust: exact;
-    }
-    
-    .pces-hero-redesign {
-        /* Print layout optimization */
-        min-height: auto !important;
-        page-break-inside: avoid;
-    }
-}
-
-/* Container adjustments for full width */
-.pces-hero-redesign {
-    width: 100%;
-    max-width: 100%;
-    margin: 0;
-    padding: 0;
-    overflow: hidden;
-}
-
-.hero-content-wrapper {
-    width: 100%;
-    max-width: 1800px; /* Increased from default container width */
-    margin: 0 auto;
-    padding: 0 20px; /* Add some side padding */
-}
-
-/* Update the container class to be full width */
-.hero-content-wrapper .container {
-    max-width: 100%;
-    width: 100%;
-    padding: 0 40px; /* Add more horizontal padding */
-}
-
-/* Adjust content width for better readability */
-.hero-content-block {
-    max-width: 1200px; /* Wider content area */
-    margin: 0 auto;
-    padding: 40px 0;
-}
-
-/* Update responsive breakpoints */
-@media (min-width: 1200px) {
-    .hero-content-wrapper .container {
-        padding: 0 60px;
-    }
-    
-    .hero-content-block {
-        padding: 80px 0;
-    }
-}
-
-/* Responsive padding adjustments */
-@media (max-width: 992px) {
-    .hero-content-block {
-        padding: 40px 30px;
-    }
-}
-
-@media (max-width: 768px) {
-    .hero-content-block {
-        padding: 30px 20px;
-    }
 }
 </style>
