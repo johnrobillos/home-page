@@ -69,7 +69,7 @@ $tagline_part2 = "for the Filipinos";
         
         <!-- Call-to-Action Button with Enhanced Accessibility -->
         <a href="<?php echo esc_url($hero_content['cta_link']); ?>" 
-            class="hero-cta-button btn" 
+            class="hero-cta-button" 
             role="button"
             aria-label="<?php echo esc_attr($hero_content['cta_text'] . ' - Navigate to our services section to learn more about what we offer'); ?>"
             aria-describedby="hero-description"
@@ -195,8 +195,6 @@ $tagline_part2 = "for the Filipinos";
     clip: auto !important;
     white-space: normal !important;
 }
-
-/* Mobile Base Styles (320px and up) - Stacked Layout with Cross-Browser Support */
 .pces-hero-redesign {
     position: relative;
     /* Cross-browser flexbox support */
@@ -244,7 +242,7 @@ $tagline_part2 = "for the Filipinos";
     padding: 2rem;
 }
 .hero-headline {
-    color: #2596BE;
+    color: #03045E;
     font-size: 2rem;
     font-weight: 700;
     word-wrap: break-word;
@@ -256,29 +254,25 @@ $tagline_part2 = "for the Filipinos";
 
 .hero-description {
     color: #000000; /* Improved contrast ratio: 12.6:1 (WCAG AAA) */
-    font-size: 0.95rem; 
-    max-width: 100%;
+    font-size: 1.5rem; 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Mobile CTA Button - Touch Optimized with Enhanced Accessibility */
 .hero-cta-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     background: transparent;
-    color: #0056b3; /* Improved contrast ratio: 7.1:1 (WCAG AA Large Text) */
-    border: 3px solid #0056b3; /* Thicker border for better visibility */
-    padding: 14px 24px; /* Larger touch target for mobile */
-    border-radius: 6px;
+    color: #2596BE; 
+    border: 2px solid #2596BE;
+    padding: 5px 20px; 
+    border-radius: 20px;
     text-decoration: none;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.5rem;
     transition: all 0.3s ease;
-    min-width: 48px; /* WCAG AA touch target minimum */
-    min-height: 48px;
     width: auto;
     text-align: center;
     cursor: pointer;
@@ -296,23 +290,23 @@ $tagline_part2 = "for the Filipinos";
 
 /* Hover state - Enhanced visual feedback with improved contrast */
 .hero-cta-button:hover {
-    background: #0056b3; /* Darker blue for better contrast */
+    background: #2596BE; /* Darker blue for better contrast */
     color: #ffffff; /* White text: 15.3:1 contrast ratio (WCAG AAA) */
     text-decoration: none;
     transform: translateY(-2px); /* More pronounced lift effect */
-    box-shadow: 0 6px 20px rgba(0, 86, 179, 0.4);
-    border-color: #004085;
+    box-shadow: 0 20px 20px rgba(0, 86, 179, 0.4);
+    border-color: #2596BE;
 }
 
 /* Focus state - Enhanced keyboard navigation accessibility */
 .hero-cta-button:focus {
-    background: #0056b3;
+    background: #2596BE;
     color: #ffffff; /* White text: 15.3:1 contrast ratio (WCAG AAA) */
     text-decoration: none;
     outline: 4px solid #ffff00; /* High contrast yellow focus ring */
     outline-offset: 2px;
     box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3), 0 0 0 2px #000000; /* Double ring for high contrast */
-    border-color: #004085;
+    border-color: #2596BE;
     /* Ensure focus is visible in all modes */
     position: relative;
     z-index: 10;
@@ -343,13 +337,13 @@ $tagline_part2 = "for the Filipinos";
 
 /* Visited state - Maintain consistent styling with improved contrast */
 .hero-cta-button:visited {
-    color: #0056b3; /* Consistent with main button color */
-    border-color: #0056b3;
+    color: #2596BE; /* Consistent with main button color */
+    border-color: #2596BE;
 }
 
 .hero-cta-button:visited:hover,
 .hero-cta-button:visited:focus {
-    background: #0056b3;
+    background: #2596BE;
     color: #ffffff;
     border-color: #004085;
 }
@@ -425,32 +419,6 @@ $tagline_part2 = "for the Filipinos";
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
 }
-
-/* Optimized Desktop Layout (≥992px) - Enhanced Overlay Design with Cross-Browser Support */
-@media (min-width: 992px) {
-    
-    .hero-description {
-        font-size: 1.1rem;
-        color: #000000; 
-        text-rendering: optimizeLegibility;
-        -webkit-font-smoothing: antialiased;
-        -moz-osx-font-smoothing: grayscale;
-    }
-    
-    .hero-cta-button {
-        padding: 15px 30px;
-        font-size: 1.1rem;
-        width: auto;
-        min-width: 48px;
-        min-height: 48px;
-        /* Enhanced desktop transitions with cross-browser support */
-        -webkit-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        -moz-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        -o-transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        /* Improved cursor for better UX */
-        cursor: pointer;
-    }
     
     /* Enhanced desktop hover effects with cross-browser support */
     .hero-cta-button:hover {
@@ -481,162 +449,88 @@ $tagline_part2 = "for the Filipinos";
     }
 }
 
-/* Optimized Large Desktop (≥1200px) - Enhanced Typography and Spacing */
-@media (min-width: 1200px) {
+@media (max-width: 1300px) {
+
+    .hero-content-block {
+        max-width: 380px;
+        margin-top: -23rem;
+        padding: 1.75rem;
+    }
    
     .hero-headline {
-        font-size: 2rem;
+        font-size: 1.75rem;
     }
     
     .hero-description {
+        font-size: 1.25rem;
+    }
+    
+    .hero-cta-button {
+        font-size: 1.25rem;
+    }
+
+    .tagline-part1, .tagline-part2 {
+        font-size: 2.75rem;
+    }
+}
+
+/* Optimized Large Desktop (≥1200px) - Enhanced Typography and Spacing */
+@media (max-width: 1150px) {
+
+    .hero-content-block {
+        max-width: 350px;
+        margin-top: -20rem;
+        padding: 1.5rem;
+    }
+   
+    .hero-headline {
         font-size: 1.5rem;
     }
     
-    .hero-cta-button {
-        padding: 18px 35px;
-        font-size: 1.15rem;
-        /* Enhanced large screen interactions */
-        min-height: 52px; /* Slightly larger for desktop */
-    }
-}
-
-/* Optimized Tablet Breakpoint (577px - 767px) - Enhanced Transitions */
-@media (min-width: 577px) and (max-width: 767px) {
-    
-    .hero-headline {
-        font-size: 2rem; /* 32px */
-        margin-bottom: 24px;
-        /* Improved line height for tablet reading */
-        line-height: 1.25;
-    }
-    
-    .hero-description {
-        font-size: 1.05rem; 
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .hero-cta-button {
-        padding: 16px 28px;
-        font-size: 1.05rem;
-        min-height: 48px; /* Maintain touch target */
-        /* Enhanced tablet hover effects */
-        transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .hero-cta-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 18px rgba(0, 86, 179, 0.35);
-    }
-}
-
-/* Optimized Large Tablet Breakpoint (768px - 991px) - Smooth Desktop Transition */
-@media (min-width: 768px) and (max-width: 991px) {
-    
-    .hero-headline {
-        font-size: 2.2rem; /* 35.2px */
-        margin-bottom: 26px;
-        line-height: 1.3; /* Optimized for larger tablet screens */
-    }
-    
-    .hero-description {
-        font-size: 1.1rem; /* 17.6px */
-        margin-left: auto;
-        margin-right: auto;
-    }
-    
-    .hero-cta-button {
-        padding: 16px 30px;
-        font-size: 1.1rem;
-        min-height: 48px; /* Maintain touch target */
-        /* Smooth transition preparation for desktop */
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-    
-    .hero-cta-button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 8px 22px rgba(0, 86, 179, 0.4);
-    }
-}
-
-/* Mobile Breakpoint: 320px (iPhone SE, small phones) */
-@media (max-width: 320px) {
-    
-    .hero-headline {
-        font-size: 1.5rem; /* 24px */
-        margin-bottom: 16px;
-        line-height: 1.1;
-    }
-    
-    .hero-description {
-        font-size: 0.875rem; 
-    }
-    
-    .hero-cta-button {
-        padding: 12px 20px;
-        font-size: 0.875rem;
-        width: 100%;
-        max-width: 280px;
-        min-height: 48px; /* Maintain touch target */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-}
-
-/* Mobile Breakpoint: 375px (iPhone 6/7/8, standard mobile) */
-@media (min-width: 321px) and (max-width: 375px) {
-    
-    .hero-headline {
-        font-size: 1.625rem; /* 26px */
-        margin-bottom: 18px;
-    }
-    
-    .hero-description {
-        font-size: 0.9rem; 
-    }
-    
-    .hero-cta-button {
-        padding: 13px 22px;
-        font-size: 0.9rem;
-        min-height: 48px; /* Maintain touch target */
-    }
-}
-
-/* Mobile Breakpoint: 414px (iPhone Plus, large phones) */
-@media (min-width: 376px) and (max-width: 414px) {
-    
-    .hero-headline {
-        font-size: 1.75rem; /* 28px */
-        margin-bottom: 20px;
-    }
-    
-    .hero-description {
-        font-size: 0.95rem; 
-    }
-    
-    .hero-cta-button {
-        padding: 14px 24px;
-        font-size: 0.95rem;
-        min-height: 48px; /* Maintain touch target */
-    }
-}
-
-/* Small Mobile Adjustments (415px - 576px) */
-@media (min-width: 415px) and (max-width: 576px) {
-    
-    .hero-headline {
-        font-size: 1.875rem; /* 30px */
-        margin-bottom: 22px;
-    }
-    
-    .hero-description {
-        font-size: 1rem; 
-    }
-    
-    .hero-cta-button {
-        padding: 15px 26px;
+    .hero-description, .mission-text {
         font-size: 1rem;
+    }
+    
+    .hero-cta-button {
+        font-size: 1rem;
+    }
+
+    .tagline-part1, .tagline-part2 {
+        font-size: 2.5rem;
+    }
+}
+
+@media (max-width: 1000px) {
+    .hero-content-block {
+        max-width: 300px;
+        margin-top: -16rem;
+        padding: 1.5rem;
+    }
+    .hero-description, .mission-text {
+        font-size: .8rem;
+        text-rendering: optimizeLegibility;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+
+
+    }
+
+@media (max-width: 850px) {
+    .hero-background::before {
+        clip-path: polygon(0 0, 100% 0, 100% 100%, 0% 100%);
+        max-height: 450px;
+        aspect-ratio: 372/289;
+    }
+
+    .hero-content-block {
+        max-width: 100%;
+        margin-top: 1.25rem;
+        padding: 0;
+    }
+
+    .hero-extended {
+        padding: 80px 40px;
     }
 }
 
@@ -710,12 +604,6 @@ $tagline_part2 = "for the Filipinos";
 
 /* Touch Device Optimizations */
 @media (hover: none) and (pointer: coarse) {
-    .hero-cta-button {
-        /* Larger touch targets for touch devices */
-        min-width: 56px; /* Larger than WCAG minimum for better UX */
-        min-height: 56px;
-        padding: 16px 28px;
-    }
     
     .hero-cta-button:hover {
         /* Remove hover effects on touch devices */
