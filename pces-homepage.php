@@ -74,15 +74,6 @@ function pces_homepage_enqueue_assets() {
     
     wp_add_inline_style('pces-homepage-css', $custom_css);
 
-    // Bootstrap JS Bundle (includes Popper)
-    wp_enqueue_script(
-        'pces-bootstrap-js',
-        'https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js',
-        array('jquery'),
-        '5.3.0',
-        true
-    );
-
     // Custom PCES Homepage JavaScript
     wp_enqueue_script(
         'pces-homepage-js',
@@ -133,7 +124,7 @@ function pces_homepage_enqueue_assets() {
 }
 
 // Hook with higher priority to ensure our styles load after theme
-add_action('wp_enqueue_scripts', 'pces_homepage_enqueue_assets', 20);
+add_action('wp_enqueue_scripts', 'pces_homepage_enqueue_assets');
 
 /**
  * Hero Section Shortcode

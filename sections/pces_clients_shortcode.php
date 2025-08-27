@@ -1,14 +1,17 @@
 <?php
 // Client logo filenames - easy to edit by modifying this array
 $client_logos = array(
-    'company_01.png',
-    'company_02.png', 
-    'company_03.png',
-    'company_04.png',
-    'company_05.png',
-    'company_06.png',
-    'company_07.png',
-    'company_08.png'
+    'company_01.svg',
+    'company_02.svg', 
+    'company_03.svg',
+    'company_04.svg',
+    'company_05.svg',
+    'company_06.svg',
+    'company_07.svg',
+    'company_08.svg',
+    'company_09.svg',
+    'company_10.svg',
+    'company_11.svg'
 );
 ?>
 
@@ -18,11 +21,6 @@ $client_logos = array(
     <div class="fade-right"></div>
 
     <h5 class="carousel-title mb-5">TRUSTED BY THESE LEADING COMPANIES</h5>
-
-    <div class="carousel-controls">
-        <button class="carousel-nav prev" onclick="prevSlide()">❮</button>
-        <button class="carousel-nav next" onclick="nextSlide()">❯</button>
-    </div>
 
     <div class="carousel-track-container mt-5 mb-5" onmouseenter="stopAutoScroll()" onmouseleave="startAutoScroll()">
         <div class="carousel-track" id="carouselTrack">
@@ -47,7 +45,7 @@ let currentTransform = 0;
 let autoScrollEnabled = true;
 let autoScrollInterval;
 const scrollSpeed = 2;
-const slideWidth = 180; // Width of each slide including margin
+const slideWidth = 250; // Width of each slide including margin
 const totalSlides = <?php echo count($client_logos); ?>;
 
 // Start auto-scroll when page loads

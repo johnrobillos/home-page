@@ -319,10 +319,10 @@ $tagline_part2 = "for the Filipinos";
     box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3), 0 0 0 2px #000000;
 }
 
-/* Remove focus ring for mouse users in modern browsers */
+/* Remove focus ring for mouse users in modern browsers --*/
 .hero-cta-button:focus:not(:focus-visible) {
     outline: none;
-    box-shadow: 0 4px 12px rgba(0, 86, 179, 0.3);
+    box-shadow: 0 4px 12px rgba(1, 93, 194, 0.3);
 }
 
 /* Active state - Pressed button feedback */
