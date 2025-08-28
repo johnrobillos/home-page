@@ -7,7 +7,7 @@
  */
 
 /**
- * Apply dynamic colors to service cards - Optimized for hover effect
+ * Apply dynamic colors to service cards - Ensures unique colors on hover
  */
 function applyServiceCardColors() {
     const serviceCards = document.querySelectorAll('.service-card[data-service-color]');
@@ -27,10 +27,26 @@ function applyServiceCardColors() {
         // Set the CSS variable for the color
         card.style.setProperty('--service-color', color);
         
-        // Add a small delay to ensure styles are applied
-        setTimeout(() => {
-            card.style.opacity = '1'; // Make sure card is visible
-        }, 10);
+        // Add unique ID if not exists
+        if (!card.id) {
+            card.id = `service-card-${index}`;
+        }
+        
+        // Add specific styles for this card
+        const styleId = `service-card-style-${index}`;
+        if (!document.getElementById(styleId)) {
+            const style = document.createElement('style');
+            style.id = styleId;
+            style.textContent = `
+                #${card.id}::before {
+                    background: ${color} !important;
+                }
+                #${card.id}:hover {
+                    border-color: ${color} !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
     });
 }
 

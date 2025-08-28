@@ -114,12 +114,13 @@
 .service-card:hover::before {
     width: 4px; /* Full width on hover */
     opacity: 1; /* Fade in */
+    background: var(--service-color);
 }
 
 .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: var(--service-color, #00BFFF);
+    border-color: var(--service-color);
 }
 
 .service-card h4 {
