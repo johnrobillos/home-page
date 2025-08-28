@@ -86,16 +86,15 @@
 }
 
 .service-card {
-    background: #ffffff;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    border: 1px solid #e0e0e0;
-    height: 100%;
-    padding: 1.75rem;
     position: relative;
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
     overflow: hidden;
-    cursor: pointer;
+    height: 100%;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transform: translateZ(0);
 }
 
 .service-card::before {
@@ -103,22 +102,24 @@
     position: absolute;
     top: 0;
     left: 0;
-    width: 4px;
+    width: 0; /* Start with 0 width */
     height: 100%;
-    background: #0066cc;
-    transform: scaleY(0);
-    transform-origin: top;
-    transition: transform 0.3s ease;
+    background: var(--service-color, #00BFFF);
+    transition: all 0.3s ease;
+    z-index: 1;
+    opacity: 0; /* Start invisible */
+}
+
+/* Show the colored border on hover */
+.service-card:hover::before {
+    width: 4px; /* Full width on hover */
+    opacity: 1; /* Fade in */
 }
 
 .service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: #cce0ff;
-}
-
-.service-card:hover::before {
-    transform: scaleY(1);
+    border-color: var(--service-color, #00BFFF);
 }
 
 .service-card h4 {

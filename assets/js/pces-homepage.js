@@ -6,7 +6,41 @@
  * Includes smooth scrolling and simple hover effects.
  */
 
+/**
+ * Apply dynamic colors to service cards - Optimized for hover effect
+ */
+function applyServiceCardColors() {
+    const serviceCards = document.querySelectorAll('.service-card[data-service-color]');
+    
+    if (serviceCards.length === 0) {
+        console.log('No service cards found with data-service-color attribute');
+        return;
+    }
+    
+    serviceCards.forEach((card, index) => {
+        const color = card.getAttribute('data-service-color');
+        if (!color) {
+            console.warn('Service card missing color value', card);
+            return;
+        }
+        
+        // Set the CSS variable for the color
+        card.style.setProperty('--service-color', color);
+        
+        // Add a small delay to ensure styles are applied
+        setTimeout(() => {
+            card.style.opacity = '1'; // Make sure card is visible
+        }, 10);
+    });
+}
+
+// Run on DOM content loaded
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded, applying service card colors...');
+    applyServiceCardColors();
+    
+    // Also run after a short delay in case of dynamic content loading
+    setTimeout(applyServiceCardColors, 1000);
     
     /**
      * Smooth scrolling for anchor links
@@ -50,8 +84,8 @@ document.addEventListener('DOMContentLoaded', function() {
     }, observerOptions);
     
     // Observe service cards for animation
-    const serviceCards = document.querySelectorAll('.service-card');
-    serviceCards.forEach(card => {
+    const serviceCardsForAnimation = document.querySelectorAll('.service-card');
+    serviceCardsForAnimation.forEach(card => {
         observer.observe(card);
     });
     

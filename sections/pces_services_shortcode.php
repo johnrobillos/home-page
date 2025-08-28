@@ -3,19 +3,23 @@
 $services = array(
     array(
         'title' => 'OJTGo',
-        'description' => 'Connects students to internship opportunities that match their education, career goals, and personal growth, making the journey from classroom to career smooth and meaningful.'
+        'description' => 'Connects students to internship opportunities that match their education, career goals, and personal growth, making the journey from classroom to career smooth and meaningful.',
+        'color' => '#00BFFF'  // Bright Blue
     ),
     array(
         'title' => 'Chains2Chances',    
-        'description' => 'Links justice-involved individuals with inclusive employers, supporting reentry through skills, opportunity, and shared purpose.'
+        'description' => 'Links justice-involved individuals with inclusive employers, supporting reentry through skills, opportunity, and shared purpose.',
+        'color' => '#FF6B6B'  // Soft Red
     ),
     array(
         'title' => 'PWD-E',
-        'description' => 'Bridges persons with disabilities to employers who value diversity, offering accessible and dignified employment opportunities.'
+        'description' => 'Bridges persons with disabilities to employers who value diversity, offering accessible and dignified employment opportunities.',
+        'color' => '#6BCB77'  // Soft Green
     ),
     array(
         'title' => 'Hirebilis',
-        'description' => 'Hirebilis is a customizable employment and skills-matching platform that can be tailored to the specific needs of any industry. It is designed for use by corporations, small businesses, and government institutions.'
+        'description' => 'Hirebilis is a customizable employment and skills-matching platform that can be tailored to the specific needs of any industry. It is designed for use by corporations, small businesses, and government institutions.',
+        'color' => '#FFD93D'  // Yellow
     )
 );
 $first_four_services = array_slice($services, 0, 4);
@@ -32,7 +36,7 @@ $first_four_services = array_slice($services, 0, 4);
                         $image_url = home_url('/wp-content/uploads/icons/services/' . $image_filename);
                     ?>
                         <div class="col-md-6">
-                            <div class="service-card h-100 p-4 d-flex flex-column">
+                            <div class="service-card h-100 p-4 d-flex flex-column" data-service-color="<?php echo esc_attr($service['color']); ?>">
                                 <div class="d-flex align-items-center mb-3">
                                     <img src="<?php echo esc_url($image_url); ?>" 
                                          alt="<?php echo esc_attr($service['title']); ?> icon" 
