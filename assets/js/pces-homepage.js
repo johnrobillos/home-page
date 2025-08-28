@@ -32,12 +32,18 @@ function applyServiceCardColors() {
         const uniqueClass = `service-card-${index}`;
         card.classList.add(uniqueClass);
         
-        // Create and inject CSS for this specific card
+        // Create and inject CSS for this specific card with maximum specificity
         const style = document.createElement('style');
+        style.id = `pces-service-card-${index}`;
         style.textContent = `
-            .${uniqueClass}:hover {
+            .pces-services .service-card.${uniqueClass}:hover,
+            .service-card.${uniqueClass}:hover {
                 border-left-color: ${color} !important;
                 border-left-width: 4px !important;
+                border-color: ${color} !important;
+                border-top-color: #e0e0e0 !important;
+                border-right-color: #e0e0e0 !important;
+                border-bottom-color: #e0e0e0 !important;
             }
         `;
         document.head.appendChild(style);
