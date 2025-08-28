@@ -4,22 +4,22 @@ $services = array(
     array(
         'title' => 'OJTGo',
         'description' => 'Connects students to internship opportunities that match their education, career goals, and personal growth, making the journey from classroom to career smooth and meaningful.',
-        'color' => '#00BFFF'  // Bright Blue
+        'color' => '#FFFFFF'
     ),
     array(
         'title' => 'Chains2Chances',    
         'description' => 'Links justice-involved individuals with inclusive employers, supporting reentry through skills, opportunity, and shared purpose.',
-        'color' => '#FF6B6B'  // Soft Red
+        'color' => '#000000'
     ),
     array(
         'title' => 'PWD-E',
         'description' => 'Bridges persons with disabilities to employers who value diversity, offering accessible and dignified employment opportunities.',
-        'color' => '#6BCB77'  // Soft Green
+        'color' => '#00FF00'
     ),
     array(
         'title' => 'Hirebilis',
         'description' => 'Hirebilis is a customizable employment and skills-matching platform that can be tailored to the specific needs of any industry. It is designed for use by corporations, small businesses, and government institutions.',
-        'color' => '#FFD93D'  // Yellow
+        'color' => '#295BA3'
     )
 );
 $first_four_services = array_slice($services, 0, 4);
@@ -27,7 +27,7 @@ $first_four_services = array_slice($services, 0, 4);
 
 <section class="pces-services py-5" id="services">
     <div class="container">
-        <h2 class="text-center mb-5">Services Catered Towards Everyone's Needs</h2>
+        <h2 class="text-center mb-5">Our Specialized Recruitment Platforms</h2>
         <div class="row align-items-center">
             <div class="col-lg-8 mb-4 mb-lg-0">
                 <div class="row g-4">

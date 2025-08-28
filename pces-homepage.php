@@ -66,6 +66,9 @@ function pces_homepage_enqueue_assets() {
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
+        .service-card[data-service-color] {
+            --service-color: #00BFFF; /* Default fallback */
+        }
         .service-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);

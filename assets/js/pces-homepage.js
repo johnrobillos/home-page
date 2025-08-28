@@ -17,24 +17,30 @@ function applyServiceCardColors() {
         return;
     }
     
-    serviceCards.forEach((card) => {
+    console.log(`Found ${serviceCards.length} service cards with colors`);
+    
+    serviceCards.forEach((card, index) => {
         const color = card.getAttribute('data-service-color');
         if (!color) {
             console.warn('Service card missing color value', card);
             return;
         }
         
-        // Set the CSS variable for the color
-        card.style.setProperty('--service-color', color);
+        console.log(`Applying color ${color} to service card ${index + 1}`);
         
-        // Add hover effect with specific color
-        card.addEventListener('mouseenter', function() {
-            this.style.setProperty('border-left-color', color, 'important');
-        });
+        // Create unique class name for this card
+        const uniqueClass = `service-card-${index}`;
+        card.classList.add(uniqueClass);
         
-        card.addEventListener('mouseleave', function() {
-            this.style.removeProperty('border-left-color');
-        });
+        // Create and inject CSS for this specific card
+        const style = document.createElement('style');
+        style.textContent = `
+            .${uniqueClass}:hover {
+                border-left-color: ${color} !important;
+                border-left-width: 4px !important;
+            }
+        `;
+        document.head.appendChild(style);
     });
 }
 

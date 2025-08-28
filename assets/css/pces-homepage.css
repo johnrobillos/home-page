@@ -97,21 +97,10 @@
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
 }
 
-.service-card[data-service-color] {
-    --service-color: #00BFFF; /* Default fallback */
-}
-
-.service-card[data-service-color]:hover {
+.service-card:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-left-color: var(--service-color);
 }
-
-/* Set specific colors for each service */
-.service-card[data-service-color="#00BFFF"] { --service-color: #00BFFF; }
-.service-card[data-service-color="#FF6B6B"] { --service-color: #FF6B6B; }
-.service-card[data-service-color="#6BCB77"] { --service-color: #6BCB77; }
-.service-card[data-service-color="#FFD93D"] { --service-color: #FFD93D; }
 
 .service-card h4 {
     color: #2d3748;
