@@ -36,7 +36,7 @@ function pces_homepage_enqueue_assets() {
     wp_enqueue_style(
         'bootstrap-icons',
         'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.0/font/bootstrap-icons.css',
-        array(),
+        array         (),
         '1.10.0'
     );
 
@@ -59,16 +59,19 @@ function pces_homepage_enqueue_assets() {
     // Add inline styles to ensure our service cards look correct
     $custom_css = "
         .service-card {
-            background: #ffffff !important;
-            border: 1px solid #e0e0e0 !important;
-            border-radius: 12px !important;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05) !important;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            background: #ffffff;
+            border: 1px solid #e0e0e0;
+            border-left: 3px solid transparent;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
         .service-card:hover {
-            transform: translateY(-5px) !important;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1) !important;
-            border-color: #cce0ff !important;
+            transform: translateY(-5px);
+            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
+        }
+        .service-card[data-service-color]:hover {
+            border-left-color: var(--service-color);
         }
     ";
     

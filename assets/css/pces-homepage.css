@@ -89,39 +89,29 @@
     position: relative;
     background: #fff;
     border: 1px solid #e0e0e0;
+    border-left: 3px solid transparent;
     border-radius: 8px;
     transition: all 0.3s ease;
     overflow: hidden;
     height: 100%;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
-    transform: translateZ(0);
 }
 
-.service-card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 0; /* Start with 0 width */
-    height: 100%;
-    background: var(--service-color, #00BFFF);
-    transition: all 0.3s ease;
-    z-index: 1;
-    opacity: 0; /* Start invisible */
+.service-card[data-service-color] {
+    --service-color: #00BFFF; /* Default fallback */
 }
 
-/* Show the colored border on hover */
-.service-card:hover::before {
-    width: 4px; /* Full width on hover */
-    opacity: 1; /* Fade in */
-    background: var(--service-color);
-}
-
-.service-card:hover {
+.service-card[data-service-color]:hover {
     transform: translateY(-5px);
     box-shadow: 0 12px 24px rgba(0, 0, 0, 0.1);
-    border-color: var(--service-color);
+    border-left-color: var(--service-color);
 }
+
+/* Set specific colors for each service */
+.service-card[data-service-color="#00BFFF"] { --service-color: #00BFFF; }
+.service-card[data-service-color="#FF6B6B"] { --service-color: #FF6B6B; }
+.service-card[data-service-color="#6BCB77"] { --service-color: #6BCB77; }
+.service-card[data-service-color="#FFD93D"] { --service-color: #FFD93D; }
 
 .service-card h4 {
     color: #2d3748;

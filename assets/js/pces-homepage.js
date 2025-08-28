@@ -7,7 +7,7 @@
  */
 
 /**
- * Apply dynamic colors to service cards - Ensures unique colors on hover
+ * Apply dynamic colors to service cards
  */
 function applyServiceCardColors() {
     const serviceCards = document.querySelectorAll('.service-card[data-service-color]');
@@ -17,7 +17,7 @@ function applyServiceCardColors() {
         return;
     }
     
-    serviceCards.forEach((card, index) => {
+    serviceCards.forEach((card) => {
         const color = card.getAttribute('data-service-color');
         if (!color) {
             console.warn('Service card missing color value', card);
@@ -27,26 +27,14 @@ function applyServiceCardColors() {
         // Set the CSS variable for the color
         card.style.setProperty('--service-color', color);
         
-        // Add unique ID if not exists
-        if (!card.id) {
-            card.id = `service-card-${index}`;
-        }
+        // Add hover effect with specific color
+        card.addEventListener('mouseenter', function() {
+            this.style.setProperty('border-left-color', color, 'important');
+        });
         
-        // Add specific styles for this card
-        const styleId = `service-card-style-${index}`;
-        if (!document.getElementById(styleId)) {
-            const style = document.createElement('style');
-            style.id = styleId;
-            style.textContent = `
-                #${card.id}::before {
-                    background: ${color} !important;
-                }
-                #${card.id}:hover {
-                    border-color: ${color} !important;
-                }
-            `;
-            document.head.appendChild(style);
-        }
+        card.addEventListener('mouseleave', function() {
+            this.style.removeProperty('border-left-color');
+        });
     });
 }
 
