@@ -4,22 +4,22 @@ $services = array(
     array(
         'title' => 'OJTGo',
         'description' => 'Connects students to internship opportunities that match their education, career goals, and personal growth, making the journey from classroom to career smooth and meaningful.',
-        'color' => '#FFFFFF'
+        'color' => '#4fabfa'
     ),
     array(
         'title' => 'Chains2Chances',    
         'description' => 'Links justice-involved individuals with inclusive employers, supporting reentry through skills, opportunity, and shared purpose.',
-        'color' => '#000000'
+        'color' => '#00ff08'
     ),
     array(
         'title' => 'PWD-E',
         'description' => 'Bridges persons with disabilities to employers who value diversity, offering accessible and dignified employment opportunities.',
-        'color' => '#00FF00'
+        'color' => '#32bf4f'
     ),
     array(
         'title' => 'Hirebilis',
         'description' => 'Hirebilis is a customizable employment and skills-matching platform that can be tailored to the specific needs of any industry. It is designed for use by corporations, small businesses, and government institutions.',
-        'color' => '#295BA3'
+        'color' => '#083b6f'
     )
 );
 $first_four_services = array_slice($services, 0, 4);
