@@ -44,9 +44,12 @@ $tagline_part2 = "for the Filipinos";
     <a href="#main-content" class="skip-link sr-only sr-only-focusable">
         Skip to main content
     </a>
+        
+    
     <!-- Background Container with Enhanced Accessibility -->
     <div class="hero-background"></div>
-
+    <div class="hero-content-container flex-row align-items-start">
+        
     <!-- Content Container with Landmark -->
     <div class="hero-content-block justify-content-start text-start" 
             role="region" 
@@ -84,7 +87,8 @@ $tagline_part2 = "for the Filipinos";
             </span>
         </a>
     </div>
-
+    
+     </div>
     <svg style="visibility: hidden; position: absolute;" width="0" height="0" xmlns="http://www.w3.org/2000/svg" version="1.1">
         <defs>
             <filter id="round">
@@ -223,7 +227,7 @@ $tagline_part2 = "for the Filipinos";
 
 .hero-background::before {
   content: "";
-  display: block;
+  display: flex;
   background-image: url(https://hamipces.bilishire.com/wp-content/uploads/designs/hero.webp);
   background-color: #2596BE;
   background-repeat: no-repeat;
@@ -234,12 +238,16 @@ $tagline_part2 = "for the Filipinos";
   aspect-ratio: 1360/830;
   clip-path: polygon(0 0, 100% 0, 100% 100%, 39% 100%, 39% 44%, 0 44%);
   transition: 0.2s ease-in-out;
+  margin: 0 auto;
 }
 
 .hero-content-block {
     max-width: 450px;
-    margin-top: -26rem;
     padding: 2rem;
+}
+
+.hero-content-container {
+    margin: -28rem auto 0 auto;
 }
 .hero-headline {
     color: #03045E;
@@ -453,9 +461,12 @@ $tagline_part2 = "for the Filipinos";
 
     .hero-content-block {
         max-width: 380px;
-        margin-top: -23rem;
         padding: 1.75rem;
     }
+    
+    .hero-content-container {
+    margin: -23rem auto 0 auto;
+}
    
     .hero-headline {
         font-size: 1.75rem;
@@ -479,9 +490,12 @@ $tagline_part2 = "for the Filipinos";
 
     .hero-content-block {
         max-width: 350px;
-        margin-top: -20rem;
         padding: 1.5rem;
     }
+    
+    .hero-content-container {
+    margin: -20rem auto 0 auto;
+}
    
     .hero-headline {
         font-size: 1.5rem;
@@ -503,9 +517,13 @@ $tagline_part2 = "for the Filipinos";
 @media (max-width: 1000px) {
     .hero-content-block {
         max-width: 300px;
-        margin-top: -16rem;
         padding: 1.5rem;
     }
+    
+    .hero-content-container {
+    margin: -16rem auto 0 auto;
+}
+
     .hero-description, .mission-text {
         font-size: .8rem;
         text-rendering: optimizeLegibility;
@@ -528,6 +546,10 @@ $tagline_part2 = "for the Filipinos";
         margin-top: 1.25rem;
         padding: 0;
     }
+    
+    .hero-content-container {
+    margin: 1.25rem auto 0 auto;
+}
 
     .hero-extended {
         padding: 80px 40px;
