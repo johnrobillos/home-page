@@ -48,10 +48,10 @@ $tagline_part2 = "for the Filipinos";
     
     <!-- Background Container with Enhanced Accessibility -->
     <div class="hero-background"></div>
-    <div class="hero-content-container flex-row align-items-start">
+    <div class="hero-content-container d-flex flex-row align-items-start">
         
     <!-- Content Container with Landmark -->
-    <div class="hero-content-block justify-content-start text-start" 
+    <div class="hero-content-block col-12 justify-content-start text-start" 
             role="region" 
             aria-label="Company introduction and services">
         
@@ -247,6 +247,7 @@ $tagline_part2 = "for the Filipinos";
 }
 
 .hero-content-container {
+    width: 1360px;
     margin: -28rem auto 0 auto;
 }
 .hero-headline {
@@ -549,6 +550,7 @@ $tagline_part2 = "for the Filipinos";
     
     .hero-content-container {
     margin: 1.25rem auto 0 auto;
+    width: 100%;
 }
 
     .hero-extended {
