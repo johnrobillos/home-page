@@ -14,7 +14,7 @@
 // Content variables array for easy editing
 $hero_content = array(
     'headline' => 'Philippines Central Engagement Services Inc.',
-    'description' => 'Opportunities shouldn\'t be a privilege. We create job platforms so under served Filipinos can rise, grow, and thrive — because when doors are open, the sky is never the limit.',
+    'description' => 'Opportunities shouldn\'t be a privilege. We create job platforms so underserved Filipinos can rise, grow, and thrive. When doors are open, the sky is never the limit.',
     'cta_text' => 'Explore Our Services',
     'cta_link' => 'https://hamipces.bilishire.com/services/'
 );
@@ -29,7 +29,7 @@ $hero_background = array(
 );
 
 // Extended section content
-$mission_text = "At PCES Inc., we believe that everyone deserves access to meaningful work—regardless of background, ability, or life circumstance. As a proudly Filipino-led technology company, we are driven by a mission to create inclusive, purpose-centered employment solutions that reflect the diversity of our communities.";
+$mission_text = "Everyone deserves access to meaningful work, regardless of background, ability, or life circumstance. As a proudly Filipino-led technology company, PCES Inc. is driven by a mission to create inclusive, purpose-centered employment solutions that reflect the diversity of our communities.";
 $tagline_part1 = "Made by Filipinos";
 $tagline_part2 = "for the Filipinos";
 ?>
