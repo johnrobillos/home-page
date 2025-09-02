@@ -12,7 +12,7 @@
  */
 
 // Content variables array for easy editing
-$hero_content = array(
+$hero_content = array(  
     'headline' => 'Philippines Central Engagement Services Inc.',
     'description' => 'Opportunities shouldn\'t be a privilege. We create job platforms so underserved Filipinos can rise, grow, and thrive. When doors are open, the sky is never the limit.',
     'cta_text' => 'Explore Our Services',
@@ -122,7 +122,7 @@ $tagline_part2 = "for the Filipinos";
 /* Extended Hero Section Styling */
 .hero-extended {
     background: white;
-    padding: 80px 0;
+    padding: 60px 0;
     margin-top: -20px; /* Slight overlap with main hero */
 }
 
@@ -235,7 +235,7 @@ $tagline_part2 = "for the Filipinos";
   background-size: cover; /*Full width (100%)*/
   width: 100%; /*Full width (100%)*/
   max-width: 1360px; /*Full width (100%) with a maximum width of 1360px */
-  aspect-ratio: 1360/830;/*Maintains an aspect ratio of approximately 16:10 (1360/830)*/
+  aspect-ratio: 1360/600;/*Reduced aspect ratio for shorter height (was 1360/830)*/
   clip-path: polygon(0 0, 100% 0, 100% 100%, 39% 100%, 39% 44%, 0 44%); /*Cuts off the top part of the image*/
   transition: 0.2s ease-in-out; /*Smooth transition for hover effects*/
   margin: 0 auto; /*Centers the background container horizontally*/
@@ -248,7 +248,7 @@ $tagline_part2 = "for the Filipinos";
 
 .hero-content-container {
     width: 1360px;
-    margin: -28rem auto 0 auto;
+    margin: -20rem auto 0 auto;
 }
 .hero-headline {
     color: #03045E;
@@ -466,7 +466,7 @@ $tagline_part2 = "for the Filipinos";
     }
     
     .hero-content-container {
-    margin: -23rem auto 0 auto;
+    margin: -16rem auto 0 auto;
 }
    
     .hero-headline {
@@ -495,7 +495,7 @@ $tagline_part2 = "for the Filipinos";
     }
     
     .hero-content-container {
-    margin: -20rem auto 0 auto;
+    margin: -14rem auto 0 auto;
 }
    
     .hero-headline {
@@ -522,7 +522,7 @@ $tagline_part2 = "for the Filipinos";
     }
     
     .hero-content-container {
-    margin: -16rem auto 0 auto;
+    margin: -12rem auto 0 auto;
 }
 
     .hero-description, .mission-text {
