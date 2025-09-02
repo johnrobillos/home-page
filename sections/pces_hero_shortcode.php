@@ -12,9 +12,9 @@
  */
 
 // Content variables array for easy editing
-$hero_content = array(
+$hero_content = array(  
     'headline' => 'Philippines Central Engagement Services Inc.',
-    'description' => 'Opportunities shouldn\'t be a privilege. We create job platforms so under served Filipinos can rise, grow, and thrive — because when doors are open, the sky is never the limit.',
+    'description' => 'Opportunities shouldn\'t be a privilege. We create job platforms so underserved Filipinos can rise, grow, and thrive. When doors are open, the sky is never the limit.',
     'cta_text' => 'Explore Our Services',
     'cta_link' => 'https://hamipces.bilishire.com/services/'
 );
@@ -29,7 +29,7 @@ $hero_background = array(
 );
 
 // Extended section content
-$mission_text = "At PCES Inc., we believe that everyone deserves access to meaningful work—regardless of background, ability, or life circumstance. As a proudly Filipino-led technology company, we are driven by a mission to create inclusive, purpose-centered employment solutions that reflect the diversity of our communities.";
+$mission_text = "Everyone deserves access to meaningful work, regardless of background, ability, or life circumstance. As a proudly Filipino-led technology company, PCES Inc. is driven by a mission to create inclusive, purpose-centered employment solutions that reflect the diversity of our communities.";
 $tagline_part1 = "Made by Filipinos";
 $tagline_part2 = "for the Filipinos";
 ?>
@@ -48,10 +48,10 @@ $tagline_part2 = "for the Filipinos";
     
     <!-- Background Container with Enhanced Accessibility -->
     <div class="hero-background"></div>
-    <div class="hero-content-container flex-row align-items-start">
+    <div class="hero-content-container d-flex flex-row align-items-start">
         
     <!-- Content Container with Landmark -->
-    <div class="hero-content-block justify-content-start text-start" 
+    <div class="hero-content-block col-12 justify-content-start text-start" 
             role="region" 
             aria-label="Company introduction and services">
         
@@ -122,7 +122,7 @@ $tagline_part2 = "for the Filipinos";
 /* Extended Hero Section Styling */
 .hero-extended {
     background: white;
-    padding: 80px 0;
+    padding: 60px 0;
     margin-top: -20px; /* Slight overlap with main hero */
 }
 
@@ -227,18 +227,18 @@ $tagline_part2 = "for the Filipinos";
 
 .hero-background::before {
   content: "";
-  display: flex;
+  display: flex; /*Cross-browser flexbox support*/
   background-image: url(https://hamipces.bilishire.com/wp-content/uploads/designs/hero.webp);
-  background-color: #2596BE;
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: cover;
-  width: 100%;
-  max-width: 1360px;
-  aspect-ratio: 1360/830;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 39% 100%, 39% 44%, 0 44%);
-  transition: 0.2s ease-in-out;
-  margin: 0 auto;
+  background-color: #2596BE; /*Sets the background color to #2596BE (used as a fallback for browsers that don't support background-image)*/
+  background-repeat: no-repeat; /*Covers the available space without repeating*/
+  background-position: bottom right; /*Positions the background image at the bottom right corner*/
+  background-size: cover; /*Full width (100%)*/
+  width: 100%; /*Full width (100%)*/
+  max-width: 1360px; /*Full width (100%) with a maximum width of 1360px */
+  aspect-ratio: 1360/600;/*Reduced aspect ratio for shorter height (was 1360/830)*/
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 39% 100%, 39% 44%, 0 44%); /*Cuts off the top part of the image*/
+  transition: 0.2s ease-in-out; /*Smooth transition for hover effects*/
+  margin: 0 auto; /*Centers the background container horizontally*/
 }
 
 .hero-content-block {
@@ -247,7 +247,8 @@ $tagline_part2 = "for the Filipinos";
 }
 
 .hero-content-container {
-    margin: -28rem auto 0 auto;
+    width: 1360px;
+    margin: -20rem auto 0 auto;
 }
 .hero-headline {
     color: #03045E;
@@ -262,7 +263,7 @@ $tagline_part2 = "for the Filipinos";
 
 .hero-description {
     color: #000000; /* Improved contrast ratio: 12.6:1 (WCAG AAA) */
-    font-size: 1.5rem; 
+    font-size: 1.2rem; 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -465,7 +466,7 @@ $tagline_part2 = "for the Filipinos";
     }
     
     .hero-content-container {
-    margin: -23rem auto 0 auto;
+    margin: -16rem auto 0 auto;
 }
    
     .hero-headline {
@@ -494,7 +495,7 @@ $tagline_part2 = "for the Filipinos";
     }
     
     .hero-content-container {
-    margin: -20rem auto 0 auto;
+    margin: -14rem auto 0 auto;
 }
    
     .hero-headline {
@@ -521,7 +522,7 @@ $tagline_part2 = "for the Filipinos";
     }
     
     .hero-content-container {
-    margin: -16rem auto 0 auto;
+    margin: -12rem auto 0 auto;
 }
 
     .hero-description, .mission-text {
@@ -549,6 +550,7 @@ $tagline_part2 = "for the Filipinos";
     
     .hero-content-container {
     margin: 1.25rem auto 0 auto;
+    width: 100%;
 }
 
     .hero-extended {
