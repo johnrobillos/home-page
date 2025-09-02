@@ -227,18 +227,18 @@ $tagline_part2 = "for the Filipinos";
 
 .hero-background::before {
   content: "";
-  display: flex;
+  display: flex; /*Cross-browser flexbox support*/
   background-image: url(https://hamipces.bilishire.com/wp-content/uploads/designs/hero.webp);
-  background-color: #2596BE;
-  background-repeat: no-repeat;
-  background-position: bottom right;
-  background-size: cover;
-  width: 100%;
-  max-width: 1360px;
-  aspect-ratio: 1360/830;
-  clip-path: polygon(0 0, 100% 0, 100% 100%, 39% 100%, 39% 44%, 0 44%);
-  transition: 0.2s ease-in-out;
-  margin: 0 auto;
+  background-color: #2596BE; /*Sets the background color to #2596BE (used as a fallback for browsers that don't support background-image)*/
+  background-repeat: no-repeat; /*Covers the available space without repeating*/
+  background-position: bottom right; /*Positions the background image at the bottom right corner*/
+  background-size: cover; /*Full width (100%)*/
+  width: 100%; /*Full width (100%)*/
+  max-width: 1360px; /*Full width (100%) with a maximum width of 1360px */
+  aspect-ratio: 1360/830;/*Maintains an aspect ratio of approximately 16:10 (1360/830)*/
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 39% 100%, 39% 44%, 0 44%); /*Cuts off the top part of the image*/
+  transition: 0.2s ease-in-out; /*Smooth transition for hover effects*/
+  margin: 0 auto; /*Centers the background container horizontally*/
 }
 
 .hero-content-block {
