@@ -263,7 +263,7 @@ $tagline_part2 = "for the Filipinos";
 
 .hero-description {
     color: #000000; /* Improved contrast ratio: 12.6:1 (WCAG AAA) */
-    font-size: 1.5rem; 
+    font-size: 1.2rem; 
     text-rendering: optimizeLegibility;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
