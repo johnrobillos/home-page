@@ -1,30 +1,23 @@
-/* Global Variables */
+/* Charls C2C Style Redesign */
 
 
-
-/* style by Charls / July 15, 2025  */
+/* --- Theme Colors --- */
 :root {
-    --light-blue: #A8DADC; 
-    /* landing page color and other buttons */
-    --deep-blue: #1D3557;
-    /* Used for primary branding elements like buttons, navigation bars, and footer background */
-    --light-gold: #E9C46A;
-    /* Primary CTA buttons (e.g., "Search", "Send Request"), highlights, or accent text */
-    --slate-gray: #A3B3B8;
-    /* Hover effect on job cards and other interactive elements */
-    --support-teal: #2A9D8F;
-    /* Secondary action buttons, badges, or info sections */
-    --text-dark: #264653;
-    /* Main text color for dark background or light badges */
-    --canvas: #F2F2F2;
-    /* Background color for field cards, forms, and other container elements */
-    --hover: #ffdf8d;
+    --c2c-main: #3B9418;
+    --c2c-blue: #A5C9EF;
+    --c2c-footer: #262B33;
+    --c2c-gradient1: linear-gradient(241deg, #4289C1 0%, #086484 100%);
+    --c2c-cta: #188E94;
+    --c2c-gradient2: linear-gradient(180deg, #3B9418 0%, #7FD65A 50.6%, #E9FFE9 100%);
+    --c2c-gradient3: linear-gradient(180deg, #6e6e6e 0%, #c7c7c7 50.6%, #ffffff 100%);
+    --c2c-gradient4: linear-gradient(180deg, #9c9c9cdb 0%, #d6d6d6d2 50.6%, #fefefec8 100%);
+
+    /* Utility Colors */
+    --c2c-accent-purple: #9557e2;
+    --c2c-shadow: rgba(0, 0, 0, 0.69);
+    --c2c-border: #ccc;
+    --c2c-bg-light: #f1f0f0;
 }
-
-/* mission and vision style start */
-S
-/* mission and vision style end */
-
 
 /* Search botton state */
 .search-btn.disabled {
@@ -45,29 +38,6 @@ S
     background-color: #fd7e14 !important;
 }
 
-/* Sticky footer layout */
-html,
-body {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
-
-.angular-cloak {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-}
-
-.main-content {
-    flex: 1 0 auto;
-}
-
-.footer-container {
-    flex-shrink: 0;
-}
-
-
 
 /* Code Migrated @ 04/07/2025 */
 
@@ -77,14 +47,23 @@ body {
 /* modal global style */
 .information-entry-modal a {
 
-    color: black; 
+    color: black;
+}
+
+.modal-btn {
+
+    background-color: navy;
+    color: white !important;
+    border-radius: 10px;
+
 }
 
 .modal-overlay {
 
     background: rgba(0, 0, 0, 0.5);
     position: fixed;
-    z-index: 1050;          /* Placed higher than the nav bar (1030) */
+    z-index: 1050;
+    /* Placed higher than the nav bar (1030) */
     left: 0;
     top: 0;
     height: 100%;
@@ -196,13 +175,14 @@ body {
     transform: translateX(0);
 }
 
-.register-content, 
+.register-content,
 .verify-content,
 .confirm-user-type,
-.forgot-pass, 
+.forgot-pass,
 .verify-forgot-pass-content,
 .change-password-content {
-    transform: translateX(100%); /* Hidden off-screen */
+    transform: translateX(100%);
+    /* Hidden off-screen */
 }
 
 /* Active State */
@@ -213,7 +193,8 @@ body {
 .forgot-pass.active-slide-out,
 .verify-forgot-pass-content.active-slide-out,
 .change-password-content.active-slide-out {
-    transform: translateX(100%); /* Slide out to the left */
+    transform: translateX(100%);
+    /* Slide out to the left */
 }
 
 
@@ -224,7 +205,8 @@ body {
 .forgot-pass.active-slide-in,
 .verify-forgot-pass-content.active-slide-in,
 .change-password-content.active-slide-in {
-    transform: translateX(0); /* Slide in from the right */
+    transform: translateX(0);
+    /* Slide in from the right */
 }
 
 
@@ -261,7 +243,7 @@ body {
 .change-pass-btn.disabled,
 .verify-btn.disabled {
 
-    
+
     pointer-events: none !important;
     background-color: rgb(137, 136, 136) !important;
     border-color: rgb(137, 136, 136) !important;
@@ -281,22 +263,47 @@ body {
 
 
 
+
+
+
+
+
+
 /* Sir jess login reg form emp css*/
 .background-circle {
     position: absolute;
     top: 0;
     right: 0;
-    width: 60vw; 
-    height: 60vw; 
-    background-color: #6db5ff; 
+    width: 60vw;
+    height: 60vw;
+    background-color: #6db5ff;
     border-radius: 50%;
-    transform: translate(25%, -20%); 
-    z-index: -1; 
+    transform: translate(25%, -20%);
+    z-index: -1;
     overflow: hidden;
 }
 
-html, body {
-    overflow-x: hidden; /* Prevents horizontal scrolling */
+html,
+body {
+    overflow-x: hidden;
+    overflow-y: auto;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    overflow-y: scroll;
+    /* keeps scrolling */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+}
+
+body::-webkit-scrollbar {
+    display: none;
+    /* Chrome, Safari */
 }
 
 
@@ -304,11 +311,11 @@ html, body {
     position: absolute;
     top: 50%;
     left: 10%;
-    width: 50vw; 
-    height: 50vw; 
-    background-color: #6eb7ff; 
+    width: 50vw;
+    height: 50vw;
+    background-color: #6eb7ff;
     border-radius: 50%;
-    transform: translate(-50%, -50%); 
+    transform: translate(-50%, -50%);
     z-index: -1;
 }
 
@@ -318,12 +325,12 @@ html, body {
     position: absolute;
     top: 80%;
     right: -50%;
-    width: 50vw; 
-    height: 50vw; 
-    background-color: #6eb7ff; 
+    width: 50vw;
+    height: 50vw;
+    background-color: #6eb7ff;
     border-radius: 50%;
-    transform: translate(-50%, -50%); 
-    z-index: -1; 
+    transform: translate(-50%, -50%);
+    z-index: -1;
 }
 
 
@@ -331,19 +338,19 @@ html, body {
     position: absolute;
     top: 0;
     right: 0;
-    width: 20vw; 
-    height: 20vw; 
-    background-color: #6eb7ff; 
+    width: 20vw;
+    height: 20vw;
+    background-color: #6eb7ff;
     border-radius: 50%;
-    transform: translate(-100%, 160%); 
-    z-index: -1; 
-    
+    transform: translate(-100%, 160%);
+    z-index: -1;
+
 }
 
 
 .custom-fields::placeholder {
     font-size: 14px;
-    opacity: 1; 
+    opacity: 1;
 }
 
 
@@ -356,7 +363,7 @@ html, body {
 
 
 #about-ojtgo {
- 
+
     margin-top: 200px;
 }
 
@@ -374,7 +381,8 @@ html, body {
 .popup-overlay {
     display: none;
     position: fixed;
-    z-index: 1050;              /*Higher that the fixed nav bar (1030)*/
+    z-index: 1050;
+    /*Higher that the fixed nav bar (1030)*/
     left: 0;
     top: 0;
     width: 100%;
@@ -385,7 +393,7 @@ html, body {
 /* Popup box */
 .popup-box {
     background: #fff;
-    
+
     padding: 10px;
     width: 30%;
     position: relative;
@@ -418,7 +426,8 @@ html, body {
 
 @media (max-width: 991px) {
     #about-ojtgo {
-        margin-top: 100px; /* Applies for 991px and below */
+        margin-top: 100px;
+        /* Applies for 991px and below */
     }
 }
 
@@ -441,87 +450,13 @@ html, body {
 }
 
 body {
-    background-color: #FFFAFA !important;      /* Set Correct Background Color */
+    background-color: #FFFAFA !important;
+    /* Set Correct Background Color */
     overflow-x: hidden;
 }
 
 
 /* End of globaly set styles */
-.navbar-btn {
-
-    background-color: var(--light-gold);
-    color: #264653 !important;
-    padding: 5px 15px;
-    font-weight: bold;
-
-}
-
-.navbar-btn:hover {
-    background-color: var(--hover);
-    /* Change to a different color on hover */
-}
-
-.hire {
-
-    background-color: var(--light-gold) !important;
-    color: #264653 !important;
-    padding: 5px 15px;
-    font-weight: bolder !important;
-
-}
-
-.hire:hover {
-    background-color: var(--hover) !important;
-    /* Change to a different color on hover */
-}
-
-.hl-button {
-    color: #264653 !important;
-    padding: 5px 15px;
-    font-weight: bolder !important;
-    border-radius: 20px !important;
-}
-
-.hl-button:hover {
-    filter: brightness(95%);
-    transform: scale(1.02);
-    transition: 0.2s;
-}
-
-.hl-button.active {
-    background-color: var(--light-gold)!important;
-}
-
-/* for contact form styling */
-.white-placeholder::placeholder {
-    color: #c7c7c7 !important;
-    opacity: 1 !important;
-}
-/* end style */
-
-/* for overlay at home */
-.overlay {
-    position: absolute !important;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to top, rgba(5, 10, 20, 0.767), rgba(5, 10, 20, 0.582)) !important;
-    z-index: 1;
-    animation: fadeFromBottom 2s ease-in-out forwards !important;
-}
-
-@keyframes fadeFromBottom {
-    0% {
-        background: linear-gradient(to top, rgba(5, 10, 20, 0.76), rgba(5, 10, 20, 0.596)) !important;
-        /* Fully dark and non-transparent at the bottom */
-    }
-
-    100% {
-        background: linear-gradient(to top, rgba(5, 10, 20, 0), rgba(5, 10, 20, 0.63)) !important;
-        /* Fade to no color (transparent) at the bottom and lighter at the top */
-    }
-}
 
 /* Hero Container */
 
@@ -529,8 +464,10 @@ body {
 .kickstart-hero-skeleton {
 
     background: var(--gridientt_4, linear-gradient(180deg, #2DA0FA 0%, #89BFFB 50.6%, #FFFAFA 100%)) !important;
-    margin-left: -10px;                         /* Move the entire container to the left */
-    width: calc(100% + 20px);                   /* Fill the remaining space to the right */
+    margin-left: -10px;
+    /* Move the entire container to the left */
+    width: calc(100% + 20px);
+    /* Fill the remaining space to the right */
     height: 400px;
 }
 
@@ -558,9 +495,7 @@ body {
 
 
 /* Main Find Your Match Content */
-.job-list-container {
-
-}
+.job-list-container {}
 
 
 
@@ -570,9 +505,9 @@ body {
 
 /* modified by Lorenzo @ 04/24/2025 */
 .job-details-container {
-    box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
-    -webkit-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
-    -moz-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
+    box-shadow: -1px 5px 5px 1px rgba(106, 106, 106, 0.75);
+    -webkit-box-shadow: -1px 5px 5px 1px rgba(106, 106, 106, 0.75);
+    -moz-box-shadow: -1px 5px 5px 1px rgba(106, 106, 106, 0.75);
 }
 
 .posting-description {
@@ -586,7 +521,7 @@ body {
 .job-list-wrapper {
     height: calc(100vh + 310px);
 }
-  
+
 .job-list-pane {
     flex: 1;
     height: inherit;
@@ -606,14 +541,16 @@ body {
 /* modified by Lorenzo @ 04/24/2025 */
 /* Apply styling if the job card is selected */
 .job-card {
-    box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
-    -webkit-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
-    -moz-box-shadow: -1px 5px 5px 1px rgba(106,106,106,0.75);
-    transition: background-color 0.3s ease;      /* Ensures smooth animation */
+    box-shadow: -1px 5px 5px 1px rgba(106, 106, 106, 0.75);
+    -webkit-box-shadow: -1px 5px 5px 1px rgba(106, 106, 106, 0.75);
+    -moz-box-shadow: -1px 5px 5px 1px rgba(106, 106, 106, 0.75);
+    transition: background-color 0.3s ease;
+    /* Ensures smooth animation */
 }
 
 .job-card.active {
-    box-shadow: 0 0 10px 2px rgba(0, 123, 255, 0.5); /* glowing blue shadow */
+    box-shadow: 0 0 10px 2px rgba(0, 123, 255, 0.5);
+    /* glowing blue shadow */
 }
 
 .job-card:hover {
@@ -623,16 +560,16 @@ body {
 
 
 
-/* Overview */
+/* Job Details */
 
 .modal-send-request {
 
-    line-height: 1; 
-    color: black !important; 
-    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%)); 
-    border-radius: 10px; 
-    padding: 10px 15px; 
-    text-decoration: none; 
+    line-height: 1;
+    color: black !important;
+    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%));
+    border-radius: 10px;
+    padding: 10px 15px;
+    text-decoration: none;
     font-size: 1rem;
 
 }
@@ -640,7 +577,7 @@ body {
 .progress-bar {
 
     background-color: #70B7FB !important;
-    
+
 }
 
 .progress {
@@ -653,11 +590,13 @@ body {
 
 .create-account-banner {
 
-    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%)); 
+    background: var(--gridient, linear-gradient(241deg, #A1CFFF 0%, #8BBFFB 50%, #2EA0F9 100%));
     padding: 15px 0;
-    border-radius: 0 0 0.4rem 0.4rem !important;        /* Modified by Lorenz o@ 04/24/2025 */
+    border-radius: 0 0 0.4rem 0.4rem !important;
+    /* Modified by Lorenz o@ 04/24/2025 */
     width: 100%;
-    margin-top: auto; /* Push to bottom */
+    margin-top: auto;
+    /* Push to bottom */
 
 }
 
@@ -683,8 +622,9 @@ body {
     position: relative;
     overflow: hidden;
 }
-  
-.skeleton-block::after { /* Deals with the animation */
+
+.skeleton-block::after {
+    /* Deals with the animation */
     content: "";
     position: absolute;
     top: 0;
@@ -692,12 +632,14 @@ body {
     width: 200px;
     height: 100%;
     background: linear-gradient(to right, transparent 0%, #f0f0f0 50%, transparent 100%);
-    animation: shimmer 1.5s infinite;      /*Deals with the shimmer speed*/
+    animation: shimmer 1.5s infinite;
+    /*Deals with the shimmer speed*/
 }
-  
+
 @keyframes shimmer {
     100% {
-        transform: translateX(100vw);       /*Determines the length of the shimmer will travel*/
+        transform: translateX(100vw);
+        /*Determines the length of the shimmer will travel*/
     }
 }
 
@@ -714,15 +656,17 @@ body {
 /* For password */
 .guidelines {
     font-size: 13px;
-    border: 1px solid var(--light-blue);
+    color: #666;
+    background: #f9f9f9;
+    border: 1px solid #ddd;
     line-height: 1.3;
-    width: 310px; 
+    width: 310px;
 }
 
 .condition {
     font-size: 13px;
     line-height: 1.3;
-    width: 310px; 
+    width: 310px;
 }
 
 /* Added by Lorenzo @ 04/24/2025 */
@@ -775,7 +719,7 @@ body {
     .modal-overlay .information-entry-modal.active {
 
         transform: translateY(5%);
-    
+
     }
 
 
@@ -797,7 +741,7 @@ body {
 
     }
 
-    
+
 
 
 
@@ -833,28 +777,6 @@ body {
     }
 }
 
-/* navbar */
-.nav-link {
-    color: var(--text-dark) !important;
-}
-
-/* Change nav link color on hover */
-.navbar-nav .nav-link:hover,
-.navbar-nav .dropdown-item:hover {
-    color: var(--deep-blue) !important;
-}
-
-/* .blue-circle-left {
-    position: absolute;
-    top: 50%;
-    left: 10%;
-    width: 30vw;
-    height: 30vw;
-    background-color: #6db5ff;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    z-index: -1;
-} */
 
 .blue-circle-lower-right {
     position: absolute;
@@ -867,18 +789,6 @@ body {
     transform: translate(-50%, -50%);
     z-index: -1;
 }
-
-/* .blue-circle-lower-right2 {
-    position: absolute;
-    top: 0%;
-    right: 70%;
-    width: 20vw;
-    height: 20vw;
-    background-color: #6db5ff;
-    border-radius: 50%;
-    transform: translate(70%, 60%);
-    z-index: -1;
-} */
 
 
 .blue-small-circle {
@@ -944,7 +854,7 @@ html {
 
 
 @media screen and (max-width: 991px) {
-    
+
     .sidebar {
         width: 100%;
         height: auto;
@@ -956,7 +866,7 @@ html {
     }
 }
 
-/* Hirebilis Team Responsiveness */
+/* OJTGO Team Responsiveness */
 .team-img-container {
     width: 180px;
     height: 180px;
@@ -986,13 +896,6 @@ html {
         height: 90px;
     }
 }
-
- /* Legal footer responsiveness */
- @media (min-width: 992px) {
-     .legal-offset {
-         margin-left: 8rem !important;
-     }
- }
 
 /* How It Works Section */
 #how {
@@ -1068,56 +971,45 @@ html {
 }
 
 /* faq styling */
+
 /* Custom tab buttons */
 .custom-tab-button {
-    background-color: white;
-    color: black;
+    background-color: #fff;
+    color: var(--c2c-main);
+    /* deep blue text */
     border: 1px solid #ced4da;
+    /* light border */
     padding: 8px 16px;
     border-radius: 4px;
-    transition: all 0.3s ease;
+    font-weight: 500;
     cursor: pointer;
+    transition: all 0.3s ease;
 }
 
-/* Remove Bootstrap's default red focus/active outline */
+
+.custom-tab-button:hover {
+    background-color: var(--c2c-cta);
+    border-color: var(--c2c-main);
+    color: var(var(--c2c-main));
+}
+
 .custom-tab-button:focus,
 .custom-tab-button:active,
-.custom-tab-button:focus:active {
+.custom-tab-button:focus:active,
+.custom-tab-button.active {
     outline: none !important;
     box-shadow: none !important;
-    border-color: rgb(0, 43, 86) !important;
-    /* Blue border */
-    background-color: rgb(0, 43, 86) !important;
-    /* Blue background */
-    color: #ffffff !important;
-    /* White text */
+    background-color: var(--c2c-main) !important;
+    border-color: var(--c2c-main) !important;
+    color: #fff !important;
 }
 
-/* Hover effect: Blue border and text */
-.custom-tab-button:hover {
-    background-color: transparent !important;
-    border-color: rgb(0, 43, 86)!important;
-    color: rgb(0, 43, 86) !important;
-}
-
-/* Optional: Make sure buttons don't use Bootstrap's red if inherited */
-.custom-tab-button {
-    border: 1px solid transparent;
-    background-color: transparent;
-    color: rgb(0, 43, 86);
-    transition: all 0.3s ease;
-    padding: 6px 12px;
-    border-radius: 4px;
-    font-weight: 500;
-}
-
-/* Add space between FAQ questions */
+/* FAQ question/answer spacing */
 .faq-question {
     margin-bottom: 20px;
     cursor: pointer;
 }
 
-/* Optional: add a bit of space below the answer too */
 .faq-answer {
     margin-bottom: 30px;
 }
@@ -1175,57 +1067,909 @@ html {
     flex-direction: column;
 }
 
-/* quill */
-/* .quill-content {
-    font-family: inherit;
+.description-clamp {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    /* Show 4 lines max */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.see-more-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+    background: linear-gradient(to top, #f8f9fa 70%, transparent);
+    color: #0d6efd;
+    font-size: 13px;
+    padding-top: 20px;
+    pointer-events: none;
+    /* So modal still opens on card click */
+}
+
+/* remove bullets for faq */
+.no-bullets {
+    list-style-type: none;
+    padding-left: 0;
+    margin-left: 0;
+}
+
+/* For highlights scrollbar */
+.scrollable-row {
+    max-height: 300px;
+    /* Adjust height as needed */
+    overflow: auto;
+    /* Enable scrolling */
+    position: relative;
+}
+
+/* Hide the scrollbar for Webkit-based browsers (Chrome, Safari, Edge) */
+.scrollable-row::-webkit-scrollbar {
+    display: none;
+    /* Hide the scrollbar */
+}
+
+/* Hide the scrollbar for Firefox */
+.scrollable-row {
+    scrollbar-width: none;
+    /* For Firefox */
+}
+
+/* Hide the scrollbar for Internet Explorer */
+.scrollable-row {
+    -ms-overflow-style: none;
+    /* For Internet Explorer */
+}
+
+
+/*carousel style*/
+.company-carousel-section {
+    position: relative;
+    background: white;
+    padding: 40px 0;
+    overflow: hidden;
+}
+
+.carousel-title {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 30px;
+    color: #1565C0;
+}
+
+.carousel-track-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    animation: scroll-marquee 30s linear infinite;
+}
+
+.carousel-slide {
+    width: 120px;
+    height: 120px;
+    margin-right: 80px;
+    flex-shrink: 0;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #fff;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+/* Smooth infinite scroll keyframes */
+@keyframes scroll-marquee {
+    0% {
+        transform: translateX(0%);
+    }
+
+    100% {
+        transform: translateX(-33.333%);
+    }
+}
+
+/* Fade edges */
+.fade-left,
+.fade-right {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100px;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.fade-left {
+    left: 0;
+    background: linear-gradient(to right, white, transparent);
+}
+
+.fade-right {
+    right: 0;
+    background: linear-gradient(to left, white, transparent);
+}
+
+/* Navbar Styles */
+/* === Glassmorphism Navbar === */
+.custom-glass-navbar {
+    background: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border-radius: 40px;
+    margin: 1rem auto;
+    width: 95%;
+    max-width: 1280px;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+}
+
+/* Navbar links */
+.navbar-nav .nav-link {
+    color: #1a1a1a !important;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.navbar-nav .nav-link:hover {
+    color: #3B9418 !important;
+}
+
+/* Logo text */
+.brand-text {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #1a1a1a;
+}
+
+/* Buttons */
+.navbar .btn {
+    font-weight: 500;
+    transition: all 0.25s ease;
+}
+
+.navbar .btn-success {
+    background: #3B9418;
+    border: none;
+}
+
+.navbar .btn-outline-success {
+    border: 1px solid #3B9418;
+    color: #3B9418;
+    background: white;
+}
+
+.navbar .btn-outline-success:hover {
+    background: #3B9418;
+    color: white;
+}
+
+/* Responsive fix */
+@media (max-width: 991px) {
+    .custom-glass-navbar {
+        width: 100%;
+        border-radius: 0;
+        margin: 0;
+    }
+
+    /* stack nav links */
+    .navbar-nav {
+        gap: 1rem;
+        text-align: center;
+    }
+
+    /* stack buttons vertically */
+    .auth-buttons {
+        flex-direction: column !important;
+        width: 100%;
+        margin-top: 1rem;
+    }
+
+    .auth-buttons .btn {
+        width: 90%;
+        /* full but with margin */
+        margin-bottom: 0.5rem;
+    }
+}
+/* Closing */
+
+/* === Chains2Chances cards: stable grid + smooth expand === */
+
+/* 1) Make each grid cell flex so the card fills height */
+.c2c-card-wrapper {
+    display: flex;
+    /* new */
+    transition: all .25s ease;
+}
+
+/* 2) Card fills its wrapper, equal heights */
+.c2c-card {
+    width: 100%;
+    /* new */
+    display: block;
+    text-decoration: none;
+    color: black;
+    background: var(--c2c-card);
+    border-radius: 18px;
+    padding: 24px;
+    min-height: 170px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+    border: 1px solid rgba(0, 0, 0, .05);
+    position: relative;
+    transition: transform .15s ease, background .2s ease, box-shadow .2s ease, min-height .2s ease;
+}
+
+.c2c-card:hover {
+    transform: translateY(-2px);
+}
+
+/* 3) Icon */
+.c2c-card .bi {
+    font-size: 1.8rem;
+    color: #666;
+}
+
+/* 4) Collapsed footer line */
+.c2c-card-line {
+    margin-top: 28px;
+    border-top: 2px solid rgba(0, 0, 0, .2);
+    padding-top: 10px;
+}
+
+/* 5) Learn link */
+.c2c-learn {
+    font-weight: 600;
+}
+
+/* 6) Active state (uses your gradient var) */
+.c2c-card.active {
+    background: var(--c2c-gradient2);
+    color: #111;
+    min-height: 220px;
+    /* add a little height when active */
+}
+
+.c2c-card.active .bi {
+    color: #111;
+}
+
+.c2c-card.active .c2c-learn {
+    border-bottom: 0;
+}
+
+/* 7) Slide-down animation for the expanded text */
+.c2c-card-body {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height .25s ease, opacity .2s ease;
+}
+
+.c2c-card.active .c2c-card-body {
+    max-height: 400px;
+    /* enough to reveal typical text */
+    opacity: 1;
+}
+
+/* 8) REMOVE width-based expansion logic (prevents offset).
+      If you still have rules like `.c2c-card-wrapper.col-12 .c2c-card`, they
+      are no longer used. Keep grid fixed at col-sm-6. */
+@media (min-width: 768px) {
+    /* no col-12 special case needed anymore */
+}
+
+/* card */
+.c2c-card {
+    display: block;
+    text-decoration: none;
+    color: black;
+    background: var(--c2c-card);
+    border-radius: 18px;
+    padding: 24px;
+    min-height: 170px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+
+    /* Updated border for visibility */
+    border: 2px solid rgba(0, 0, 0, 0.15);
+    position: relative;
+    transition: transform .15s ease, background .2s ease, box-shadow .2s ease, border-color .2s ease;
+}
+
+/* Optional: darker border when active */
+.c2c-card.active {
+    background: var(--c2c-gradient2);
+    color: #111;
+    border-color: rgba(0, 0, 0, 0.25);
+}
+
+.graffiti-text {
+    font-size: clamp(2rem, 4vw, 3rem);
+    color: #3B9418;
+    /* or var(--c2c-main) */
+    text-shadow: 2px 2px 0 #262B33, -2px -2px 0 #fff;
+    letter-spacing: 1px;
+}
+
+.graffiti-img {
+    filter: drop-shadow(0 4px 12px rgba(0, 0, 0, .25));
+}
+
+/* dpo style */
+/* Subtle animation for DPO logo */
+.animate-dpo {
+    transition: transform 0.6s ease, opacity 0.6s ease;
+}
+
+.animate-dpo:hover {
+    transform: scale(1.05);
+    opacity: 0.95;
+}
+
+/* about us */
+
+.c2c-member {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, .08);
+    border-radius: 16px;
+    transition: transform .15s ease, box-shadow .2s ease;
+}
+
+.c2c-member:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 22px rgba(0, 0, 0, .06);
+}
+
+.c2c-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, .08);
+}
+
+.c2c-avatar img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Mission & Programs Style */
+
+/* subtle leaf bar like the reference */
+.c2c-leaf-accent{
+  height: 80px;
+  border-radius: 20px;
+  background:
+    radial-gradient(60px 40px at 60px 40px, rgba(59,148,24,.18), transparent 70%),
+    radial-gradient(60px 40px at 180px 20px, rgba(59,148,24,.12), transparent 70%),
+    radial-gradient(60px 40px at 300px 50px, rgba(59,148,24,.18), transparent 70%),
+    linear-gradient(90deg, rgba(59,148,24,.08), rgba(59,148,24,.02));
+}
+
+/* card shell inspired by the screenshot */
+.c2c-nature-card{
+  background: #f5fbf6;
+  border: 1px solid #dcefe1;
+  border-radius: 16px;
+  padding: 16px 18px;
+}
+
+/* icon badge */
+.c2c-card-icon{
+  width: 38px; height: 38px; border-radius: 10px;
+  display:flex; align-items:center; justify-content:center;
+  background: #e8f6ea; color:#2f7f1e; font-size:1.25rem;
+  border: 1px solid #cfe8d4;
+}
+
+/* Blog section style */
+
+.c2c-blog-card {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, .05);
+    transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.c2c-blog-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, .1);
+}
+
+/* HOW IT WORKS – V2 */
+
+.c2c-hiw-chip {
+    background: rgba(59, 148, 24, 0.1);
+    color: var(--c2c-main);
+    border: 1px solid rgba(59, 148, 24, 0.2);
+}
+
+.c2c-hiw-title {
+    color: var(--c2c-ink);
+    letter-spacing: -0.02em;
+}
+
+/* Card base */
+.c2c-hiw-card {
+    background: #ffffff;
+    border-radius: 18px;
+    padding: 1.25rem 1.25rem 1rem;
+    box-shadow: 0 6px 24px rgba(15, 23, 42, 0.06);
+    border: 1px solid var(--c2c-border);
+    overflow: hidden;
+    transition: transform .2s ease, box-shadow .2s ease;
+    isolation: isolate;
+    display: flex;
+    flex-direction: column;
+}
+
+.c2c-hiw-pill {
+    display: inline-block;
+}
+
+/* Frosted stripe like the reference */
+.c2c-hiw-card::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 10%;
+    width: 42%;
+    height: 80%;
+    background: linear-gradient(90deg, rgba(15, 23, 42, 0.06), rgba(255, 255, 255, 0));
+    filter: blur(0.5px);
+    border-radius: 12px;
+    pointer-events: none;
+}
+
+.c2c-hiw-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10);
+    background: var(--c2c-main);
+    color: #fff;
+    /* ensure text switches to white */
+}
+
+/* Make inner text white on hover */
+.c2c-hiw-card:hover h5,
+.c2c-hiw-card:hover p,
+.c2c-hiw-card:hover .c2c-hiw-step {
+    color: #fff !important;
+}
+
+/* Adjust badge (pill) on hover */
+.c2c-hiw-card:hover .c2c-hiw-pill {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+    color: #fff;
+}
+
+/* Step label */
+.c2c-hiw-step {
+    font-size: .75rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--c2c-main);
+    text-transform: uppercase;
+}
+
+/* Pills */
+.c2c-hiw-pill {
+    display: inline-block;
+    font-size: .75rem;
+    padding: .35rem .65rem;
+    border-radius: 999px;
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    color: var(--c2c-footer);
+    user-select: none;
+}
+
+/* Round arrow between cards */
+.c2c-hiw-next {
+    position: absolute;
+    right: -20px;
+    /* sits on the edge like the sample */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    border-radius: 999px;
+    border: 1px solid #e5e7eb;
+    background: #ffffff;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 2px 10px rgba(2, 6, 23, 0.08);
+    pointer-events: none;
+    /* decorative */
+}
+
+.c2c-hiw-next i {
+    font-size: 1.6rem;
+    line-height: 1;
+    color: #94a3b8;
+}
+
+/* Responsive tweaks */
+@media (max-width: 991.98px) {
+    .c2c-hiw-next {
+        display: none;
+    }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .c2c-hiw-card {
+        transition: transform .2s ease, box-shadow .2s ease;
+    }
+}
+
+/* Why it works for you */
+
+.c2c-feature {
+    background: transparent;
+    /* no card background */
+    border: none;
+    /* no border */
+    box-shadow: none;
+    /* remove shadow */
+    transition: transform .2s ease, color .2s ease;
+}
+
+.c2c-feature:hover {
+    transform: translateY(-3px);
+    color: var(--c2c-main);
+}
+
+@media (max-width: 767.98px) {
+    .c2c-feature {
+        text-align: left;
+    }
+
+    .c2c-feature i {
+        display: block;
+        /* keeps icon above text */
+        margin-left: 0;
+    }
+}
+
+/* Highlights section style */
+.c2c-highlight-title {
+    display: inline-block;
+    background: var(--c2c-gradient3);
+    /* use your theme gradient */
+    color: var(--c2c-footer);
+    font-size: 2rem;
+    font-weight: 600;
+    padding: 0.8rem 1.5rem;
+    border-radius: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    letter-spacing: 1px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Optional moving shine effect */
+.c2c-highlight-title::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -50%;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0.25) 0%,
+            rgba(255, 255, 255, 0) 100%);
+    transform: skewX(-25deg);
+    animation: shine 3s infinite;
+}
+
+@keyframes shine {
+    0% {
+        left: -50%;
+    }
+
+    50% {
+        left: 100%;
+    }
+
+    100% {
+        left: 100%;
+    }
+}
+/* Highlights chip button */
+.c2c-chipbar {
+    display: flex;
+    gap: .5rem;
+    padding-inline: .5rem;
+    overflow-x: auto;
+    /* enable horizontal scroll if needed */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: thin;
+    scrollbar-color: var(--c2c-cta) transparent;
+
+    /* Desktop/tablet: wrap & center */
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.c2c-chipbar::-webkit-scrollbar {
+    height: 6px;
+}
+
+.c2c-chipbar::-webkit-scrollbar-thumb {
+    background: var(--c2c-cta);
+    border-radius: 999px;
+}
+
+/* Mobile-first fixes: keep first chips visible & swipeable */
+@media (max-width: 576px) {
+    .c2c-chipbar {
+        flex-wrap: nowrap;
+        /* single row on small screens */
+        justify-content: flex-start;
+        /* left align so 'All' is visible */
+        scrollbar-width: none;
+        /* hide FF scrollbar */
+        -ms-overflow-style: none;
+        /* IE/Edge legacy */
+
+        /* subtle fade edges to hint scroll */
+        mask-image: linear-gradient(to right,
+                transparent 0, black 24px,
+                black calc(100% - 24px), transparent 100%);
+        -webkit-mask-image: linear-gradient(to right,
+                transparent 0, black 24px,
+                black calc(100% - 24px), transparent 100%);
+    }
+
+    .c2c-chipbar::-webkit-scrollbar {
+        display: none;
+    }
+
+    /* hide WebKit scrollbar */
+}
+
+/* Highlights button */
+.c2c-chip {
+    flex: 0 0 auto;
+    /* prevent shrinking on mobile */
+    border: 1px solid var(--c2c-border);
+    background: var(--c2c-bg-light);
+    color: var(--c2c-footer);
+    padding: .5rem 1rem;
+    border-radius: 999px;
+    line-height: 1;
+    display: inline-flex;
+    align-items: center;
+    gap: .35rem;
+    white-space: nowrap;
+    font-weight: 500;
+    transition: transform .2s ease, box-shadow .2s ease, background .2s ease, color .2s ease;
+}
+
+.c2c-chip:hover {
+    background: var(--c2c-cta);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 6px var(--c2c-shadow);
+}
+
+/* Active chip */
+.c2c-chip.is-active {
+    background: var(--c2c-main);
+    color: #fff;
+    border-color: var(--c2c-main);
+    box-shadow: 0 4px 10px rgba(59, 148, 24, 0.4);
+}
+
+.scrollable-row {
+    max-height: 75vh;
+    /* adjust this value */
+    overflow-y: auto;
+    /* make it scrollable */
+    padding-right: .5rem;
+    /* space for scrollbar */
+}
+
+.c2c-subtitle {
+    color: #001F3F;
+    /* keep your original dark blue */
+    font-size: 1.35rem;
+    /* a little bigger than fs-4 */
+    line-height: 1.6;
+    letter-spacing: 0.3px;
+}
+
+/* Emphasize key words */
+.c2c-subtitle .highlight {
+    color: var(--c2c-main);
+    /* green from your theme */
+    font-weight: 700;
+}
+
+/* News card style */
+.news-card {
+    position: relative;
+    isolation: isolate;
+    padding-top: .85rem;
+    background: #fff;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    border: 1px solid rgba(0, 0, 0, .06);
+    border-radius: 1rem;
+}
+
+/* Accent bar */
+.news-card::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: var(--c2c-main);
+    border-top-left-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+
+/* Hover effect */
+.news-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .12);
+    border-color: rgba(0, 0, 0, .12);
+}
+
+/* Date */
+.news-card small.text-muted {
+    color: #6b7280 !important;
+    font-weight: 500;
+    letter-spacing: .2px;
+}
+
+/* Title clamp */
+.news-card .card-title {
+    color: #111827;
+    font-weight: 700;
+    line-height: 1.25;
+    margin-right: .75rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Description clamp */
+.news-card .card-text>div {
+    color: #374151;
+    line-height: 1.55;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* See More */
+.news-card .mt-auto .text-primary {
+    color: var(--c2c-main) !important;
+    padding: .25rem .4rem;
+    border-radius: .5rem;
+    transition: color .15s ease, transform .15s ease, background .15s ease;
+    text-decoration: none;
+}
+
+.news-card .mt-auto .text-primary:hover {
+    background: rgba(59, 148, 24, .08);
+    transform: translateX(1px);
+}
+
+.news-card .mt-auto .text-primary i {
+    transition: transform .15s ease;
+}
+
+.news-card .mt-auto .text-primary:hover i {
+    transform: translateX(2px);
+}
+
+/* Footer styles */
+/* === Modern Footer === */
+.custom-footer {
+    background: #111;
+    /* dark clean background */
+    color: #fff;
+    padding: 40px 20px;
+    text-align: center;
+}
+
+.footer-logo-wrap {
+    display: flex;
+    justify-content: center;
+}
+
+.footer-nav .footer-link {
+    color: #fff;
+    text-decoration: none;
     font-size: 1rem;
-} */
-
-/* White overlay for Bootstrap modal */
-/* .modal-backdrop.show {
-    background-color: rgb(255, 255, 255);
-    /* white with some transparency */
-/* } */
-
-/* .modal {
-    z-index: 1060;
-    /* Bootstrap default */
-/* }
-
-.modal-backdrop {
-    z-index: 1050;
-    /* Just behind the modal */
-/* } */
-
-/* Custom styles for the modal */
-/* .close.ms-auto:hover,
-.close.ms-auto:focus {
-    background: #e3f0ff !important;
-} */
-
-/* .close.ms-auto:hover i,
-.close.ms-auto:focus i {
-    color: #0d6efd !important;
-} */ 
-
-button.filter-btn, button.search-btn, #roles-block-scroll, .modal-btn{
-    background-color: var(--light-gold);
-    color: var(--deep-blue) !important;
-    border-radius: 10px;
-}
-button.filter-btn:hover, button.search-btn:hover, #roles-block-scroll:hover, .modal-btn:hover, .navbar-btn:hover {
-    background-color: var(--deep-blue) !important;
-     color: white !important;
- }
-
-.form-select {
-    width: 200px;
+    transition: color 0.3s ease;
 }
 
-.form-control:focus, 
-.form-select:focus {
-    border-color: var(--support-teal) !important;
-    box-shadow: 0 0 0 .25rem rgba(168, 218, 220, .8) !important;
-    border-width: 1px !important;
-    outline: none !important;
+.footer-nav .footer-link:hover {
+    color: var(--c2c-main);
+}
+
+/* Social Icons */
+.social-circle {
+    background: #222;
+    color: #fff;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    font-size: 1.1rem;
+}
+
+.social-circle:hover {
+    background: var(--c2c-main);
+    color: #fff;
+}
+
+/* Responsive */
+@media (max-width: 767px) {
+    .footer-nav {
+        flex-direction: column !important;
+        gap: 0.75rem;
+    }
+}
+
+/* Tagline animation */
+.tagline-animate {
+    opacity: 0;
+    transform: translateY(30px);
+    animation: fadeSlideUp 1.2s ease-out forwards;
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+
+/* Start Hami 07/11/25*/
+
+#privacy li,
+#privacy p,
+#terms li,
+#terms p,
+#contact p {
+    text-align: justify;
+}
+
+.blue-small-circle {
+    transform: translate(30%, 190%);
+}
+
+.background-circle {
+    transform: translate(30%, -20%);
+}
+
+.bi-chat-square-dots-fill {
+    color: rgb(0, 50, 101);
 }
