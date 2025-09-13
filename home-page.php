@@ -27,7 +27,9 @@ function home_page_enqueue_script()
 
         wp_enqueue_style(
             'home-page-css',
-            plugins_url('/css/styles.css', __FILE__)
+            plugins_url('/css/styles.css', __FILE__),
+            array(),
+            filemtime(plugin_dir_path(__FILE__) . '/css/styles.css')
         );
 
 
@@ -39,8 +41,8 @@ function home_page_enqueue_script()
             null,
             true
         );
-        
-        
+
+
         // font style
         wp_enqueue_style(
             'font-style-ni-charls',
@@ -58,6 +60,14 @@ function home_page_enqueue_script()
             '5.3.2'
         );
 
+        // Bootstrap Icons
+        wp_enqueue_style(
+            'bootstrap-icons',
+            'https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css',
+            ['bootstrap-css'],
+            '1.11.3',
+            'all'
+        );
 
 
         // custom jQuery
@@ -107,14 +117,6 @@ function home_page_enqueue_script()
             true
         );
 
-        // // Enqueue ngStorage AFTER AngularJS
-        // wp_enqueue_script(
-        //     'ngStorage',
-        //     'https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.min.js',
-        //     array('angular-js'), // Ensure AngularJS is loaded first
-        //     null,
-        //     true
-        // );
         wp_enqueue_script(
             'cryptojs',
             'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
@@ -192,6 +194,25 @@ function home_page_enqueue_script()
             "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
         );
 
+        // JS enqueue with auto cache-busting
+        wp_enqueue_script(
+            'home-page-angular',
+            plugins_url('js/angular.js', __FILE__), // URL
+            array('jquery'),
+            filemtime(plugin_dir_path(__FILE__) . 'js/angular.js'),
+            true
+        );
+
+        // CSS enqueue with auto cache-busting
+        wp_enqueue_style(
+            'home-page-style',
+            plugin_dir_url(__FILE__) . 'css/styles.css',
+            array(),
+            filemtime(plugin_dir_path(__FILE__) . 'css/styles.css')
+        );
+
+
+
         // High Chart Plugins
 
         // highchart js
@@ -210,12 +231,6 @@ function home_page_enqueue_script()
         wp_deregister_script('jquery');
 
         wp_enqueue_script('jquery', 'https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js', array(), '3.7.1', true);
-
-        // Bootstrap JS
-        // wp_enqueue_script('bootstrap-js', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js', array('jquery'), '4.5.2', true);
-
-        // Bootstrap CSS (optional)
-        // wp_enqueue_style('bootstrap-css', 'https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css');
 
         // Enqueue Select2 CSS & JS
         wp_enqueue_style('select2-css', 'https://cdn.jsdelivr.net/npm/select2@4.1.0/dist/css/select2.min.css');
@@ -245,7 +260,7 @@ function home_page_landing_page()
             -> It ensures that the bootstrap is fully loaded 
             -> This solve the flickering hero-container on load of the website
     -->
-    <div class="pt-3 mt-5 px-0 mx-0" ng-app="homeApp" ng-controller="homeController" ng-cloak class="angular-cloak">
+    <div class="px-0 mx-0 bg-white" ng-app="homeApp" ng-controller="homeController" ng-cloak class="angular-cloak">
 
 
         <!-- Modified by Lorenzo @ 03/31/2025 -->
@@ -253,170 +268,172 @@ function home_page_landing_page()
         <!-- Modified by Charls @ 04/10/2025-->
 
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg fixed-top bg-body-tertiary border border-lg-0">
+        <nav class="navbar navbar-expand-lg fixed-top custom-glass-navbar shadow-sm px-3 py-2" ng-class="{'scrolled': navScrolled}">
             <div class="container-fluid">
-                <!-- Brand -->
-                <a class="navbar-brand" href="#home" ng-click="setActivePage('home')">
-                    <img src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>" alt="Logo" style="height: 50px;" class="d-inline-block align-text-center">
+
+                <!-- Logo -->
+                <a href="/home/" class="navbar-brand fw-bold d-flex align-items-center">
+                    <img src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>"
+                        alt="Logo" style="height: 40px;" class="me-2">
+                    <span class="brand-text">Chains<span style="color:#3B9418;">2</span>Chances</span>
                 </a>
 
                 <!-- Toggler -->
-                <a href="javascript:void(0)" class="homeDropdownToggle navbar-toggler border border-muted bg-white" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <button class="navbar-toggler border-0 shadow-sm" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
-                </a>
+                </button>
 
-                <!-- Collapsible Content -->
-                <div class="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
-                    <ul class="navbar-nav d-flex flex-column flex-lg-row align-items-start align-items-lg-center gap-1 gap-lg-1 mb-2 mb-lg-0" ng-cloak ng-show="isInitialized">
+                <!-- Collapse -->
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-                        <!-- Home navbar -->
-                        <li class="nav-item text-start">
-                            <a class="nav-link" href="#" ng-click="setActivePage('home')">Home</a>
-                        </li>
+                    <!-- Centered nav links -->
+                    <ul class="navbar-nav mx-auto mb-2 mb-lg-0" style="gap: 1.5rem;" ng-cloak ng-show="isInitialized">
+                        <li class="nav-item"><a class="nav-link" href="/home/">Home</a></li>
 
-                        <!-- About Dropdown -->
-                        <li class="nav-item dropdown w-100 text-start">
-                            <a class="nav-link dropdown-toggle w-100 text-start" id="aboutDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                About
-                            </a>
-                            <ul class="dropdown-menu w-100" aria-labelledby="aboutDropdown" style="border: none;">
+                        <!-- About -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="aboutDropdown" role="button" data-bs-toggle="dropdown">About</a>
+                            <ul class="dropdown-menu glass-dropdown" aria-labelledby="aboutDropdown">
                                 <li><a class="dropdown-item" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a></li>
                                 <li><a class="dropdown-item" href="#about" ng-click="setActivePage('about'); scrollToSection('about', $event)">About Us</a></li>
                                 <li><a class="dropdown-item" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a></li>
                             </ul>
                         </li>
 
-                        <!-- Resources Dropdown -->
-                        <li class="nav-item dropdown w-100 text-start">
-                            <a class="nav-link dropdown-toggle w-100 text-start" id="resourcesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Resources
-                            </a>
-                            <ul class="dropdown-menu w-100" aria-labelledby="resourcesDropdown" style="border: none;">
+                        <!-- Resources -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="resourcesDropdown" role="button" data-bs-toggle="dropdown">Resources</a>
+                            <ul class="dropdown-menu glass-dropdown" aria-labelledby="resourcesDropdown">
                                 <li><a class="dropdown-item" href="#blogs" ng-click="setActivePage('blogs'); scrollToSection('blogs', $event)">Blogs</a></li>
                             </ul>
                         </li>
 
-                        <!-- Help Dropdown -->
-                        <li class="nav-item dropdown w-100 text-start">
-                            <a class="nav-link dropdown-toggle w-100 text-start" id="helpDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Help
-                            </a>
-                            <ul class="dropdown-menu w-100" aria-labelledby="helpDropdown" style="border: none;">
+                        <!-- Help -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="helpDropdown" role="button" data-bs-toggle="dropdown">Help</a>
+                            <ul class="dropdown-menu glass-dropdown" aria-labelledby="helpDropdown">
                                 <li><a class="dropdown-item" href="#how" ng-click="setActivePage('how');">How it works</a></li>
                                 <li><a class="dropdown-item" href="#faq" ng-click="setActivePage('faq');">FAQ's</a></li>
                             </ul>
                         </li>
+                    </ul>
 
-                        <!-- Login/Register -->
-                        <li class="nav-item me-2" ng-if="!isLoggedIn">
-                            <a class="rounded-3 navbar-btn" href="javascript:void(0)" ng-click="openLoginModalNav()">Login</a>
+                    <!-- Right buttons -->
+                    <ul class="navbar-nav ms-auto align-items-center gap-2 auth-buttons">
+                        <li class="nav-item" ng-if="!isLoggedIn">
+                            <a class="btn btn-outline-success rounded-pill px-4 w-100" href="javascript:void(0)" ng-click="openLoginModalNav()">Login</a>
                         </li>
-
-                        <li class="nav-item dropdown me-4 mt-3 mt-lg-0" ng-if="!isLoggedIn">
-                            <a class="rounded-3 navbar-btn" ng-click="openLoginModalNavReg(); show_reg_page_1 = true" href="javascript:void(0)" role="button" aria-expanded="false">Register</a>
+                        <li class="nav-item" ng-if="!isLoggedIn">
+                            <a class="btn btn-success rounded-pill px-4 w-100" href="javascript:void(0)" ng-click="openLoginModalNavReg(); show_reg_page_1 = true">Sign Up</a>
                         </li>
-
-                        <!-- Dashboard (if logged in) -->
-                        <li class="nav-item dropdown me-0 me-lg-4 mt-3 mt-lg-0" ng-if="isLoggedIn && dashboardUrl">
-                            <a class="rounded-3 navbar-btn" ng-href="{{dashboardUrl}}" role="button">Dashboard</a>
+                        <li class="nav-item" ng-if="isLoggedIn && dashboardUrl">
+                            <a class="btn btn-success rounded-pill px-4 w-100" ng-href="{{dashboardUrl}}">Dashboard</a>
                         </li>
                     </ul>
+
                 </div>
             </div>
         </nav>
 
-        <!-- Home section test -->
-        <section id="home" ng-show="activePage === 'home'">
-            <div class="row justify-content-between flex-grow-1">
-                <div class="row justify-content-between align-items-center col-xl-10 col-xxl-8 mx-auto">
+        <main class="flex-grow-1 d-flex flex-column">
 
-                    <!-- Greeter -->
-                    <div class="col-md-7 col-xxl-6" id="page-top" style="margin-top: 100px;">
-                        <div class="h-100 d-flex flex-column justify-content-between">
-                            <img src="/wp-content/uploads/icons/OJTGO-630X310.png" alt="Logo" class="img-fluid mb-3">
-                            <h3 class="fw-bold">Built by students, for students</h3>
-
-                            <p class="mt-4">
-                                A system built to empower students by connecting them with the right opportunities for their growth and success.
-                            </p>
-                            <div class="mt-3">
-                                <!-- Show if logged in as applicant -->
-                                <a
-                                    ng-if="isLoggedIn"
-                                    ng-href="{{dashboardUrl}}"
-                                    class="btn btn-primary text-white">
-                                    Find a Match
-                                </a>
-
-                                <!-- Show if not logged in -->
-                                <a
-                                    ng-if="!isLoggedIn"
-                                    href="/"
-                                    class="btn btn-primary text-white">
-                                    Find a Match
-                                </a>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <!-- Lottie Animation -->
-                    <div class="col-md-5 col-xxl-6 d-flex justify-content-center align-items-center">
-                        <div id="teamwork_2" style="height: 100%; width: 100%; max-height: 500px;"></div>
-                    </div>
-
-                </div> <!-- END row justify-content-between align-items-center -->
-            </div> <!-- END main row -->
-
-        </section>
-
-        <!-- Why OJT Jobs Section -->
-        <section id="whyojtgo" ng-show="activePage === 'home' || activePage === 'whyojtgo'" style="margin-top: 100px; margin-bottom: 100px;">
-            <h1 class="display-4 text-primary fw-bold text-center fs-2 mb-4">Why OJTGo?</h1>
+        <!-- Home section -->
+        <section id="home" ng-show="activePage === 'home'"
+            class="text-center"
+            style="background: var(--c2c-gradient4); padding-top: 120px;">
             <div class="container">
                 <div class="row justify-content-center">
+                    <div class="col-xl-10 col-xxl-8">
 
-                    <!-- Seamless Matching -->
-                    <div class="col-12 col-md-6 mb-4">
-                        <div class="h-100 shadow rounded-2 border-muted p-3 bg-light d-flex flex-column">
-                            <div id="realtime-lottie" style="height: 200px;"></div>
-                            <div class="text-center mt-auto">
-                                <h2 class="fw-bold">Seamless Matching</h2>
-                                <p>Our advanced system matches students with internship opportunities based on their skills, academic background, and interests.</p>
-                            </div>
+                    <!-- Tagline -->
+                    <h1 class="fw-bold text-center mb-3 text-white tagline-animate" 
+                        style="font-size: clamp(2rem, 5vw, 3rem); line-height: 1.2;">
+                        <span style="color: var(--c2c-footer);">From Chains Today <br> to
+                        <span style="color: var(--c2c-main);">Chances</span> Tomorrow
+                    </h1>
+
+                        <!-- Subtext -->
+                        <p class="text-muted mb-4">
+                            Changing Lives, One Job at a Time
+                        </p>
+
+                        <!-- Buttons -->
+                        <div class="d-flex justify-content-center gap-3">
+                            <!-- Show if logged in as applicant -->
+                            <a ng-if="isLoggedIn"
+                                ng-href="{{dashboardUrl}}"
+                                class="btn btn-primary px-4 py-2"
+                                style="background: #3B9418; border:none;">
+                            </a>
+
+                            <!-- Show if not logged in -->
+                            <a ng-if="!isLoggedIn"
+                                href="/"
+                                class="btn px-4 py-2"
+                                style="background: #3B9418; border:none; color: white; font-weight: 550;">
+                                Get Hired
+                            </a>
+
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Chains2Chances -->
+        <section id="whyc2c" ng-show="activePage === 'home' || activePage === 'whyc2c'" class="my-5" style="padding-top: 80px;">
+            <div class="container">
+                
+                <div class="row g-4 align-items-stretch">
+
+                    <!-- Left side graphic / graffiti -->
+                    <div class="col-md-4 d-flex justify-content-center align-items-center">
+                        <div class="c2c-graphic text-center">
+                            <!-- "Why" text -->
+                            <h2 class="fw-bold graffiti-text mb-3">WHY</h2>
+
+                            <!-- C2C Logo -->
+                            <img src="/wp-content/uploads/icons/c2why.png"
+                                alt="Chains2Chances Logo"
+                                class="img-fluid graffiti-img"
+                                style="max-width: 280px;">
                         </div>
                     </div>
 
-                    <!-- Smarter than a resume -->
-                    <div class="col-12 col-md-6 mb-4">
-                        <div class="h-100 shadow rounded-2 border-muted p-3 bg-light d-flex flex-column">
-                            <div id="virtual" style="height: 200px;"></div>
-                            <div class="text-center mt-auto">
-                                <h2 class="fw-bold">Smarter Than a Resume </h2>
-                                <p>Our patent-pending digital employment profile is more than just a resume replacement—it’s built for real time and efficient job matching.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Diverse Opportunities -->
-                    <div class="col-12 col-md-6 mb-4">
-                        <div class="h-100 shadow rounded-2 border-muted p-3 bg-light d-flex flex-column">
-                            <div id="magnify-job-lottie" style="height: 200px;"></div>
-                            <div class="text-center mt-auto">
-                                <h2 class="fw-bold">Diverse Opportunities</h2>
-                                <p>We connect students with industries through GeoMatch Listing, helping them find nearby internships while ensuring diverse opportunities.</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Workforce-Ready -->
-                    <div class="col-12 col-md-6 mb-4">
-                        <div class="h-100 shadow rounded-2 border-muted p-3 bg-light d-flex flex-column">
-                            <div id="rocket-lottie" style="height: 200px;"></div>
-                            <div class="text-center mt-auto">
-                                <h2 class="fw-bold">Workforce-Ready</h2>
-                                <p>By connecting students with the right opportunities, OJTGo helps prepare future professionals with practical experience before entering the job market.</p>
+                    <!-- Cards area -->
+                    <div class="col-md-8">
+                        <div class="row g-4 align-items-stretch">
+                            <div class="c2c-card-wrapper col-sm-6"
+                                ng-repeat="f in whyC2C track by $index">
+
+                                <a href="javascript:void(0)"
+                                    class="c2c-card d-flex flex-column h-100"
+                                    ng-class="{'active': activeWhy === $index}"
+                                    ng-click="activeWhy = (activeWhy === $index ? -1 : $index)">
+
+
+                                    <!-- Icon + Title -->
+                                    <div class="d-flex align-items-center gap-3">
+                                        <i class="bi" ng-class="f.icon"></i>
+                                        <h5 class="mb-0 fw-semibold">{{f.title}}</h5>
+                                    </div>
+
+                                    <!-- Expanded content -->
+                                    <div class="c2c-card-body mt-3" ng-if="activeWhy === $index">
+                                        <p class="mb-4">{{f.desc}}</p>
+                                        <span class="c2c-learn">See more <i class="bi bi-arrow-right"></i></span>
+                                    </div>
+
+                                    <!-- Collapsed footer line -->
+                                    <div class="c2c-card-line mt-auto" ng-if="activeWhy !== $index">
+                                        <span class="c2c-learn">See more <i class="bi bi-arrow-right"></i></span>
+                                    </div>
+                                </a>
                             </div>
                         </div>
                     </div>
@@ -426,316 +443,338 @@ function home_page_landing_page()
         </section>
 
         <!-- DPO Section -->
-        <section id="dpo" ng-show="activePage === 'home' || activePage === 'dpo'" class="py-4 bg-white">
+        <section id="dpo" class="py-5" ng-show="activePage === 'home'"
+            style="background: linear-gradient(180deg, #f9fafb, #ffffff);">
             <div class="container">
-                <div class="row align-items-center">
-                    <!-- Description on the left -->
-                    <div class="col-md-8">
-                        <p class="mt-5">
-                            PCES has been awarded the NPC Seal of Registration for complying with the
-                            Data Privacy Act of 2012 and related regulations. The certificate attests that
-                            PCES Inc. has taken necessary measures to safeguard user privacy and data security.
+                <div class="row align-items-center justify-content-between">
+
+                    <!-- Description -->
+                    <div class="col-md-8 mb-4 mb-md-0">
+                        <h4 class="fw-bold mb-3" style="color:#262B33;">
+                            NPC Seal of Registration
+                        </h4>
+                        <p class="lead" style="color:#444;">
+                            <strong>PCES Inc.</strong> has been awarded the
+                            <span style="color:#3B9418; font-weight:600;">NPC Seal of Registration</span>
+                            for full compliance with the <em>Data Privacy Act of 2012</em> and its related regulations.
+                        </p>
+                        <p style="color:#555; font-size:1rem;">
+                            This recognition affirms our commitment to <strong>protecting user data</strong>,
+                            maintaining transparency, and upholding the highest standards of
+                            <strong>privacy and security</strong>.
                         </p>
                     </div>
 
-                    <!-- Logo on the right -->
+                    <!-- Logo -->
                     <div class="col-md-4 text-center">
-                        <img src="<?php echo home_url('/wp-content/uploads/icons/dpo.jpg') ?>" alt="DPO Logo" class="img-fluid" style="max-width: 200px;">
+                        <img src="<?php echo home_url('/wp-content/uploads/icons/dpo.jpg') ?>"
+                            alt="DPO Logo"
+                            class="img-fluid animate-dpo"
+                            style="max-width: 180px;">
                     </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- how it works section -->
-        <section id="how" ng-show="activePage === 'how'" class="py-5">
-            <div class="container">
-
-                <div class="how-it-works-content p-3 rounded-bottom" style="background: linear-gradient(to bottom, rgb(0, 43, 86) 0%, white 50%);">
-                    <h1 class="display-4 text-white fw-bold fs-2 text-center p-3 rounded-top">
-                        How OJTGo Works
-                    </h1>
-
-                    <div class="row g-4 mt-1">
-                        <!-- Step 1 -->
-                        <div class="col-md-6 col-lg-3">
-                            <div class="step-box h-100 p-4 d-flex flex-column">
-                                <div class="step-number-container text-center mb-3">
-                                    <div class="step-number mx-auto">1</div>
-                                </div>
-                                <div id="step1" class="lottie-animation mb-3"></div>
-                                <div class="step-content flex-grow-1">
-                                    <h3 class="step-title text-center">Step 1: Register & Build Your Profile</h3>
-                                    <p class="step-description text-center">Sign up at www.ojtgo.com and create your student profile.
-                                        Smarter than a resume—simply share your course, skills, location, internship preferences,
-                                        and any relevant experiences or certifications. Our system showcases you directly to potential host companies.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 2 -->
-                        <div class="col-md-6 col-lg-3">
-                            <div class="step-box h-100 p-4 d-flex flex-column">
-                                <div class="step-number-container text-center mb-3">
-                                    <div class="step-number mx-auto">2</div>
-                                </div>
-                                <div id="step2" class="lottie-animation mb-3"></div>
-                                <div class="step-content flex-grow-1">
-                                    <h3 class="step-title text-center">Step 2: Get Matched & Explore Opportunities</h3>
-                                    <p class="step-description text-center">Once your profile is complete, OJTGo automatically connects you
-                                        with real, verified companies based on your academic background, skills, and preferences. You’ll also
-                                        discover nearby internships through GeoMatch, making it easier to find opportunities that fit.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 3 -->
-                        <div class="col-md-6 col-lg-3">
-                            <div class="step-box h-100 p-4 d-flex flex-column">
-                                <div class="step-number-container text-center mb-3">
-                                    <div class="step-number mx-auto">3</div>
-                                </div>
-                                <div id="step3" class="lottie-animation mb-3"></div>
-                                <div class="step-content flex-grow-1">
-                                    <h3 class="step-title text-center">Step 3: Apply & Connect</h3>
-                                    <p class="step-description text-center">Receive match notifications through your dashboard and email. Apply to
-                                        multiple internships and use the platform’s built-in messaging to chat directly with employers. Interviews
-                                        are done online—quick, easy, and no travel required.</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 4 -->
-                        <div class="col-md-6 col-lg-3">
-                            <div class="step-box h-100 p-4 d-flex flex-column">
-                                <div class="step-number-container text-center mb-3">
-                                    <div class="step-number mx-auto">4</div>
-                                </div>
-                                <div id="step4" class="lottie-animation mb-3"></div>
-                                <div class="step-content flex-grow-1">
-                                    <h3 class="step-title text-center">Step 4: Start Your OJT</h3>
-                                    <p class="step-description text-center">Once you’re accepted, coordinate directly with your host company and start your internship journey.
-                                        Gain practical, hands-on experience without the usual stress or extra costs—so you can stay focused on graduation and your goals</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <!-- why ojtgo works for you -->
-                    <div class="container mt-5">
-                        <h2 class="text-center fw-bold" style="background: linear-gradient(to right, #002B56, #006494); -webkit-background-clip: text; color: transparent;">
-                            Why OJTGo Works for You?
-                        </h2>
-
-
-                        <div class="row mt-4 align-items-center">
-                            <!-- Left Column: List of Features -->
-                            <div class="col-md-6">
-                                <div class="list-group">
-                                    <div class="list-group-item d-flex justify-content-start align-items-center">
-                                        <i class="bi bi-file-earmark-text me-4 text-primary" style="font-size: 1.5rem;"></i>
-                                        <div>
-                                            <strong>Smarter than a resume</strong><br>
-                                            Your profile says it all.
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item d-flex justify-content-start align-items-center">
-                                        <i class="bi bi-arrow-right-circle me-4 text-primary" style="font-size: 1.5rem;"></i>
-                                        <div>
-                                            <strong>Seamless matching system</strong><br>
-                                            No more endless searching.
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item d-flex justify-content-start align-items-center">
-                                        <i class="bi bi-check-circle me-4 text-primary" style="font-size: 1.5rem;"></i>
-                                        <div>
-                                            <strong>Verified companies only</strong><br>
-                                            Real, reliable opportunities.
-                                        </div>
-                                    </div>
-                                    <div class="list-group-item d-flex justify-content-start align-items-center">
-                                        <i class="bi bi-person-badge me-4 text-primary" style="font-size: 1.5rem;"></i>
-                                        <div>
-                                            <strong>Designed by former interns</strong><br>
-                                            We understand your needs.
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- Right Column: Message -->
-                            <div class="col-md-6 mt-4 mt-md-0">
-                                <div class="card text-center p-4 rounded shadow-lg" style="background: linear-gradient(to right, #002B56, #006494); color: white;">
-                                    <div class="card-body">
-                                        <p class="card-text mb-0">
-                                            <strong>OJTGo isn’t just a tool</strong> — it’s our solution to a problem we faced ourselves.<br>
-                                            Let’s make your internship journey easier, together.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                </div>
-            </div>
-
-            <!-- Video Demo Section -->
-            <div class="container mt-5">
-                <h2 class="text-center fw-bold" style="color:rgb(0, 43, 86);">Watch OJTGo in Action</h2>
-                <p class="text-center mb-4">See how OJTGo works from both the Student and Employer perspectives.</p>
-
-                <div class="row g-4">
-
-                    <!-- Student Side Video -->
-                    <div class="col-md-6">
-                        <div class="card shadow-sm h-100 border-0">
-                            <div class="card-header text-white fw-semibold text-center" style="background-color: rgb(0, 43, 86);">
-                                Student Walkthrough
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="ratio ratio-16x9">
-                                    <iframe
-                                      width="100%"
-                                      height="100%"
-                                      src="https://www.youtube.com/embed/4Y3lLjOZkc4?rel=0"
-                                      title="Student Side Demo"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                      allowfullscreen
-                                      style="border:0;">
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <!-- Employer Side Video -->
-                    <div class="col-md-6">
-                        <div class="card shadow-sm h-100 border-0">
-                            <div class="card-header text-white fw-semibold text-center" style="background-color: rgb(0, 43, 86);">
-                                Employer Walkthrough
-                            </div>
-                            <div class="card-body p-0">
-                                <div class="ratio ratio-16x9">
-                                    <iframe
-                                      width="100%"
-                                      height="100%"
-                                      src="https://www.youtube.com/embed/ToQ9amprkvk?rel=0"
-                                      title="Employer Side Demo"
-                                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                                      allowfullscreen
-                                      style="border:0;">
-                                    </iframe>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
 
                 </div>
             </div>
         </section>
 
-        <!-- FAQ Section -->
-        <section id="faq" ng-show="activePage === 'faq'" class="py-5 bg-white">
-            <div class="container">
+        <!-- ABOUT (C2C) -->
+        <section id="about" ng-show="activePage === 'about'">
 
-                <div class="faq-content p-4 rounded shadow" style="background: linear-gradient(to bottom,rgb(255, 255, 255) 0%, #f9f9f9 100%);">
-                    <!-- Heading -->
-                    <h1 class="display-4 fw-bold fs-2 text-center mb-4" style="color: #002b56;">
-                        Frequently Asked Questions
-                    </h1>
+            <!-- Hero -->
+            <section class="py-5" style="background: var(--c2c-gradient3, linear-gradient(180deg,#f6f8fa,#ffffff));">
+                <div class="container text-center" style="padding-top: 25px;">
+                    <h2 class="fw-bold mb-3 pt-4"
+                        style="font-size:clamp(1.8rem,4vw,2.5rem); color: var(--c2c-footer);">
+                        About Chains2Chances
+                    </h2>
+                    <div style="width:80px; height:4px; background: var(--c2c-cta); border-radius:2px; margin:0 auto;"></div>
+                    <p class="lead mx-auto pt-4" style="max-width: 860px; color:black;">
+                        We build responsible pathways from **detention to dignified work**.
+                        C2C connects PDLs and reintegration partners with inclusive employers—using simple tools, fair processes, and data-driven matching.
+                    </p>
 
-                    <div class="mx-auto" style="max-width: 900px;">
-                        <!-- Tabs -->
-                        <div class="d-flex justify-content-center gap-3 mb-4">
-                            <button class="custom-tab-button" ng-click="faqTab = 'ojtgo'">OJTGo</button>
-                            <button class="custom-tab-button" ng-click="faqTab = 'student'">Student</button>
-                            <button class="custom-tab-button" ng-click="faqTab = 'employer'">Employer</button>
+                    <!-- quick stats -->
+                    <div class="d-flex flex-wrap justify-content-center gap-3 mt-4">
+                        <div class="badge rounded-pill px-3 py-2" style="background:#e6f5eb;color:#14532d;border:1px solid #b7e2c5;">Inclusive Hiring</div>
+                        <div class="badge rounded-pill px-3 py-2" style="background:#eef2ff;color:#1e3a8a;border:1px solid #dbe3ff;">Skill Visibility</div>
+                        <div class="badge rounded-pill px-3 py-2" style="background:#fff7ed;color:#7c2d12;border:1px solid #ffe0c2;">Digital Profiles</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Mission & Vision -->
+            <section class="py-5 bg-white">
+                <div class="container">
+                    <div class="row g-5 align-items-start">
+
+                        <!-- Mission -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start text-start">
+                                <!-- Icon -->
+                                <i class="bi bi-bullseye text-success me-3" style="font-size:3rem; flex-shrink:0;"></i>
+
+                                <!-- Text -->
+                                <div>
+                                    <h3 class="fw-bold mb-3" style="color:#3B9418">Our Mission</h3>
+                                    <p style="color:#374151; text-align:justify;">
+                                        Empower PDLs and returning citizens by providing
+                                        <strong>equitable access</strong> to employment.
+                                        We partner with communities and employers to
+                                        <strong>bridge skills to opportunities</strong>—with clarity, dignity, and support.
+                                    </p>
+                                    <ul class="list-unstyled mt-3">
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Equitable Employment Access</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Skill-to-Opportunity Matching</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Community and Employer Partnerships</li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
 
-                        <!-- FAQ List (Single Container) -->
-                        <div class="accordion">
-                            <!-- Unified ng-switch style -->
-                            <div ng-switch="faqTab">
+                        <!-- Vision -->
+                        <div class="col-md-6">
+                            <div class="d-flex align-items-start text-start">
+                                <!-- Icon -->
+                                <i class="bi bi-eye text-success me-3" style="font-size:3rem; flex-shrink:0;"></i>
 
-                                <!-- OJTGo FAQs -->
-                                <div ng-switch-when="ojtgo">
-                                    <div class="faq-item" ng-repeat="faq in ojtgoFaqs">
-                                        <div class="border-bottom py-2" ng-click="toggleFaq(ojtgoFaqs, $index)" style="cursor: pointer;">
-                                            {{ faq.question }}
-                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
-                                        </div>
-
-                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
-                                            ng-show="faq.open"
-                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
-                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
-                                            <ul ng-if="faq.answer.list" class="no-bullets">
-                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
-                                            </ul>
-                                        </div>
-
-
-                                    </div>
+                                <!-- Text -->
+                                <div>
+                                    <h3 class="fw-bold mb-3" style="color:#3B9418">Our Vision</h3>
+                                    <p style="color:#374151; text-align:justify;">
+                                        A Philippines where <strong>second chances are standard</strong>, not special—
+                                        where employers value <strong>skills over stigma</strong>, and where communities thrive through
+                                        <strong>inclusive hiring</strong>.
+                                    </p>
+                                    <ul class="list-unstyled mt-3">
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Normalizing Second Chances</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Skills-Focused Employment</li>
+                                        <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i> Thriving Inclusive Communities</li>
+                                    </ul>
                                 </div>
-
-                                <!-- Student FAQs -->
-                                <div ng-switch-when="student">
-                                    <div class="faq-item" ng-repeat="faq in studentFaqs">
-                                        <div class="border-bottom py-2" ng-click="toggleFaq(studentFaqs, $index)" style="cursor: pointer;">
-                                            {{ faq.question }}
-                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
-                                        </div>
-
-                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
-                                            ng-show="faq.open"
-                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
-                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
-                                            <ul ng-if="faq.answer.list" class="no-bullets">
-                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                                <!-- Employer FAQs -->
-                                <div ng-switch-when="employer">
-                                    <div class="faq-item" ng-repeat="faq in employerFaqs">
-                                        <div class="border-bottom py-2" ng-click="toggleFaq(employerFaqs, $index)" style="cursor: pointer;">
-                                            {{ faq.question }}
-                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
-                                        </div>
-
-                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
-                                            ng-show="faq.open"
-                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
-                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
-                                            <ul ng-if="faq.answer.list" class="no-bullets">
-                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
-                                            </ul>
-                                        </div>
-
-                                    </div>
-                                </div>
-
                             </div>
                         </div>
 
                     </div>
                 </div>
+            </section>
+
+
+            <!-- Mission & Programs (C2C – nature-style layout) -->
+            <div class="py-5" style="background:#ffffff;">
+                <div class="container">
+
+                    <!-- Top banner leaf (optional: replace with your SVG/PNG) -->
+                    <div class="d-none d-md-block mb-3">
+                        <div class="c2c-leaf-accent"></div>
+                    </div>
+
+                    <!-- Big mission headline with CTA on the right -->
+                    <div class="row g-4 align-items-center">
+                        <div class="col-md-6">
+                            <h2 class="fw-bold lh-sm text-start"
+                                style="font-size:clamp(1.8rem,4vw,2.6rem); color:#111; max-width:800px; margin:0 auto;">
+                                Our mission is to create clear pathways that guide PDLs and returning citizens
+                                from <span style="color:#3B9418;">detention</span> to <span style="color:#3B9418;">dignified work</span>.
+                            </h2>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-start text-muted mb-5" style="max-width:650px;margin:0 auto; line-height:1.7;">
+                                Insights, guides, and real stories to help you grow—whether it’s building new skills, exploring career opportunities,
+                                or learning from the experiences of others. The C2C Blog is here to inspire, inform, and support you on your journey
+                                toward meaningful and lasting employment.
+                            </p>
+                            <a href="#blogs" ng-click="setActivePage('blogs'); scrollToSection('blogs', $event)" class="btn btn-success d-inline-flex align-items-center"
+                                style="background:#3B9418; border-color:#3B9418;">
+                                Blogs <i class="bi bi-arrow-right ms-2"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Secondary headline + paragraph -->
+                    <div class="row g-4 align-items-start mt-5">
+                        <div class="col-md-6">
+                            <h3 class="fw-semibold lh-sm" style="font-size:clamp(1.6rem,3.5vw,2.2rem); color:#111;">
+                                Initiatives and programs promoting inclusive employment.
+                            </h3>
+                        </div>
+                        <div class="col-md-6">
+                            <p class="text-muted mb-0">
+                                We design practical steps that make hiring fair and simple: skill-first profiles, employer
+                                verification, and job-ready training with community partners.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Three feature cards (image-less; icon-focused) -->
+                    <div class="row g-4 mt-3">
+                        <!-- Card 1 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="c2c-nature-card h-100 d-flex flex-column">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="c2c-card-icon me-2"><i class="bi bi-person-badge"></i></div>
+                                    <h5 class="mb-0 fw-semibold">Digital Employment Profiles</h5>
+                                </div>
+                                <p class="text-muted mt-2 mb-3">
+                                    Skill-first profiles that highlight training completed, verified experience, and references—
+                                    so employers see ability, not stigma.
+                                </p>
+                                <!-- <a href="#profiles" class="btn btn-sm btn-outline-success mt-auto align-self-start">
+                                    Read more
+                                </a> -->
+                            </div>
+                        </div>
+
+                        <!-- Card 2 -->
+                        <div class="col-md-6 col-lg-4">
+                            <div class="c2c-nature-card h-100 d-flex flex-column">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="c2c-card-icon me-2"><i class="bi bi-briefcase"></i></div>
+                                    <h5 class="mb-0 fw-semibold">Inclusive Employer Network</h5>
+                                </div>
+                                <p class="text-muted mt-2 mb-3">
+                                    Pre-screened employers who commit to fair hiring, clear onboarding, and supportive workplaces.
+                                </p>
+                                <!-- <a href="#employers" class="btn btn-sm btn-outline-success mt-auto align-self-start">
+                                    Join our mission
+                                </a> -->
+                            </div>
+                        </div>
+
+                        <!-- Card 3 -->
+                        <div class="col-md-12 col-lg-4">
+                            <div class="c2c-nature-card h-100 d-flex flex-column">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div class="c2c-card-icon me-2"><i class="bi bi-tools"></i></div>
+                                    <h5 class="mb-0 fw-semibold">Job-Ready Training</h5>
+                                </div>
+                                <p class="text-muted mt-2 mb-3">
+                                    Targeted training and assessments that surface real skills—helping candidates step into work
+                                    with confidence from day one.
+                                </p>
+                                <!-- <a href="#training" class="btn btn-sm btn-outline-success mt-auto align-self-start">
+                                    Read more
+                                </a> -->
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- Story Blocks (simple & elegant) -->
+            <div class="py-5 bg-white">
+                <div class="container">
+
+                    <!-- How it started -->
+                    <div class="row align-items-center gy-4 mb-5">
+                        <div class="col-md-6">
+                            <img
+                                src="<?php echo home_url('/wp-content/uploads/icons/home/howwestarted.jpg') ?>"
+                                alt="How it started"
+                                class="img-fluid rounded-4 shadow-sm w-100">
+                        </div>
+                        <div class="col-md-6">
+                            <div class="p-4 p-lg-5 rounded-3 shadow-sm" style="background:#ffffff;border:1px solid rgba(0,0,0,.06);">
+                                <h3 class="fw-bold mb-2" style="color:#262B33;">How it started</h3>
+                                <p class="mb-0" style="color:#374151; text-align:justify;">
+                                    We saw the gaps: limited roles, high costs, and stigma barriers. Together with facilities and LGU partners,
+                                    we shaped a practical approach—let skills speak, simplify steps, and connect to inclusive employers.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- What we created -->
+                    <div class="row align-items-center gy-4">
+                        <!-- Text first on desktop -->
+                        <div class="col-md-6 order-2 order-md-1">
+                            <div class="p-4 p-lg-5 rounded-3 shadow-sm" style="background:#ffffff;border:1px solid rgba(0,0,0,.06);">
+                                <h3 class="fw-bold mb-2" style="color:#262B33;">What we created</h3>
+                                <p class="mb-0" style="color:#374151; text-align:justify;">
+                                    A skill-forward platform: digital employment profiles, employer verification, location-aware listings,
+                                    and progress tracking—built to reduce cost, time, and mismatches.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Image second on desktop -->
+                        <div class="col-md-6 order-1 order-md-2">
+                            <img
+                                src="<?php echo home_url('/wp-content/uploads/icons/home/whatwecreated.jpg') ?>"
+                                alt="What we created"
+                                class="img-fluid rounded-4 shadow-sm w-100">
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+
+
+            <!-- Team -->
+            <section class="py-5">
+                <div class="container">
+                    <h2 class="fw-bold text-center mb-5" style="color:#262B33; font-size:2.5rem;">
+                        Meet the Leaders of C2C
+                    </h2>
+
+                    <div class="row justify-content-center g-5">
+                        <!-- CEO -->
+                        <div class="col-12 col-md-4">
+                            <div class="c2c-member text-center p-4 h-100">
+                                <div class="c2c-avatar mb-3" style="width:160px; height:160px; margin:0 auto;">
+                                    <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirval.png') ?>"
+                                        alt="Valery Minello"
+                                        style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                                </div>
+                                <h4 class="fw-bold mb-1">Valery Minello</h4>
+                                <p class="text-muted mb-0" style="font-size:1.1rem;">Chief Executive Officer</p>
+                                <p class="mt-3" style="color:#555; font-size:.95rem; max-width:320px; margin:0 auto;">
+                                    Guiding the vision of C2C, ensuring our mission of second chances and inclusive hiring reaches communities nationwide.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- COO -->
+                        <div class="col-12 col-md-4">
+                            <div class="c2c-member text-center p-4 h-100">
+                                <div class="c2c-avatar mb-3" style="width:160px; height:160px; margin:0 auto;">
+                                    <img src="<?php echo home_url('/wp-content/uploads/icons/home/leo2.jpg') ?>"
+                                        alt="Leo Herrera"
+                                        style="width:100%; height:100%; object-fit:cover; border-radius:50%;">
+                                </div>
+                                <h4 class="fw-bold mb-1">Leo Herrera</h4>
+                                <p class="text-muted mb-0" style="font-size:1.1rem;">Chief Operating Officer</p>
+                                <p class="mt-3" style="color:#555; font-size:.95rem; max-width:320px; margin:0 auto;">
+                                    Driving operations and partnerships, turning our vision into practical systems that connect people with opportunities.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+
         </section>
 
         <!-- Blogs Section -->
         <section id="blogs" ng-show="activePage === 'blogs'" class="bg-white py-5">
-            <div class="container">
-                <!-- Section Title -->
-                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color: rgb(0, 43, 86);">
-                    Our Latest Blogs
-                </h1>
+            <div class="container" style="padding-top: 30px;">
 
-                 <!-- Blog card -->
+                <!-- Section Title -->
+                <div class="text-center mb-5">
+
+                    <h2 class="fw-bold mb-3 pt-4"
+                        style="font-size:clamp(1.8rem,4vw,2.5rem); color: var(--c2c-footer);">
+                        Our Latest Blogs
+                    </h2>
+                    <div style="width:80px; height:4px; background: var(--c2c-cta); border-radius:2px; margin:0 auto;"></div>
+                    <p class="text-muted mt-3" style="max-width:650px; margin:0 auto;">
+                        Explore stories, tips, and insights that guide you toward opportunities, growth, and success.
+                    </p>
+                </div>
+
+                <!-- Blog card -->
                 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
                     <div class="col" ng-repeat="blog in blogs">
                         <div class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-white d-flex flex-column"
@@ -753,13 +792,13 @@ function home_page_landing_page()
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">{{blog.title}}</h5>
                                 <small class="text-muted">
-                                  {{ getFormattedDate(blog.date) }}
+                                    {{ getFormattedDate(blog.date) }}
                                 </small>
 
                                 <!-- Collapsed Quill-rendered preview -->
                                 <div class="card-text mt-2">
                                     <div ng-bind-html="blog.descriptionUnescaped | limitHtmlTo: 150"></div>
-                                    <span class="text-primary fw-semibold"
+                                    <span class="text-success fw-semibold"
                                         ng-click="modalExpansion(blog)"
                                         data-bs-toggle="modal"
                                         data-bs-target="#blogModal">
@@ -776,45 +815,65 @@ function home_page_landing_page()
         </section>
 
         <!-- Highlights section -->
-        <section id="highlights" ng-show="activePage === 'highlights'" class="bg-white py-5">
+        <section id="highlights" ng-show="activePage === 'highlights'" class="bg-white" style="padding-top: 100px;">
             <div class="container">
-                <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded mb-5" style="background-color: rgb(0, 43, 86);">
-                    OJTGo Highlights
+                <h1 class="c2c-highlight-title text-center mb-5 justify-content-center d-flex">
+                    <i class="bi bi-stars me-2"></i> Chains2Chances Highlights
                 </h1>
 
-                <!-- Highlight Filters (Buttons) -->
+                <!-- Highlight Filters (C2C – Chip Bar) -->
                 <div class="container">
-                    <div class="d-flex flex-wrap justify-content-center gap-2 mb-3">
-                        <button class="btn btn-outline-primary"
-                            ng-class="{'active': activeHighlight === 'all'}"
-                            ng-click="activeHighlight='all'">
-                            All
+                    <div class="c2c-chipbar d-flex gap-2 py-2"
+                        role="tablist" aria-label="Highlight filters">
+
+                        <button type="button" class="c2c-chip"
+                            ng-class="{'is-active': activeHighlight === 'all'}"
+                            ng-click="activeHighlight='all'"
+                            ng-attr-aria-pressed="{{activeHighlight==='all'}}">
+                            <i class="bi bi-stars me-2" aria-hidden="true"></i>
+                            <span>All</span>
                         </button>
-                        <button class="btn btn-outline-primary"
-                            ng-class="{'active': activeHighlight === 'news'}"
-                            ng-click="activeHighlight = 'news'">
-                            News
+
+                        <button type="button" class="c2c-chip"
+                            ng-class="{'is-active': activeHighlight === 'news'}"
+                            ng-click="activeHighlight='news'"
+                            ng-attr-aria-pressed="{{activeHighlight==='news'}}">
+                            <i class="bi bi-megaphone me-2" aria-hidden="true"></i>
+                            <span>News</span>
                         </button>
-                        <button class="btn btn-outline-primary"
-                            ng-class="{'active': activeHighlight === 'testimonial'}"
-                            ng-click="activeHighlight = 'testimonial'">
-                            Testimonials
+
+                        <button type="button" class="c2c-chip"
+                            ng-class="{'is-active': activeHighlight === 'testimonial'}"
+                            ng-click="activeHighlight='testimonial'"
+                            ng-attr-aria-pressed="{{activeHighlight==='testimonial'}}">
+                            <i class="bi bi-chat-heart me-2" aria-hidden="true"></i>
+                            <span>Testimonials</span>
                         </button>
-                        <button class="btn btn-outline-primary"
-                            ng-class="{'active': activeHighlight === 'facebook'}"
-                            ng-click="activeHighlight = 'facebook'">
-                            Facebook
+
+                        <button type="button" class="c2c-chip"
+                            ng-class="{'is-active': activeHighlight === 'facebook'}"
+                            ng-click="activeHighlight='facebook'"
+                            ng-attr-aria-pressed="{{activeHighlight==='facebook'}}">
+                            <i class="bi bi-facebook me-2" aria-hidden="true"></i>
+                            <span>Facebook</span>
                         </button>
-                        <button class="btn btn-outline-primary"
-                            ng-class="{'active': activeHighlight === 'instagram'}"
-                            ng-click="activeHighlight = 'instagram'">
-                            Instagram
+
+                        <button type="button" class="c2c-chip"
+                            ng-class="{'is-active': activeHighlight === 'instagram'}"
+                            ng-click="activeHighlight='instagram'"
+                            ng-attr-aria-pressed="{{activeHighlight==='instagram'}}">
+                            <i class="bi bi-instagram me-2" aria-hidden="true"></i>
+                            <span>Instagram</span>
                         </button>
-                        <button class="btn btn-outline-primary"
-                            ng-class="{'active': activeHighlight === 'tiktok'}"
-                            ng-click="activeHighlight = 'tiktok'">
-                            TikTok
+
+                        <button type="button" class="c2c-chip"
+                            ng-class="{'is-active': activeHighlight === 'tiktok'}"
+                            ng-click="activeHighlight='tiktok'"
+                            ng-attr-aria-pressed="{{activeHighlight==='tiktok'}}">
+                            <i class="bi bi-tiktok me-2" aria-hidden="true"></i>
+                            <span>TikTok</span>
                         </button>
+
                     </div>
                 </div>
 
@@ -823,20 +882,21 @@ function home_page_landing_page()
                 <!-- Highlights Grid -->
                 <div class="row g-3 scrollable-row">
 
-                    <div class="fw-bold mb-4 mt-5 fs-4" style="color: #001F3F">
-                        Get the latest updates, features, and opportunities to boost your job search.
+                    <div class="c2c-subtitle fw-semibold mb-4 mt-5 text-center">
+                        Get the latest <span class="highlight">updates</span>, features, and opportunities
+                        to boost your <span class="highlight">job search</span>.
                     </div>
 
                     <div class="col-md-4 pb-3" ng-show="activeHighlight === 'all'" ng-repeat="post in filteredHighlights " id="post-{{post.id}}">
 
                         <!-- News -->
                         <div ng-show="post.type === 'news'"
-                            class="card h-80 shadow-sm border-0 rounded-4 pb-3 bg-white d-flex flex-column"
+                            class="card news-card h-80 shadow-sm border-0 rounded-4 pb-3 bg-white d-flex flex-column"
                             style="transition: all 0.3s ease; cursor: pointer;">
 
                             <div class="flex-grow-1 d-flex flex-column ms-3">
                                 <small class="text-muted">
-                                  {{ getFormattedDate(post.date) }}
+                                    {{ getFormattedDate(post.date) }}
                                 </small>
                                 <h5 class="card-title my-2">{{ post.title }}</h5>
 
@@ -858,6 +918,7 @@ function home_page_landing_page()
                         </div>
 
 
+
                         <!-- Testimonial Card -->
                         <div ng-show="post.type === 'testimonial'"
                             class="card h-100 shadow-sm border-0 rounded-4 p-3 bg-light d-flex flex-column"
@@ -868,7 +929,7 @@ function home_page_landing_page()
                                 <!-- Quote Icon & Date -->
                                 <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
                                     <small class="text-muted position-absolute" style="top: 0; right: 0; font-size: 0.85rem;">
-                                      {{ getFormattedDate(post.date) }}
+                                        {{ getFormattedDate(post.date) }}
                                     </small>
                                     <i class="fas fa-quote-right"></i>
                                 </div>
@@ -907,7 +968,7 @@ function home_page_landing_page()
                         <div ng-show="post.type === 'facebook'" class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">
-                                      {{ getFormattedDate(post.date) }}
+                                    {{ getFormattedDate(post.date) }}
                                 </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
 
@@ -925,9 +986,9 @@ function home_page_landing_page()
                         <!-- Instagram Card -->
                         <div ng-show="post.type === 'instagram'" class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #fff0f6; max-height: 300px;">
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
-                                    <small class="text-muted">
-                                      {{ getFormattedDate(post.date) }}
-                                    </small>
+                                <small class="text-muted">
+                                    {{ getFormattedDate(post.date) }}
+                                </small>
                                 <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
 
                                 <!-- QuillJS Viewer for Instagram -->
@@ -948,7 +1009,7 @@ function home_page_landing_page()
                         <div ng-show="post.type === 'tiktok'" class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">
-                                      {{ getFormattedDate(post.date) }}
+                                    {{ getFormattedDate(post.date) }}
                                 </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
                                 <!-- QuillJS Viewer for TikTok -->
@@ -969,13 +1030,13 @@ function home_page_landing_page()
                     <div class="col-md-4" ng-show="activeHighlight === 'news'"
                         ng-repeat="post in filteredHighlights | orderBy:'-date'">
 
-                        <div class="card h-100 shadow-sm border-0 rounded-4 p-3 d-flex flex-column"
+                        <div class="card news-card h-100 shadow-sm border-0 rounded-4 p-3 d-flex flex-column"
                             style="background-color: white; transition: all 0.3s ease; cursor: pointer;">
 
                             <div class="d-flex flex-column h-100">
                                 <!-- Date and Title -->
                                 <small class="text-muted">
-                                  {{ getFormattedDate(post.date) }}
+                                    {{ getFormattedDate(post.date) }}
                                 </small>
                                 <h5 class="card-title my-2">{{ post.title }}</h5>
 
@@ -998,7 +1059,6 @@ function home_page_landing_page()
                     </div>
                 </div>
 
-
                 <!-- Testimonials -->
                 <div class="row g-3" ng-show="activeHighlight === 'testimonial'">
                     <div class="col-md-4" ng-repeat="post in filteredHighlights | orderBy:'-date'">
@@ -1010,7 +1070,7 @@ function home_page_landing_page()
                                 <!-- Quote Icon & Date -->
                                 <div class="mb-2 text-primary position-relative" style="font-size: 2rem; line-height: 1;">
                                     <small class="text-muted position-absolute" style="top: 0; right: 0; font-size: 0.85rem;">
-                                      {{ getFormattedDate(post.date) }}
+                                        {{ getFormattedDate(post.date) }}
                                     </small>
                                     <i class="fas fa-quote-right"></i>
                                 </div>
@@ -1054,7 +1114,7 @@ function home_page_landing_page()
                         <div class="card h-100 border-0 shadow-sm d-flex flex-column" style="background-color: #e7f0fd; max-height: 300px;">
                             <div class="card-body d-flex flex-column h-100" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">
-                                      {{ getFormattedDate(post.date) }}
+                                    {{ getFormattedDate(post.date) }}
                                 </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
 
@@ -1077,7 +1137,7 @@ function home_page_landing_page()
                         <div class="card h-100 border-0 shadow-sm" style="background-color: #fff0f6; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">
-                                      {{ getFormattedDate(post.date) }}
+                                    {{ getFormattedDate(post.date) }}
                                 </small>
                                 <h5 class="card-title mt-2">{{ post.title | unescape }}</h5>
 
@@ -1099,7 +1159,7 @@ function home_page_landing_page()
                         <div class="card h-100 border-0 shadow-sm" style="background-color: #f0f0f0; max-height: 300px;">
                             <div class="card-body d-flex flex-column" style="overflow-y: auto; min-height: 0;">
                                 <small class="text-muted">
-                                      {{ getFormattedDate(post.date) }}
+                                    {{ getFormattedDate(post.date) }}
                                 </small>
                                 <h5 class="card-title mt-2">{{post.title}}</h5>
 
@@ -1117,9 +1177,9 @@ function home_page_landing_page()
 
             </div>
         </section>
-        
+
         <!-- Unified Modal -->
-        <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="unifiedModalLabel" aria-hidden="true" data-bs-focus="false" >
+        <div class="modal fade" id="blogModal" tabindex="-1" aria-labelledby="unifiedModalLabel" aria-hidden="true" data-bs-focus="false">
             <!-- <pre>{{ selectedModal | json }}</pre> -->
 
             <div class="modal-dialog modal-dialog-centered modal-lg modal-dialog-scrollable">
@@ -1203,18 +1263,254 @@ function home_page_landing_page()
             </div>
         </div>
 
+        <!-- HOW IT WORKS (C2C – V2) -->
+        <section id="how-v2" ng-show="activePage === 'how'" class="py-5 c2c-hiw-v2">
+            <div class="container" style="padding-top: 70px;">
+
+                <!-- Kicker -->
+                <div class="text-center mb-4">
+                    <span class="badge rounded-pill px-3 py-2 fw-semibold c2c-hiw-chip">
+                        <i class="bi bi-broadcast me-1"></i> HOW IT WORKS
+                    </span>
+                </div>
+
+                <!-- Big Title -->
+                <h2 class="display-6 fw-bold text-center mb-2 c2c-hiw-title">
+                    Start In Four Steps And Land The Right Job
+                </h2>
+                <p class="text-center text-muted mb-5">
+                    Simple, verified, and student-first—from sign up to successful completion.
+                </p>
+
+                <!-- Steps Row -->
+                <div class="row g-3 g-md-4 align-items-stretch">
+
+                    <!-- Step 1 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="c2c-hiw-card h-100 position-relative">
+                            <div class="c2c-hiw-step">STEP ONE</div>
+                            <h5 class="fw-semibold mt-2">Create Account</h5>
+                            <p class="text-muted small mb-4">Register and complete your profile—course, skills, certifications, and location.</p>
+                            <span class="c2c-hiw-pill">Easy Signup</span>
+
+                        </div>
+                    </div>
+
+                    <!-- Step 2 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="c2c-hiw-card h-100 position-relative">
+                            <div class="c2c-hiw-step">STEP TWO</div>
+                            <h5 class="fw-semibold mt-2">Choose Opportunities</h5>
+                            <p class="text-muted small mb-4">Review matches from verified hosts. Use GeoMatch to see nearby posts.</p>
+                            <span class="c2c-hiw-pill">Super Fast</span>
+
+                        </div>
+                    </div>
+
+                    <!-- Step 3 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="c2c-hiw-card h-100 position-relative">
+                            <div class="c2c-hiw-step">STEP THREE</div>
+                            <h5 class="fw-semibold mt-2">Apply & Earn</h5>
+                            <p class="text-muted small mb-4">Send applications, chat in-app, and finish interviews online—no hassle.</p>
+                            <span class="c2c-hiw-pill">Smooth Flow</span>
+
+                        </div>
+                    </div>
+
+                    <!-- Step 4 -->
+                    <div class="col-12 col-md-6 col-lg-3">
+                        <div class="c2c-hiw-card h-100 position-relative">
+                            <div class="c2c-hiw-step">STEP FOUR</div>
+                            <h5 class="fw-semibold mt-2">Start Your Job</h5>
+                            <p class="text-muted small mb-4">Coordinate with your host, track progress, and complete requirements on time.</p>
+                            <span class="c2c-hiw-pill">Easy Process</span>
+
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Extra supportive content -->
+                <div class="mt-5">
+                    <div class="c2c-hiw-extra p-4 p-md-5 rounded-4 text-center shadow-sm">
+                        <h4 class="fw-bold mb-2">Need Help Along the Way?</h4>
+                        <p class="text-muted mb-0">
+                            C2C isn’t just matching—you also get guidance, tips, and support from our mentors and school coordinators.
+                            We make sure you stay on track until your OJT is complete.
+                        </p>
+                    </div>
+                </div>
+
+                <!-- WHY C2C WORKS -->
+                <div class="mt-5">
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold mb-2" style="font-size:clamp(1.4rem,3.5vw,2rem); color:var(--c2c-footer);">
+                            Why C2C Works for You
+                        </h2>
+                        <p class="text-muted mx-auto" style="max-width:680px;">
+                            We built C2C to break barriers—with smarter tools, trusted opportunities, and guidance at every step.
+                        </p>
+                    </div>
+
+                    <div class="row g-4 text-center text-md-start">
+                        <!-- Feature 1 -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="c2c-feature p-3">
+                                <i class="bi bi-file-earmark-text mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
+                                <h6 class="fw-semibold mb-1">Smarter than a Résumé</h6>
+                                <p class="text-muted small mb-0">Showcase skills, badges, and real outputs—not just bullet points.</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 2 -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="c2c-feature p-3">
+                                <i class="bi bi-arrow-right-circle mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
+                                <h6 class="fw-semibold mb-1">Seamless Matching</h6>
+                                <p class="text-muted small mb-0">Our engine connects you faster to the right fit—no endless searching.</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 3 -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="c2c-feature p-3">
+                                <i class="bi bi-check-circle mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
+                                <h6 class="fw-semibold mb-1">Verified Employers</h6>
+                                <p class="text-muted small mb-0">Only trusted companies—real, reliable, and safe opportunities.</p>
+                            </div>
+                        </div>
+
+                        <!-- Feature 4 -->
+                        <div class="col-12 col-md-6 col-lg-3">
+                            <div class="c2c-feature p-3">
+                                <i class="bi bi-people mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
+                                <h6 class="fw-semibold mb-1">Built by Experience</h6>
+                                <p class="text-muted small mb-0">Designed by people who’ve done OJT—we understand your challenges.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+
+
+
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" ng-show="activePage === 'faq'" class="py-5 bg-white">
+            <div class="container" style="padding-top: 70px;">
+
+                <div class="faq-content p-4 rounded shadow" style="background: linear-gradient(to bottom,rgb(255, 255, 255) 0%, #f9f9f9 100%);">
+
+                    <!-- Heading -->
+                    <div class="text-center mb-5">
+                        <h2 class="fw-bold mb-3"
+                            style="font-size:clamp(1.8rem,4vw,2.4rem); color: var(--c2c-footer)">
+                            Frequently Asked Questions
+                        </h2>
+                        <div style="width:80px; height:4px; background: var(--c2c-cta); border-radius:2px; margin:0 auto;"></div>
+                        <p class="text-muted pt-4" style="max-width:650px; margin:0 auto; font-size:1rem;">
+                            Find quick answers to common concerns from applicants, employers, and partners.
+                        </p>
+                    </div>
+
+
+                    <div class="mx-auto" style="max-width: 900px;">
+                        <!-- Tabs -->
+                        <div class="d-flex justify-content-center gap-3 mb-4">
+                            <button class="custom-tab-button" ng-click="faqTab = 'ojtgo'">OJTGo</button>
+                            <button class="custom-tab-button" ng-click="faqTab = 'student'">Student</button>
+                            <button class="custom-tab-button" ng-click="faqTab = 'employer'">Employer</button>
+                        </div>
+
+                        <!-- FAQ List (Single Container) -->
+                        <div class="accordion">
+                            <!-- Unified ng-switch style -->
+                            <div ng-switch="faqTab">
+
+                                <!-- OJTGo FAQs -->
+                                <div ng-switch-when="ojtgo">
+                                    <div class="faq-item" ng-repeat="faq in ojtgoFaqs">
+                                        <div class="border-bottom py-2" ng-click="toggleFaq(ojtgoFaqs, $index)" style="cursor: pointer;">
+                                            {{ faq.question }}
+                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
+                                        </div>
+
+                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
+                                            ng-show="faq.open"
+                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
+                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
+                                            <ul ng-if="faq.answer.list" class="no-bullets">
+                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
+                                            </ul>
+                                        </div>
+
+
+                                    </div>
+                                </div>
+
+                                <!-- Student FAQs -->
+                                <div ng-switch-when="student">
+                                    <div class="faq-item" ng-repeat="faq in studentFaqs">
+                                        <div class="border-bottom py-2" ng-click="toggleFaq(studentFaqs, $index)" style="cursor: pointer;">
+                                            {{ faq.question }}
+                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
+                                        </div>
+
+                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
+                                            ng-show="faq.open"
+                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
+                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
+                                            <ul ng-if="faq.answer.list" class="no-bullets">
+                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <!-- Employer FAQs -->
+                                <div ng-switch-when="employer">
+                                    <div class="faq-item" ng-repeat="faq in employerFaqs">
+                                        <div class="border-bottom py-2" ng-click="toggleFaq(employerFaqs, $index)" style="cursor: pointer;">
+                                            {{ faq.question }}
+                                            <span class="float-end">{{ faq.open ? '−' : '+' }}</span>
+                                        </div>
+
+                                        <div class="ps-3 pt-1 pb-2 text-dark rounded mb-3"
+                                            ng-show="faq.open"
+                                            style="background: linear-gradient(to top,rgb(217, 223, 229),rgb(255, 255, 255), rgb(255, 255, 255));">
+                                            <p ng-if="faq.answer.paragraph">{{ faq.answer.paragraph }}</p>
+                                            <ul ng-if="faq.answer.list" class="no-bullets">
+                                                <li ng-repeat="item in faq.answer.list">{{ item }}</li>
+                                            </ul>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+        </section>
+
         <!-- Privacy Notice section -->
-        <section id="privacy" ng-show="activePage === 'privacy'" class="py-5 bg-transparent">
+        <section id="privacy" ng-show="activePage === 'privacy'" class="bg-light py-5 bg-transparent">
             <div class="container">
                 <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
                     Privacy Notice
                 </h1>
 
                 <div style="background-color: rgba(0, 0, 0, 0.47); color: white; padding: 2rem; border-radius: 8px;">
-                    <h3><strong>This Privacy Notice was last updated in August 2025.</strong></h3>
+
                     <p>At <strong>OJTGo</strong>, owned and operated by <strong>PCES Inc.</strong>, we are committed to protecting the privacy of all users—especially interns, employers,
                         and OJT coordinators—who use our platform to facilitate On-the-Job Training (OJT) experiences. This Privacy Notice explains how we collect, use, store, and share your
-                        information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>OJTGo</strong>, you agree to the practices
+                        information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>OJTGo</strong>, you agree to the practices
                         described in this notice. We encourage you to read it carefully.</p><br>
                     <h4>1. Information We Collect</h4>
                     <p><strong>a) Intern Information</strong><br>
@@ -1270,7 +1566,7 @@ function home_page_landing_page()
 
                     <p>We do not sell or lease your personal data to any third party.</p><br>
 
-                    <h4><strong>4. Data Security</strong></h4>
+                    <h4>4. Data Security</h4>
                     <p>OJTGo implements technical and organizational measures to protect your data:</p>
                     <ul>
                         <li>HTTPS encryption of all data transmissions</li>
@@ -1282,7 +1578,7 @@ function home_page_landing_page()
                     <p>Disclaimer: While we take strong precautions, no system is 100% secure. We continuously improve our security infrastructure to reduce risks.
                     </p><br>
 
-                    <h4><strong>5. Cookies and Tracking</strong></h4>
+                    <h3>5. Cookies and Tracking</h3>
                     <p>We use cookies and tracking tools to:</p>
                     <ul>
                         <li>Personalize your experience</li>
@@ -1294,7 +1590,7 @@ function home_page_landing_page()
                         You may manage or disable cookies and location tracking in your browser or device settings.
                     </p><br>
 
-                    <h4><strong>6. Your Privacy Choices</strong></h4>
+                    <h4>6. Your Privacy Choices</h4>
                     <p>You may exercise the following at any time:</p>
                     <ul>
                         <li>Update your profile through your account dashboard</li>
@@ -1304,7 +1600,7 @@ function home_page_landing_page()
 
                     <p>For sensitive actions (e.g., account deletion), some verification steps or coordinator approval may be required.</p><br>
 
-                    <h4><strong>7. Retention of Personal Information</strong></h4>
+                    <h4>7. Retention of Personal Information</h4>
 
                     <p><strong>a) General Retention Policy</strong><br>
                         We retain personal data for only one (1) year, unless required longer by law, accreditation, or academic compliance.</p><br>
@@ -1323,13 +1619,10 @@ function home_page_landing_page()
                     <p><strong>d) Data Minimization and Security</strong><br>
                         We strictly collect only necessary data and apply encryption and access control to ensure secure storage during the retention period.</p><br>
 
-                    <h4><strong>8. Consent and Lawful Processing</strong></h4>
+                    <h4>8. Consent and Lawful Processing</h4>
                     <p>By using OJTGo, you voluntarily consent to the collection, use, and processing of your data for the purposes stated. You may withdraw your consent at any time by changing your account settings or contacting us. If you use OJTGo from outside the Philippines, you agree to the cross-border transfer of your data to the Philippines for lawful processing.</p><br>
-                    
-                    <h4><strong>8.1. Parental Consent for Minors</strong></h4>
-                    <p>OJTGo is intended for use by individuals who are of legal age. If you are below 18 years old, you are required to obtain consent from your parent or legal guardian before registering or submitting any personal information on the platform.</p><br>
 
-                    <h4><strong>9. Your Rights Under the Law</strong></h4>
+                    <h4>9. Your Rights Under the Law</h4>
                     <p>In accordance with RA 10173 (Data Privacy Act of 2012), you have the right to:</p>
                     <ul>
                         <li>Be informed about how your data is processed</li>
@@ -1340,30 +1633,19 @@ function home_page_landing_page()
                         <li>Lodge a complaint with the National Privacy Commission (NPC)</li>
                     </ul><br>
 
-                    <p>Learn more: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank">https://privacy.gov.ph/data-subject-rights/</a></p><br>
+                    <p>Learn more: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank" style="color: deepskyblue;">https://privacy.gov.ph/data-subject-rights/</a></p><br>
 
                     <h4>10. Updates to This Notice</h4>
                     <p>We may revise this Privacy Notice to reflect changes in law, technology, or our services. The latest version will always be available on OJTGo.com with an updated "Effective Date." Continued use of our platform constitutes acceptance of any updates.</p><br>
 
                     <h4>11. Contact Us</h4>
-                    <p>We're here to assist you with any questions or support needs you may have. Our dedicated team is committed to providing timely and helpful responses to ensure your experience with our platform is smooth and productive.</p>
-                    <!-- <ul class="contact-list">
-                        <li>To request access to or deletion of your personal data, please contact us via email (<a href="mailto:support@ojtgo.com">support@ojtgo.com</a>).</li>
-                    </ul> -->
-                    <p>To request access to or deletion of your personal data,</p>
-                    <ul class="dpo-contact">
-                        <li><strong>Email:</strong> <a href="mailto:support@ojtgo.com">support@ojtgo.com</a></li>
-                    </ul>
-                    <p>For Data Privacy Concerns:</p>
-                    <ul class="dpo-contact">
-                        <li><strong>John Ronald Robillos</strong></li>
-                        <li>Data Protection Officer</li>
-                        <li><strong>Email:</strong> <a href="mailto:dpo@ojtgo.com">dpo@ojtgo.com</a></li>
+                    <p>For questions or concerns about your data privacy rights or to request data access or deletion, please contact our Data Protection Officer (DPO):</p>
+                    <ul><br>
+                        <li><strong>Email:</strong> <a href="mailto:ojt@ojtgo.com" style="color: deepskyblue;">ojt@ojtgo.com</a></li>
                     </ul>
                 </div>
             </div>
         </section>
-
 
         <!-- Terms of Use Section -->
         <section id="terms" ng-show="activePage === 'terms'" class="bg-light py-5 bg-transparent">
@@ -1490,479 +1772,153 @@ function home_page_landing_page()
                 </div>
         </section>
 
+        <!-- Contact (C2C) -->
+        <section id="contact" class="py-5" style="background: var(--c2c-gradient3, linear-gradient(180deg,#f5f7f9, #ffffff));">
+            <div class="container">
+                <div class="row g-4 align-items-stretch">
 
-        <!-- Grouped decorative circles -->
-        <div class="circle-decorations">
-            <div class="blue-small-circle"></div>
-            <div class="background-circle"></div>
-        <!-- Hami 07/11: blue circle removed -->
-        </div>
+                    <!-- Left: CTA / Info -->
+                    <div class="col-lg-5">
+                        <div class="h-100 p-4 p-md-5 rounded-3 shadow-sm d-flex flex-column justify-content-between"
+                            style="background:#ffffff;border:1px solid rgba(0,0,0,.06)">
+                            <div>
+                                <h2 class="fw-bold mb-2" style="color:#262B33;">Get in touch</h2>
+                                <p class="mb-4 text-muted">Questions, partnerships, or support? We’ll reply within 1–2 business days.</p>
 
-        <!-- about us Section -->
-        <section id="about" ng-show="activePage === 'about'">
-            <section class="bg-white text-center pt-5 pb-2">
-                <div class="container">
-                    <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
-                        About Us
-                    </h1>
-                    <p class="mt-3" style="text-align: justify;">At <strong>OJTGo</strong>, we bridge the gap between education and industry, providing students with smooth or hassle-free access to valuable internship opportunities.
-                        Our platform empowers students by connecting them with organizations that align with their academic backgrounds, career goals, and personal growth.
-                        We believe internships are more than just academic requirements—they are stepping stones to meaningful careers.</p>
-                </div>
-            </section>
-
-            <!-- Mission and Vision Section -->
-            <section class="bg-white pt-2 pb-4">
-                <div class="container text-left">
-                    <div class="mb-5">
-                        <h2 class="text-primary">Our Mission</h2>
-                        <p class="mt-3" style="text-align: justify;">To empower students by providing them with seamless access to valuable internship opportunities,
-                            equipping them with the skills and experience needed to succeed in the professional world. We aim to connect
-                            educational institutions, students, and employers in a collaborative environment that fosters growth, learning, and career readiness.
-                        </p>
-                    </div>
-                    <div>
-                        <h2 class=" text-primary">Our Vision</h2>
-                        <p class="mt-3" style="text-align: justify;">To be the ultimate one-stop solution for all OJT needs, ensuring that every student gains practical experience to enhance
-                            their future career prospects. We strive to create a workforce-ready generation by bridging academia and industry through innovative and inclusive
-                            job-matching technology.
-                        </p>
-                    </div>
-                </div>
-            </section>
-
-
-            <div class="bg-white">
-                <!-- Section 1: Image Left, Text Right -->
-                <section class="py-5">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <!-- Image -->
-                            <div class="col-md-6 order-1 order-md-1 d-flex justify-content-center justify-content-md-start mb-4 mb-md-0">
-                                <img
-                                    src="<?php echo home_url('/wp-content/uploads/icons/home/indtroduce.png') ?>"
-                                    alt="introduce"
-                                    class="img-fluid rounded shadow-lg"
-                                    style="max-width: 90%; box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);">
+                                <ul class="list-unstyled mb-4">
+                                    <li class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-envelope-fill me-2" style="color:#3B9418"></i>
+                                        <span>support@c2c.ph</span>
+                                    </li>
+                                    <li class="d-flex align-items-center mb-2">
+                                        <i class="bi bi-telephone-fill me-2" style="color:#3B9418"></i>
+                                        <span>+63 9xx xxx xxxx</span>
+                                    </li>
+                                    <li class="d-flex align-items-center">
+                                        <i class="bi bi-geo-alt-fill me-2" style="color:#3B9418"></i>
+                                        <span>Metro Manila, Philippines</span>
+                                    </li>
+                                </ul>
                             </div>
 
-                            <!-- Text -->
-                            <div class="col-md-6 order-2 order-md-2">
-                                <h2 class="text-primary">Introducing OJTGo</h2>
-                                <p style="text-align: justify;">A platform built by students, for students. OJTGo aims to simplify the internship journey by connecting students, OJT coordinators, and host companies (HTEs) in one convenient, organized space. We designed it to reduce unnecessary costs, streamline the application process, and minimize mismatches between students and companies. With OJTGo, students can find internships that suit their course and location, while coordinators and companies can manage applications and assignments more efficiently. It is not just a platform. It is our way of solving a problem we experienced ourselves, and making things better for the future interns.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-
-                <!-- Section 2: Image Right, Text Left -->
-                <section class="py-5">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <!-- Text -->
-                            <div class="col-md-6 order-2 order-md-1">
-                                <h2 class="text-primary">How it started?</h2>
-                                <p style="text-align: justify;">We saw it firsthand. We were once interns ourselves, and we noticed a problem that has been around for generations. Every year, thousands of students search for internships, creating a high demand with limited quality opportunities. The competition is tough, and the process is expensive. If you were unlucky, you would end up mismatched with a company that does not help you grow.</p>
-                                <p style="text-align: justify;">As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure of securing an internship—all while spending on transportation, meals, and application requirements. Most internships do not even offer basic allowances. This is the sad reality for many students, year after year.</p>
-                            </div>
-                            <!-- Image -->
-                            <div class="col-md-6 order-1 order-md-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/howwestarted.jpg') ?>"
-                                    alt="Our Story" class="img-fluid rounded shadow">
-                            </div>
-                        </div>
-                    </div>
-                </section>
-
-                <!-- Section 3: Image Left, Text Right -->
-                <section class="py-5">
-                    <div class="container">
-                        <div class="row align-items-center">
-                            <!-- Image -->
-                            <div class="col-md-6 order-1 order-md-1">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/whatwecreated.jpg') ?>"
-                                    alt="Our Story" class="img-fluid rounded shadow">
-                            </div>
-                            <!-- Text -->
-                            <div class="col-md-6 order-2 order-md-2">
-                                <h2 class="text-primary">What we created?</h2>
-                                <p style="text-align: justify;">We created a platform designed to reduce the cost and hassle of finding an internship. It connects students, OJT Coordinators, and host companies in one convenient space. The goal is to make internships more accessible and organized—for everyone involved.</p>
-                                <p style="text-align: justify;">As graduating students, we had to juggle thesis deadlines, clearance fees, and the pressure of securing an internship—all while spending on transportation, meals, and application requirements. Most internships do not even offer basic allowances. This is the sad reality for many students, year after year.</p>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-            </div>
-
-            <!-- OJTGo Team -->
-            <section class="py-5" style="color: rgb(0, 43, 86);" ng-init="showAllTeam = false">
-                <div class="container">
-                    <h1 class="display-4 text-white fw-semibold fs-3 text-center p-3 rounded" style="background-color:rgb(0, 43, 86);">
-                        Meet the OJTGo Team
-                    </h1>
-
-                    <h1 class="display-4 fw-bold fs-3 text-center m-5" style="color:rgb(0, 43, 86);">
-                        Management Team
-                    </h1>
-
-                    <!-- showed team -->
-                    <div class="row justify-content-center fw-bold fs-5 mt-4">
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirval.png') ?>" alt="sir Val">
-                            </div>
-                            <p class="text-center m-0">Valery Minello</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Executive Officer</p>
-                        </div>
-
-                       
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/leo2.jpg') ?>" alt="sir Leo">
-                            </div>
-                            <p class="text-center m-0">Leo Herrera</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Operating Officer</p>
-                        </div>
-
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/sirjeal.jpg') ?>" alt="sir Jeal">
-                            </div>
-                            <p class="text-center m-0">Jeal Pascua</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Technology Officer</p>
-                        </div>
-
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/john.jpg') ?>" alt="ma'am John">
-                            </div>
-                            <p class="text-center m-0">John Ronald Robillos</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Sales Lead</p>
-                        </div>
-
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/jess.jpg') ?>" alt="sir Jess">
-                            </div>
-                            <p class="text-center m-0">Jess Baggao</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Chief Security Officer</p>
-                        </div>
-
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/jinah-1.jpg') ?>" alt="ma'am Jinah">
-                            </div>
-                            <p class="text-center m-0">Jinalyn Diamos</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">HR Manager</p>
-                        </div>
-
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/nicolee-2.jpg') ?>" alt="ma'am Nicole">
-                            </div>
-                            <p class="text-center m-0">Roan Nicole Marcellana</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing Manager</p>
-                        </div>
-
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/steph.jpg') ?>" alt="ma'am Steph">
-                            </div>
-                            <p class="text-center m-0">Stephanie Cuenca</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications Manager</p>
-                        </div>
-                        
-                        
-                        <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                            <div class="team-img-container mb-2">
-                                <img src="<?php echo home_url('/wp-content/uploads/icons/home/ana.png') ?>" alt="ma'am Ana">
-                            </div>
-                            <p class="text-center m-0">Ana Grace Cabradilla</p>
-                            <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications Associate</p>
-                        </div>
-
-
-
-                        <!-- hidden team -->
-                        <section ng-if="currentPage === 'rest' || true"> <!-- Set true for universal visibility -->
-                            <div class="row justify-content-center mt-4 fw-bold fs-5" ng-show="showAllTeam">
-
-                                <h1 class="display-4 fw-bold fs-3 text-center m-5" style="color:rgb(0, 43, 86);">
-                                    Our OJT
-                                </h1>
-
-                               
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/lorenzo-scaled.jpg') ?>" alt="Lorenzo">
-                                    </div>
-                                    <p class="text-center m-0">Lorenzo Daniel Jarata</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
-                                </div>
-
-                                
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/millard-scaled.jpg') ?>" alt="Millard">
-                                    </div>
-                                    <p class="text-center m-0">Millard John Ortillano</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer</p>
-                                </div>
-
-                                
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/khianah.jpg') ?>" alt="Khianah">
-                                    </div>
-                                    <p class="text-center m-0">Khianah Marie Gadacho</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">UI/UX Designer</p>
-                                </div>
-
-                                
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/jazmine.jpg') ?>" alt="Jazmine">
-                                    </div>
-                                    <p class="text-center m-0">Jazmine Danielle Gundran</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing</p>
-                                </div>
-
-                              
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/aivie.jpg') ?>" alt="Aivie">
-                                    </div>
-                                    <p class="text-center m-0">Aivie Concepcion</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Marketing</p>
-                                </div>
-
-                              
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/katrishna.jpg') ?>" alt="Katrishna">
-                                    </div>
-                                    <p class="text-center m-0">Kathrisha Sapon</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Quality Assurance
-                                    </p>
-                                </div>
-
-                                
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/charlss.jpg') ?>" alt="Charls">
-                                    </div>
-                                    <p class="text-center m-0">Arvin Charls Basco</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
-                                    </p>
-                                </div>
-
-                               
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/arandelle.jpg') ?>"
-                                            alt="Arandelle">
-                                    </div>
-                                    <p class="text-center m-0">Arandelle Paguinto</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
-                                    </p>
-                                </div>
-
-                                
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/jc.jpg') ?>"
-                                            alt="Arandelle">
-                                    </div>
-                                    <p class="text-center m-0">JC Despabiladeras</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
-                                    </p>
-                                </div>
-
-                                
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/mads.jpg') ?>"
-                                            alt="Arandelle">
-                                    </div>
-                                    <p class="text-center m-0">Madeleine Gonzales</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Communications
-                                    </p>
-                                </div>
-
-                                
-                                <div class="col-6 col-md-3 mb-4 d-flex flex-column align-items-center">
-                                    <div class="team-img-container mb-2">
-                                        <img src="<?php echo home_url('/wp-content/uploads/icons/home/hami.jpg') ?>"
-                                            alt="Arandelle">
-                                    </div>
-                                    <p class="text-center m-0">Hamidah Abdulqader Awad Salem</p>
-                                    <p class="text-center fw-light m-0" style="color:rgb(78, 78, 78);">Web Developer
-                                    </p>
-                                </div>
-
-                            </div>
-                        </section>
-
-                        <!-- Toggle Button -->
-                        <div class="text-end mt-4">
-                            <button
-                                class="fw-semibold text-primary"
-                                style="border: none; background: none; padding: 0;"
-                                ng-click="toggleTeamVisibility()">
-                                {{ showAllTeam ? 'Hide All' : 'View All' }}
+                            <!-- Optional toggle (kept for your existing logic) -->
+                            <button class="btn text-white fw-semibold"
+                                ng-click="showContactForm = !showContactForm"
+                                style="background:#3B9418;border:0">
+                                <span ng-hide="showContactForm">Send us a message</span>
+                                <span ng-show="showContactForm">Back</span>
                             </button>
                         </div>
-
                     </div>
-            </section>
 
+                    <!-- Right: Contact Form -->
+                    <div class="col-lg-7" ng-show="showContactForm">
+                        <div class="h-100 p-4 p-md-5 rounded-3 shadow-sm" style="background:#ffffff;border:1px solid rgba(0,0,0,.06)">
+                            <h4 class="fw-bold mb-3" style="color:#262B33">Message the C2C Team</h4>
+
+                            <form name="contactForm" ng-submit="submitContactForm()" novalidate>
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">Full Name</label>
+                                    <input type="text" class="form-control" ng-model="contactFormData.name" placeholder="e.g., Juan Dela Cruz" required
+                                        style="border:1px solid rgba(0,0,0,.15)">
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-semibold">Email</label>
+                                        <input type="email" class="form-control" ng-model="contactFormData.email" placeholder="you@example.com" required
+                                            style="border:1px solid rgba(0,0,0,.15)">
+                                    </div>
+                                    <div class="col-md-6 mb-3">
+                                        <label class="form-label fw-semibold">Mobile (optional)</label>
+                                        <input type="text" class="form-control" ng-model="contactFormData.mobile" placeholder="+63 9xx xxx xxxx"
+                                            style="border:1px solid rgba(0,0,0,.15)">
+                                    </div>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label fw-semibold">How can we help?</label>
+                                    <textarea class="form-control" ng-model="contactFormData.message" rows="4" placeholder="Type your message…" required
+                                        style="border:1px solid rgba(0,0,0,.15)"></textarea>
+                                </div>
+
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="consent" ng-model="contactFormData.consent" required>
+                                    <label class="form-check-label text-muted" for="consent" style="font-size:.9rem">
+                                        I agree that C2C may use this information to contact me about my inquiry.
+                                    </label>
+                                </div>
+
+                                <div class="d-grid d-sm-flex gap-2">
+                                    <button type="submit" ng-disabled="onsubmit" class="btn text-white fw-semibold px-4"
+                                        style="background:#3B9418;border:0">
+                                        <span ng-hide="onsubmit">Submit</span>
+                                        <span ng-show="onsubmit"><i class="bi bi-arrow-repeat me-1"></i>Sending…</span>
+                                    </button>
+                                    <button type="button" class="btn btn-outline-secondary px-4" ng-click="contactFormData = {}">Clear</button>
+                                </div>
+
+                                <p class="mt-3 text-muted" style="font-size:.85rem">
+                                    We respect your privacy. We don’t sell your data and only use it to respond to your request.
+                                </p>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- If the form is hidden, show a simple brand panel instead -->
+                    <div class="col-lg-7" ng-hide="showContactForm">
+                        <div class="h-100 p-4 p-md-5 rounded-3 border d-flex align-items-center justify-content-center"
+                            style="background:linear-gradient(135deg,#ffffff, #f7faf8);border:1px solid rgba(0,0,0,.06)">
+                            <div class="text-center">
+                                <img src="/wp-content/uploads/icons/c2clogo.png" class="img-fluid mb-3" alt="C2C" style="max-width:160px">
+                                <div class="text-muted">Employers • PDL Support • Partnerships</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
         </section>
 
-        <!-- contact us Section -->
-        <div id="contact" class="d-flex flex-column h-100" style="margin-top: 0; padding: 60px 0; background: linear-gradient(to bottom, rgba(207, 220, 255, 1), rgba(255, 255, 255, 1), rgba(207, 220, 255, 1));">
-
-            <div class="container mt-auto">
-                <div class="row justify-content-center align-items-center flex-wrap">
-
-                    <h3 class="fw-bold mt-3 fs-2 text-center" style="color: rgb(0, 50, 101);">
-                        Bridging Students to Success—<br>OJTGo Connects Them with the Right Opportunities
-                    </h3>
-
-                    <!-- Contact Message Box -->
-                    <div class="col-md-6 mt-5">
-                        <div class="rounded-3 p-4 shadow-lg position-relative overflow-hidden d-flex flex-column justify-content-between h-100"
-                            style="background: linear-gradient(rgb(255, 255, 255)); color: rgb(0, 50, 101);">
-                            <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">
-                                    <i class="bi bi-chat-square-dots-fill"></i> Get in Touch
-                                </h3>
-                                <p class="mb-3" style="font-size: 1rem;">
-                                    Have questions, feedback, or need support? We're here to help! Reach out to the OJTGo team and we'll get back to you as soon as possible. Whether you're an intern or an employer, your internship journey is our priority.
-                                </p>
-                            </div>
-
-                            <button class="btn text-white fw-bold py-1 mt-4"
-                                ng-click="showContactForm = !showContactForm"
-                                style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
-                                <span ng-hide="showContactForm">
-                                    Send us a message!
-                                </span>
-                                <span ng-show="showContactForm">
-                                    Go Back
-                                </span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Contact Form -->
-                    <div class="col-md-6 mt-3" ng-show="showContactForm">
-                        <div class="rounded-3 p-4 shadow-lg bg-white position-relative h-100">
-                            <div class="position-absolute top-0 start-0 w-100 h-100"
-                                style="background: linear-gradient(135deg, rgba(255, 255, 255, 1)); z-index: 0;"></div>
-                            <div style="z-index: 1; position: relative;">
-                                <h3 class="fw-bold mb-4" style="color: rgb(0, 50, 101);">Send Us a Message</h3>
-                                <form name="contactForm" ng-submit="submitContactForm()" novalidate>
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold">Name</label>
-                                        <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                            ng-model="contactFormData.name" placeholder="e.g. John Doe" required>
-                                    </div>
-
-                                    <div class="mb-2 row">
-                                        <div class="col">
-                                            <label class="form-label fw-semibold">Email</label>
-                                            <input type="email" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                                ng-model="contactFormData.email" placeholder="e.g. johndoe@example.com" required>
-                                        </div>
-                                        <div class="col">
-                                            <label class="form-label fw-semibold">Mobile Number</label>
-                                            <input type="text" class="form-control custom-fields" style="border: 1px solid #0063b1;"
-                                                ng-model="contactFormData.mobile" placeholder="e.g. +639xxxxxxxxx" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-2">
-                                        <label class="form-label fw-semibold">Comment or Message</label>
-                                        <textarea class="form-control custom-fields" style="border: 1px solid #0063b1; height: 80px;"
-                                            ng-model="contactFormData.message" rows="4" placeholder="Start typing..." required></textarea>
-                                    </div>
-
-                                    <div class="d-grid mt-4">
-                                        <button type="submit"
-                                            ng-class="{'disabled': onsubmit}"
-                                            class="btn text-white fw-bold py-1"
-                                            style="background-color: rgb(0, 50, 101); border: 1px solid #0161aa; font-size: 1.1rem;">
-                                            Submit
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
+        </main>
 
         <!-- Footer -->
-        <div class="footer-container" style="background-color: #1565c0; color: white; padding: 20px 10px; margin-top: 0;">
-        <div class="container-fluid px-2 px-md-2 px-lg-5">
-            <div class="row align-items-start align-items-lg-center d-lg-flex justify-content-lg-between">
+        <footer class="footer-container custom-footer">
+        <div class="container text-center">
 
-            <!-- Logo and Social Icons -->
-            <div class="col-12 col-lg-auto text-start mt-4 mb-lg-0">
-                <img style="height: 80px;"
-                    src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310-white.png') ?>"
-                    alt="ojtgo-logo"
-                    class="footer-logo mb-3">
-
-                <div class="social-icons d-flex justify-content-start gap-2 mb-4">
-                <a href="https://www.facebook.com/ojtgo.pces/" target="_blank">
-                    <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 35px; height: 35px;">
-                    <i class="fab fa-facebook-f text-dark"></i>
-                    </div>
-                </a>
-                <a href="https://www.instagram.com/ojtgo_pces/" target="_blank">
-                    <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 35px; height: 35px;">
-                    <i class="fab fa-instagram text-dark"></i>
-                    </div>
-                </a>
-                <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank">
-                    <div class="social-circle bg-light rounded-circle d-flex align-items-center justify-content-center"
-                        style="width: 35px; height: 35px;">
-                    <i class="fab fa-tiktok text-dark"></i>
-                    </div>
-                </a>
-                </div>
+            <!-- Logo -->
+            <div class="footer-logo-wrap mb-3 d-flex justify-content-center">
+            <img style="height: 70px;"
+                src="<?php echo home_url('/wp-content/uploads/icons/c2cwhite.png') ?>"
+                alt="c2c-logo"
+                class="footer-logo">
             </div>
 
             <!-- Navigation Links -->
-            <div class="col-12 col-lg-auto pe-5 mt-3 mt-lg-0">
-                <nav class="d-flex flex-column flex-lg-row align-items-start align-items-lg-center text-start text-lg-start gap-2 gap-lg-3">
-                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#home" ng-click="setActivePage('home')">Home</a>
-                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
-                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
-                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
-                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#whyojtgo" ng-click="setActivePage('whyojtgo'); scrollToSection('whyojtgo', $event)">Why OJTGo?</a>
-                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#privacy" ng-click="setActivePage('privacy')">Privacy Notice</a>
-                <a class="text-white text-decoration-none py-1 px-2" style="font-size: 1.1rem;" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
-                </nav>
-            </div>
+            <nav class="footer-nav d-flex flex-column flex-lg-row justify-content-center align-items-center gap-3 mb-3">
+            <a class="footer-link" href="#home" ng-click="setActivePage('home')">Home</a>
+            <a class="footer-link" href="#about" ng-click="setActivePage('about', $event)">About Us</a>
+            <a class="footer-link" href="#highlights" ng-click="setActivePage('highlights'); scrollToSection('highlights', $event)">Highlights</a>
+            <a class="footer-link" href="#contact" ng-click="scrollToSection('contact', $event)">Contact Us</a>
+            <a class="footer-link" href="#whyc2c" ng-click="setActivePage('whyc2c'); scrollToSection('whyc2c', $event)">Why Chains2Chances?</a>
+            <a class="footer-link" href="#privacy" ng-click="setActivePage('privacy')">Privacy Policy</a>
+            <a class="footer-link" href="#terms" ng-click="setActivePage('terms')">Terms of Use</a>
+            </nav>
 
+            <!-- Social Icons -->
+            <div class="social-icons d-flex justify-content-center gap-3 mt-3">
+            <a href="https://www.facebook.com/ojtgo.pces/" target="_blank" class="social-circle">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/ojtgo_pces/" target="_blank" class="social-circle">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank" class="social-circle">
+                <i class="fab fa-tiktok"></i>
+            </a>
             </div>
         </div>
-        </div>
-
+        </footer>
 
         <div
             id="modal-overlay"
@@ -2012,7 +1968,7 @@ function home_page_landing_page()
                     <!-- Header and Sub Title -->
                     <div class="row flex-column align-items-center justify-content-center mb-3 header">
                         <p class="col-auto fs-1 fw-bold text-center mb-0">Welcome Back!</p>
-                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">Intern or Employer!</p>
+                        <p class="col-auto text-secondary text-center mb-0 w-75" style="font-size: 1rem;">Applicant or Employer!</p>
                     </div>
 
 
@@ -2720,7 +2676,6 @@ function home_page_landing_page()
 
 
         </div>
-
 
     </div>
 

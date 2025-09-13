@@ -1,12 +1,5 @@
 var app = angular.module('homeApp', ['ngStorage']);
 
-// Deleting/clearing sessionStorage on page reload
-app.run(function($sessionStorage) {
-    // 🧹 Clear sessionStorage keys from ngStorage before any controller uses them
-    delete $sessionStorage.userCredentials;
-    delete $sessionStorage.emailForOtp;
-});
-
 app.run(function($timeout, $window, $rootScope) {
 
     $timeout(function () {
@@ -16,7 +9,7 @@ app.run(function($timeout, $window, $rootScope) {
             const id = hash.substring(1); // "news" from "#news"
             const el = document.getElementById(id);
 
-            // ✅ Only call if function exists (ensures controller is loaded)
+            // Only call if function exists (ensures controller is loaded)
             if (typeof $rootScope.setActivePage === 'function') {
                 $rootScope.setActivePage(id);
             }
@@ -32,396 +25,240 @@ app.run(function($timeout, $window, $rootScope) {
     }, 1000); // Delay long enough to ensure DOM is ready
 });
 
-
-
- // Charls Added
+// Charls Added
 
 app.controller('homeController', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
 
     $scope.activePage = 'home'; // Default page
-$scope.showActivePage = 'contact';
+    $scope.showActivePage = 'contact';
 
-// Modal state for news post
-$scope.selectedNewsPost = null;
+    // Modal state for news post
+    $scope.selectedNewsPost = null;
 
-$scope.showNewsDetails = function(post) {
-    $scope.selectedNewsPost = post;
-    $('#newsModal').modal('show');
+    $scope.selectedBlog = null;
+
+    $scope.toggleBlogExpansion = function(blog) {
+        $scope.selectedBlog = ($scope.selectedBlog === blog) ? null : blog;
+    };
+
+    $scope.isVideo = function(mediaUrl) {
+        return mediaUrl && mediaUrl.match(/\.(mp4|webm|ogg)$/i);
+    };
+
+    $scope.scrollToTop = function() {
+    $window.scrollTo({ top: 0, behavior: 'smooth' });
 };
 
-$scope.selectedBlog = {};
+    // BLOGS
+    $scope.blogs = [];
 
-$scope.showBlogDetails = function(blog) {
-    $scope.selectedBlog = blog;
-    $('#blogModal').modal('show');
-};
+    $scope.fetchBlogs = function () {
+        $http({
+            method: 'POST',
+            url: adminAjax.ajaxurl,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: "action=fetch_database&post_type=blog"
+        }).then(function (response) {
+            const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
 
-$scope.closeBlogModal = function() {
-    $('#blogModal').modal('hide');
-    $('.modal-backdrop').remove();
-    $('body').removeClass('modal-open');
-};
+            // Filter only those with post_type === 'blog'
+            const allPosts = response.data;
+            $scope.blogs = allPosts
+                .filter(blog => blog.post_type === 'blog')
+                .map(blog => {
+                    blog.blog_media = blog.blog_media.startsWith('http') ? blog.blog_media : baseURL + blog.blog_media;
+                    return blog;
+                });
+        }, function (error) {
+            console.error('Error fetching blogs:', error);
+        });
+    };
 
-$scope.selectedBlog = null;
-
-// $scope.toggleBlogExpansion = function(blog) {
-//     $scope.selectedBlog = ($scope.selectedBlog === blog) ? null : blog;
-// };
-
-// Modal unified view
-$scope.modalExpansion = function(post) {
-    console.log(post);
-  $scope.selectedModal = post;
-};
-
-  
-
-//   testimonials modal view
-$scope.toggleTestimonialExpansion = function(post) {
-    $scope.selectedTestimonial = post;
-  };
-
-$scope.isVideo = function(mediaUrl) {
-    return mediaUrl && mediaUrl.match(/\.(mp4|webm|ogg)$/i);
-};
-
-// // BLOGS
-// $scope.blogs = [];
-
-// $scope.fetchBlogs = function () {
-//     $http({
-//         method: 'POST',
-//         url: adminAjax.ajaxurl,
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         data: "action=fetch_database&post_type=blog"
-//     }).then(function (response) {
-//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-
-//         // Filter only those with post_type === 'blog'
-//         const allPosts = response.data;
-//         $scope.blogs = allPosts
-//             .filter(blog => blog.post_type === 'blog')
-//             .map(blog => {
-//                 blog.blog_media = blog.blog_media.startsWith('http') ? blog.blog_media : baseURL + blog.blog_media;
-//                 return blog;
-//             });
-//     }, function (error) {
-//         console.error('Error fetching blogs:', error);
-//     });
-// };
-
-    $scope.allHighlights = [];
-    $scope.activeHighlight = 'all'; // Default to show all highlights
-    // // sequenced list of all categories by posted date
+    // sequenced list of all categories by posted date
     $scope.getFilteredHighlights = function() {
         if ($scope.activeHighlight === 'all') {
-            // Return all highlights EXCEPT those with type 'blog'
-            return $scope.allHighlights.filter(post => post.type !== 'blog');
+            return $scope.allHighlights; // Already merged and sorted!
         }
-        return $scope.allHighlights.filter(post => post.type === $scope.activeHighlight);
+        switch ($scope.activeHighlight) {
+            case 'news': return $scope.newsPosts;
+            case 'testimonial': return $scope.testimonialPosts;
+            case 'facebook': return $scope.facebookPosts;
+            case 'instagram': return $scope.instagramPosts;
+            case 'tiktok': return $scope.tiktokPosts;
+            default: return [];
+        }
     };
-    
-    $scope.filteredHighlights = $scope.getFilteredHighlights();
 
-
-
-
-$scope.fetchAllHighlights = function () {
-    $http({
-        method: 'POST',
-        url: adminAjax.ajaxurl,
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        data: "action=fetch_database"
-    }).then(function (response) {
-        const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-
-        function unescapeDescription(description) {
-            if (!description) return '';
-            return description
-                .replace(/\\'/g, "'")
-                .replace(/\\"/g, '"')
-                .replace(/\\n/g, '\n')
-                .replace(/\\\\/g, '\\');
+    $scope.$watch('activePage', function(newVal) {
+        if (newVal === 'highlights') {
+            $scope.activeHighlight = 'all';
         }
-
-        const posts = response.data.data.map(post => {
-            const type = post.post_type; // already in DB
-            const blog_media = post.blog_media && post.blog_media.startsWith('http')
-                ? post.blog_media
-                : baseURL + post.blog_media;
-
-            return {
-                type: type,
-                title: post.title_blog,
-                role: post.role || '',
-                description: post.blog_description,
-                descriptionUnescaped: unescapeDescription(post.blog_description),
-                date: post.blog_date,
-                image: blog_media,
-                link: post.link || ''
-            };
-        });
-
-    // Split into two separate arrays
-    $scope.blogs = posts.filter(p => p.type === 'blog');
-    $scope.allHighlights = posts.filter(p => p.type !== 'blog')
-        .sort((a, b) => new Date(b.date) - new Date(a.date));
-
-    // Set default filteredHighlights
-    $scope.filteredHighlights = $scope.getFilteredHighlights();
-    
-    }, function (error) {
-        console.error('Error fetching all highlights:', error);
     });
-};
-
-$scope.fetchAllHighlights();
-
-$scope.$watch('activeHighlight', function () {
-    $scope.filteredHighlights = $scope.getFilteredHighlights();
-});
 
 
-// $scope.$watch('activePage', function(newVal) {
-//     if (newVal === 'highlights') {
-//         $scope.activeHighlight = 'all';
-//     }
-// });
+    $scope.selectedNewsPost = null;
 
-// // remove the backdrop when closing news modal
-// // $scope.closeNewsModal = function() {
-// //     $('#newsModal').modal('hide');
-// //     // Remove any leftover backdrop just in case
-// //     $('.modal-backdrop').remove();
-// //     $('body').removeClass('modal-open');
-// // };
+    $scope.toggleNewsExpansion = function(post) {
+        $scope.selectedNewsPost = ($scope.selectedNewsPost === post) ? null : post;
+    };
 
-// $scope.selectedNewsPost = null;
+    // NEWS
+    $scope.newsPosts = [];
 
-$scope.toggleNewsExpansion = function(post) {
-  $scope.selectedNewsPost = ($scope.selectedNewsPost === post) ? null : post;
-};
+    $scope.fetchNews = function () {
+        $http({
+            method: 'POST',
+            url: adminAjax.ajaxurl,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: "action=fetch_database&post_type=news"
+        }).then(function (response) {
+            const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+            $scope.newsPosts = response.data.map(post => {
 
-// Quilljs viewer
-$scope.getQuillPreview = function(html) {
-    if (!html) return '';
-    // Optionally, strip tags and limit text for preview
-    var div = document.createElement('div');
-    div.innerHTML = html;
-    var text = div.innerText || div.textContent || '';
-    if (text.length > 200) {
-        text = text.substring(0, 200) + '.....';
-    }
-    return $sce.trustAsHtml(text);
-};
+                post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+                return {
+                    title: post.title_blog,
+                    description: post.blog_description,
+                    date: post.blog_date,
+                    image: post.blog_media
+                };
+            });
+            $scope.mergeAllHighlights(); // <-- add this here
+        }, function (error) {
+            console.error('Error fetching news:', error);
+        });
+    };
 
-$scope.getQuillFull = function(html) {
-    return $sce.trustAsHtml(html || '');
-};
+    // TESTIMONIALS
+    $scope.testimonialPosts = [];
 
-// // NEWS
-// $scope.newsPosts = [];
+    $scope.fetchTestimonials = function () {
+        $http({
+            method: 'POST',
+            url: adminAjax.ajaxurl,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: "action=fetch_database&post_type=testimonial"
+        }).then(function (response) {
+            const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+            $scope.testimonialPosts = response.data.map(post => {
 
-// $scope.fetchNews = function () {
-//     $http({
-//         method: 'POST',
-//         url: adminAjax.ajaxurl,
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         data: "action=fetch_database&post_type=news"
-//     }).then(function (response) {
-//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-//         $scope.newsPosts = response.data.map(post => {
+                post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+                return {
+                    title: post.title_blog,
+                    role: post.role,
+                    description: post.blog_description,
+                    date: post.blog_date,
+                    image: post.blog_media,
+                };
+            });
+            $scope.mergeAllHighlights();
+        }, function (error) {
+            console.error('Error fetching testimonials:', error);
+        });
+    };
 
-//             post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-//             return {
-//                 title: post.title_blog,
-//                 description: post.blog_description,
-//                 date: post.blog_date,
-//                 image: post.blog_media
-//             };
-//         });
-//         $scope.mergeAllHighlights(); // <-- add this here
-//     }, function (error) {
-//         console.error('Error fetching news:', error);
-//     });
-// };
+    // FACEBOOK
+    $scope.facebookPosts = [];
+    $scope.fetchFacebook = function () {
+        $http({
+            method: 'POST',
+            url: adminAjax.ajaxurl,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: "action=fetch_database&post_type=facebook"
+        }).then(function (response) {
+            const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+            $scope.facebookPosts = response.data.map(post => {
 
-// // TESTIMONIALS
-// $scope.testimonialPosts = [];
+                post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+                return {
+                    title: post.title_blog,
+                    description: post.blog_description,
+                    date: post.blog_date,
+                    image: post.blog_media,
+                    link: post.link
+                };
+            });
+            $scope.mergeAllHighlights();
+        }, function (error) {
+            console.error('Error fetching Facebook posts:', error);
+        });
+    };
 
-// $scope.fetchTestimonials = function () {
-//     $http({
-//         method: 'POST',
-//         url: adminAjax.ajaxurl,
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         data: "action=fetch_database&post_type=testimonial"
-//     }).then(function (response) {
-//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-//         $scope.testimonialPosts = response.data.map(post => {
-
-//             function unescapeDescription(description) {
-//                 if (!description) return '';
-//                 return description
-//                     .replace(/\\'/g, "'")
-//                     .replace(/\\"/g, '"')
-//                     .replace(/\\n/g, '\n')
-//                     .replace(/\\\\/g, '\\');
-//             }            
-            
-//             post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-//             return {
-//                 title: post.title_blog,
-//                 role: post.role,
-//                 description: post.blog_description,
-//                 descriptionUnescaped: unescapeDescription(post.blog_description),                
-//                 date: post.blog_date,
-//                 image: post.blog_media,
-//             };
-//         });
-//         $scope.mergeAllHighlights();
-//     }, function (error) {
-//         console.error('Error fetching testimonials:', error);
-//     });
-// };
-
-// // FACEBOOK
-// $scope.facebookPosts = [];
-// $scope.fetchFacebook = function () {
-//     $http({
-//         method: 'POST',
-//         url: adminAjax.ajaxurl,
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         data: "action=fetch_database&post_type=facebook"
-//     }).then(function (response) {
-//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-//         $scope.facebookPosts = response.data.map(post => {
-
-//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-//             return {
-//                 title: post.title_blog,
-//                 description: post.blog_description,
-//                 date: post.blog_date,
-//                 image: post.blog_media,
-//                 link: post.link
-//             };
-//         });
-//         $scope.mergeAllHighlights();
-//     }, function (error) {
-//         console.error('Error fetching Facebook posts:', error);
-//     });
-// };
-
-// // INSTAGRAM
-// $scope.instagramPosts = [];
-// $scope.fetchInstagram = function () {
-//     $http({
-//         method: 'POST',
-//         url: adminAjax.ajaxurl,
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         data: "action=fetch_database&post_type=instagram"
-//     }).then(function (response) {
-//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-//         $scope.instagramPosts = response.data.map(post => {
+    // INSTAGRAM
+    $scope.instagramPosts = [];
+    $scope.fetchInstagram = function () {
+        $http({
+            method: 'POST',
+            url: adminAjax.ajaxurl,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: "action=fetch_database&post_type=instagram"
+        }).then(function (response) {
+            const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+            $scope.instagramPosts = response.data.map(post => {
         
-//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-//             return {
-//                 title: post.title_blog,
-//                 description: post.blog_description,
-//                 date: post.blog_date,
-//                 image: post.blog_media,
-//                 link: post.link
-//             };
-//         });
-//         $scope.mergeAllHighlights();
-//     }, function (error) {
-//         console.error('Error fetching Instagram posts:', error);
-//     });
-// };
+                post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+                return {
+                    title: post.title_blog,
+                    description: post.blog_description,
+                    date: post.blog_date,
+                    image: post.blog_media,
+                    link: post.link
+                };
+            });
+            $scope.mergeAllHighlights();
+        }, function (error) {
+            console.error('Error fetching Instagram posts:', error);
+        });
+    };
 
 
-// // TIKTOK
-// $scope.tiktokPosts = [];
-// $scope.fetchTikTok = function () {
-//     $http({
-//         method: 'POST',
-//         url: adminAjax.ajaxurl,
-//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-//         data: "action=fetch_database&post_type=tiktok"
-//     }).then(function (response) {
-//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
-//         $scope.tiktokPosts = response.data.map(post => {
+    // TIKTOK
+    $scope.tiktokPosts = [];
+    $scope.fetchTikTok = function () {
+        $http({
+            method: 'POST',
+            url: adminAjax.ajaxurl,
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: "action=fetch_database&post_type=tiktok"
+        }).then(function (response) {
+            const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+            $scope.tiktokPosts = response.data.map(post => {
 
-//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
-//             return {
-//                 title: post.title_blog,
-//                 description: post.blog_description,
-//                 date: post.blog_date,
-//                 image: post.blog_media,
-//                 link: post.link
-//             };
-//         });
-//         $scope.mergeAllHighlights();
-//     }, function (error) {
-//         console.error('Error fetching TikTok posts:', error);
-//     });
-// };
+                post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+                return {
+                    title: post.title_blog,
+                    description: post.blog_description,
+                    date: post.blog_date,
+                    image: post.blog_media,
+                    link: post.link
+                };
+            });
+            $scope.mergeAllHighlights();
+        }, function (error) {
+            console.error('Error fetching TikTok posts:', error);
+        });
+    };
 
-// $scope.mergeAllHighlights = function () {
-//     function unescapeDescription(description) {
-//         if (!description) return '';
-//         return description
-//             .replace(/\\'/g, "'")
-//             .replace(/\\"/g, '"')
-//             .replace(/\\n/g, '\n')
-//             .replace(/\\\\/g, '\\');
-//     }
+    $scope.mergeAllHighlights = function () {
+        $scope.allHighlights = [].concat(
+            ($scope.newsPosts || []).map(post => ({ ...post, type: 'news' })),
+            ($scope.testimonialPosts || []).map(post => ({ ...post, type: 'testimonial' })),
+            ($scope.facebookPosts || []).map(post => ({ ...post, type: 'facebook' })),
+            ($scope.instagramPosts || []).map(post => ({ ...post, type: 'instagram' })),
+            ($scope.tiktokPosts || []).map(post => ({ ...post, type: 'tiktok' }))
+        );
+        $scope.allHighlights.sort(function (a, b) {
+            return new Date(b.date) - new Date(a.date);
+        });
+    };
 
-//     $scope.allHighlights = [].concat(
-//         ($scope.newsPosts || []).map(post => ({
-//             ...post,
-//             type: 'news',
-//             descriptionUnescaped: unescapeDescription(post.description)
-//         })),
-//         ($scope.testimonialPosts || []).map(post => ({
-//             ...post,
-//             type: 'testimonial',
-//             descriptionUnescaped: unescapeDescription(post.description)
-//         })),
-//         ($scope.facebookPosts || []).map(post => ({
-//             ...post,
-//             type: 'facebook',
-//             descriptionUnescaped: unescapeDescription(post.description)
-//         })),
-//         ($scope.instagramPosts || []).map(post => ({
-//             ...post,
-//             type: 'instagram',
-//             descriptionUnescaped: unescapeDescription(post.description)
-//         })),
-//         ($scope.tiktokPosts || []).map(post => ({
-//             ...post,
-//             type: 'tiktok',
-//             descriptionUnescaped: unescapeDescription(post.description)
-//         }))
-//     );
-
-//     $scope.allHighlights.sort(function (a, b) {
-//         return new Date(b.date) - new Date(a.date);
-//     });
-// };
-
-
-
-
-
-// // AUTO-LOAD on controller init
-// $scope.fetchBlogs();
-// $scope.fetchNews();
-// $scope.fetchTestimonials(); // Add this
-// $scope.fetchFacebook();
-// $scope.fetchInstagram();
-// $scope.fetchTikTok();
-
-
+    // AUTO-LOAD on controller init
+    $scope.fetchBlogs();
+    $scope.fetchNews();
+    $scope.fetchTestimonials(); // Add this
+    $scope.fetchFacebook();
+    $scope.fetchInstagram();
+    $scope.fetchTikTok();
           
       $scope.credentials = {
         username: '',
@@ -429,66 +266,24 @@ $scope.getQuillFull = function(html) {
 
     };
 
-// Add this temporarily to your controller
-// automatically scroll to the news section
-$scope.showFullNewsPage = false; // default to list
+controllerAs: 'vm',
 
-$scope.openFullNews = function(news) {
-  $scope.selectedNews = news;
-  $scope.showFullNewsPage = true;
-
-  // Scroll to top for full news page
-//   setTimeout(() => {
-//     const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
-//     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-//     else window.scrollTo({ top: 0, behavior: 'smooth' });
-//   }, 100);
-};
-
-$scope.closeFullNews = function() {
-  $scope.showFullNewsPage = false;
-  $scope.selectedNews = null;
-
-};
 
 $scope.showPage = function(page) {
     $scope.currentPage = page; // Correctly assign the page name passed to the function
 };
 
-let scrollY = window.scrollY;
-
-document.addEventListener('show.bs.modal', function () {
-  // Freeze body scroll
-  document.body.style.position = 'absolute';
-  document.body.style.top = `-${scrollY}px`;
-  document.body.style.left = '0';
-  document.body.style.right = '0';
-  document.body.style.width = '100%';
-  document.body.style.overflow = 'hidden';
-});
-
-document.addEventListener('hidden.bs.modal', function () {
-  // Unfreeze body scroll
-  document.body.style.position = '';
-  document.body.style.top = '';
-  document.body.style.left = '';
-  document.body.style.right = '';
-  document.body.style.width = '';
-  document.body.style.overflow = '';
-});
-
-
-
-// Scroll smoothly with optional offset (e.g., fixed navbar height)
-$scope.scrollToSection = function (sectionId) {
-    var element = document.getElementById(sectionId);
-    if (element) {
-      $window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
+    $scope.scrollToSection = function(sectionId) {
+        var element = document.getElementById(sectionId);
+        if (element) {
+            setTimeout(function() {
+                $window.scrollTo({
+                    top: element.offsetTop - 30, // Optional: Add offset to adjust for header height
+                    behavior: "smooth" // Smooth scrolling
+                });
+            }, 100); // Add a timeout of 100ms
+        }
+    };
 
 // Navigation handler
 $scope.setActivePage = function(page) {
@@ -501,19 +296,19 @@ $scope.setActivePage = function(page) {
     }, 0);
 };
 
-// ✅ Expose it globally so `app.run` can call it
+// Expose it globally so `app.run` can call it
 $rootScope.setActivePage = $scope.setActivePage;
 
 
     $scope.$watch('activePage', function(newVal, oldVal) {
         if (newVal !== oldVal) {
             // Scroll to top after view changes
-            setTimeout(function() {
-                window.scrollTo({
-                 top: 0,
-                    behavior: 'smooth'
-                });
-             }, 100); // delay ensures DOM is ready
+            // setTimeout(function() {
+            //     window.scrollTo({
+            //         top: 0,
+            //         behavior: 'smooth'
+            //     });
+            // }, 100); // delay ensures DOM is ready
         }
     });
 
@@ -528,6 +323,43 @@ $scope.toggleTeamVisibility = function () {
 $scope.$on('$locationChangeStart', function () {
   $scope.showAllTeam = false;
 });
+        // Our Values Section Lottie Animations
+        // Fast Lottie Animation
+        var fastLottie = lottie.loadAnimation({
+            container: document.getElementById('fast'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: "/wp-content/uploads/lottie/fast.json"
+        });
+
+        // Seamless Lottie Animation
+        var seamlessLottie = lottie.loadAnimation({
+            container: document.getElementById('seamless'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: "/wp-content/uploads/lottie/seamless.json"
+        });
+
+        // Empower Lottie Animation
+        var empowerLottie = lottie.loadAnimation({
+            container: document.getElementById('empower'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: "/wp-content/uploads/lottie/empower.json"
+        });
+
+        // Grow Lottie Animation
+        var growLottie = lottie.loadAnimation({
+            container: document.getElementById('grow'),
+            renderer: 'svg',
+            loop: true,
+            autoplay: true,
+            path: "/wp-content/uploads/lottie/Grow.json"
+        });
+
         // teamwork lottie
         var emp_details = lottie.loadAnimation({
             container: $("#teamwork_2")[0],
@@ -537,14 +369,15 @@ $scope.$on('$locationChangeStart', function () {
             path: "/wp-content/uploads/lottie/teamwork_2.json"
         });
 
-        // handshake lottie
-        var clock_lottie = lottie.loadAnimation({
-            container: $("#realtime-lottie")[0], // HTML container element
-            renderer: 'svg', // Render as SVG
-            loop: true, // Animation should loop
-            autoplay: true, // Start playing automatically
-            path: "/wp-content/uploads/lottie/handshake.json" // Path to your Lottie JSON file
+        // line lottie
+        var line = lottie.loadAnimation({
+            container: $("#line")[0], 
+            renderer: 'svg', 
+            loop: true, 
+            autoplay: true, 
+            path: "/wp-content/uploads/lottie/line.json"
         });
+        
 
         // virutal lottie
         jQuery(document).ready(function($) {
@@ -610,15 +443,6 @@ $scope.$on('$locationChangeStart', function () {
             path: "/wp-content/uploads/lottie/workforce_colored.json" // Path to your Lottie JSON file
         });
 
-        // connect lottie
-        // var emp_details = lottie.loadAnimation({
-        //     container: document.getElementById("yey"),
-        //     renderer: 'svg',
-        //     loop: true,
-        //     autoplay: true,
-        //     path: "/wp-content/uploads/lottie/yey.json"
-        // });
-
         $scope.credentials = {
             username: '',
             password: ''
@@ -626,24 +450,24 @@ $scope.$on('$locationChangeStart', function () {
 
         // Mobile navbar collapse
         // Automatically collapse navbar on mobile when any nav-link is clicked
-        // document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
-        //     el.addEventListener('click', function (e) {
-        //         // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
-        //         if (el.classList.contains('dropdown-toggle')) {
-        //             return;
-        //         }
+        document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
+                if (el.classList.contains('dropdown-toggle')) {
+                    return;
+                }
         
-        //         const collapseElement = document.getElementById('navbarSupportedContent');
-        //         const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+                const collapseElement = document.getElementById('navbarSupportedContent');
+                const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
         
-        //         // Collapse only if it's currently shown
-        //         if (bsCollapse && collapseElement.classList.contains('show')) {
-        //             bsCollapse.hide();
-        //         }
-        //     });
-        // });
+                // Collapse only if it's currently shown
+                if (bsCollapse && collapseElement.classList.contains('show')) {
+                    bsCollapse.hide();
+                }
+            });
+        });
 
-        // // Close the navbar when clicking outside of it
+        // Close the navbar when clicking outside of it
         document.addEventListener('click', function (event) {
             const navbar = document.getElementById('navbarSupportedContent');
             const toggler = document.querySelector('.navbar-toggler');
@@ -687,211 +511,7 @@ $scope.closeFullNews = function() {
   $scope.showFullNewsPage = false;
 };
 
-// for date and hour convert
-$scope.getFormattedDate = function(dateStr) {
-  const date = new Date(dateStr);
-  const options = {
-    year: 'numeric',
-    month: 'long', // Capitalized by default
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true
-  };
-  return date.toLocaleString('en-US', options).replace('PM', 'pm').replace('AM', 'am');
-};
-
-
-
-// FAQ's
-$scope.faqTab = 'ojtgo';
-
-// for OJTGo FAQs
-$scope.ojtgoFaqs = [
-
-    {
-        question: "What is OJTGo?",
-        answer: {
-          list: [
-            `OJTGo is a digital internship-matching platform developed by PCES Inc., 
-          created by students—for students. It connects graduating students with host companies 
-          (HTEs) based on their course, location, and skills. Our goal is to simplify the internship 
-          journey and reduce the stress, cost, and mismatches students often experience.`
-        ]
-        },
-        open: false
-      },
-
-      {
-        question: "How does OJTGo work?",
-        answer: {
-          list: [
-            `Students create profiles on the platform, while employers post internship openings. 
-           The system automatically matches candidates to jobs based on course, skills, location, 
-           and preferences. Employers can then communicate, interview, and hire directly through the platform.`,
-        ]
-        },
-        open: false
-      },
-
-    {
-      question: "Who can use OJTGo?",
-      answer: {
-        paragraph: "OJTGo is designed for:",
-        list: [
-          "Students looking for internship opportunities that fit their academic background and location",
-          "Employers/Host Training Establishments (HTEs) seeking qualified interns efficiently",
-          "Schools aiming to streamline internship placement and ensure students gain relevant experience"
-        ]
-      },
-      open: false
-    },
-
-    {
-      question: "Is this legit?",
-      answer: {
-        list: [
-          `Absolutely! OJTGo works only with verified companies, ensuring that every opportunity is legitimate
-           and provides a valuable internship experience. We carefully screen all companies first before listing 
-           them on the platform. Built from firsthand student experience, OJTGo is committed to making internship 
-           placement fast, affordable, and stress-free for students across the Philippines.`,
-        ]
-      },
-      open: false
-    },
-
-  ];
-  
-
-// for Student FAQs
-$scope.studentFaqs = [
-
-    {
-      question: "How do I register as a student?",
-      answer: {
-        list: [
-          `Simply visit OJTGo’s website, sign up using your email, and complete your profile with your education background, 
-          internship preferences, and basic personal details. You can also add any relevant experiences, trainings or seminars, 
-          and certifications to make your profile more attractive to potential employers.`,
-        ]
-      },
-      open: false
-    },
-
-    {
-        question: "Is there a fee to use OJTGo?",
-        answer: {
-          list: [
-            `Yes, it’s just ₱30 per month. This gives you access to smart internship matching, exclusive openings, 
-            and priority support`,
-          ]
-        },
-        open: false
-      },
-
-      {
-        question: "How will I know if I’ve been matched?",
-        answer: {
-          list: [
-            `You’ll get a notification on your dashboard and via email with the internship details and next steps`,
-          ]
-        },
-        open: false
-      },
-
-      {
-        question: "Will I really get an OJT placement",
-        answer: {
-          list: [
-            `Absolutely! OJTGo matches every student with a company based on your course, skills, and preferences.
-             We guarantee placement so you can focus on graduating.`,
-          ]
-        },
-        open: false
-      },
-
-      {
-        question: "Do I need to attend multiple interviews?",
-        answer: {
-          list: [
-            `No need! The process is streamlined. Interviews can be done online within the platform—quick, 
-            convenient, and no travel required.`,
-          ]
-        },
-        open: false
-      },
-
-      {
-        question: "Can I apply for multiple internships?",
-        answer: {
-          list: [
-            `Yes! You can explore and apply to several opportunities that match your qualifications and interests`,
-          ]
-        },
-        open: false
-      },
-
-      {
-        question: "What if I’m not matched right away?",
-        answer: {
-          list: [
-            `That’s okay! New opportunities are added regularly. Keep your profile updated and check your dashboard 
-            often to increase your chances.`,
-          ]
-        },
-        open: false
-      },
-];
-
-// for Employer FAQs  
-$scope.employerFaqs = [
-    {
-      question: "How can companies register on OJTGo?",
-      answer: {
-        list: [
-          `Employers can easily sign up at www.ojtgo.com, create a company profile, and start posting internship opportunities.`
-        ]
-      },
-      open: false
-    },
-
-      {
-        question: "Is there a cost for employers to post internships?",
-        answer: {
-          list: [
-            `No, it’s completely free! Employers can post unlimited internships and connect with qualified students at no cost.`,
-          ]
-        },
-        open: false
-      },
-
-      {
-        question: "How does OJTGo help employers find the right interns?",
-        answer: {
-          list: [
-            `OJTGo uses a smart filtering system to help employers find students whose education, skills, and location preferences match 
-            the internship requirements—saving time and effort in the selection process.`,
-          ]
-        },
-        open: false
-      },
-
-      {
-        question: "Can employers directly contact students?",
-        answer: {
-          list: [
-            `Yes! The platform includes a built-in messaging feature that lets employers reach out to students directly, 
-            making coordination and hiring faster and more convenient.`,
-          ]
-        },
-        open: false
-      },
-
-  ];
-  
- 
-
-  
+// toggle faq tab
 $scope.toggleFaq = function (faqList, index) {
     if (!faqList || !Array.isArray(faqList)) return;
 
@@ -910,7 +530,155 @@ $scope.$watch('faqTab', function (newTab) {
     }
 });
 
+// FAQ's
+$scope.faqTab = 'ojtgo';
 
+// for OJTGo FAQs
+$scope.ojtgoFaqs = [
+
+    {
+    question: "What is Hirebilis?",
+    answer: {
+      paragraph: "Hirebilis is a digital job-matching platform built to simplify job searching in the Philippines. It connects job seekers with companies based on their location, skills, and preferences. With an easy-to-use interface and smart matching system, Hirebilis helps applicants find relevant job opportunities quickly and efficiently."
+    },
+    open: false
+  },
+  {
+    question: "How does Hirebilis work?",
+    answer: {
+      paragraph: "Hirebilis allows job seekers to create a professional profile and search for job opportunities posted by employers. The system automatically matches applicants to job openings that fit their background and location. Employers can then review applications, reach out to qualified candidates, and proceed with the hiring process—all within the platform."
+    },
+    open: false
+  },
+  {
+    question: "Who can use Hirebilis?",
+    answer: {
+      paragraph: "Anyone looking for a job in the Philippines can use Hirebilis, whether you're a fresh graduate or someone with years of experience. Employers from various industries also use the platform to find qualified candidates. It's designed to make job searching and hiring more accessible, reliable, and stress-free."
+    },
+    open: false
+  },
+  {
+    question: "Is Hirebilis a legitimate platform?",
+    answer: {
+      paragraph: "Yes, Hirebilis is a secure and verified job-matching platform developed by a trusted organization. All employers are screened before they can post job listings to ensure the authenticity and safety of every opportunity. Our goal is to provide a reliable space for applicants and employers to connect meaningfully."
+    },
+    open: false
+  },
+  {
+    question: "What makes Hirebilis different from other job portals?",
+    answer: {
+      paragraph: "Hirebilis is locally built with the specific needs of Filipino job seekers and employers in mind. It emphasizes fast, accurate matching based on skillsets, location, and job type. The platform offers a user-friendly experience for both sides, removing the usual complexity and delays found in traditional job search processes."
+    },
+    open: false
+  }
+];
+  
+// for Student FAQs
+$scope.studentFaqs = [
+
+    {
+    question: "How can I find a job using Hirebilis?",
+    answer: {
+      paragraph: "To find a job, simply create a profile on Hirebilis and complete your personal and professional details. Once set up, the platform will automatically show you job openings that match your background and preferences. You can apply directly through the platform and wait for employers to contact you."
+    },
+    open: false
+  },
+  {
+    question: "Do I need to pay to apply for jobs on Hirebilis?",
+    answer: {
+      paragraph: "No, applying for jobs on Hirebilis is completely free. The platform is designed to help applicants find jobs without any hidden fees or charges. You can apply to multiple job posts, manage your applications, and communicate with employers at no cost."
+    },
+    open: false
+  },
+  {
+    question: "How will I know if an employer is interested in my application?",
+    answer: {
+      paragraph: "Once you apply for a job, you’ll be notified if the employer views your profile or decides to contact you. You’ll also receive updates on the status of your application through your dashboard or email notifications."
+    },
+    open: false
+  },
+  {
+    question: "Can I update my resume or profile after signing up?",
+    answer: {
+      paragraph: "Yes, you can edit your profile anytime after registration. It’s recommended to keep your information updated, especially when you gain new experience, skills, or certifications, to improve your chances of getting matched with the right opportunities."
+    },
+    open: false
+  },
+  {
+    question: "What should I do if I don’t get hired right away?",
+    answer: {
+      paragraph: "Finding the right job may take time, and that's okay. Keep your profile updated, regularly check new job posts, and apply to roles that match your qualifications. Stay active on the platform, and you’ll increase your chances of getting hired."
+    },
+    open: false
+  },
+  {
+    question: "Is there a limit to how many jobs I can apply for?",
+    answer: {
+      paragraph: "No, there’s no limit. You can apply to as many job postings as you like. However, it's best to apply only to jobs that match your skills and interests for a better chance of getting hired."
+    },
+    open: false
+  },
+  {
+    question: "Will employers see my contact details right away?",
+    answer: {
+      paragraph: "Employers can only access your contact details after reviewing your application. Your information is kept secure and is only shared with potential employers who are genuinely interested in your profile."
+    },
+    open: false
+  }
+];
+
+// for Employer FAQs  
+$scope.employerFaqs = [
+    {
+    question: "How do I post a job on Hirebilis?",
+    answer: {
+      paragraph: "To post a job, register as an employer and complete your company profile. Once registered, you can create job listings by providing the role details, qualifications, and other requirements. After posting, you can immediately start receiving applications from qualified job seekers."
+    },
+    open: false
+  },
+  {
+    question: "How does Hirebilis help in finding the right candidate?",
+    answer: {
+      paragraph: "Hirebilis uses a smart matching system that filters applicants based on your job requirements, such as skills, location, and experience. This helps you quickly find candidates who are most suited for the position, saving time and improving the quality of hires."
+    },
+    open: false
+  },
+  {
+    question: "Can I contact applicants directly through the platform?",
+    answer: {
+      paragraph: "Yes, employers can directly message applicants through the built-in communication system. This makes it easy to schedule interviews, ask questions, or provide updates about the hiring process without leaving the platform."
+    },
+    open: false
+  },
+  {
+    question: "Do I need to pay to use Hirebilis as an employer?",
+    answer: {
+      paragraph: "Hirebilis offers a free tier for employers to post jobs and access applicant profiles. Optional premium services may be available in the future for advanced features, but core job posting and applicant communication remain free."
+    },
+    open: false
+  },
+  {
+    question: "Is there a limit to how many job posts I can create?",
+    answer: {
+      paragraph: "Currently, you can create multiple job posts without restrictions. However, to maintain quality, all job listings are subject to review and approval by the Hirebilis admin team before going live."
+    },
+    open: false
+  },
+  {
+    question: "How do I know if an applicant is qualified?",
+    answer: {
+      paragraph: "Each applicant profile includes detailed information such as skills, experience, and educational background. You can also view uploaded resumes and use filters to shortlist candidates based on your specific requirements."
+    },
+    open: false
+  },
+  {
+    question: "Can I edit a job posting after it's been published?",
+    answer: {
+      paragraph: "Yes, you can update your job postings anytime from your employer dashboard. Changes will be reviewed to ensure quality and compliance before being reflected publicly."
+    },
+    open: false
+  }
+];
 
     // added by lorenzo @ 04/25/2025
 
@@ -952,9 +720,9 @@ $scope.$watch('faqTab', function (newTab) {
     
     };
 
-    // Modified by Lorenzo @04/25/2025
+    // Modified by Lorenzo @ 04/25/2025
     $scope.loginUser = function() {
-        if ($scope.isCreating) return; // 🚫 Prevent multiple calls/spam click
+        if ($scope.isCreating) return; // Prevent multiple calls/spam click
         $scope.isCreating = true;
 
         if (!$scope.credentials.username || !$scope.credentials.password) {
@@ -965,7 +733,7 @@ $scope.$watch('faqTab', function (newTab) {
                 timer: 1500,
                 timerProgressBar: true,
                 showConfirmButton: false,                
-                returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                returnFocus: false,              // prevents re-focusing the previous button
                 allowOutsideClick: false
             });
 
@@ -981,7 +749,7 @@ $scope.$watch('faqTab', function (newTab) {
             headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(function(response) {
     
-            // ðŸ”¹ Fix: Ensure response format is correctly handled
+            // Fix: Ensure response format is correctly handled
             let responseData = response.data.data ? response.data.data : response.data;
     
 
@@ -997,7 +765,7 @@ $scope.$watch('faqTab', function (newTab) {
                     timer: 2000,
                     timerProgressBar: true,
                     showConfirmButton: false,
-                    returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                    returnFocus: false,              // prevents re-focusing the previous button
                     didClose: () => {
                         if (responseData.redirect) {
                             window.location.href = responseData.redirect;
@@ -1102,7 +870,7 @@ $scope.$watch('faqTab', function (newTab) {
     // Verify Registration OTP and Forgot Password OTP
     $scope.verifyAndProceed = function(target) {
         
-        if ($scope.isCreating) return; // 🚫 Prevent multiple calls/spam click
+        if ($scope.isCreating) return; // Prevent multiple calls/spam click
         $scope.isCreating = true;
     
         if (target === "register") {            // Verification - registration
@@ -1118,11 +886,11 @@ $scope.$watch('faqTab', function (newTab) {
                     timer: 1500,
                     timerProgressBar: true,
                     showConfirmButton: false,                
-                    returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                    returnFocus: false,              // prevents re-focusing the previous button
                     allowOutsideClick: true
                 });    
                       
-                $scope.isCreating = false; // 🛑 Reset to allow retry
+                $scope.isCreating = false; // Reset to allow retry
                 return;
             }
 
@@ -1134,11 +902,11 @@ $scope.$watch('faqTab', function (newTab) {
                     timer: 1500,
                     timerProgressBar: true,
                     showConfirmButton: false,                
-                    returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                    returnFocus: false,              // prevents re-focusing the previous button
                     allowOutsideClick: true
                 });   
                 
-                $scope.isCreating = false; // 🛑 Reset to allow retry
+                $scope.isCreating = false; // Reset to allow retry
                 return;
             }        
         
@@ -1165,7 +933,7 @@ $scope.$watch('faqTab', function (newTab) {
                         return;
                     }                
                 
-                // 🧹 Clear OTP email after successful verification
+                // Clear OTP email after successful verification
                  delete $sessionStorage.emailForOtp;
 
                 // Hide the modal before redirecting
@@ -1180,9 +948,9 @@ $scope.$watch('faqTab', function (newTab) {
                     showConfirmButton: false,
                     allowOutsideClick: false,
                     allowEscapeKey: false,
-                    returnFocus: false,          // 🛑 prevents re-focusing the previous button
+                    returnFocus: false,          // prevents re-focusing the previous button
                     willClose: () => {
-                        // 🚀 Redirect based on user type
+                        // Redirect based on user type
                         if ($scope.userType === 'employer') {
                             $scope.redirectToPageEmployer();
                         } else {
@@ -1232,11 +1000,11 @@ $scope.$watch('faqTab', function (newTab) {
                 timer: 1500,
                 timerProgressBar: true,
                 showConfirmButton: false,                
-                returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                returnFocus: false,              // prevents re-focusing the previous button
                 allowOutsideClick: false
                 });
                 
-                $scope.isCreating = false; // 🛑 Reset to allow retry
+                $scope.isCreating = false; // Reset to allow retry
                 return;
             }
             
@@ -1248,10 +1016,10 @@ $scope.$watch('faqTab', function (newTab) {
                 timer: 1500,
                 timerProgressBar: true,
                 showConfirmButton: false,                
-                returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                returnFocus: false,              // prevents re-focusing the previous button
                 allowOutsideClick: false
                 });                
-                $scope.isCreating = false; // 🛑 Reset to allow retry
+                $scope.isCreating = false; // Reset to allow retry
                 return;
             }
                    
@@ -1285,14 +1053,14 @@ $scope.$watch('faqTab', function (newTab) {
                     showConfirmButton: false,
                     timer: 1500,
                     timerProgressBar: true,
-                    returnFocus: false          // 🛑 prevents re-focusing the previous button
+                    returnFocus: false          // prevents re-focusing the previous button
                 }).then(function () {
                     
                     
                     $timeout(function () {
-                        // 🧹 Clear OTP email after successful verification
+                        // Clear OTP email after successful verification
                         delete $sessionStorage.emailForOtp;
-                        $scope.switchModalContent('change-pass'); // ➕ Open change password modal
+                        $scope.switchModalContent('change-pass'); // Open change password modal
                     }, 300);
                 });
 
@@ -1310,7 +1078,7 @@ $scope.$watch('faqTab', function (newTab) {
                     timer: 1500,
                     timerProgressBar: true,
                     showConfirmButton: false,                
-                    returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                    returnFocus: false,              // prevents re-focusing the previous button
                     allowOutsideClick: false
                 });                
 
@@ -1363,8 +1131,8 @@ $scope.$watch('faqTab', function (newTab) {
 
     // Modified by Lorenzo @ 04/02/2025
     $scope.storeCredentials = function() {
-        if ($scope.isCreating) return; // 🚫 Prevent multiple calls/spam click
-        if ($scope.isFormInvalid() || !$scope.passwordValid || !$scope.usernameValid) return;// 🛑 Prevent action        
+        if ($scope.isCreating) return; // Prevent multiple calls/spam click
+        if ($scope.isFormInvalid() || !$scope.passwordValid || !$scope.usernameValid) return;// Prevent action        
         $scope.isCreating = true;
 
         var userData = {
@@ -1374,18 +1142,16 @@ $scope.$watch('faqTab', function (newTab) {
             role: $scope.credentials.role 
         };
     
-        // 🛠️ Console to view user role before encryption
-        
-            // Encrypt before storing
+        // Encrypt before storing
         var encryptedData = encryptData(userData);
         // Store in rootScope and sessionStorage
         $rootScope.userCredentials = encryptedData;
         $sessionStorage.userCredentials = encryptedData;
     
-        // 📨 Store raw email separately for OTP operations
+        // Store raw email separately for OTP operations
         $sessionStorage.emailForOtp = userData.email;
 
-        // ✅ Send OTP
+        // Send OTP
         $http.post('/wp-json/myplugin/v1/send_otp/', {
             email: userData.email,
              type: 'register'
@@ -1410,13 +1176,13 @@ $scope.$watch('faqTab', function (newTab) {
                 showConfirmButton: false,
                 timer: 1000,
                 timerProgressBar: true,
-                returnFocus: false // 🛑 prevents re-focusing the previous button
+                returnFocus: false // prevents re-focusing the previous button
             }).then(() => {
                 // Use timeout to force proper DOM repaint in Firefox
                 $timeout(() => {
                     // Open OTP modal
                     $scope.switchModalContent('verify');
-                    // 🔒 Start cooldown (3 minutes)
+                    // Start cooldown (3 minutes)
                     $scope.startOtpCooldown(180);
 
                     $timeout(function () {
@@ -1436,7 +1202,7 @@ $scope.$watch('faqTab', function (newTab) {
                 text: error.data.message || "Something went wrong. Please try again.",
                 confirmButtonColor: '#d33'
             });
-            $scope.isCreating = false; // 🧼 Re-enable button on failure
+            $scope.isCreating = false; // Re-enable button on failure
         });    
         
     };
@@ -1812,7 +1578,7 @@ $scope.$watch('faqTab', function (newTab) {
     /************* Millard Code  Added 4-21 *************/
     $scope.sendForgotPassword = function () {
 
-        if ($scope.isCreating) return; // 🚫 Prevent multiple calls/spam click
+        if ($scope.isCreating) return; // Prevent multiple calls/spam click
         $scope.isCreating = true;
 
         if (!$scope.accountEmail || !$scope.accountEmail.includes('@')) {
@@ -1823,14 +1589,14 @@ $scope.$watch('faqTab', function (newTab) {
                 timer: 1500,
                 timerProgressBar: true,
                 showConfirmButton: false,                
-                returnFocus: false,              // 🛑 prevents re-focusing the previous button
+                returnFocus: false,              // prevents re-focusing the previous button
                 allowOutsideClick: false
             });
             
             $scope.isCreating = false;            
             return;
         }
-            // ✅ Store trimmed email BEFORE request
+            // Store trimmed email BEFORE request
             $sessionStorage.resetEmail = $scope.accountEmail.trim();
 
             
@@ -1844,7 +1610,7 @@ $scope.$watch('faqTab', function (newTab) {
               returnFocus: false,
               didOpen: () => {
                 Swal.showLoading();
-                document.activeElement.blur(); // ✅ Prevent auto-focusing any hidden button
+                document.activeElement.blur(); // Prevent auto-focusing any hidden button
               }
             });
 
@@ -1869,7 +1635,7 @@ $scope.$watch('faqTab', function (newTab) {
                     showConfirmButton: false,
                     timer: 1500,
                     timerProgressBar: true,
-                    returnFocus: false          // 🛑 prevents re-focusing the previous button
+                    returnFocus: false          // prevents re-focusing the previous button
                 }).then(function () {
                     // Added by Lorenzo @ 04/2025
                     $timeout(function () {
@@ -1881,7 +1647,7 @@ $scope.$watch('faqTab', function (newTab) {
     
                         $scope.isCreating = false;      // re-enable create account button
 
-                        $scope.startOtpCooldown(180); // 🔄 Start 3-minute cooldown
+                        $scope.startOtpCooldown(180); // Start 3-minute cooldown
                     }, 300); // Optional delay after modal closes
                 });
             } else {
@@ -1915,7 +1681,7 @@ $scope.$watch('faqTab', function (newTab) {
                 title: 'Success!',
                 text: 'Your password has been updated.',
                 icon: 'success',
-                returnFocus: false          // 🛑 prevents re-focusing the previous button
+                returnFocus: false          // prevents re-focusing the previous button
             }).then(() => {
                 delete $sessionStorage.resetEmail;
                 
@@ -2069,25 +1835,6 @@ $scope.$watch('faqTab', function (newTab) {
         });
     };
     
-            // Close all open notification dropdowns (mobile and desktop)
-        
-        document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
-            el.addEventListener('click', function (e) {
-                // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
-                if (el.classList.contains('dropdown-toggle')) {
-                    return;
-                }
-        
-                const collapseElement = document.getElementById('navbarSupportedContent');
-                const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
-        
-                // Collapse only if it's currently shown
-                if (bsCollapse && collapseElement.classList.contains('show')) {
-                    bsCollapse.hide();
-                }
-            });
-        });
-    
     /************* End Jeal Code Added 05-14  ************/    
     
 });
@@ -2135,10 +1882,7 @@ app.filter('limitHtmlTo', ['$sce', function($sce) {
 
             if (node.nodeType === Node.TEXT_NODE) {
                 const remaining = limit - count;
-
-                // ✅ Safely clean backslashes from the actual text content
-                let text = node.nodeValue.replace(/\\/g, '').slice(0, remaining);
-
+                const text = node.nodeValue.slice(0, remaining);
                 output += text;
                 count += text.length;
             } else if (node.nodeType === Node.ELEMENT_NODE) {
@@ -2154,9 +1898,7 @@ app.filter('limitHtmlTo', ['$sce', function($sce) {
 
         function getAttributes(el) {
             if (!el.attributes) return '';
-            return Array.from(el.attributes)
-                .map(attr => ` ${attr.name}="${attr.value}"`)
-                .join('');
+            return Array.from(el.attributes).map(attr => ` ${attr.name}="${attr.value}"`).join('');
         }
 
         traverse(div);
@@ -2166,22 +1908,6 @@ app.filter('limitHtmlTo', ['$sce', function($sce) {
         }
 
         return $sce.trustAsHtml(output);
-    };
-}]);
-
-
-// app.filter('trustAsHtml', ['$sce', function($sce) {
-//     return function(html) {
-//         return $sce.trustAsHtml(html);
-//     };
-// }]);
-
-// Filter to clean HTML content
-app.filter('trustAsHtml', ['$sce', function($sce) {
-    return function(html) {
-        if (!html) return '';
-        const cleaned = html.replace(/\\/g, ''); // 🔥 remove all backslashes
-        return $sce.trustAsHtml(cleaned);
     };
 }]);
 
@@ -2210,17 +1936,18 @@ app.directive('quillEditor', function () {
         link: function (scope, element, attrs, ngModel) {
             const isReadOnlyView = scope.readonlyView === 'true';
 
-            // // 🔒 If it's just a read-only display, skip Quill entirely
-            // if (isReadOnlyView) {
-            //     // Just render the content as HTML
-            //     ngModel.$render = function () {
-            //         element[0].innerHTML = ngModel.$viewValue || '';
-            //     };
-            //     return;
-            // }
+            // If it's just a read-only display, skip Quill entirely
+            if (isReadOnlyView) {
+                // Just render the content as HTML
+                ngModel.$render = function () {
+                    element[0].innerHTML = ngModel.$viewValue || '';
+                };
+                return;
+            }
 
-            // ✅ Otherwise, initialize Quill with toolbar + editing
+            // Otherwise, initialize Quill with toolbar + editing
             var editor = new Quill(element[0], {
+                placeholder: 'No experiences, trainings/seminars, or certifications added yet.',
                 readOnly: true // start in read-only mode
             });
             
@@ -2235,7 +1962,7 @@ app.directive('quillEditor', function () {
                 });
             });
 
-            // ✅ Render ngModel value into the editor and fix placeholder handling
+            // Render ngModel value into the editor and fix placeholder handling
             ngModel.$render = function () {
                 let value = ngModel.$viewValue || '';
 
@@ -2249,7 +1976,7 @@ app.directive('quillEditor', function () {
                 }
             };
             
-            // 🔁 Watch the readonlyView variable
+            // Watch the readonlyView variable
             scope.$watch('readonlyView', function (newVal) {
                 if (editor) {
                     editor.enable(false); // true if editing, false if readonly
@@ -2258,13 +1985,3 @@ app.directive('quillEditor', function () {
         }
     };
 });
-
-// uppercase filter for the first character in modal header
-app.filter('capitalize', function() {
-    return function(input) {
-      if (input && typeof input === 'string') {
-        return input.charAt(0).toUpperCase() + input.slice(1);
-      }
-      return input;
-    };
-  });
