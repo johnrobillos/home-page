@@ -229,7 +229,7 @@ $tagline_part2 = "for the Filipinos";
 .hero-background::before {
   content: "";
   display: flex; /*Cross-browser flexbox support*/
-  background-image: url(<?php echo esc_url(home_url('/wp-content/uploads/designs/hero.webp')); ?>);
+  background-image: url(<?php echo esc_url(home_url('/wp-content/uploads/designs/hero2.webp')); ?>);
   background-color: #2596BE; /*Sets the background color to #2596BE (used as a fallback for browsers that don't support background-image)*/
   background-repeat: no-repeat; /*Covers the available space without repeating*/
   background-position: bottom right; /*Positions the background image at the bottom right corner*/
