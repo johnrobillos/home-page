@@ -29,7 +29,7 @@ $first_four_services = array_slice($services, 0, 4);
     <div class="container">
         <h2 class="text-center mb-5">Our Specialized Recruitment Platforms</h2>
         <div class="row align-items-center">
-            <div class="col-lg-8 mb-4 mb-lg-0">
+            <div class="col-12">
                 <div class="row g-4">
                     <?php foreach($first_four_services as $service): 
                         $image_filename = strtolower(str_replace(' ', '-', $service['title'])) . '.svg';
@@ -48,13 +48,6 @@ $first_four_services = array_slice($services, 0, 4);
                             </div>
                         </div>
                     <?php endforeach; ?>
-                </div>
-            </div>
-            <div class="col-lg-4">
-                <div class="position-relative h-100">
-                    <img src="<?php echo esc_url(home_url('/wp-content/uploads/icons/services/services-image.jpg')); ?>" 
-                         alt="Services" 
-                         class="img-fluid rounded-3 shadow">
                 </div>
             </div>
         </div>
