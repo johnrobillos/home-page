@@ -78,6 +78,61 @@ function pces_homepage_enqueue_assets() {
     
     wp_add_inline_style('pces-homepage-css', $custom_css);
 
+    // Material Symbols (Outlined) for icons used across sections
+    wp_enqueue_style(
+        'material-icons',
+        'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200',
+        array(),
+        null
+    );
+    wp_add_inline_style(
+        'material-icons',
+        '.material-symbols-outlined {
+            font-family: "Material Symbols Outlined";
+            font-weight: normal;
+            font-style: normal;
+            font-size: 24px;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-variation-settings: "FILL" 0, "wght" 400, "GRAD" 0, "opsz" 48;
+        }'
+    );
+
+    // Also load classic Material Icons Outlined (widely supported ligatures)
+    wp_enqueue_style(
+        'material-icons-outlined',
+        'https://fonts.googleapis.com/icon?family=Material+Icons+Outlined',
+        array(),
+        null
+    );
+    wp_add_inline_style(
+        'material-icons-outlined',
+        '.material-icons-outlined {
+            font-family: "Material Icons Outlined" !important;
+            font-weight: normal;
+            font-style: normal;
+            line-height: 1;
+            letter-spacing: normal;
+            text-transform: none;
+            display: inline-block;
+            white-space: nowrap;
+            word-wrap: normal;
+            direction: ltr;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            -moz-osx-font-smoothing: grayscale;
+            font-feature-settings: "liga";
+        }'
+    );
+
     // Load Bootstrap JS
     wp_enqueue_script(
         'pces-bootstrap-js',
