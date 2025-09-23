@@ -52,7 +52,7 @@
 
 .modal-btn {
 
-    background-color: navy;
+    background-color: var(--c2c-main) !important;
     color: white !important;
     border-radius: 10px;
 

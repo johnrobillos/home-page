@@ -326,7 +326,7 @@ function home_page_landing_page()
                             <a class="btn btn-outline-success rounded-pill px-4 w-100" href="javascript:void(0)" ng-click="openLoginModalNav()">Login</a>
                         </li>
                         <li class="nav-item" ng-if="!isLoggedIn">
-                            <a class="btn btn-success rounded-pill px-4 w-100" href="javascript:void(0)" ng-click="openLoginModalNavReg(); show_reg_page_1 = true">Sign Up</a>
+                            <a class="btn btn-success rounded-pill px-4 w-100" href="javascript:void(0)" ng-click="openLoginModalNavReg(); show_reg_page_1 = true">Sign Up as Employer</a>
                         </li>
                         <li class="nav-item" ng-if="isLoggedIn && dashboardUrl">
                             <a class="btn btn-success rounded-pill px-4 w-100" ng-href="{{dashboardUrl}}">Dashboard</a>
@@ -1421,8 +1421,8 @@ function home_page_landing_page()
                     <div class="mx-auto" style="max-width: 900px;">
                         <!-- Tabs -->
                         <div class="d-flex justify-content-center gap-3 mb-4">
-                            <button class="custom-tab-button" ng-click="faqTab = 'ojtgo'">OJTGo</button>
-                            <button class="custom-tab-button" ng-click="faqTab = 'student'">Student</button>
+                            <button class="custom-tab-button" ng-click="faqTab = 'ojtgo'">Chains2Chances</button>
+                            <button class="custom-tab-button" ng-click="faqTab = 'student'">Applicant</button>
                             <button class="custom-tab-button" ng-click="faqTab = 'employer'">Employer</button>
                         </div>
 
@@ -1431,7 +1431,7 @@ function home_page_landing_page()
                             <!-- Unified ng-switch style -->
                             <div ng-switch="faqTab">
 
-                                <!-- OJTGo FAQs -->
+                                <!-- Chains2Chances FAQs -->
                                 <div ng-switch-when="ojtgo">
                                     <div class="faq-item" ng-repeat="faq in ojtgoFaqs">
                                         <div class="border-bottom py-2" ng-click="toggleFaq(ojtgoFaqs, $index)" style="cursor: pointer;">
@@ -1508,13 +1508,13 @@ function home_page_landing_page()
 
                 <div style="background-color: rgba(0, 0, 0, 0.47); color: white; padding: 2rem; border-radius: 8px;">
 
-                    <p>At <strong>OJTGo</strong>, owned and operated by <strong>PCES Inc.</strong>, we are committed to protecting the privacy of all users—especially interns, employers,
+                    <p>At <strong>Chains2Chances</strong>, owned and operated by <strong>PCES Inc.</strong>, we are committed to protecting the privacy of all users—especially applicants, employers,
                         and OJT coordinators—who use our platform to facilitate On-the-Job Training (OJT) experiences. This Privacy Notice explains how we collect, use, store, and share your
-                        information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>OJTGo</strong>, you agree to the practices
+                        information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>Chains2Chances</strong>, you agree to the practices
                         described in this notice. We encourage you to read it carefully.</p><br>
                     <h4>1. Information We Collect</h4>
-                    <p><strong>a) Intern Information</strong><br>
-                        When interns register on OJTGo, we collect the following information:
+                    <p><strong>a) Applicant Information</strong><br>
+                        When applicant register on Chains2Chances, we collect the following information:
                     </p>
                     <ul>
                         <li>Name, birthdate, email address, and phone number</li>
@@ -1523,7 +1523,7 @@ function home_page_landing_page()
                     </ul><br>
 
                     <p><strong>b) Character References</strong><br>
-                        If references are added, interns must provide names, job titles, and contact details. It is the intern’s responsibility to obtain prior consent from these individuals before sharing their data.
+                        If references are added, applicants must provide names, job titles, and contact details. It is the applicant’s responsibility to obtain prior consent from these individuals before sharing their data.
                     </p><br>
 
                     <p><strong>c) Employer/Entity Information</strong><br>
@@ -1532,11 +1532,11 @@ function home_page_landing_page()
                     <ul>
                         <li>Company name, industry, and contact information</li>
                         <li>Business documents for verification</li>
-                        <li>Details about internship posts (e.g., requirements, duration, responsibilities)</li>
+                        <li>Details about job posts (e.g., requirements, duration, responsibilities)</li>
                     </ul><br>
 
                     <p><strong>d) OJT Coordinators</strong><br>
-                        Coordinators register with academic institution details and create unique coordinator codes for interns to use when linking their accounts.
+                        Coordinators register with academic institution details and create unique coordinator codes for applicant to use when linking their accounts.
                     </p><br>
 
                     <p><strong>e) Non-Personal Information</strong><br>
@@ -1545,10 +1545,9 @@ function home_page_landing_page()
                     <h4><strong>2. How We Use Your Information</strong></h4>
                     <p>Your information is used for the following purposes:</p>
                     <ul>
-                        <li>Match interns to suitable internship positions based on skills, availability, and preferences</li>
+                        <li>Match applicant to suitable job positions based on skills, availability, and preferences</li>
                         <li>Facilitate job applications, communication, and system notifications</li>
-                        <li>Allow interns to log Daily Time Records (DTR), submit reports, and track internship completion</li>
-                        <li>Provide OJT Coordinators with access to supervise and validate intern progress</li>
+                        <li>Allow applicants to log Daily Time Records (DTR), submit reports, and track job completion</li>
                         <li>Generate system analytics to improve platform features and ensure proper service delivery</li>
                         <li>Comply with legal, institutional, and regulatory requirements</li>
                         <li>Send optional announcements or promotional emails (only with your consent)</li>
@@ -1557,9 +1556,8 @@ function home_page_landing_page()
                     <h4><strong>3. Information Sharing</strong></h4>
                     <p>Your data may be shared with:</p>
                     <ul>
-                        <li>Employers, when you apply for an internship</li>
-                        <li>Interns, when viewing details of matching opportunities</li>
-                        <li>OJT Coordinators, for academic monitoring and assessment</li>
+                        <li>Employers, when you apply for an job</li>
+                        <li>Applicants, when viewing details of matching opportunities</li>
                         <li>Service providers, for hosting, storage, and security (under strict confidentiality agreements)</li>
                         <li>Government or legal authorities, if required by law, court order, or subpoena</li>
                     </ul><br>
@@ -1567,7 +1565,7 @@ function home_page_landing_page()
                     <p>We do not sell or lease your personal data to any third party.</p><br>
 
                     <h4>4. Data Security</h4>
-                    <p>OJTGo implements technical and organizational measures to protect your data:</p>
+                    <p>Chains2Chances implements technical and organizational measures to protect your data:</p>
                     <ul>
                         <li>HTTPS encryption of all data transmissions</li>
                         <li>Web Application Firewall (WAF) to block threats</li>
@@ -1606,10 +1604,10 @@ function home_page_landing_page()
                         We retain personal data for only one (1) year, unless required longer by law, accreditation, or academic compliance.</p><br>
 
                     <p><strong>b) Specific Retention Schedules</strong><br>
-                        <strong>Intern data:</strong> Retained during account activity and up to 1 year after deactivation or inactivity.<br>
+                        <strong>Applicant data:</strong> Retained during account activity and up to 1 year after deactivation or inactivity.<br>
                         <strong>Employer data:</strong> Retained up to 1 year after account deletion.<br>
                         <strong>Job applications:</strong> Retained up to 1 year for reference and record keeping.<br>
-                        <strong>DTR logs and reports:</strong> Stored for 1 year after internship completion or account deletion.<br>
+                        <strong>DTR logs and reports:</strong> Stored for 1 year after job completion or account deletion.<br>
                         <strong>Coordinator data:</strong> Retained for up to 1 year after account deactivation.
                     </p><br>
 
@@ -1620,7 +1618,7 @@ function home_page_landing_page()
                         We strictly collect only necessary data and apply encryption and access control to ensure secure storage during the retention period.</p><br>
 
                     <h4>8. Consent and Lawful Processing</h4>
-                    <p>By using OJTGo, you voluntarily consent to the collection, use, and processing of your data for the purposes stated. You may withdraw your consent at any time by changing your account settings or contacting us. If you use OJTGo from outside the Philippines, you agree to the cross-border transfer of your data to the Philippines for lawful processing.</p><br>
+                    <p>By using Chains2Chances, you voluntarily consent to the collection, use, and processing of your data for the purposes stated. You may withdraw your consent at any time by changing your account settings or contacting us. If you use Chains2Chances from outside the Philippines, you agree to the cross-border transfer of your data to the Philippines for lawful processing.</p><br>
 
                     <h4>9. Your Rights Under the Law</h4>
                     <p>In accordance with RA 10173 (Data Privacy Act of 2012), you have the right to:</p>
@@ -1636,12 +1634,12 @@ function home_page_landing_page()
                     <p>Learn more: <a href="https://privacy.gov.ph/data-subject-rights/" target="_blank" style="color: deepskyblue;">https://privacy.gov.ph/data-subject-rights/</a></p><br>
 
                     <h4>10. Updates to This Notice</h4>
-                    <p>We may revise this Privacy Notice to reflect changes in law, technology, or our services. The latest version will always be available on OJTGo.com with an updated "Effective Date." Continued use of our platform constitutes acceptance of any updates.</p><br>
+                    <p>We may revise this Privacy Notice to reflect changes in law, technology, or our services. The latest version will always be available on chains2chances.com with an updated "Effective Date." Continued use of our platform constitutes acceptance of any updates.</p><br>
 
                     <h4>11. Contact Us</h4>
                     <p>For questions or concerns about your data privacy rights or to request data access or deletion, please contact our Data Protection Officer (DPO):</p>
                     <ul><br>
-                        <li><strong>Email:</strong> <a href="mailto:ojt@ojtgo.com" style="color: deepskyblue;">ojt@ojtgo.com</a></li>
+                        <li><strong>Email:</strong> <a href="mailto:support@chains2chances.com" style="color: deepskyblue;">support@chains2chances.com</a></li>
                     </ul>
                 </div>
             </div>
@@ -1665,7 +1663,7 @@ function home_page_landing_page()
                             By posting job openings, you confirm that all submitted content is accurate, complete, and lawful. You are solely responsible for the content of your job postings and any resulting outcomes. Do not post illegal, defamatory, offensive, or inappropriate content. We reserve the right to remove or modify any content that violates these Terms or our content guidelines.
                         </li>
                         <li class="mt-3"><strong>Candidate Selection and Communication</strong><br>
-                            You are solely responsible for selecting and hiring candidates. We do not guarantee any intern’s qualifications, suitability, or performance. All interactions, negotiations, and hiring decisions between you and the intern are entirely your responsibility. OJTGo has no role in employment arrangements.
+                            You are solely responsible for selecting and hiring candidates. We do not guarantee any applicant’s qualifications, suitability, or performance. All interactions, negotiations, and hiring decisions between you and the applicant are entirely your responsibility. Chains2Chances has no role in employment arrangements.
                         </li>
                         <li class="mt-3"><strong>Intellectual Property</strong><br>
                             The Website and all its content—including text, graphics, logos, and software—are protected by intellectual property rights owned by us or our licensors. You may not reproduce, modify, distribute, or use any part of the Website without explicit permission.
@@ -1674,7 +1672,7 @@ function home_page_landing_page()
                             You agree to use the Website at your own risk. We are not liable for any direct, indirect, incidental, consequential, or punitive damages resulting from your use of the Website or any errors in the content provided.
                         </li>
                         <li class="mt-3"><strong>Indemnification</strong><br>
-                            You agree to indemnify and hold OJTGo harmless from any claims, losses, damages, or expenses arising from your use of the Website, violation of these Terms, or breach of any applicable laws.
+                            You agree to indemnify and hold Chains2Chances harmless from any claims, losses, damages, or expenses arising from your use of the Website, violation of these Terms, or breach of any applicable laws.
                         </li>
                         <li class="mt-3"><strong>Modification of Terms</strong><br>
                             We reserve the right to update these Terms at any time without prior notice. Changes will take effect immediately upon being posted. Continued use of the Website indicates your acceptance of the updated Terms.
@@ -1686,35 +1684,35 @@ function home_page_landing_page()
                             If any provision of these Terms is deemed invalid or unenforceable, the remaining provisions will remain in full force and effect.
                         </li>
                         <li class="mt-3"><strong>Entire Agreement</strong><br>
-                            These Terms constitute the entire agreement between you and OJTGo regarding your use of the Website as an employer, superseding any prior agreements or understandings.
+                            These Terms constitute the entire agreement between you and Chains2Chances regarding your use of the Website as an employer, superseding any prior agreements or understandings.
                         </li>
                     </ol>
 
-                    <h4 class="mt-5"><strong>Intern</strong></h4>
+                    <h4 class="mt-5"><strong>Applicant</strong></h4>
                     <ol class="mt-3">
                         <li><strong>Account Creation and Registration</strong><br>
-                            Interns must register for an account and provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your account credentials. Report any unauthorized use of your account immediately.
+                            Applicants must register for an account and provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your account credentials. Report any unauthorized use of your account immediately.
                         </li>
-                        <li class="mt-3"><strong>Eligibility and Responsibilities</strong><br>
-                            You confirm that you are a student or recent graduate eligible for OJT. You agree to conduct yourself professionally and honestly in all interactions with host companies and coordinators.
-                        </li>
-                        <li class="mt-3"><strong>Application and Internship Conduct</strong><br>
-                            You affirm that all information in your application is truthful and complete. You are solely responsible for ensuring your internship complies with your academic requirements. Misrepresentation, misconduct, or unprofessional behavior may result in suspension or termination of your account.
+                        <!--<li class="mt-3"><strong>Eligibility and Responsibilities</strong><br>-->
+                        <!--    You confirm that you are a student or recent graduate eligible for OJT. You agree to conduct yourself professionally and honestly in all interactions with host companies and coordinators.-->
+                        <!--</li>-->
+                        <li class="mt-3"><strong>Application and Job Conduct</strong><br>
+                            You affirm that all information in your application is truthful and complete. You are solely responsible for ensuring your job complies with your academic requirements. Misrepresentation, misconduct, or unprofessional behavior may result in suspension or termination of your account.
                         </li>
                         <li class="mt-3"><strong>Matching and Placement</strong><br>
-                            OJTGo facilitates connections but does not guarantee placement. Internship selection and approval are determined solely by host companies. We are not responsible for any outcomes, including mismatches or rejections.
+                            Chains2Chances facilitates connections but does not guarantee placement. Job selection and approval are determined solely by host companies. We are not responsible for any outcomes, including mismatches or rejections.
                         </li>
                         <li class="mt-3"><strong>Data Use and Communication</strong><br>
-                            You consent to the collection and use of your personal data for internship matching, communication with HTEs and coordinators, and academic monitoring. System notifications and optional promotional messages may be sent to you, which can be managed via your account settings.
+                            You consent to the collection and use of your personal data for Job matching, communication with HTEs and coordinators, and academic monitoring. System notifications and optional promotional messages may be sent to you, which can be managed via your account settings.
                         </li>
                         <li class="mt-3"><strong>Intellectual Property</strong><br>
-                            All materials you upload (e.g., resumes, cover letters) remain your intellectual property. By submitting them, you grant OJTGo a limited, non-exclusive license to use them solely for internship facilitation.
+                            All materials you upload (e.g., resumes, cover letters) remain your intellectual property. By submitting them, you grant Chains2Chances a limited, non-exclusive license to use them solely for Applicants facilitation.
                         </li>
                         <li class="mt-3"><strong>Limitation of Liability</strong><br>
-                            OJTGo is not liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of the Website or any interaction with employers or coordinators.
+                            Chains2Chances is not liable for any direct, indirect, incidental, consequential, or punitive damages arising from your use of the Website or any interaction with employers or coordinators.
                         </li>
                         <li class="mt-3"><strong>Indemnification</strong><br>
-                            You agree to indemnify and hold harmless OJTGo from any claims, damages, or expenses resulting from your use of the Website or any breach of these Terms.
+                            You agree to indemnify and hold harmless Chains2Chances from any claims, damages, or expenses resulting from your use of the Website or any breach of these Terms.
                         </li>
                         <li class="mt-3"><strong>Modification of Terms</strong><br>
                             These Terms may be modified at any time without prior notice. Continued use of the Website after updates indicates your acceptance of the revised Terms.
@@ -1726,7 +1724,7 @@ function home_page_landing_page()
                             If any term is deemed invalid or unenforceable, the remainder shall continue to apply in full effect.
                         </li>
                         <li class="mt-3"><strong>Entire Agreement</strong><br>
-                            These Terms represent the entire agreement between you and OJTGo regarding your use of the Website as an intern.
+                            These Terms represent the entire agreement between you and Chains2Chances regarding your use of the Website as an applicant.
                         </li>
                     </ol>
 
@@ -1736,10 +1734,10 @@ function home_page_landing_page()
                             Coordinators must create an account and provide accurate information to use the Website’s services. Keep your login credentials secure and notify us of any unauthorized access.
                         </li>
                         <li class="mt-3"><strong>Eligibility and Responsibilities</strong><br>
-                            You confirm that you are authorized by your institution to manage OJT activities. You are responsible for the proper supervision of student interns and ensuring that institutional guidelines are met.
+                            You confirm that you are authorized by your institution to manage OJT activities. You are responsible for the proper supervision of student applicants and ensuring that institutional guidelines are met.
                         </li>
                         <li class="mt-3"><strong>Student Monitoring and Supervision</strong><br>
-                            You are accountable for overseeing student progress and ensuring proper internship conduct. Maintain regular communication with both interns and host companies.
+                            You are accountable for overseeing student progress and ensuring proper job conduct. Maintain regular communication with both applicants and host companies.
                         </li>
                         <li class="mt-3"><strong>Data Access and Use</strong><br>
                             You may access student data strictly for academic supervision and monitoring purposes. Any misuse of data may result in disciplinary actions.
@@ -1751,10 +1749,10 @@ function home_page_landing_page()
                             The Website’s content is protected by intellectual property laws. Do not reproduce or use content without permission.
                         </li>
                         <li class="mt-3"><strong>Limitation of Liability</strong><br>
-                            OJTGo is not liable for any damages arising from the use of the Website or any decision made in connection with student management.
+                            Chains2Chances is not liable for any damages arising from the use of the Website or any decision made in connection with student management.
                         </li>
                         <li class="mt-3"><strong>Indemnification</strong><br>
-                            You agree to indemnify and defend OJTGo from any claims or damages resulting from your use of the Website or breach of these Terms.
+                            You agree to indemnify and defend Chains2Chances from any claims or damages resulting from your use of the Website or breach of these Terms.
                         </li>
                         <li class="mt-3"><strong>Modification of Terms</strong><br>
                             These Terms may be updated at any time without prior notice. Your continued use of the Website signifies acceptance of any changes.
@@ -1766,7 +1764,7 @@ function home_page_landing_page()
                             If any provision is found to be invalid, the rest of the Terms will remain in effect.
                         </li>
                         <li class="mt-3"><strong>Entire Agreement</strong><br>
-                            These Terms represent the full agreement between you and OJTGo regarding your role as a coordinator on the Website.
+                            These Terms represent the full agreement between you and Chains2Chances regarding your role as a coordinator on the Website.
                         </li>
                     </ol>
                 </div>
@@ -1961,7 +1959,7 @@ function home_page_landing_page()
                             Hello
                         </div> -->
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
                     </div>
 
@@ -2063,7 +2061,7 @@ function home_page_landing_page()
 
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
                     </div>
 
@@ -2083,14 +2081,14 @@ function home_page_landing_page()
                         Employer
                     </a>
 
-                    <span class="text-center">or</span>
+                    <!--<span class="text-center">or</span>-->
 
-                    <a
-                        ng-click="setUserType('intern');"
-                        href="javascript:void(0);"
-                        class="text-center my-2 px-5 py-2 modal-btn intern-btn">
-                        Intern
-                    </a>
+                    <!--<a-->
+                    <!--    ng-click="setUserType('intern');"-->
+                    <!--    href="javascript:void(0);"-->
+                    <!--    class="text-center my-2 px-5 py-2 modal-btn intern-btn">-->
+                    <!--    Applicant-->
+                    <!--</a>-->
 
                 </div>
 
@@ -2109,7 +2107,7 @@ function home_page_landing_page()
 
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
                     </div>
 
@@ -2278,7 +2276,7 @@ function home_page_landing_page()
                             Hello
                         </div> -->
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
                     </div>
 
@@ -2378,7 +2376,7 @@ function home_page_landing_page()
                     <!-- OJT go logo -->
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
                     </div>
 
@@ -2459,7 +2457,7 @@ function home_page_landing_page()
                             Hello
                         </div> -->
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
                     </div>
 
@@ -2550,7 +2548,7 @@ function home_page_landing_page()
 
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
 
-                        <img class="d-block mx-auto" style="height: 70px;" src="<?php echo home_url('/wp-content/uploads/icons/OJTGO-630X310.png') ?>">
+                        <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
                     </div>
 

@@ -1560,9 +1560,9 @@ $scope.$watch('faqTab', function (newTab) {
     // Register button
     $scope.openLoginModalNavReg = function () {
         $scope.isModalActive = true;
-        $scope.currentModalContent = 'user-type';
+        $scope.userType = 'employer';
+        $scope.currentModalContent = 'register';
     };
-
     // Send Request button
     $scope.openRegisterModalDirect = function () {
 
