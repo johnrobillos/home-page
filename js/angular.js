@@ -489,27 +489,26 @@ $scope.getFormattedDate = function(dateStr) {
 // FAQ's
 $scope.faqTab = 'ojtgo';
 
-// for OJTGo FAQs
+// for Chains2Chances FAQs
 $scope.ojtgoFaqs = [
 
     {
-        question: "What is OJTGo?",
+        question: "What is Chains2Chances?",
         answer: {
           list: [
-            `OJTGo is a digital internship-matching platform developed by PCES Inc., 
-          created by students—for students. It connects graduating students with host companies 
-          (HTEs) based on their course, location, and skills. Our goal is to simplify the internship 
-          journey and reduce the stress, cost, and mismatches students often experience.`
+            `Chains2Chances is a digital job-matching platform developed by PCES Inc. 
+            It connects graduating students with host companies (HTEs) based on their course, location, and skills. 
+            Our goal is to simplify the job journey and reduce the stress, cost, and mismatches PDLs nearing the expiration of their sentences often experience.`
         ]
         },
         open: false
       },
 
       {
-        question: "How does OJTGo work?",
+        question: "How does Chains2Chances work?",
         answer: {
           list: [
-            `Students create profiles on the platform, while employers post internship openings. 
+            `Persons nearing the expiration of their sentences create profiles on the platform, while employers post job openings. 
            The system automatically matches candidates to jobs based on course, skills, location, 
            and preferences. Employers can then communicate, interview, and hire directly through the platform.`,
         ]
@@ -518,13 +517,13 @@ $scope.ojtgoFaqs = [
       },
 
     {
-      question: "Who can use OJTGo?",
+      question: "Who can use Chains2Chances?",
       answer: {
-        paragraph: "OJTGo is designed for:",
+        paragraph: "Chains2Chances is designed for:",
         list: [
-          "Students looking for internship opportunities that fit their academic background and location",
-          "Employers/Host Training Establishments (HTEs) seeking qualified interns efficiently",
-          "Schools aiming to streamline internship placement and ensure students gain relevant experience"
+          "Persons nearing the expiration of their sentences looking for job opportunities that fit their academic background and location",
+          "Employers/Host Training Establishments (HTEs) seeking qualified candidates efficiently",
+          "Schools aiming to streamline job placement and ensure students gain relevant experience"
         ]
       },
       open: false
@@ -534,10 +533,10 @@ $scope.ojtgoFaqs = [
       question: "Is this legit?",
       answer: {
         list: [
-          `Absolutely! OJTGo works only with verified companies, ensuring that every opportunity is legitimate
-           and provides a valuable internship experience. We carefully screen all companies first before listing 
-           them on the platform. Built from firsthand student experience, OJTGo is committed to making internship 
-           placement fast, affordable, and stress-free for students across the Philippines.`,
+          `Absolutely! Chains2Chances works only with verified companies, ensuring that every opportunity is legitimate
+           and provides a valuable job experience. We carefully screen all companies first before listing 
+           them on the platform. Chains2Chances is committed to making job 
+           placement fast, affordable, and stress-free for People who is re-integrating into our society across the Philippines.`,
         ]
       },
       open: false
@@ -550,11 +549,11 @@ $scope.ojtgoFaqs = [
 $scope.studentFaqs = [
 
     {
-      question: "How do I register as a student?",
+      question: "How do I register as a former PDL?",
       answer: {
         list: [
           `Simply visit OJTGo’s website, sign up using your email, and complete your profile with your education background, 
-          internship preferences, and basic personal details. You can also add any relevant experiences, trainings or seminars, 
+          job preferences, and basic personal details. You can also add any relevant experiences, trainings or seminars, 
           and certifications to make your profile more attractive to potential employers.`,
         ]
       },
@@ -562,10 +561,10 @@ $scope.studentFaqs = [
     },
 
     {
-        question: "Is there a fee to use OJTGo?",
+        question: "Is there a fee to use Chains2Chances?",
         answer: {
           list: [
-            `Yes, it’s just ₱30 per month. This gives you access to smart internship matching, exclusive openings, 
+            `Yes, it’s just ₱30 per month. This gives you access to smart job matching, exclusive openings, 
             and priority support`,
           ]
         },
@@ -576,17 +575,17 @@ $scope.studentFaqs = [
         question: "How will I know if I’ve been matched?",
         answer: {
           list: [
-            `You’ll get a notification on your dashboard and via email with the internship details and next steps`,
+            `You’ll get a notification on your dashboard and via email with the job details and next steps`,
           ]
         },
         open: false
       },
 
       {
-        question: "Will I really get an OJT placement",
+        question: "Will I really get an Job placement",
         answer: {
           list: [
-            `Absolutely! OJTGo matches every student with a company based on your course, skills, and preferences.
+            `Absolutely! Chains2Chances matches every former PDL with a company based on your course, skills, and preferences.
              We guarantee placement so you can focus on graduating.`,
           ]
         },
@@ -605,7 +604,7 @@ $scope.studentFaqs = [
       },
 
       {
-        question: "Can I apply for multiple internships?",
+        question: "Can I apply for multiple Job openings?",
         answer: {
           list: [
             `Yes! You can explore and apply to several opportunities that match your qualifications and interests`,
@@ -629,41 +628,41 @@ $scope.studentFaqs = [
 // for Employer FAQs  
 $scope.employerFaqs = [
     {
-      question: "How can companies register on OJTGo?",
+      question: "How can companies register on Chains2Chances?",
       answer: {
         list: [
-          `Employers can easily sign up at www.ojtgo.com, create a company profile, and start posting internship opportunities.`
+          `Employers can easily sign up at www.c2c.com, create a company profile, and start posting job opportunities.`
         ]
       },
       open: false
     },
 
       {
-        question: "Is there a cost for employers to post internships?",
+        question: "Is there a cost for employers to post job openings?",
         answer: {
           list: [
-            `No, it’s completely free! Employers can post unlimited internships and connect with qualified students at no cost.`,
+            `No, it’s completely free! Employers can post unlimited job openings and connect with qualified students at no cost.`,
           ]
         },
         open: false
       },
 
       {
-        question: "How does OJTGo help employers find the right interns?",
+        question: "How does Chains2Chances help employers find the right candidates?",
         answer: {
           list: [
-            `OJTGo uses a smart filtering system to help employers find students whose education, skills, and location preferences match 
-            the internship requirements—saving time and effort in the selection process.`,
+            `Chains2Chances uses a smart filtering system to help employers find students whose education, skills, and location preferences match 
+            the job requirements—saving time and effort in the selection process.`,
           ]
         },
         open: false
       },
 
       {
-        question: "Can employers directly contact students?",
+        question: "Can employers directly contact candidates?",
         answer: {
           list: [
-            `Yes! The platform includes a built-in messaging feature that lets employers reach out to students directly, 
+            `Yes! The platform includes a built-in messaging feature that lets employers reach out to candidates directly, 
             making coordination and hiring faster and more convenient.`,
           ]
         },

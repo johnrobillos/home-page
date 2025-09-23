@@ -1277,7 +1277,7 @@ function home_page_landing_page()
                     Start In Four Steps And Land The Right Job
                 </h2>
                 <p class="text-center text-muted mb-5">
-                    Simple, verified, and student-first—from sign up to successful completion.
+                    Simple, verified, and applicant-first from sign up to successful completion.
                 </p>
 
                 <!-- Steps Row -->
@@ -1334,8 +1334,7 @@ function home_page_landing_page()
                     <div class="c2c-hiw-extra p-4 p-md-5 rounded-4 text-center shadow-sm">
                         <h4 class="fw-bold mb-2">Need Help Along the Way?</h4>
                         <p class="text-muted mb-0">
-                            C2C isn’t just matching—you also get guidance, tips, and support from our mentors and school coordinators.
-                            We make sure you stay on track until your OJT is complete.
+                            C2C isn’t just matching—you also get guidance, tips, and support from our mentors and partners.
                         </p>
                     </div>
                 </div>
@@ -1357,7 +1356,7 @@ function home_page_landing_page()
                             <div class="c2c-feature p-3">
                                 <i class="bi bi-file-earmark-text mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
                                 <h6 class="fw-semibold mb-1">Smarter than a Résumé</h6>
-                                <p class="text-muted small mb-0">Showcase skills, badges, and real outputs—not just bullet points.</p>
+                                <p class="text-muted small mb-0">Your skills are worth more than a piece of paper. Forget the traditional résumé; this is where you can truly showcase your skills, your badges, and your actual work..</p>
                             </div>
                         </div>
 
@@ -1366,7 +1365,7 @@ function home_page_landing_page()
                             <div class="c2c-feature p-3">
                                 <i class="bi bi-arrow-right-circle mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
                                 <h6 class="fw-semibold mb-1">Seamless Matching</h6>
-                                <p class="text-muted small mb-0">Our engine connects you faster to the right fit—no endless searching.</p>
+                                <p class="text-muted small mb-0">Finding the right fit shouldn't be a struggle. Our smart engine connects you to the perfect opportunity, cutting out the endless searching.</p>
                             </div>
                         </div>
 
@@ -1375,7 +1374,7 @@ function home_page_landing_page()
                             <div class="c2c-feature p-3">
                                 <i class="bi bi-check-circle mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
                                 <h6 class="fw-semibold mb-1">Verified Employers</h6>
-                                <p class="text-muted small mb-0">Only trusted companies—real, reliable, and safe opportunities.</p>
+                                <p class="text-muted small mb-0">We believe in safe opportunities. That's why every company on our site is verified, so you can feel confident in every connection you make.</p>
                             </div>
                         </div>
 
@@ -1384,15 +1383,12 @@ function home_page_landing_page()
                             <div class="c2c-feature p-3">
                                 <i class="bi bi-people mb-3" style="font-size:2rem; color:var(--c2c-main);"></i>
                                 <h6 class="fw-semibold mb-1">Built by Experience</h6>
-                                <p class="text-muted small mb-0">Designed by people who’ve done OJT—we understand your challenges.</p>
+                                <p class="text-muted small mb-0">We built this for you because we've been in your shoes. We understand the OJT process and all its challenges because we’ve been through it ourselves.</p>
                             </div>
                         </div>
                     </div>
 
                 </div>
-
-
-
 
             </div>
         </section>
@@ -1506,8 +1502,8 @@ function home_page_landing_page()
 
                 <div style="background-color: rgba(0, 0, 0, 0.47); color: white; padding: 2rem; border-radius: 8px;">
 
-                    <p>At <strong>Chains2Chances</strong>, owned and operated by <strong>PCES Inc.</strong>, we are committed to protecting the privacy of all users—especially applicants, employers,
-                        and OJT coordinators—who use our platform to facilitate On-the-Job Training (OJT) experiences. This Privacy Notice explains how we collect, use, store, and share your
+                    <p>At <strong>Chains2Chances</strong>, owned and operated by <strong>PCES Inc.</strong>, we are committed to protecting the privacy of all users—especially applicants,
+                        and employers who use our platform to look for jobs. This Privacy Notice explains how we collect, use, store, and share your
                         information in accordance with the <a href="https://privacy.gov.ph/data-privacy-act/" target="_blank" rel="noopener noreferrer" style="color: deepskyblue;"><strong><u>Privacy Act of 2012</u></strong></a> and related guidelines from the <strong>National Privacy Commission (NPC)</strong>. By using <strong>Chains2Chances</strong>, you agree to the practices
                         described in this notice. We encourage you to read it carefully.</p><br>
                     <h4>1. Information We Collect</h4>
@@ -1516,7 +1512,7 @@ function home_page_landing_page()
                     </p>
                     <ul>
                         <li>Name, birthdate, email address, and phone number</li>
-                        <li>Educational background, academic course, and required OJT hours</li>
+                        <li>Educational background, and academic course</li>
                         <li>Skills, personal preferences, and availability</li>
                     </ul><br>
 
@@ -1533,11 +1529,7 @@ function home_page_landing_page()
                         <li>Details about job posts (e.g., requirements, duration, responsibilities)</li>
                     </ul><br>
 
-                    <p><strong>d) OJT Coordinators</strong><br>
-                        Coordinators register with academic institution details and create unique coordinator codes for applicant to use when linking their accounts.
-                    </p><br>
-
-                    <p><strong>e) Non-Personal Information</strong><br>
+                    <p><strong>d) Non-Personal Information</strong><br>
                         We collect device and browser info, IP address, and usage activity to improve system performance and user experience.</p><br>
 
                     <h4><strong>2. How We Use Your Information</strong></h4>
@@ -1691,9 +1683,6 @@ function home_page_landing_page()
                         <li><strong>Account Creation and Registration</strong><br>
                             Applicants must register for an account and provide accurate, complete, and current information. You are responsible for maintaining the confidentiality of your account credentials. Report any unauthorized use of your account immediately.
                         </li>
-                        <!--<li class="mt-3"><strong>Eligibility and Responsibilities</strong><br>-->
-                        <!--    You confirm that you are a student or recent graduate eligible for OJT. You agree to conduct yourself professionally and honestly in all interactions with host companies and coordinators.-->
-                        <!--</li>-->
                         <li class="mt-3"><strong>Application and Job Conduct</strong><br>
                             You affirm that all information in your application is truthful and complete. You are solely responsible for ensuring your job complies with your academic requirements. Misrepresentation, misconduct, or unprofessional behavior may result in suspension or termination of your account.
                         </li>
@@ -1723,46 +1712,6 @@ function home_page_landing_page()
                         </li>
                         <li class="mt-3"><strong>Entire Agreement</strong><br>
                             These Terms represent the entire agreement between you and Chains2Chances regarding your use of the Website as an applicant.
-                        </li>
-                    </ol>
-
-                    <h4 class="mt-5"><strong>Coordinator</strong></h4>
-                    <ol class="mt-3">
-                        <li><strong>Account Creation and Registration</strong><br>
-                            Coordinators must create an account and provide accurate information to use the Website’s services. Keep your login credentials secure and notify us of any unauthorized access.
-                        </li>
-                        <li class="mt-3"><strong>Eligibility and Responsibilities</strong><br>
-                            You confirm that you are authorized by your institution to manage OJT activities. You are responsible for the proper supervision of student applicants and ensuring that institutional guidelines are met.
-                        </li>
-                        <li class="mt-3"><strong>Student Monitoring and Supervision</strong><br>
-                            You are accountable for overseeing student progress and ensuring proper job conduct. Maintain regular communication with both applicants and host companies.
-                        </li>
-                        <li class="mt-3"><strong>Data Access and Use</strong><br>
-                            You may access student data strictly for academic supervision and monitoring purposes. Any misuse of data may result in disciplinary actions.
-                        </li>
-                        <li class="mt-3"><strong>Communication and Professional Conduct</strong><br>
-                            Maintain respectful, professional communication with all users. Misconduct may lead to suspension or termination of access.
-                        </li>
-                        <li class="mt-3"><strong>Intellectual Property</strong><br>
-                            The Website’s content is protected by intellectual property laws. Do not reproduce or use content without permission.
-                        </li>
-                        <li class="mt-3"><strong>Limitation of Liability</strong><br>
-                            Chains2Chances is not liable for any damages arising from the use of the Website or any decision made in connection with student management.
-                        </li>
-                        <li class="mt-3"><strong>Indemnification</strong><br>
-                            You agree to indemnify and defend Chains2Chances from any claims or damages resulting from your use of the Website or breach of these Terms.
-                        </li>
-                        <li class="mt-3"><strong>Modification of Terms</strong><br>
-                            These Terms may be updated at any time without prior notice. Your continued use of the Website signifies acceptance of any changes.
-                        </li>
-                        <li class="mt-3"><strong>Termination</strong><br>
-                            Your access may be suspended or terminated if you violate these Terms or engage in misconduct.
-                        </li>
-                        <li class="mt-3"><strong>Severability</strong><br>
-                            If any provision is found to be invalid, the rest of the Terms will remain in effect.
-                        </li>
-                        <li class="mt-3"><strong>Entire Agreement</strong><br>
-                            These Terms represent the full agreement between you and Chains2Chances regarding your role as a coordinator on the Website.
                         </li>
                     </ol>
                 </div>
@@ -2079,15 +2028,6 @@ function home_page_landing_page()
                         Employer
                     </a>
 
-                    <!--<span class="text-center">or</span>-->
-
-                    <!--<a-->
-                    <!--    ng-click="setUserType('intern');"-->
-                    <!--    href="javascript:void(0);"-->
-                    <!--    class="text-center my-2 px-5 py-2 modal-btn intern-btn">-->
-                    <!--    Applicant-->
-                    <!--</a>-->
-
                 </div>
 
 
@@ -2384,14 +2324,6 @@ function home_page_landing_page()
                         <p class="col-auto text-secondary text-center mb-5 w-75" style="font-size: 1rem;">No worries! Just enter your email address and we'll send you a link to reset your password.</p>
                     </div>
 
-
-                    <!-- Input Fields -->
-                    <!-- 
-                        Standby: 
-                        ng-change="validateEmail();"
-                        ng-class="{'highlight': !emailValid}"
-                    -->
-
                     <div class="row g-3 align-items-center justify-content-between mb-3">
                         <div class="col-auto" style="margin-right: 30px">
                             <label class="form-label">Email: </label>
@@ -2402,7 +2334,6 @@ function home_page_landing_page()
                                 class="form-control"
                                 ng-model="accountEmail">
                         </div>
-                        <!-- <small class="text-danger text-wrap" ng-show="emailError">{{ emailError }}</small> -->
                     </div>
 
 
@@ -2450,10 +2381,6 @@ function home_page_landing_page()
 
                     <!-- Empty for now -->
                     <div class="d-flex flex-column align-items-center justify-content-center animation-container">
-
-                        <!-- <div class="d-flex flex-column align-items-center justify-content-center mb-3 some-animation">
-                            Hello
-                        </div> -->
 
                         <img class="d-block mx-auto" style="height: 160px;" src="<?php echo home_url('/wp-content/uploads/icons/c2clogo.png') ?>">
 
@@ -2682,7 +2609,6 @@ function home_page_landing_page()
 
             <div class="offcanvas-header">
                 <h5 class="fw-bolf offcanvas-title">Job Posts</h5>
-                <!-- <a href="javascript:;" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button> -->
                 <a class="btn-close" data-bs-dismiss="offcanvas" href="#offcanvasExample" aria-controls="offcanvasExample">
 
                 </a>

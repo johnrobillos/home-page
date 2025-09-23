@@ -38,12 +38,12 @@ function handle_contact_form_submission() {
 
     // Email recipient
     $to = 'info@ojtgo.com';
-    $subject = 'New Inquiry from OJTGo Contact Form';
+    $subject = 'New Inquiry from Chains2Chances Contact Form';
     
     // Email headers
     $headers = array(
         'Content-Type: text/html; charset=UTF-8',
-        'From: OJTGo <no-reply@ojtgo.com>',
+        'From: Chains2Chances <no-reply@ojtgo.com>',
         'Reply-To: ' . $email
     );
     
@@ -95,7 +95,7 @@ function handle_contact_form_submission() {
     </head>
     <body>
         <div class='container'>
-            <div class='header'>New Inquiry from OJTGo</div>
+            <div class='header'>New Inquiry from Chains2Chances</div>
             <div class='content'>
                 <p><span class='label'>Name:</span> $name</p>
                 <p><span class='label'>Email:</span> $email</p>
@@ -103,7 +103,7 @@ function handle_contact_form_submission() {
                 <p><span class='label'>Message:</span><br>" . nl2br($message) . "</p>
             </div>
             <div class='footer'>
-                <p>OJTGo | PCES Inc.<br>
+                <p>Chains2Chances | PCES Inc.<br>
                 <a href='$home_url' style='color:#0161aa; text-decoration: none;'>Visit our Website</a></p>
             </div>
         </div>
