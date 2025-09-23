@@ -21,8 +21,6 @@ require_once plugin_dir_path(__FILE__) . 'api/fetch_backend.php';
 // Enqueue the script on the specific page
 function home_page_enqueue_script()
 {
-
-
     if (is_page('home')) {
 
         wp_enqueue_style(
@@ -1905,13 +1903,13 @@ function home_page_landing_page()
 
             <!-- Social Icons -->
             <div class="social-icons d-flex justify-content-center gap-3 mt-3">
-            <a href="https://www.facebook.com/ojtgo.pces/" target="_blank" class="social-circle">
+            <a href="https://www.facebook.com/PCESInc1" target="_blank" class="social-circle">
                 <i class="fab fa-facebook-f"></i>
             </a>
-            <a href="https://www.instagram.com/ojtgo_pces/" target="_blank" class="social-circle">
+            <a href="https://www.instagram.com/pces_inc?utm_source=ig_web_button_share_sheet&igsh=NzEzYjU0OXE0Z3Fh" target="_blank" class="social-circle">
                 <i class="fab fa-instagram"></i>
             </a>
-            <a href="https://www.tiktok.com/@ojtgo_pces" target="_blank" class="social-circle">
+            <a href="https://www.tiktok.com/@pces_incorporated" target="_blank" class="social-circle">
                 <i class="fab fa-tiktok"></i>
             </a>
             </div>
