@@ -394,7 +394,7 @@ function home_page_landing_page()
                             <h2 class="fw-bold graffiti-text mb-3">WHY</h2>
 
                             <!-- C2C Logo -->
-                            <img src="/wp-content/uploads/icons/c2why.png"
+                            <img src="<?php echo esc_url(home_url('/wp-content/uploads/icons/c2why.png')); ?>"
                                 alt="Chains2Chances Logo"
                                 class="img-fluid graffiti-img"
                                 style="max-width: 280px;">
