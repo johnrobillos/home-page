@@ -1735,14 +1735,6 @@ function home_page_landing_page()
                                         <i class="bi bi-envelope-fill me-2" style="color:#3B9418"></i>
                                         <span>support@c2c.ph</span>
                                     </li>
-                                    <li class="d-flex align-items-center mb-2">
-                                        <i class="bi bi-telephone-fill me-2" style="color:#3B9418"></i>
-                                        <span>+63 9xx xxx xxxx</span>
-                                    </li>
-                                    <li class="d-flex align-items-center">
-                                        <i class="bi bi-geo-alt-fill me-2" style="color:#3B9418"></i>
-                                        <span>Metro Manila, Philippines</span>
-                                    </li>
                                 </ul>
                             </div>
 
