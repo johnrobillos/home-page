@@ -40,12 +40,12 @@ $client_logos = array(
 </div>
 
 <script>
-// Simple carousel functionality
+// Seamless infinite carousel functionality
 let currentTransform = 0;
 let autoScrollEnabled = true;
 let autoScrollInterval;
-const scrollSpeed = 2;
-const slideWidth = 250; // Width of each slide including margin
+const scrollSpeed = 1; // Slower, smoother scrolling
+const slideWidth = 180; // Width of each slide (150px + 30px gap)
 const totalSlides = <?php echo count($client_logos); ?>;
 
 // Start auto-scroll when page loads
@@ -60,16 +60,29 @@ function startAutoScroll() {
     autoScrollInterval = setInterval(function() {
         if (autoScrollEnabled) {
             currentTransform -= scrollSpeed;
-            const totalWidth = totalSlides * slideWidth;
             
-            // Reset position when we've scrolled through one complete set
-            if (Math.abs(currentTransform) >= totalWidth) {
-                currentTransform = 0;
+            // Calculate the width of one complete set of logos
+            const oneSetWidth = totalSlides * slideWidth;
+            
+            // When we've moved one complete set to the left, reset seamlessly
+            if (Math.abs(currentTransform) >= oneSetWidth) {
+                // Reset to 0 without transition for seamless loop
+                const track = document.getElementById('carouselTrack');
+                if (track) {
+                    track.style.transition = 'none';
+                    currentTransform = 0;
+                    track.style.transform = 'translateX(' + currentTransform + 'px)';
+                    
+                    // Re-enable transition after a brief moment
+                    setTimeout(function() {
+                        track.style.transition = 'transform 0.1s linear';
+                    }, 10);
+                }
+            } else {
+                updateCarouselPosition();
             }
-            
-            updateCarouselPosition();
         }
-    }, 50);
+    }, 16); // ~60fps for smoother animation
 }
 
 function stopAutoScroll() {
@@ -79,9 +92,9 @@ function stopAutoScroll() {
 
 function nextSlide() {
     currentTransform -= slideWidth;
-    const totalWidth = totalSlides * slideWidth;
+    const oneSetWidth = totalSlides * slideWidth;
     
-    if (Math.abs(currentTransform) >= totalWidth) {
+    if (Math.abs(currentTransform) >= oneSetWidth) {
         currentTransform = 0;
     }
     
@@ -92,7 +105,8 @@ function prevSlide() {
     currentTransform += slideWidth;
     
     if (currentTransform > 0) {
-        currentTransform = -(totalSlides - 1) * slideWidth;
+        const oneSetWidth = totalSlides * slideWidth;
+        currentTransform = -oneSetWidth + slideWidth;
     }
     
     updateCarouselPosition();
@@ -166,7 +180,7 @@ function updateCarouselPosition() {
 
 .carousel-track {
     display: flex;
-    transition: transform 0.5s ease;
+    transition: transform 0.1s linear;
     gap: 30px;
     will-change: transform;
 }
