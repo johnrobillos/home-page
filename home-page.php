@@ -39,8 +39,8 @@ function home_page_enqueue_script()
             null,
             true
         );
-        
-        
+
+
         // font style
         wp_enqueue_style(
             'font-style-ni-charls',
