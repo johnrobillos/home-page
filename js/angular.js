@@ -1631,6 +1631,8 @@ $scope.$watch('faqTab', function (newTab) {
                 // Auto-redirect based on role
                 if ($scope.userRole === 'applicant') {
                      $scope.dashboardUrl = '/app-dashboard';
+                } else if ($scope.userRole === 'bjmp_admin') {
+                    $scope.dashboardUrl = '/bjmp-dashboard';
                 } else if ($scope.userRole === 'employer') {
                     $scope.dashboardUrl = '/emp-dashboard';
                 }

@@ -105,16 +105,6 @@ function home_page_enqueue_script()
         );
 
 
-
-        // AngularJS Route
-        wp_enqueue_script(
-            'angular-route',
-            plugins_url('js/angular.js', __FILE__),
-            ['jquery'],
-            null,
-            true
-        );
-
         wp_enqueue_script(
             'cryptojs',
             'https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js',
