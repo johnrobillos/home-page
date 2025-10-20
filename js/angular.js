@@ -9,27 +9,73 @@ app.run(function($sessionStorage) {
 
 app.run(function($timeout, $window, $rootScope) {
 
+    // CRITICAL: Always scroll to top on initial page load
     $timeout(function () {
-        const hash = window.location.hash;
+        $window.scrollTo(0, 0);
+    }, 0);
+
+    // Handle hash navigation after Angular initializes
+    $timeout(function () {
+        const hash = $window.location.hash;
 
         if (hash) {
-            const id = hash.substring(1); // "news" from "#news"
-            const el = document.getElementById(id);
+            const id = hash.substring(1); // "about" from "#about"
 
-            // ✅ Only call if function exists (ensures controller is loaded)
+            // Set the active page first
             if (typeof $rootScope.setActivePage === 'function') {
                 $rootScope.setActivePage(id);
             }
 
-            if (el) {
-                const offset = el.offsetTop - 30; // adjust for fixed header
-                $window.scrollTo({
-                    top: offset,
-                    behavior: 'smooth'
-                });
-            }
+            // Wait for DOM to be ready and Angular to render
+            $timeout(function () {
+                const element = document.getElementById(id);
+
+                if (element) {
+                    const navbarHeight = 80; // Adjust based on your navbar height
+                    const elementPosition = element.getBoundingClientRect().top + $window.pageYOffset;
+                    const offsetPosition = elementPosition - navbarHeight;
+
+                    $window.scrollTo({
+                        top: offsetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            }, 300); // Increased delay to ensure content is rendered
         }
-    }, 1000); // Delay long enough to ensure DOM is ready
+    }, 100);
+
+    // Handle hash changes while already on the page
+    angular.element($window).on('hashchange', function () {
+        $rootScope.$applyAsync(function () {
+            const hash = $window.location.hash;
+            if (hash) {
+                const id = hash.substring(1);
+
+                if (typeof $rootScope.setActivePage === 'function') {
+                    $rootScope.setActivePage(id);
+                }
+
+                $timeout(function () {
+                    const element = document.getElementById(id);
+                    if (element) {
+                        const navbarHeight = 80;
+                        const elementPosition = element.getBoundingClientRect().top + $window.pageYOffset;
+                        const offsetPosition = elementPosition - navbarHeight;
+
+                        $window.scrollTo({
+                            top: offsetPosition,
+                            behavior: 'smooth'
+                        });
+                    }
+                }, 200);
+            }
+        });
+    });
+
+    // Cleanup on destroy
+    $rootScope.$on('$destroy', function () {
+        angular.element($window).off('hashchange');
+    });
 });
 
 
@@ -38,8 +84,8 @@ app.run(function($timeout, $window, $rootScope) {
 
 app.controller('homeController', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document, $interval) {
 
-    $scope.activePage = 'home'; // Default page
-$scope.showActivePage = 'contact';
+    $rootScope.activePage = $rootScope.activePage || 'home'; // single source of truth
+    $scope.showActivePage = 'contact';
 
 // Modal state for news post
 $scope.selectedNewsPost = null;
@@ -68,11 +114,102 @@ $scope.selectedBlog = null;
 //     $scope.selectedBlog = ($scope.selectedBlog === blog) ? null : blog;
 // };
 
+// for how it works
+    $scope.goHow = function ($event) {
+        if ($event) $event.preventDefault();
+
+        // after DOM updates, scroll to #how with offset
+        $timeout(function () {
+            $anchorScroll.yOffset = function () {
+                const bar = document.querySelector('.navbar, header.sticky-top, .site-navbar');
+                return bar ? bar.offsetHeight : 0;
+            };
+            $location.hash('how');
+            $anchorScroll();
+        }, 0);
+    };
+// closing
+
 // Modal unified view
 $scope.modalExpansion = function(post) {
     console.log(post);
   $scope.selectedModal = post;
 };
+
+    // scroll to top logic
+    // (function handleHashOnHome() {
+    //     function snapTop(id) {
+    //         if (!id) return;
+    //         var tries = 60, yOffset = 0; // 0 = exact top
+    //         function attempt() {
+    //             var el = document.getElementById(id);
+    //             if (el) {
+    //                 var top = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - yOffset;
+    //                 window.scrollTo({ top: top, behavior: 'auto' });          // first snap
+    //                 setTimeout(function () {                                     // corrective snap after layout settles
+    //                     var top2 = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - yOffset;
+    //                     window.scrollTo({ top: top2, behavior: 'auto' });
+    //                 }, 250);
+    //                 return true;
+    //             }
+    //             return false;
+    //         }
+    //         (function retry() { if (attempt()) return; if (tries-- > 0) setTimeout(retry, 50); })();
+    //     }
+
+    //     // On initial load with /home/#section
+    //     $timeout(function () {
+    //         var id = ($location.hash() || '').replace(/^#/, '');
+    //         if (id) {
+    //             // make sure home content shows (if you gate by activePage)
+    //             if ($rootScope.setActivePage) $rootScope.setActivePage('home');
+    //             snapTop(id);
+    //         }
+    //     }, 0);
+
+    //     // If the hash changes while already on /home/
+    //     angular.element($window).on('hashchange', function () {
+    //         $scope.$applyAsync(function () {
+    //             var id = ($window.location.hash || '').replace(/^#/, '');
+    //             snapTop(id);
+    //         });
+    //     });
+    //     $scope.$on('$destroy', function () { angular.element($window).off('hashchange'); });
+    // })();
+    // closing
+    
+    // app.js
+    angular.module('app', ['ui.router'])
+        .run(function ($transitions, $window) {
+            if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+            $transitions.onSuccess({}, function () {
+                $window.scrollTo(0, 0);
+            });
+        });    
+
+    // for home page linked to contact
+    function snapToIdTop(id) {
+        var tries = 60, yOffset = 0;
+        (function retry() {
+            var el = document.getElementById(id);
+            if (el) {
+                var top = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - yOffset;
+                window.scrollTo({ top: top, behavior: 'auto' });
+                setTimeout(function () { // second snap after layout settles
+                    var top2 = el.getBoundingClientRect().top + (window.pageYOffset || document.documentElement.scrollTop) - yOffset;
+                    window.scrollTo({ top: top2, behavior: 'auto' });
+                }, 250);
+                return;
+            }
+            if (tries-- > 0) setTimeout(retry, 50);
+        })();
+    }
+
+    $scope.resetContactForm = function (form) {
+        $scope.contactFormData = {};
+        if (form) { form.$setPristine(); form.$setUntouched(); }
+    };
 
   
 
@@ -115,8 +252,12 @@ $scope.isVideo = function(mediaUrl) {
     // // sequenced list of all categories by posted date
     $scope.getFilteredHighlights = function() {
         if ($scope.activeHighlight === 'all') {
-            // Return all highlights EXCEPT those with type 'blog'
-            return $scope.allHighlights.filter(post => post.type !== 'blog');
+
+            // Only return news and testimonial items
+            return $scope.allHighlights.filter(function (post) {
+                return post.type === 'news' || post.type === 'testimonial';
+            });
+            
         }
         return $scope.allHighlights.filter(post => post.type === $scope.activeHighlight);
     };
@@ -273,29 +414,44 @@ document.addEventListener('hidden.bs.modal', function () {
   document.body.style.overflow = '';
 });
 
+    // Scroll smoothly with optional offset (e.g., fixed navbar height)
+    $scope.scrollToSection = function (sectionId, $event) {
+        if ($event) {
+            $event.preventDefault();
+        }
 
+        // Close navbar if open (mobile)
+        const navbar = document.getElementById('navbarSupportedContent');
+        if (navbar && navbar.classList.contains('show')) {
+            const bsCollapse = bootstrap.Collapse.getInstance(navbar);
+            if (bsCollapse) bsCollapse.hide();
+        }
 
-// Scroll smoothly with optional offset (e.g., fixed navbar height)
-$scope.scrollToSection = function (sectionId) {
-    var element = document.getElementById(sectionId);
-    if (element) {
-      $window.scrollTo({
-        top: element.offsetTop - 80,
-        behavior: 'smooth'
-      });
-    }
-  };
+        // Wait for Angular to render the section
+        $timeout(function () {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                const navbarHeight = 80; // Adjust based on your navbar height
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - navbarHeight;
 
-// Navigation handler
-$scope.setActivePage = function(page) {
-    $scope.activePage = page;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }, 100); // Give Angular time to render
+    };
 
+    // Improved setActivePage function
+    $scope.setActivePage = function (page) {
+        $scope.activePage = page;
 
-    // Smooth scroll to top
-    $timeout(function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-    }, 0);
-};
+        // Always scroll to top when changing pages
+        $timeout(function () {
+            $window.scrollTo({ top: 0, behavior: 'smooth' });
+        }, 0);
+    };
 
 // ✅ Expose it globally so `app.run` can call it
 $rootScope.setActivePage = $scope.setActivePage;
@@ -309,7 +465,7 @@ $rootScope.setActivePage = $scope.setActivePage;
                  top: 0,
                     behavior: 'smooth'
                 });
-             }, 100); // delay ensures DOM is ready
+             }, 300); // delay ensures DOM is ready
         }
     });
 
@@ -489,187 +645,167 @@ $scope.getFormattedDate = function(dateStr) {
 // FAQ's
 $scope.faqTab = 'ojtgo';
 
-// for Chains2Chances FAQs
-$scope.ojtgoFaqs = [
+    // for Chains2Chances FAQs
+    $scope.ojtgoFaqs = [
 
-    {
-        question: "What is Chains2Chances?",
-        answer: {
-          list: [
-            `Chains2Chances is a digital job-matching platform developed by PCES Inc. 
-            It connects graduating students with host companies (HTEs) based on their course, location, and skills. 
-            Our goal is to simplify the job journey and reduce the stress, cost, and mismatches PDLs nearing the expiration of their sentences often experience.`
-        ]
+        {
+            question: "What is Chains2Chances?",
+            answer: {
+                list: [
+                    `Chains2Chances is an online employment platform under PCES Inc. designed to help Persons Deprived of Liberty (PDLs), 
+            whether soon to be released or recently released, transition smoothly into the workforce. It connects them with employers 
+            who are open to providing second-chance employment opportunities. The platform aims to break the cycle of unemployment and 
+            re-offending by providing meaningful and sustainable jobs. Through Chains2Chances, reintegration, dignity, and hope for a 
+            fresh start are promoted.`
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "How does Chains2Chances work?",
-        answer: {
-          list: [
-            `Persons nearing the expiration of their sentences create profiles on the platform, while employers post job openings. 
-           The system automatically matches candidates to jobs based on course, skills, location, 
-           and preferences. Employers can then communicate, interview, and hire directly through the platform.`,
-        ]
+        {
+            question: "How does Chains2Chances work?",
+            answer: {
+                list: [
+                    `Jail officers, who serve as the designated handlers of the admin account, create profiles for PDL applicants on the platform. 
+            Employers, on the other hand, can register their company and post available job opportunities. The system then automatically matches 
+            applicants with employers based on their qualifications and requirements. Communication and interviews may also be conducted directly 
+            within the platform, making the process simple, secure, and efficient.`,
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-    {
-      question: "Who can use Chains2Chances?",
-      answer: {
-        paragraph: "Chains2Chances is designed for:",
-        list: [
-          "Persons nearing the expiration of their sentences looking for job opportunities that fit their academic background and location",
-          "Employers/Host Training Establishments (HTEs) seeking qualified candidates efficiently",
-          "Schools aiming to streamline job placement and ensure students gain relevant experience"
-        ]
-      },
-      open: false
-    },
-
-    {
-      question: "Is this legit?",
-      answer: {
-        list: [
-          `Absolutely! Chains2Chances works only with verified companies, ensuring that every opportunity is legitimate
-           and provides a valuable job experience. We carefully screen all companies first before listing 
-           them on the platform. Chains2Chances is committed to making job 
-           placement fast, affordable, and stress-free for People who is re-integrating into our society across the Philippines.`,
-        ]
-      },
-      open: false
-    },
-
-  ];
-  
-
-// for Student FAQs
-$scope.studentFaqs = [
-
-    {
-      question: "How do I register as a former PDL?",
-      answer: {
-        list: [
-          `Simply visit OJTGo’s website, sign up using your email, and complete your profile with your education background, 
-          job preferences, and basic personal details. You can also add any relevant experiences, trainings or seminars, 
-          and certifications to make your profile more attractive to potential employers.`,
-        ]
-      },
-      open: false
-    },
-
-    {
-        question: "Is there a fee to use Chains2Chances?",
-        answer: {
-          list: [
-            `Yes, it’s just ₱30 per month. This gives you access to smart job matching, exclusive openings, 
-            and priority support`,
-          ]
+        {
+            question: "Who can use Chains2Chances?",
+            answer: {
+                paragraph: "Chains2Chances is designed for:",
+                list: [
+                    "1. PDL applicants who are about to be released or have recently re-entered the community",
+                    "2. Employers who are open to hiring qualified PDLs",
+                    "3. Government agencies such as BJMP, DOLE, DILG, and LGUs",
+                    "4. NGOs, cooperatives, and advocacy groups that provide training, skills development, and livelihood support"
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "How will I know if I’ve been matched?",
-        answer: {
-          list: [
-            `You’ll get a notification on your dashboard and via email with the job details and next steps`,
-          ]
+        {
+            question: "Is this legit?",
+            answer: {
+                list: [
+                    `Yes. Chains2Chances collaborates exclusively with verified employers to ensure that all job opportunities are genuine.
+           Employers are carefully screened before being included on the platform, guaranteeing that applicants are connected only 
+           to safe and legitimate opportunities.`,
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "Will I really get an Job placement",
-        answer: {
-          list: [
-            `Absolutely! Chains2Chances matches every former PDL with a company based on your course, skills, and preferences.
-             We guarantee placement so you can focus on graduating.`,
-          ]
+        {
+            question: "Is applicant and employer information safe?",
+            answer: {
+                list: [
+                    `Yes. Chains2Chances values privacy and protects all 
+                applicant and employer information. Data is used only for employment 
+                purposes and handled with strict confidentiality.`,
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "Do I need to attend multiple interviews?",
-        answer: {
-          list: [
-            `No need! The process is streamlined. Interviews can be done online within the platform—quick, 
-            convenient, and no travel required.`,
-          ]
+    ];
+
+
+    // for Student FAQs
+    $scope.studentFaqs = [
+
+        {
+            question: "Is there a fee to use Chains2Chances?",
+            answer: {
+                list: [
+                    `No. Chains2Chances is free for both applicants and employers.`,
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "Can I apply for multiple Job openings?",
-        answer: {
-          list: [
-            `Yes! You can explore and apply to several opportunities that match your qualifications and interests`,
-          ]
+        {
+            question: "How will applicants know if they have been matched?",
+            answer: {
+                list: [
+                    `In the Find Your Match section, a map will display the matching percentage with all job postings created by employers. 
+            If a job matches the applicant’s skills or interests, the applicant can click the job posting and select “Send Request.” 
+            The employer will receive an email notification once the request has been sent. If an employer sends a request to the applicant, 
+            the applicant will also receive an email notification.Once a request is accepted, the applicant and employer can communicate directly 
+            through the platform. Employers may also conduct interviews through the built-in chat feature.`,
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "What if I’m not matched right away?",
-        answer: {
-          list: [
-            `That’s okay! New opportunities are added regularly. Keep your profile updated and check your dashboard 
-            often to increase your chances.`,
-          ]
+        {
+            question: "Will applicants be guaranteed a job placement?",
+            answer: {
+                list: [
+                    `Chains2Chances is a job-matching platform, not a hiring agency. It does not hire directly but connects applicants with 
+            verified employers who are open to second-chance hiring. Jail officers help applicants set up their accounts, and applicants 
+            complete their profiles by adding details to their Career Portfolio. The Find Your Match feature then shows job postings 
+            based on matching skills. If an applicant finds a job they like, they can click it and send a request to the employer. 
+            Once the employer accepts, both parties can communicate and arrange an interview through the platform. While creating an 
+            account does not guarantee a job, Chains2Chances improves the chances of employment since applicants compete only with fellow 
+            PDL candidates and all employers are committed to offering second-chance opportunities.`,
+                ]
+            },
+            open: false
         },
-        open: false
-      },
-];
 
-// for Employer FAQs  
-$scope.employerFaqs = [
-    {
-      question: "How can companies register on Chains2Chances?",
-      answer: {
-        list: [
-          `Employers can easily sign up at www.c2c.com, create a company profile, and start posting job opportunities.`
-        ]
-      },
-      open: false
-    },
-
-      {
-        question: "Is there a cost for employers to post job openings?",
-        answer: {
-          list: [
-            `No, it’s completely free! Employers can post unlimited job openings and connect with qualified students at no cost.`,
-          ]
+    ];
+    
+    // for Employer FAQs  
+    $scope.employerFaqs = [
+        {
+            question: "How can companies register on Chains2Chances?",
+            answer: {
+                list: [
+                    `Employers can visit the official Chains2Chances website, sign up, and create a company profile. Once registered, they can begin posting job openings immediately.`,
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "How does Chains2Chances help employers find the right candidates?",
-        answer: {
-          list: [
-            `Chains2Chances uses a smart filtering system to help employers find students whose education, skills, and location preferences match 
+        {
+            question: "Is there a cost for employers to post job openings?",
+            answer: {
+                list: [
+                    `No. The platform is free. Employers can post unlimited job openings and connect with qualified applicants at no cost.`,
+                ]
+            },
+            open: false
+        },
+
+        {
+            question: "How does Chains2Chances help employers find the right candidates?",
+            answer: {
+                list: [
+                    `Chains2Chances uses a smart filtering system to help employers find students whose education, skills, and location preferences match 
             the job requirements—saving time and effort in the selection process.`,
-          ]
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-      {
-        question: "Can employers directly contact candidates?",
-        answer: {
-          list: [
-            `Yes! The platform includes a built-in messaging feature that lets employers reach out to candidates directly, 
+        {
+            question: "Can employers directly contact candidates?",
+            answer: {
+                list: [
+                    `Yes! The platform includes a built-in messaging feature that lets employers reach out to candidates directly, 
             making coordination and hiring faster and more convenient.`,
-          ]
+                ]
+            },
+            open: false
         },
-        open: false
-      },
 
-  ];
+    ];
   
  
 
@@ -1128,12 +1264,27 @@ $scope.$watch('faqTab', function (newTab) {
         window.location.href = "/registration-employer";
     };
 
-
-    var secretKey = adminAjax.secretKey; // Must match encryption key
-
-    // Function to encrypt data
-    function encryptData(data) {
-        return CryptoJS.AES.encrypt(JSON.stringify(data), secretKey).toString();
+    function encryptOnServer(data) {
+        return $http({
+            method: 'POST',
+            url: adminAjax.ajaxurl, // ✅ consistent key
+            headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+            data: $httpParamSerializerJQLike({
+                action:   'encrypt_credentials',
+                security: adminAjax.nonce,
+                data:     JSON.stringify(data)
+            })
+        }).then(function (response) {
+            // WordPress wraps our array inside response.data.data
+            var encrypted = response.data.data && response.data.data.encrypted;
+            if (response.data.success && encrypted) {
+                return encrypted;
+            } else {
+                throw new Error(
+                    (response.data.data && response.data.data.msg) || 'Encryption failed'
+                );
+            }
+        });
     }
     
     // Code Migrated @ 04/07/2025
@@ -1144,35 +1295,42 @@ $scope.$watch('faqTab', function (newTab) {
 
 
     // Modified by Lorenzo @ 04/02/2025
-    $scope.storeCredentials = function() {
-        if ($scope.isCreating) return; // 🚫 Prevent multiple calls/spam click
-        if ($scope.isFormInvalid() || !$scope.passwordValid || !$scope.usernameValid) return;// 🛑 Prevent action        
+    $scope.storeCredentials = function () {
+    
+        // 🚫 Prevent multiple calls
+        if ($scope.isCreating) return;
+    
+        // 🛑 Validate form
+        if ($scope.isFormInvalid() || !$scope.passwordValid || !$scope.usernameValid) return;
+    
         $scope.isCreating = true;
-
+    
+        // Build user data to send for encryption
         var userData = {
             username: $scope.credentials.username,
-            email: $scope.credentials.email,
+            email:    $scope.credentials.email,
             password: $scope.credentials.password,
-            role: $scope.credentials.role 
+            role:     $scope.credentials.role
         };
     
-        // 🛠️ Console to view user role before encryption
-        
-            // Encrypt before storing
-        var encryptedData = encryptData(userData);
-        // Store in rootScope and sessionStorage
-        $rootScope.userCredentials = encryptedData;
-        $sessionStorage.userCredentials = encryptedData;
+        // --- Encrypt on server ---
+        encryptOnServer(userData).then(function (encryptedData) {
     
-        // 📨 Store raw email separately for OTP operations
-        $sessionStorage.emailForOtp = userData.email;
-
-        // ✅ Send OTP
-        $http.post('/wp-json/myplugin/v1/send_otp/', {
-            email: userData.email,
-             type: 'register'
+            // ✅ Store encrypted result
+            $rootScope.userCredentials     = encryptedData;
+            $sessionStorage.userCredentials = encryptedData;
+    
+            // 📨 Store raw email separately for OTP
+            $sessionStorage.emailForOtp = userData.email;
+    
+            // ✅ Send OTP
+            return $http.post('/wp-json/myplugin/v1/send_otp/', {
+                email: userData.email,
+                type:  'register'
+            });
+    
         }).then(function (response) {
-            
+    
             if (response.data.success === false) {
                 Swal.fire({
                     icon: 'error',
@@ -1180,11 +1338,10 @@ $scope.$watch('faqTab', function (newTab) {
                     text: response.data.message,
                     confirmButtonColor: '#d33'
                 });
-        
                 $scope.isCreating = false;
                 return;
-            }       
-        
+            }
+    
             Swal.fire({
                 icon: 'success',
                 title: 'OTP Sent Successfully!',
@@ -1192,35 +1349,27 @@ $scope.$watch('faqTab', function (newTab) {
                 showConfirmButton: false,
                 timer: 1000,
                 timerProgressBar: true,
-                returnFocus: false // 🛑 prevents re-focusing the previous button
+                returnFocus: false
             }).then(() => {
-                // Use timeout to force proper DOM repaint in Firefox
                 $timeout(() => {
-                    // Open OTP modal
                     $scope.switchModalContent('verify');
-                    // 🔒 Start cooldown (3 minutes)
                     $scope.startOtpCooldown(180);
-
-                    $timeout(function () {
-                        document.activeElement.blur(); // removes focus
-                    });
-
-                    $scope.isCreating = false;      // re-enable create account button
-                }, 50); // 50ms is enough
-
+                    $timeout(function () { document.activeElement.blur(); });
+                    $scope.isCreating = false;
+                }, 50);
             });
-
+    
         }).catch(function (error) {
-
+    
             Swal.fire({
                 icon: 'error',
-                title: 'Failed to Send OTP',
-                text: error.data.message || "Something went wrong. Please try again.",
+                title: 'Request Failed',
+                text: error.message || (error.data && error.data.message) || 'Something went wrong. Please try again.',
                 confirmButtonColor: '#d33'
             });
-            $scope.isCreating = false; // 🧼 Re-enable button on failure
-        });    
-        
+            $scope.isCreating = false;
+    
+        });
     };
         /************* Millard Code Added 4-25  ************/
 
@@ -1889,30 +2038,45 @@ $scope.$watch('faqTab', function (newTab) {
     // Manually repeat 3 times for loop effect
     $scope.slides = $scope.originalSlides.concat($scope.originalSlides).concat($scope.originalSlides);
 
+    $scope.roles = [
+        "Construction worker", "Waiter", "Driver", "Painter",
+        "Welder", "Baker", "Kitchen staff", "Call center"
+    ];
+
 
 // Why C2C Section
-$scope.whyC2C = [
-  { 
-    icon: 'bi-briefcase', 
-    title: 'Pathway to Employment',     
-    desc: 'C2C opens doors to real job opportunities, giving PDLs a fair chance to start fresh and rebuild their careers after release.' 
-  },
-  { 
-    icon: 'bi-people', 
-    title: 'Supportive Employers',  
-    desc: 'Connect with inclusive employers who believe in second chances and are ready to support reintegration into society.' 
-  },
-  { 
-    icon: 'bi-tools',  
-    title: 'Recognize Your Skills', 
-    desc: 'Showcase skills and training gained inside facilities, making you visible and competitive in the job market.' 
-  },
-  { 
-    icon: 'bi-stars',    
-    title: 'Rebuild with Dignity',       
-    desc: 'Use a digital profile that highlights growth and potential, helping others see your future instead of your past.' 
-  }
-];
+    $scope.whyC2C = [
+        {
+            icon: 'bi-briefcase',
+            title: 'Pathway to Employment',
+            desc: 'Access real openings from partner companies. C2C helps PDLs move from training to paid work with a clear and practical next step.'
+        },
+        {
+            icon: 'bi-people-fill',
+            title: 'Supportive Employers',
+            desc: 'We partner with fair-chance employers who value effort and growth, not labels. They’re ready to welcome you back to work.'
+        },
+        {
+            icon: 'bi-award',
+            title: 'Recognize Your Skills',
+            desc: 'Add trainings, certificates, and work experience. Your profile turns what you’ve learned inside into strengths employers can see.'
+        },
+        {
+            icon: 'bi-person-badge',
+            title: 'Rebuild with Dignity',
+            desc: 'Your digital profile highlights your potential and progress. Share what helps you move forward, your story, your skills, your goals.'
+        },
+        {
+            icon: 'bi-compass',
+            title: 'Guided Hiring Journey',
+            desc: 'Simple steps from apply to interview to day one. Reminders, checklists, and friendly guidance so you’re never lost in the process.'
+        },
+        {
+            icon: 'bi-geo-alt',
+            title: 'Job Matching That Fits',
+            desc: 'See roles that match your skills, location, and schedule, so you spend time applying where you have a real chance.'
+        }
+    ];
 
 $scope.activeWhy = -1;
  
@@ -2101,3 +2265,110 @@ app.filter('capitalize', function() {
       return input;
     };
   });
+  
+app.directive('chipMarquee', function ($timeout, $window) {
+    return {
+        restrict: 'A',
+        scope: {
+            items: '=',
+            speed: '@?'   // pixels per frame (optional, default 0.6)
+        },
+        template:
+            `<div class="chip-marquee">
+    <div class="chip-viewport">
+      <div class="chip-lane" ng-style="{'transform':'translateX(' + x + 'px)'}">
+        <button type="button"
+          class="btn btn-outline-secondary rounded-pill px-3 py-2 chip"
+          ng-repeat="it in render track by $index">{{it}}</button>
+      </div>
+    </div>
+  </div>`,
+        link: function (scope, el) {
+            const lane = () => el[0].querySelector('.chip-lane');
+            const view = () => el[0].querySelector('.chip-viewport');
+
+            let raf = null, running = true;
+            scope.x = 0;
+            const GAP = 10;            // keep in sync with CSS
+            const DUP = 4;             // duplicate sets to ensure coverage
+            let setW = 0;              // width of one original set
+            let laneW = 0;             // total lane width
+            const pxPerFrame = Math.max(parseFloat(scope.speed) || 0.6, 0.1);
+
+            // Build extended list and measure widths
+            function rebuild() {
+                if (!Array.isArray(scope.items) || !scope.items.length) return;
+
+                scope.render = [];
+                for (let k = 0; k < DUP; k++) scope.render = scope.render.concat(scope.items);
+
+                $timeout(measureAndStart, 0); // allow DOM to render
+            }
+
+            function measureAndStart() {
+                scope.x = 0;
+                // width of one set
+                setW = measureSetWidth(scope.items.length);
+                // whole lane width
+                laneW = measureSetWidth(scope.render.length);
+                start();
+            }
+
+            function measureSetWidth(count) {
+                const chips = lane().children;
+                let total = 0;
+                for (let i = 0; i < count; i++) {
+                    const w = chips[i].getBoundingClientRect().width;
+                    total += w + GAP;
+                }
+                return total;
+            }
+
+            function tick() {
+                if (!running) return;
+                scope.x -= pxPerFrame;
+
+                // When we've scrolled past one set, jump forward by that set width
+                if (Math.abs(scope.x) >= setW) {
+                    scope.x += setW;
+                }
+
+                // Apply transform
+                lane().style.transform = `translateX(${scope.x}px)`;
+                raf = requestAnimationFrame(tick);
+            }
+
+            function start() {
+                stop();
+                running = true;
+                raf = requestAnimationFrame(tick);
+            }
+            function stop() {
+                running = false;
+                if (raf) cancelAnimationFrame(raf), raf = null;
+            }
+
+            // Pause on hover/touch
+            const viewport = view();
+            viewport.addEventListener('mouseenter', stop);
+            viewport.addEventListener('mouseleave', start);
+            viewport.addEventListener('touchstart', stop, { passive: true });
+            viewport.addEventListener('touchend', start);
+
+            // Recompute on resize / items change
+            angular.element($window).on('resize', () => $timeout(measureAndStart, 50));
+            scope.$watchCollection('items', rebuild);
+
+            scope.$on('$destroy', () => {
+                stop();
+                angular.element($window).off('resize');
+                viewport.removeEventListener('mouseenter', stop);
+                viewport.removeEventListener('mouseleave', start);
+                viewport.removeEventListener('touchstart', stop);
+                viewport.removeEventListener('touchend', start);
+            });
+
+            rebuild();
+        }
+    };
+});  
