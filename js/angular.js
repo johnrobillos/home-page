@@ -1,4 +1,4 @@
-var app = angular.module('angularApp', ['ngStorage']);
+var app = angular.module('homeApp', ['ngStorage']);
 
 // Deleting/clearing sessionStorage on page reload
 app.run(function($sessionStorage) {
@@ -34,25 +34,402 @@ app.run(function($timeout, $window, $rootScope) {
 
 
 
+ // Charls Added
+
+app.controller('homeController', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
+
+    $scope.activePage = 'home'; // Default page
+$scope.showActivePage = 'contact';
+
+// Modal state for news post
+$scope.selectedNewsPost = null;
+
+$scope.showNewsDetails = function(post) {
+    $scope.selectedNewsPost = post;
+    $('#newsModal').modal('show');
+};
+
+$scope.selectedBlog = {};
+
+$scope.showBlogDetails = function(blog) {
+    $scope.selectedBlog = blog;
+    $('#blogModal').modal('show');
+};
+
+$scope.closeBlogModal = function() {
+    $('#blogModal').modal('hide');
+    $('.modal-backdrop').remove();
+    $('body').removeClass('modal-open');
+};
+
+$scope.selectedBlog = null;
+
+// $scope.toggleBlogExpansion = function(blog) {
+//     $scope.selectedBlog = ($scope.selectedBlog === blog) ? null : blog;
+// };
+
+// Modal unified view
+$scope.modalExpansion = function(post) {
+    console.log(post);
+  $scope.selectedModal = post;
+};
+
+  
+
+//   testimonials modal view
+$scope.toggleTestimonialExpansion = function(post) {
+    $scope.selectedTestimonial = post;
+  };
+
+$scope.isVideo = function(mediaUrl) {
+    return mediaUrl && mediaUrl.match(/\.(mp4|webm|ogg)$/i);
+};
+
+// // BLOGS
+// $scope.blogs = [];
+
+// $scope.fetchBlogs = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=blog"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+
+//         // Filter only those with post_type === 'blog'
+//         const allPosts = response.data;
+//         $scope.blogs = allPosts
+//             .filter(blog => blog.post_type === 'blog')
+//             .map(blog => {
+//                 blog.blog_media = blog.blog_media.startsWith('http') ? blog.blog_media : baseURL + blog.blog_media;
+//                 return blog;
+//             });
+//     }, function (error) {
+//         console.error('Error fetching blogs:', error);
+//     });
+// };
+
+    $scope.allHighlights = [];
+    $scope.activeHighlight = 'all'; // Default to show all highlights
+    // // sequenced list of all categories by posted date
+    $scope.getFilteredHighlights = function() {
+        if ($scope.activeHighlight === 'all') {
+            // Return all highlights EXCEPT those with type 'blog'
+            return $scope.allHighlights.filter(post => post.type !== 'blog');
+        }
+        return $scope.allHighlights.filter(post => post.type === $scope.activeHighlight);
+    };
+    
+    $scope.filteredHighlights = $scope.getFilteredHighlights();
+
+
+
+
+$scope.fetchAllHighlights = function () {
+    $http({
+        method: 'POST',
+        url: adminAjax.ajaxurl,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        data: "action=fetch_database"
+    }).then(function (response) {
+        const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+
+        function unescapeDescription(description) {
+            if (!description) return '';
+            return description
+                .replace(/\\'/g, "'")
+                .replace(/\\"/g, '"')
+                .replace(/\\n/g, '\n')
+                .replace(/\\\\/g, '\\');
+        }
+
+        const posts = response.data.data.map(post => {
+            const type = post.post_type; // already in DB
+            const blog_media = post.blog_media && post.blog_media.startsWith('http')
+                ? post.blog_media
+                : baseURL + post.blog_media;
+
+            return {
+                type: type,
+                title: post.title_blog,
+                role: post.role || '',
+                description: post.blog_description,
+                descriptionUnescaped: unescapeDescription(post.blog_description),
+                date: post.blog_date,
+                image: blog_media,
+                link: post.link || ''
+            };
+        });
+
+    // Split into two separate arrays
+    $scope.blogs = posts.filter(p => p.type === 'blog');
+    $scope.allHighlights = posts.filter(p => p.type !== 'blog')
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+
+    // Set default filteredHighlights
+    $scope.filteredHighlights = $scope.getFilteredHighlights();
+    
+    }, function (error) {
+        console.error('Error fetching all highlights:', error);
+    });
+};
+
+$scope.fetchAllHighlights();
+
+$scope.$watch('activeHighlight', function () {
+    $scope.filteredHighlights = $scope.getFilteredHighlights();
+});
+
+
+// $scope.$watch('activePage', function(newVal) {
+//     if (newVal === 'highlights') {
+//         $scope.activeHighlight = 'all';
+//     }
+// });
+
+// // remove the backdrop when closing news modal
+// // $scope.closeNewsModal = function() {
+// //     $('#newsModal').modal('hide');
+// //     // Remove any leftover backdrop just in case
+// //     $('.modal-backdrop').remove();
+// //     $('body').removeClass('modal-open');
+// // };
+
+// $scope.selectedNewsPost = null;
+
+$scope.toggleNewsExpansion = function(post) {
+  $scope.selectedNewsPost = ($scope.selectedNewsPost === post) ? null : post;
+};
+
+// Quilljs viewer
+$scope.getQuillPreview = function(html) {
+    if (!html) return '';
+    // Optionally, strip tags and limit text for preview
+    var div = document.createElement('div');
+    div.innerHTML = html;
+    var text = div.innerText || div.textContent || '';
+    if (text.length > 200) {
+        text = text.substring(0, 200) + '.....';
+    }
+    return $sce.trustAsHtml(text);
+};
+
+$scope.getQuillFull = function(html) {
+    return $sce.trustAsHtml(html || '');
+};
+
+// // NEWS
+// $scope.newsPosts = [];
+
+// $scope.fetchNews = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=news"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.newsPosts = response.data.map(post => {
+
+//             post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media
+//             };
+//         });
+//         $scope.mergeAllHighlights(); // <-- add this here
+//     }, function (error) {
+//         console.error('Error fetching news:', error);
+//     });
+// };
+
+// // TESTIMONIALS
+// $scope.testimonialPosts = [];
+
+// $scope.fetchTestimonials = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=testimonial"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.testimonialPosts = response.data.map(post => {
+
+//             function unescapeDescription(description) {
+//                 if (!description) return '';
+//                 return description
+//                     .replace(/\\'/g, "'")
+//                     .replace(/\\"/g, '"')
+//                     .replace(/\\n/g, '\n')
+//                     .replace(/\\\\/g, '\\');
+//             }            
+            
+//             post.blog_media = post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 role: post.role,
+//                 description: post.blog_description,
+//                 descriptionUnescaped: unescapeDescription(post.blog_description),                
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching testimonials:', error);
+//     });
+// };
+
+// // FACEBOOK
+// $scope.facebookPosts = [];
+// $scope.fetchFacebook = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=facebook"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.facebookPosts = response.data.map(post => {
+
+//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//                 link: post.link
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching Facebook posts:', error);
+//     });
+// };
+
+// // INSTAGRAM
+// $scope.instagramPosts = [];
+// $scope.fetchInstagram = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=instagram"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.instagramPosts = response.data.map(post => {
+        
+//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//                 link: post.link
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching Instagram posts:', error);
+//     });
+// };
+
+
+// // TIKTOK
+// $scope.tiktokPosts = [];
+// $scope.fetchTikTok = function () {
+//     $http({
+//         method: 'POST',
+//         url: adminAjax.ajaxurl,
+//         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+//         data: "action=fetch_database&post_type=tiktok"
+//     }).then(function (response) {
+//         const baseURL = window.location.origin + "/wp-content/uploads/icons/posting_portal/";
+//         $scope.tiktokPosts = response.data.map(post => {
+
+//             post.blog_media = post.blog_media && post.blog_media.startsWith('http') ? post.blog_media : baseURL + post.blog_media;
+//             return {
+//                 title: post.title_blog,
+//                 description: post.blog_description,
+//                 date: post.blog_date,
+//                 image: post.blog_media,
+//                 link: post.link
+//             };
+//         });
+//         $scope.mergeAllHighlights();
+//     }, function (error) {
+//         console.error('Error fetching TikTok posts:', error);
+//     });
+// };
+
+// $scope.mergeAllHighlights = function () {
+//     function unescapeDescription(description) {
+//         if (!description) return '';
+//         return description
+//             .replace(/\\'/g, "'")
+//             .replace(/\\"/g, '"')
+//             .replace(/\\n/g, '\n')
+//             .replace(/\\\\/g, '\\');
+//     }
+
+//     $scope.allHighlights = [].concat(
+//         ($scope.newsPosts || []).map(post => ({
+//             ...post,
+//             type: 'news',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.testimonialPosts || []).map(post => ({
+//             ...post,
+//             type: 'testimonial',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.facebookPosts || []).map(post => ({
+//             ...post,
+//             type: 'facebook',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.instagramPosts || []).map(post => ({
+//             ...post,
+//             type: 'instagram',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         })),
+//         ($scope.tiktokPosts || []).map(post => ({
+//             ...post,
+//             type: 'tiktok',
+//             descriptionUnescaped: unescapeDescription(post.description)
+//         }))
+//     );
+
+//     $scope.allHighlights.sort(function (a, b) {
+//         return new Date(b.date) - new Date(a.date);
+//     });
+// };
 
 
 
 
 
+// // AUTO-LOAD on controller init
+// $scope.fetchBlogs();
+// $scope.fetchNews();
+// $scope.fetchTestimonials(); // Add this
+// $scope.fetchFacebook();
+// $scope.fetchInstagram();
+// $scope.fetchTikTok();
 
-app.controller('angular_controller', function($scope, $http, $timeout, $window, $rootScope, $sessionStorage, $document) {
+
+          
       $scope.credentials = {
         username: '',
         password: ''
 
     };
 
-    // Charls Added
-
-$scope.activePage = 'home'; // Default page
-$scope.showActivePage = 'contact';
 // Add this temporarily to your controller
-
 // automatically scroll to the news section
 $scope.showFullNewsPage = false; // default to list
 
@@ -61,11 +438,11 @@ $scope.openFullNews = function(news) {
   $scope.showFullNewsPage = true;
 
   // Scroll to top for full news page
-  setTimeout(() => {
-    const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    else window.scrollTo({ top: 0, behavior: 'smooth' });
-  }, 100);
+//   setTimeout(() => {
+//     const el = document.querySelector('.card.shadow-sm.border-0.mt-4.p-4');
+//     if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+//     else window.scrollTo({ top: 0, behavior: 'smooth' });
+//   }, 100);
 };
 
 $scope.closeFullNews = function() {
@@ -74,99 +451,44 @@ $scope.closeFullNews = function() {
 
 };
 
-
-// for news section functionality
-$scope.newsList = [
-    {
-      title: 'Introducing OJTGo: Easier Internship Search Begins Today!',
-      
-      summary: `
-      
-        PCES Inc. has officially launched OJTGo, a platform created by and primarily for students seeking internship opportunities. 
-        OJTGo is built for easier access to internship search and more effective applications. OJTGo offers to facilitate your entire internship 
-        process, from application to completion.
-
-        By creating an account, OJTGo will match your course, skills, schedule, and location to the internship listings from the employers.
-
-        For every search result, a matching percentage will be displayed to help applicants select internships that fit their qualifications and preferences.
-
-        This feature enables students to save time by not looking into every search result and eliminates the need for printed resumes during application.
-
-        At the same time, this website will also benefit companies and employers looking for fresh talent. Employers will be able to fill in specific requirements 
-        for their listings, streamlining the hiring process by immediately identifying potential candidates compatible with the given requirements.
-
-        With its features and site details, OJTGo seeks to revolutionize the hiring and application process for internships. So, whether you’re an employer or an 
-        intern, OJTGo will help you make a go for it!
-
-        Let’s get you matched—register now!
-`,
-
-      date: 'May 25, 2025',
-      image: adminAjax.homeUrl + '/wp-content/uploads/icons/OJTGO-630X310.png'
-    },
-
-    // {
-    //   title: 'Tips to Land Your Dream Internship',
-    //           summary: `Check out our top tips to help you stand out in your OJT applications and get noticed by top companies. 
-    //           From crafting a strong resume to acing your interview, these simple but effective strategies will boost your chances of 
-    //           landing the internship you’ve always wanted. Start preparing now and take control of your future!`,
-    //   date: 'May 14, 2025',
-    //   image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo3.jpg'
-    // },
-
-    // {
-    //   title: 'Internship Horror Stories – And How OJTGo Solves Them',
-    //   summary:'Internships should be stepping stones to your career — not nightmares. Unfortunately, many students face issues like unpaid work, vague job descriptions, and recruiters who disappear without a trace. In this post, we dive into these common internship horror stories and show exactly how OJTGo’s transparent and student-focused platform is designed to solve them. Say goodbye to frustration and hello to clear, fair, and meaningful internship opportunities!',
-    //   date: 'May 15, 2025',
-    //   image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo5.jpg'
-    // },
-        
-    // {
-    //   title: 'OJTGo Team Speaks at Cavite State University',
-    //   summary: 'Our founders recently had the honor of speaking at Cavite State University, sharing valuable insights about the challenges students face during internships and how technology can transform the experience. They discussed the vision behind OJTGo — a platform built to connect students with real opportunities and make the internship process smoother and more transparent. This event marked a big step toward fostering stronger ties between education and industry through innovation.',
-    //   date: 'May 16, 2025',
-    //   image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo2.jpg'
-    // },
-
-    // {
-    //     title: 'OJTGo Expands to More Schools Nationwide',
-    //     summary: 'We’re excited to announce that OJTGo is growing! Our platform is now partnering with even more colleges and universities across the Philippines, helping thousands of students access verified internship opportunities closer to home. This nationwide expansion reflects our commitment to bridging the gap between students and employers, providing a trusted, easy-to-use tool for career development no matter where you study.',
-    //     date: 'May 17, 2025',
-    //     image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo7.jpg'
-    //   },
-    
-    //   {
-    //     title: 'Student Testimonials: How OJTGo Helped Me Land an Internship',
-    //     summary: 'Don’t just take our word for it — hear from the students themselves! In this post, we share inspiring stories from real users who successfully found and secured valuable internships through OJTGo. From landing their first OJT role to gaining hands-on experience in their dream industries, these testimonials highlight how the platform makes a difference in students’ lives and futures.',
-    //     date: 'May 18, 2025',
-    //     image: 'https://vin.ojtgo.com/wp-content/uploads/2025/05/ojtgo6.jpg'
-    //   },
-  ];
-  
-
-
-
-// Use controllerAs syntax (recommended)
-controllerAs: 'vm',
-// Then in HTML: ng-if="vm.activePage === 'contact'"
-
-
 $scope.showPage = function(page) {
     $scope.currentPage = page; // Correctly assign the page name passed to the function
 };
 
+let scrollY = window.scrollY;
 
-    $scope.scrollToSection = function(sectionId) {
-        var element = document.getElementById(sectionId);
-        if (element) {
-            setTimeout(function() {
-                $window.scrollTo({
-                    top: element.offsetTop - 30, // Optional: Add offset to adjust for header height
-                    behavior: "smooth" // Smooth scrolling
-                });
-            }, 100); // Add a timeout of 100ms
-        }
-    };
+document.addEventListener('show.bs.modal', function () {
+  // Freeze body scroll
+  document.body.style.position = 'absolute';
+  document.body.style.top = `-${scrollY}px`;
+  document.body.style.left = '0';
+  document.body.style.right = '0';
+  document.body.style.width = '100%';
+  document.body.style.overflow = 'hidden';
+});
+
+document.addEventListener('hidden.bs.modal', function () {
+  // Unfreeze body scroll
+  document.body.style.position = '';
+  document.body.style.top = '';
+  document.body.style.left = '';
+  document.body.style.right = '';
+  document.body.style.width = '';
+  document.body.style.overflow = '';
+});
+
+
+
+// Scroll smoothly with optional offset (e.g., fixed navbar height)
+$scope.scrollToSection = function (sectionId) {
+    var element = document.getElementById(sectionId);
+    if (element) {
+      $window.scrollTo({
+        top: element.offsetTop - 80,
+        behavior: 'smooth'
+      });
+    }
+  };
 
 // Navigation handler
 $scope.setActivePage = function(page) {
@@ -188,10 +510,10 @@ $rootScope.setActivePage = $scope.setActivePage;
             // Scroll to top after view changes
             setTimeout(function() {
                 window.scrollTo({
-                    top: 0,
+                 top: 0,
                     behavior: 'smooth'
                 });
-            }, 100); // delay ensures DOM is ready
+             }, 100); // delay ensures DOM is ready
         }
     });
 
@@ -206,9 +528,6 @@ $scope.toggleTeamVisibility = function () {
 $scope.$on('$locationChangeStart', function () {
   $scope.showAllTeam = false;
 });
-        
-
-
         // teamwork lottie
         var emp_details = lottie.loadAnimation({
             container: $("#teamwork_2")[0],
@@ -237,15 +556,49 @@ $scope.$on('$locationChangeStart', function () {
          path: "/wp-content/uploads/lottie/virtual_job.json"
     });
  });
-
-
-        // magnifying lottie
+        // // magnifying lottie
         var magnify_lottie = lottie.loadAnimation({
             container: $("#magnify-job-lottie")[0], // HTML container element
             renderer: 'svg', // Render as SVG
             loop: true, // Animation should loop
             autoplay: true, // Start playing automatically
             path: "/wp-content/uploads/lottie/magnify.json" // Path to your Lottie JSON file
+        });
+
+        // how # 1 Lottie
+        var step1 = lottie.loadAnimation({
+            container: $("#step1")[0], // HTML container element
+            renderer: 'svg', // Render as SVG
+            loop: true, // Animation should loop
+            autoplay: true, // Start playing automatically
+            path: "/wp-content/uploads/lottie/step1.json" // Path to your Lottie JSON file
+        });
+
+        // how # 2 Lottie
+        var step2 = lottie.loadAnimation({
+            container: $("#step2")[0], // HTML container element
+            renderer: 'svg', // Render as SVG
+            loop: true, // Animation should loop
+            autoplay: true, // Start playing automatically
+            path: "/wp-content/uploads/lottie/step2.json" // Path to your Lottie JSON file
+        });
+
+        // how # 3 Lottie
+        var step3 = lottie.loadAnimation({
+            container: $("#step3")[0], // HTML container element
+            renderer: 'svg', // Render as SVG
+            loop: true, // Animation should loop
+            autoplay: true, // Start playing automatically
+            path: "/wp-content/uploads/lottie/step3.json" // Path to your Lottie JSON file
+        });
+
+        // how # 4 Lottie
+        var step4 = lottie.loadAnimation({
+            container: $("#step4")[0], // HTML container element
+            renderer: 'svg', // Render as SVG
+            loop: true, // Animation should loop
+            autoplay: true, // Start playing automatically
+            path: "/wp-content/uploads/lottie/step4.json" // Path to your Lottie JSON file
         });
 
         // person lottie
@@ -257,6 +610,15 @@ $scope.$on('$locationChangeStart', function () {
             path: "/wp-content/uploads/lottie/workforce_colored.json" // Path to your Lottie JSON file
         });
 
+        // connect lottie
+        // var emp_details = lottie.loadAnimation({
+        //     container: document.getElementById("yey"),
+        //     renderer: 'svg',
+        //     loop: true,
+        //     autoplay: true,
+        //     path: "/wp-content/uploads/lottie/yey.json"
+        // });
+
         $scope.credentials = {
             username: '',
             password: ''
@@ -264,24 +626,24 @@ $scope.$on('$locationChangeStart', function () {
 
         // Mobile navbar collapse
         // Automatically collapse navbar on mobile when any nav-link is clicked
-        document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
-            el.addEventListener('click', function (e) {
-                // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
-                if (el.classList.contains('dropdown-toggle')) {
-                    return;
-                }
+        // document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
+        //     el.addEventListener('click', function (e) {
+        //         // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
+        //         if (el.classList.contains('dropdown-toggle')) {
+        //             return;
+        //         }
         
-                const collapseElement = document.getElementById('navbarSupportedContent');
-                const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+        //         const collapseElement = document.getElementById('navbarSupportedContent');
+        //         const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
         
-                // Collapse only if it's currently shown
-                if (bsCollapse && collapseElement.classList.contains('show')) {
-                    bsCollapse.hide();
-                }
-            });
-        });
+        //         // Collapse only if it's currently shown
+        //         if (bsCollapse && collapseElement.classList.contains('show')) {
+        //             bsCollapse.hide();
+        //         }
+        //     });
+        // });
 
-        // Close the navbar when clicking outside of it
+        // // Close the navbar when clicking outside of it
         document.addEventListener('click', function (event) {
             const navbar = document.getElementById('navbarSupportedContent');
             const toggler = document.querySelector('.navbar-toggler');
@@ -300,25 +662,24 @@ $scope.$on('$locationChangeStart', function () {
             }
         });
 
-        
-
 // AngularJS controller logic
 $scope.selectedNews = null;
 $scope.showFullNewsPage = false;
 
 // Open full news view
-$scope.openFullNews = function(news) {
-  $scope.selectedNews = news;
-  $scope.showFullNewsPage = true;
+// $scope.openFullNews = function(news) {
+//   $scope.selectedNews = news;
+//   $scope.showFullNewsPage = true;
 
   // Scroll to full-news-section after DOM update
-  $timeout(function () {
-    var el = document.getElementById("full-news-section");
-    if (el) {
-      el.scrollIntoView({ behavior: "auto", block: "start" });
-    }
-  }, 100); // Adjust delay if necessary
-};
+//   $timeout(function () {
+//     var el = document.getElementById("full-news-section");
+//     if (el) {
+//       el.scrollIntoView({ behavior: "auto", block: "start" });
+//     }
+//   }, 100); // Adjust delay if necessary
+// };
+
 
 // Close full news view
 $scope.closeFullNews = function() {
@@ -326,16 +687,230 @@ $scope.closeFullNews = function() {
   $scope.showFullNewsPage = false;
 };
 
-        
+// for date and hour convert
+$scope.getFormattedDate = function(dateStr) {
+  const date = new Date(dateStr);
+  const options = {
+    year: 'numeric',
+    month: 'long', // Capitalized by default
+    day: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+    hour12: true
+  };
+  return date.toLocaleString('en-US', options).replace('PM', 'pm').replace('AM', 'am');
+};
 
-          
 
 
+// FAQ's
+$scope.faqTab = 'ojtgo';
+
+// for OJTGo FAQs
+$scope.ojtgoFaqs = [
+
+    {
+        question: "What is OJTGo?",
+        answer: {
+          list: [
+            `OJTGo is a digital internship-matching platform developed by PCES Inc., 
+          created by students—for students. It connects graduating students with host companies 
+          (HTEs) based on their course, location, and skills. Our goal is to simplify the internship 
+          journey and reduce the stress, cost, and mismatches students often experience.`
+        ]
+        },
+        open: false
+      },
+
+      {
+        question: "How does OJTGo work?",
+        answer: {
+          list: [
+            `Students create profiles on the platform, while employers post internship openings. 
+           The system automatically matches candidates to jobs based on course, skills, location, 
+           and preferences. Employers can then communicate, interview, and hire directly through the platform.`,
+        ]
+        },
+        open: false
+      },
+
+    {
+      question: "Who can use OJTGo?",
+      answer: {
+        paragraph: "OJTGo is designed for:",
+        list: [
+          "Students looking for internship opportunities that fit their academic background and location",
+          "Employers/Host Training Establishments (HTEs) seeking qualified interns efficiently",
+          "Schools aiming to streamline internship placement and ensure students gain relevant experience"
+        ]
+      },
+      open: false
+    },
+
+    {
+      question: "Is this legit?",
+      answer: {
+        list: [
+          `Absolutely! OJTGo works only with verified companies, ensuring that every opportunity is legitimate
+           and provides a valuable internship experience. We carefully screen all companies first before listing 
+           them on the platform. Built from firsthand student experience, OJTGo is committed to making internship 
+           placement fast, affordable, and stress-free for students across the Philippines.`,
+        ]
+      },
+      open: false
+    },
+
+  ];
+  
+
+// for Student FAQs
+$scope.studentFaqs = [
+
+    {
+      question: "How do I register as a student?",
+      answer: {
+        list: [
+          `Simply visit OJTGo’s website, sign up using your email, and complete your profile with your education background, 
+          internship preferences, and basic personal details. You can also add any relevant experiences, trainings or seminars, 
+          and certifications to make your profile more attractive to potential employers.`,
+        ]
+      },
+      open: false
+    },
+
+    {
+        question: "Is there a fee to use OJTGo?",
+        answer: {
+          list: [
+            `Yes, it’s just ₱30 per month. This gives you access to smart internship matching, exclusive openings, 
+            and priority support`,
+          ]
+        },
+        open: false
+      },
+
+      {
+        question: "How will I know if I’ve been matched?",
+        answer: {
+          list: [
+            `You’ll get a notification on your dashboard and via email with the internship details and next steps`,
+          ]
+        },
+        open: false
+      },
+
+      {
+        question: "Will I really get an OJT placement",
+        answer: {
+          list: [
+            `Absolutely! OJTGo matches every student with a company based on your course, skills, and preferences.
+             We guarantee placement so you can focus on graduating.`,
+          ]
+        },
+        open: false
+      },
+
+      {
+        question: "Do I need to attend multiple interviews?",
+        answer: {
+          list: [
+            `No need! The process is streamlined. Interviews can be done online within the platform—quick, 
+            convenient, and no travel required.`,
+          ]
+        },
+        open: false
+      },
+
+      {
+        question: "Can I apply for multiple internships?",
+        answer: {
+          list: [
+            `Yes! You can explore and apply to several opportunities that match your qualifications and interests`,
+          ]
+        },
+        open: false
+      },
+
+      {
+        question: "What if I’m not matched right away?",
+        answer: {
+          list: [
+            `That’s okay! New opportunities are added regularly. Keep your profile updated and check your dashboard 
+            often to increase your chances.`,
+          ]
+        },
+        open: false
+      },
+];
+
+// for Employer FAQs  
+$scope.employerFaqs = [
+    {
+      question: "How can companies register on OJTGo?",
+      answer: {
+        list: [
+          `Employers can easily sign up at www.ojtgo.com, create a company profile, and start posting internship opportunities.`
+        ]
+      },
+      open: false
+    },
+
+      {
+        question: "Is there a cost for employers to post internships?",
+        answer: {
+          list: [
+            `No, it’s completely free! Employers can post unlimited internships and connect with qualified students at no cost.`,
+          ]
+        },
+        open: false
+      },
+
+      {
+        question: "How does OJTGo help employers find the right interns?",
+        answer: {
+          list: [
+            `OJTGo uses a smart filtering system to help employers find students whose education, skills, and location preferences match 
+            the internship requirements—saving time and effort in the selection process.`,
+          ]
+        },
+        open: false
+      },
+
+      {
+        question: "Can employers directly contact students?",
+        answer: {
+          list: [
+            `Yes! The platform includes a built-in messaging feature that lets employers reach out to students directly, 
+            making coordination and hiring faster and more convenient.`,
+          ]
+        },
+        open: false
+      },
+
+  ];
+  
+ 
+
+  
+$scope.toggleFaq = function (faqList, index) {
+    if (!faqList || !Array.isArray(faqList)) return;
+
+    faqList.forEach((faq, i) => {
+        faq.open = (i === index) ? !faq.open : false;
+    });
+};
+
+$scope.$watch('faqTab', function (newTab) {
+    if (newTab === 'ojtgo') {
+        $scope.ojtgoFaqs.forEach(faq => faq.open = false);
+    } else if (newTab === 'student') {
+        $scope.studentFaqs.forEach(faq => faq.open = false);
+    } else if (newTab === 'employer') {
+        $scope.employerFaqs.forEach(faq => faq.open = false);
+    }
+});
 
 
-
-
-          
 
     // added by lorenzo @ 04/25/2025
 
@@ -452,28 +1027,7 @@ $scope.closeFullNews = function() {
         
             $scope.isCreating = false;          // Reset to false after process is finished
         });
-    };
-    
-    // Handle Enter key on Login Content
-    // $scope.handleLoginKeypress = function($event) {
-    //     if ($event.key === "Enter" && $scope.currentModalContent === 'login') {
-    //         $scope.loginUser();
-    //     }
-    // };
-    
-    // // Handle Enter key on Login Content
-    // $scope.handleCreateAccKeypress = function($event) {
-    //     if ($event.key === "Enter" && $scope.currentModalContent === 'register') {
-    //         $scope.storeCredentials();
-    //     }
-    // };  
-    
-    // // Handle Enter key on Login Content
-    // $scope.handleVerifyOTPKeypress = function($event) {
-    //     if ($event.key === "Enter" && $scope.currentModalContent === 'verify') {
-    //         $scope.verifyAndProceed('register');
-    //     }
-    // };       
+    };      
     
      $document.on('keydown', function(event) {
         if (event.key !== 'Enter') return;
@@ -535,14 +1089,12 @@ $scope.closeFullNews = function() {
         
     };
 
-
     // Added by Lorenzo @ 04/25/2025
     // Validate OTP input
     $scope.validateOtp = function(target) {
         // Prevent non-numeric input and limit input to 6 digits only
         $scope[target] = $scope[target].replace(/\D/g, '').substring(0, 6);
     }
-
 
     // proceedToVerification modified (at lorenzo code)
     
@@ -552,14 +1104,10 @@ $scope.closeFullNews = function() {
         
         if ($scope.isCreating) return; // 🚫 Prevent multiple calls/spam click
         $scope.isCreating = true;
-
-
     
         if (target === "register") {            // Verification - registration
             var enteredOtp = $scope.otpCode;
             var email = $sessionStorage.emailForOtp;
-
-
         
             if (!enteredOtp || enteredOtp.trim() === '') {
                 
@@ -573,8 +1121,7 @@ $scope.closeFullNews = function() {
                     returnFocus: false,              // 🛑 prevents re-focusing the previous button
                     allowOutsideClick: true
                 });    
-                
-                
+                      
                 $scope.isCreating = false; // 🛑 Reset to allow retry
                 return;
             }
@@ -594,7 +1141,6 @@ $scope.closeFullNews = function() {
                 $scope.isCreating = false; // 🛑 Reset to allow retry
                 return;
             }        
-            
         
             $http.post('/wp-json/myplugin/v1/validate_otp/', {
                 email: email,
@@ -618,7 +1164,6 @@ $scope.closeFullNews = function() {
                         $scope.isCreating = false;
                         return;
                     }                
-
                 
                 // 🧹 Clear OTP email after successful verification
                  delete $sessionStorage.emailForOtp;
@@ -646,16 +1191,13 @@ $scope.closeFullNews = function() {
                     }
                 });
             
-
                 $timeout(function () {
                     document.activeElement.blur(); // removes focus on the button
                 });
 
-
                 $timeout(function () {
                     $scope.isCreating = false;          // Reset to false after process is finished
                 }, 1500);
-
         
             }).catch(function(error) {
             
@@ -672,8 +1214,7 @@ $scope.closeFullNews = function() {
                     allowOutsideClick: true
                 });                
 
-
-                $scope.isCreating = false;          // Reset to false after process is finished
+               $scope.isCreating = false;          // Reset to false after process is finished
             });
 
         } 
@@ -682,7 +1223,6 @@ $scope.closeFullNews = function() {
 
             var email = $sessionStorage.resetEmail;
             var enteredOtp = $scope.passRecoveryOtp;
-        
         
             if (!email) {
                 Swal.fire({
@@ -714,8 +1254,7 @@ $scope.closeFullNews = function() {
                 $scope.isCreating = false; // 🛑 Reset to allow retry
                 return;
             }
-            
-                
+                   
             $http.post('/wp-json/myplugin/v1/validate_otp_forgot/', {
                 email: email,
                 otp: enteredOtp
@@ -784,542 +1323,6 @@ $scope.closeFullNews = function() {
 
     };
     
-    // openLoginModalNav modified (at lorenzo code)
-    // openLoginModalApply removed @04/07/2025
-    
-  
-    // For Dropdowns List options revised &added 4-5-25  
-
-    // For Course and Role
-    // $scope.courseJobMapping = {};
-    // $scope.filterData = {
-    //     selectedCourse: null,
-    //     selectedRole: null
-    // };
-    // $scope.courses = [];
-    // $scope.jobTitles = [];
-    
-    // $http.get('/wp-admin/admin-ajax.php?action=get_course_job_titles')
-    //     .then(function(response) {
-    //         $scope.courseJobMapping = response.data || {};
-    //         $scope.courses = Object.keys($scope.courseJobMapping).sort();
-    //     })
-    //     .catch(function(error) {
-    //         console.error("❌ Error fetching mapping:", error);
-    //     });
-    
-    // $scope.updateJobTitles = function () {
-    //     let course = $scope.filterData.selectedCourse?.trim();
-    //     console.log("➡️ Course selected:", course);
-    
-    //     if (course && $scope.courseJobMapping[course]) {
-    //         $scope.jobTitles = [...new Set($scope.courseJobMapping[course])].map(j => j.trim()).sort();
-    //         console.log("🎯 Job Titles:", $scope.jobTitles);
-    //     } else {
-    //         $scope.jobTitles = [];
-    //         console.warn("⚠️ No matching job titles for course:", course);
-    //     }
-    
-    //      $scope.filterData.selectedRole = null;
-    // };
-
-
-
-    // $scope.locationFilter = {
-    //     province: null,
-    //     city: null
-    // };
-    
-    // $scope.provinceList = [];
-    // $scope.cityList = [];
-    
-    // // ✅ Load provinces and cities from backend
-    // $http.post(adminAjax.ajaxurl, $.param({ action: 'get_philippines_data_for_posting' }), {
-    //     headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
-    // }).then(function(response) {
-    //     if (response.data.provinces && response.data.cities) {
-    //         $scope.provinceList = response.data.provinces;
-    //         $scope.allCities = response.data.cities;
-    //     }
-    // }).catch(function(error) {
-    //     console.error("❌ Failed to load location data:", error);
-    // });
-    
-    // ✅ When province changes, load cities under it
-    // $scope.loadCitiesForProvince = function () {
-    //     const selected = $scope.locationFilter.province;
-    
-    //     if (!selected) {
-    //         $scope.cityList = [];
-    //         $scope.locationFilter.city = null;
-    //         return;
-    //     }
-    
-    //     const province = $scope.provinceList.find(p => p.province_name === selected);
-    //     if (province) {
-    //         $scope.cityList = $scope.allCities
-    //             .filter(city => city.province_code === province.province_code)
-    //             .map(city => city.city_name);
-    
-    //         $scope.locationFilter.city = null; // reset city when province changes
-    //     }
-    // };
-    
-    
-
-
-
-
-    
-    
-
-    //////
-
-
-    $scope.submit_reg = function() {
-    
-        Swal.fire({
-            title: 'Registration Successful!',
-            text: 'You will be redirected to your dashboard.',
-            icon: 'success',
-            confirmButtonText: 'Ok'
-        });
-    
-    }
-
-
-    // Added by Lorenzo @ 04/07/2025
-    // Assign colors to variables
-    // $scope.greenColor = '#288237';              // General Color                // #C93F24
-    // $scope.redColor = '#C93F24';                // General Color                // #C93F24
-    // $scope.pendingColor = '#DEB93F';            // Status label color           // #DEB93F
-    // $scope.processingColor = '#C88040';         // Status label color           // #C88040
-    // $scope.interviewColor = '#3B6EBC';          // Status label color           // #3B6EBC
-    // $scope.internshipOfferColor = '#74398D';    // Status label color           // #74398D
-    // $scope.highToMidColor = '#A8C924';          // matching percentage color    // #A8C924
-    // $scope.midToLowColor = '#C99524';           // matching percentage color    // #C99524
-    // $scope.grayColor = '#6c757d';               // For inactive or disabled     // #6c757d
-
-
-
-    // // Assign correct color for the correct percentage range
-    // $scope.getMatchColor = function (percentage) {
-    //     if (percentage >= 80) return $scope.greenColor;
-    //     if (percentage >= 51) return $scope.highToMidColor;
-    //     if (percentage >= 25) return $scope.midToLowColor;
-    //     if (percentage >= 0) return $scope.redColor;  
-                
-    //     return $scope.redColor;             //default color
-    // };
-
-
-    // // Fetch job posts from backend once
-    // $scope.fetch_job_posts = function() {
-    //   $http({
-    //       method: 'POST',
-    //       url: adminAjax.ajaxurl,
-    //       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //       data: $.param({ action: 'fetch_job_posts' })
-    //     }).then(function (response) {
-    //         $scope.job_posts = response.data;
-    //         if ($scope.job_posts.length > 0) {
-    //             $scope.original_job_post = angular.copy($scope.job_posts);
-    //             $scope.first_row = $scope.job_posts[0]._ID;
-    
-    //             $scope.job_post_selected($scope.first_row);
-    //             $scope.updateMatchPercentage();         
-    //             $scope.sortJobsByMatch();
-    //             // Calculate match percentage after fetching jobs
-
-    //         }
-
-    //     }, function (error) {
-    //          console.error("Error fetching job posts:", error);
-    //     });
-    // };
-
-    // Initialize filters
-    // $scope.match_per = 100; // Default matching percentage
-
-    // $scope.fetch_job_posts();
-    
-
-    
-// $scope.updateChart = function(match_percentage) {
-//     console.log("Updating Chart with:", match_percentage);
-
-//     match_percentage = parseFloat(match_percentage) || 0;
-
-//     // Delay rendering to allow DOM to settle
-//     $timeout(function () {
-//         const chartContainer = document.getElementById('container');
-
-//         if (!chartContainer) {
-//             console.warn("⛔ Chart container #container still not found after timeout.");
-//             return;
-//         }
-
-//         if ($scope.chartInstance) {
-//             $scope.chartInstance.destroy();
-//         }
-
-//         // Determine color
-//         let color = '#6c757d';
-//         if (match_percentage >= 80) color = $scope.greenColor;
-//         else if (match_percentage >= 51) color = $scope.highToMidColor;
-//         else if (match_percentage >= 25) color = $scope.midToLowColor;
-//         else if (match_percentage > 0) color = $scope.redColor;
-
-//         $scope.chartInstance = Highcharts.chart('container', {
-//             chart: {
-//                 type: 'pie',
-//                 plotBackgroundColor: null,
-//                 plotBorderWidth: 0,
-//                 plotShadow: false
-//             },
-//             title: {
-//                 text: match_percentage + '%',
-//                 align: 'center',
-//                 verticalAlign: 'middle',
-//                 y: 50,
-//                 style: {
-//                     fontSize: '24px',
-//                     fontWeight: 'bold'
-//                 }
-//             },
-//             plotOptions: {
-//                 pie: {
-//                     startAngle: -90,
-//                     endAngle: 90,
-//                     center: ['50%', '75%'],
-//                     innerSize: '75%',
-//                     borderWidth: 0
-//                 }
-//             },
-//             series: [{
-//                 name: 'Matching Percentage',
-//                 data: [
-//                     { name: 'Matching Percentage', y: match_percentage, color: color },
-//                     { name: 'Mismatch', y: 100 - match_percentage, color: '#e0e0e0' }
-//                 ]
-//             }]
-//         });
-//     }, 100); // Delay of 100ms to wait for DOM to update
-// };
-
-
-
-    // Callable scope fucntion for calcualting the match percentage
-    // $scope.calculateMatchPercentage = function(job) {
-    //     let match = 100;
-        
-    //     // Default: assume matched
-
-    //     if ($scope.filterData.selectedRole && job.employer_job_offer_job_title_preferred !== $scope.filterData.selectedRole) {
-    //         match -= 50;
-            
-    //     }
-
-    //     if ($scope.filterData.selectedCourse && job.employer_job_offer_emp_preferred_course !== $scope.filterData.selectedCourse) {
-    //         match -= 25;
-    //     }
-
-    //     if ($scope.locationFilter.province && job.employer_job_offer_preferred_job_location !== $scope.locationFilter.province) {
-    //         match -= 15;
-    //     }
-
-    //     if ($scope.locationFilter.city && job.employer_job_offer_preferred_job_city !== $scope.locationFilter.city) {
-    //         match -= 10;
-    //     }
-
-    //     return Math.max(0, match);
-    // };
-
-    // $scope.updateMatchPercentage = function () {
-    //     let totalPercentage = 0;
-
-    //     $scope.job_posts.forEach(job => {
-    //         let match_percentage = $scope.calculateMatchPercentage(job);
-
-    //         job.match_percentage = match_percentage;
-    //         totalPercentage += match_percentage;
-
-    //         if ($scope.viewpost_job_title === job.employer_job_offer_job_title_preferred) {
-    //             $scope.match_per = match_percentage;
-    //         }
-    //     });
-
-    //     if (
-    //         !$scope.filterData.selectedCourse &&
-    //         !$scope.filterData.selectedRole &&
-    //         !$scope.locationFilter.province &&
-    //         !$scope.locationFilter.city
-    //     ) {
-    //         $scope.match_per = 100;
-    //     } else {
-    //         $scope.match_per = totalPercentage / ($scope.job_posts.length || 1);
-    //     }
-
-        
-    //     $scope.sortJobsByMatch(); 
-    //     $scope.updateChart($scope.match_per);
-    // };
-    // $scope.hasSearched = false;
-    // $scope.filterJobs = function () {
-    //     $scope.hasSearched = true;
-    //     console.log("🔍 Filtering jobs based on:", {
-    //         course: $scope.filterData.selectedCourse,
-    //         role: $scope.filterData.selectedRole,
-    //         province: $scope.locationFilter.province,
-    //         city: $scope.locationFilter.city
-    //     });
-        
-
-    //     if (!$scope.job_posts || $scope.job_posts.length === 0) {
-    //         console.warn("⚠ No job posts available!");
-    //         return;
-    //     }
-        
-    //     // ✅ Set per-field searched status
-    //     $scope.hasSearchedCourse = !!$scope.filterData.selectedCourse;
-    //     $scope.hasSearchedJob = !!$scope.filterData.selectedRole;
-    //     $scope.hasSearchedProvince = !!$scope.locationFilter.province;
-    //     $scope.hasSearchedCity = !!$scope.locationFilter.city;        
-
-    //     let totalMatches = 0;
-    //     let matchedJobs = 0;
-
-    //     $scope.job_posts.forEach(job => {
-            
-    //         job.jobmatched = job.employer_job_offer_job_title_preferred === $scope.filterData.selectedRole;
-    //         job.coursematched =  job.employer_job_offer_emp_preferred_course === $scope.filterData.selectedCourse;
-            
-    //         job.provincematched = job.employer_job_offer_preferred_job_location === $scope.locationFilter.province;
-    //         job.citymatched =  job.employer_job_offer_preferred_job_city === $scope.locationFilter.city;            
-            
-
-    //         let match_percentage = $scope.calculateMatchPercentage(job);
-    //         job.match_percentage = match_percentage;
-
-    //         if (match_percentage > 0) {
-    //             totalMatches += match_percentage;
-    //             matchedJobs++;
-    //         }
-            
-    //         // ✅ Update match flags for the job currently shown in modal
-    //         if ($scope.viewpost_job_title && job.employer_job_offer_job_title_preferred === $scope.viewpost_job_title) {
-    //             $scope.jobmatched = job.jobmatched;
-    //             $scope.coursematched = job.coursematched;
-    //             $scope.provincematched = job.provincematched;
-    //             $scope.citymatched = job.citymatched;
-    //         }            
-    //     });
-
-    //     if ($scope.viewpost_job_title) {
-    //         const selectedJob = $scope.job_posts.find(job => job.employer_job_offer_job_title_preferred === $scope.viewpost_job_title);
-    //         $scope.match_per = selectedJob ? selectedJob.match_percentage : 0;
-    //     } else {
-    //         $scope.match_per = matchedJobs > 0 ? totalMatches / matchedJobs : 0;
-    //     }
-
-    //     $scope.updateChart($scope.match_per);
-    //     $scope.sortJobsByMatch(); 
-    //     console.log("✅ Filtered match %:", $scope.match_per);
-    // };
-
-
-    // Modified by Lorenzo 
-    //      @ 04/02/2025
-    //      @ 04/24/2025
-    $scope.selectedJobPostId = null;        // initial value, for applying active class
-    $scope.dataLoaded = true;              // Initially, data is not loaded
-    // Added by Lorenzo @ 05/05/2025
-    $scope.reloadData = true;              // For loading animation when selecting job posting
-
-    // $scope.job_post_selected = function(job_post_id) {
-
-    //     $scope.reloadData = true;       // run the loading animation
-
-    //     $http({
-    //         method: 'POST',
-    //         url: adminAjax.ajaxurl,
-    //         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    //         data: $.param({ 
-    //             action: 'view_job_post',
-    //             job_post_id: job_post_id
-    //         })
-    //     }).then(function (response) {
-    //         $.each(response.data, function(index, job) {
-    //             console.log("📌 Job Selected:", job.employer_job_offer_job_title_preferred);
-
-    //             // Set job details
-    //             $scope.viewpost_biz_name = job.business_name;
-    //             $scope.viewpost_biz_logo = job.logo_url;
-    //             $scope.viewpost_job_title = job.employer_job_offer_job_title_preferred;
-    //             $scope.viewpost_job_shift = job.employer_job_offer_shifting_schedule;
-    //             $scope.viewpost_job_work_mode = job.employer_job_offer_preferred_work_mode;
-    //             $scope.viewpost_with_allowance = job.employer_job_offer_emp_provide_allowance;
-    //             $scope.viewpost_biz_province = job.employer_job_offer_preferred_job_location;       // Added by Lorenzo @ 04/10/2025
-    //             $scope.viewpost_biz_city = job.employer_job_offer_preferred_job_city;               // Added by Lorenzo @ 04/10/2025
-    //             $scope.viewpost_immediate_hiring = (job.employer_job_offer_emp_ia === 'yes') 
-    //                 ? '' 
-    //                 : job.employer_job_offer_date_available_hiring;
-
-    //             $scope.selectedJob = job;
-                
-    //             // ✅ Assign per-field match flags
-    //             $scope.jobmatched = job.employer_job_offer_job_title_preferred === $scope.filterData.selectedRole;
-    //             $scope.coursematched = job.employer_job_offer_emp_preferred_course === $scope.filterData.selectedCourse;
-    //             $scope.provincematched = job.employer_job_offer_preferred_job_location === $scope.locationFilter.province;
-    //             $scope.citymatched = job.employer_job_offer_preferred_job_city === $scope.locationFilter.city;
-                                
-
-    //             // Load languages
-    //             $scope.selectedLanguagesModal = [];
-    //             for (let i = 1; i <= 3; i++) {  
-    //                 let lang = job[`employer_job_offer_emp_language${i}`];
-    //                 let spoken = job[`employer_job_offer_emp_verbal${i}`];
-    //                 let written = job[`employer_job_offer_emp_written${i}`];
-
-    //                 if (lang) {
-    //                     $scope.selectedLanguagesModal.push({
-    //                         name: lang,
-    //                         spoken: parseInt(spoken) || 0,
-    //                         written: parseInt(written) || 0
-    //                     });
-    //                 }
-    //             }
-
-    //             // ✅ Use central match % calculator
-    //             let match_percentage = $scope.calculateMatchPercentage(job);
-    //             $scope.match_per = match_percentage;
-    //             console.log("🎯 Selected Job Match %:", $scope.match_per);
-
-    //             $timeout(() => $scope.updateChart($scope.match_per));
-    //             $scope.$applyAsync();
-    //             $scope.dataLoaded = true;                               // Set dataLoaded to true once all data is fetched
-
-    //             // Modified by Lorenzo @ 04/24/2025
-    //             $scope.selectedJobPostId = job_post_id;
-
-
-    //             $scope.reloadData = false;          // Data is loaded, hide loading animation
-
-    //         });
-
-    //     }, function (error) {
-    //         console.error("Error fetching job details:", error);
-    //     });
-    // };
-
-
-    // $scope.sortJobsByMatch = function () {
-    //     $scope.job_posts.sort((a, b) => b.match_percentage - a.match_percentage);
-    // };
-    
-
-
-    // Function to reset selected filters and match percentage
-    // $scope.resetFilters = function () {
-    //     $scope.hasSearchedCourse = false;    
-    //     $scope.hasSearchedJob = false;   
-    //     $scope.hasSearchedProvince = false;    
-    //     $scope.hasSearchedCity = false;    
-    //     $scope.filterData.selectedCourse = null;
-    //     $scope.filterData.selectedRole = null;
-    //     $scope.locationFilter.province = null;
-    //     $scope.locationFilter.city = null;
-        
-    //     $scope.jobmatched = null;
-    //     $scope.coursematched = null;
-    //     $scope.provincematched = null;
-    //     $scope.citymatched = null;     
-    //     $scope.match_per = 100;
-    //     $scope.job_posts = angular.copy($scope.original_job_post);
-
-    //     if ($scope.job_posts) {
-    //         $scope.job_posts.forEach(job => {
-    //             job.match_percentage = 100;
-    //         });
-    //     }
-
-    //     $scope.updateChart($scope.match_per);
-    //     $scope.sortJobsByMatch();
-    // };
-
-
-    /////
-    
-    
-    //Added for Changing Realtime of View Job List 04/29/2025
-    
-    // $scope.hasSearchedCourse = false;    
-    // $scope.hasSearchedJob = false;   
-    // $scope.hasSearchedProvince = false;    
-    // $scope.hasSearchedCity = false;    
-    // $scope.resetFieldMatch = function(field) {
-    //     console.log('Reset triggered by:', field);
-    
-    //     if (field === 'course') {
-    //         $scope.coursematched = null;
-    //         $scope.hasSearchedCourse = false;
-    //     }
-    //     if (field === 'role') {
-    //         $scope.jobmatched = null;
-    //         $scope.hasSearchedJob = false;
-    //     }
-    //     if (field === 'province') {
-    //         $scope.provincematched = null;
-    //         $scope.hasSearchedProvince = false;
-    //     }
-    //     if (field === 'city') {
-    //         $scope.citymatched = null;
-    //         $scope.hasSearchedCity = false;
-    //     }
-    
-    //     $scope.hasSearched = false; // Always reset search status since any change means new search is needed
-    // };
-
-        
-    
-  
-
-
-
-
-
-    // Handle search button state
-    // Idea: Add a visual queue that the search button is disabled
-    // Idea: highlight the filter in red border after displaying error
-    // $scope.scrollToRoles = function() {
-    //     const isCourseChanged = angular.element('#course-filter').val();
-    //     const isRoleChanged = angular.element('#role-filter').val();
-
-    //     const condition = isCourseChanged !== '' || isRoleChanged !== '';
-
-    //     if (condition) {
-    //         $timeout(() => {
-    //             const rolesBlock = angular.element('#roles-block');
-    //             if (rolesBlock.length) {
-    //                 $window.scrollTo({
-    //                     top: rolesBlock.offset().top,
-    //                     behavior: 'smooth'
-    //                 });
-    //             }
-    //         }, 0);
-    //     } else {
-
-    //         Swal.fire({
-    //             title: 'Action Restricted',
-    //             text: 'Please select a filter first!',
-    //             icon: 'error',
-    //             confirmButtonText: 'Ok'
-    //         });
-    //     }
-    // };
-
-
-    
 
     // Handle password visibility state
     $scope.isRegPasswordVisible = false;
@@ -1379,7 +1382,6 @@ $scope.closeFullNews = function() {
         $rootScope.userCredentials = encryptedData;
         $sessionStorage.userCredentials = encryptedData;
     
-
         // 📨 Store raw email separately for OTP operations
         $sessionStorage.emailForOtp = userData.email;
 
@@ -1400,7 +1402,6 @@ $scope.closeFullNews = function() {
                 $scope.isCreating = false;
                 return;
             }       
-            
         
             Swal.fire({
                 icon: 'success',
@@ -1481,9 +1482,6 @@ $scope.closeFullNews = function() {
     };
         /************* End Millard Code Added 4-25  ************/
 
-    
-
-
     $scope.submit_reg = function() {
     
         Swal.fire({
@@ -1495,17 +1493,12 @@ $scope.closeFullNews = function() {
     
     }
 
-
     document.addEventListener("DOMContentLoaded", function() {
         setTimeout(function() {
             $('.selectize').selectize();
         }, 500); // Ensures Selectize initializes after data loads
     });
     
-
-
-
-
     // Debounce function to delay logging
     function debounce(func, wait) {
         let timeout;
@@ -1522,8 +1515,6 @@ $scope.closeFullNews = function() {
         // console.log(`Updated ${field}:`, value);
     }, 500); // 500ms delay
     
-
-
     //Validations Code start here Added Millard 03/12 ??//
 
     //Credentials Validation Function
@@ -1534,8 +1525,6 @@ $scope.closeFullNews = function() {
         password: "",
         role: ""
     };
-
-
 
     // Code Migrated @ 04/11/2025
     // Modified by Lorenzo @ 04/11/2025
@@ -1549,7 +1538,6 @@ $scope.closeFullNews = function() {
             
             return;
         };
-
         
         const lengthValid = $scope.credentials.username.length >= 4 && $scope.credentials.username.length <= 20;
         if (!lengthValid) {
@@ -1692,15 +1680,9 @@ $scope.closeFullNews = function() {
             $scope.usernameError || $scope.emailError || !$scope.passwordValid;
     };
 
-
-
-    
-
     // goToNextPage removed by lorenzo
 
-
     // Validations Code end here Added Millard 03/12 ??//
-
     
     // Check Login Status --- John 18/03
     // Check Login Status --- Updated __--Milalrd 04/15
@@ -1762,8 +1744,6 @@ $scope.closeFullNews = function() {
         return currentPath === checkPath ? "active" : "";
     };
 
-
-
     // Code Migrated @ 04/07/2025
     /************* Lorenzo Code *************/
 
@@ -1786,7 +1766,6 @@ $scope.closeFullNews = function() {
         $scope.isModalActive = !$scope.isModalActive;
     };
 
-
     // For Opening modal
 
     // Login button
@@ -1808,7 +1787,6 @@ $scope.closeFullNews = function() {
         $scope.currentModalContent = 'register';
     };
 
-
     // Added @ 05/06/2025
     // remove scroll when login/register modal is active
     $scope.$watch('isModalActive', function (newVal) {
@@ -1827,11 +1805,9 @@ $scope.closeFullNews = function() {
         $scope.currentModalContent = target;
     }
 
-
     /************* Lorenzo Code *************/
     // End of Code Migrated @ 04/07/2025
 
-      
     // Migrated code @ 04/23/2025
     /************* Millard Code  Added 4-21 *************/
     $scope.sendForgotPassword = function () {
@@ -2093,9 +2069,27 @@ $scope.closeFullNews = function() {
         });
     };
     
+            // Close all open notification dropdowns (mobile and desktop)
+        
+        document.querySelectorAll('.navbar-nav .nav-link, .navbar-nav .dropdown-item, .navbar-btn').forEach(function (el) {
+            el.addEventListener('click', function (e) {
+                // Skip collapse if it's a dropdown toggle (e.g., About, Policy)
+                if (el.classList.contains('dropdown-toggle')) {
+                    return;
+                }
+        
+                const collapseElement = document.getElementById('navbarSupportedContent');
+                const bsCollapse = bootstrap.Collapse.getInstance(collapseElement);
+        
+                // Collapse only if it's currently shown
+                if (bsCollapse && collapseElement.classList.contains('show')) {
+                    bsCollapse.hide();
+                }
+            });
+        });
+    
     /************* End Jeal Code Added 05-14  ************/    
     
-
 });
 
 app.directive('controlTab', function($timeout) {
@@ -2125,3 +2119,152 @@ app.directive('controlTab', function($timeout) {
         }
     };
 });
+
+app.filter('limitHtmlTo', ['$sce', function($sce) {
+    return function(html, limit) {
+        if (!html || typeof html !== 'string') return '';
+
+        const div = document.createElement('div');
+        div.innerHTML = html;
+
+        let count = 0;
+        let output = '';
+
+        function traverse(node) {
+            if (count >= limit) return;
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                const remaining = limit - count;
+
+                // ✅ Safely clean backslashes from the actual text content
+                let text = node.nodeValue.replace(/\\/g, '').slice(0, remaining);
+
+                output += text;
+                count += text.length;
+            } else if (node.nodeType === Node.ELEMENT_NODE) {
+                const tag = node.nodeName.toLowerCase();
+                output += `<${tag}${getAttributes(node)}>`;
+                for (let i = 0; i < node.childNodes.length; i++) {
+                    traverse(node.childNodes[i]);
+                    if (count >= limit) break;
+                }
+                output += `</${tag}>`;
+            }
+        }
+
+        function getAttributes(el) {
+            if (!el.attributes) return '';
+            return Array.from(el.attributes)
+                .map(attr => ` ${attr.name}="${attr.value}"`)
+                .join('');
+        }
+
+        traverse(div);
+
+        if (count >= limit) {
+            output += '...';
+        }
+
+        return $sce.trustAsHtml(output);
+    };
+}]);
+
+
+// app.filter('trustAsHtml', ['$sce', function($sce) {
+//     return function(html) {
+//         return $sce.trustAsHtml(html);
+//     };
+// }]);
+
+// Filter to clean HTML content
+app.filter('trustAsHtml', ['$sce', function($sce) {
+    return function(html) {
+        if (!html) return '';
+        const cleaned = html.replace(/\\/g, ''); // 🔥 remove all backslashes
+        return $sce.trustAsHtml(cleaned);
+    };
+}]);
+
+
+
+app.filter('unescape', function () {
+    return function (input) {
+        if (!input) return '';
+        return input
+            .replace(/\\'/g, "'")
+            .replace(/\\"/g, '"')
+            .replace(/\\n/g, '\n')
+            .replace(/\\\\/g, '\\');
+    };
+});
+
+
+// For Quill JS Posting
+app.directive('quillEditor', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        scope: {
+            readonlyView: '=?' // reads readonly-view="true"
+        },
+        link: function (scope, element, attrs, ngModel) {
+            const isReadOnlyView = scope.readonlyView === 'true';
+
+            // // 🔒 If it's just a read-only display, skip Quill entirely
+            // if (isReadOnlyView) {
+            //     // Just render the content as HTML
+            //     ngModel.$render = function () {
+            //         element[0].innerHTML = ngModel.$viewValue || '';
+            //     };
+            //     return;
+            // }
+
+            // ✅ Otherwise, initialize Quill with toolbar + editing
+            var editor = new Quill(element[0], {
+                readOnly: true // start in read-only mode
+            });
+            
+            editor.enable(false);
+
+            scope.editorInstance = editor;
+
+            editor.on('text-change', function () {
+                var html = editor.root.innerHTML;
+                scope.$applyAsync(function () {
+                    ngModel.$setViewValue(html);
+                });
+            });
+
+            // ✅ Render ngModel value into the editor and fix placeholder handling
+            ngModel.$render = function () {
+                let value = ngModel.$viewValue || '';
+
+                // Paste content first
+                editor.clipboard.dangerouslyPasteHTML(value);
+
+                // If there's no actual text, clear the editor so placeholder shows
+                const visibleText = editor.getText().trim();
+                if (visibleText === '') {
+                    editor.setContents([]); // Trigger placeholder correctly
+                }
+            };
+            
+            // 🔁 Watch the readonlyView variable
+            scope.$watch('readonlyView', function (newVal) {
+                if (editor) {
+                    editor.enable(false); // true if editing, false if readonly
+                }
+            });            
+        }
+    };
+});
+
+// uppercase filter for the first character in modal header
+app.filter('capitalize', function() {
+    return function(input) {
+      if (input && typeof input === 'string') {
+        return input.charAt(0).toUpperCase() + input.slice(1);
+      }
+      return input;
+    };
+  });
